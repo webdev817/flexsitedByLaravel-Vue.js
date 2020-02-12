@@ -10884,3 +10884,23 @@ a.text-dark:focus {
   }
 }
 
+.noselect {
+  pointer-events: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.favColor {
+  color: #65c5b4;
+}
+
+.favBG {
+  background-color: #65c5b4;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border-radius: 0;
+}
+
