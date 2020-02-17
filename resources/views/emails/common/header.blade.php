@@ -107,7 +107,7 @@
 			<img
 			style="width: 195px;
     padding-top: 16px;"
-			src="http://flexSited.test/mawaisnow/logo/FLEXSITED.png"
+			src="http://portal.flexsited.com/mawaisnow/logo/FLEXSITED.png"
 			 title="{{ config('mawaisnow.title') }}" >
 		</a>
 	</td>
