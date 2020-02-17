@@ -65,7 +65,7 @@
 
 
             <div class="col-10 offset-1 my-3">
-                <button type="submit" class="btn btn-block btn-cstm btn-lg rounded-0 shadow-none" name="button">Create account</button>
+                <button type="submit" class="btn btn-block btn-cstm btn-lg rounded-0 shadow-none" name="button">Login</button>
             </div>
             <div class="col-12 text-center">
               <a href="{{ route('password.request') }}">Forget Password</a> or <a href="{{ route('register') }}">Create Account</a>
