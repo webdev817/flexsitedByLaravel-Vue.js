@@ -10884,6 +10884,10 @@ a.text-dark:focus {
   }
 }
 
+.hand {
+  cursor: pointer;
+}
+
 .noselect {
   pointer-events: none;
   -webkit-user-select: none;

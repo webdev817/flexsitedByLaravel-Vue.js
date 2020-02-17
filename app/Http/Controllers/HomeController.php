@@ -25,4 +25,8 @@ class HomeController extends Controller
     {
         return view('home');
     }
+    public function root(Request $request)
+    {
+      return view('welcomeWizered.main');
+    }
 }
