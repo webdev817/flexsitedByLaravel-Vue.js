@@ -98,9 +98,9 @@
 }
 </style>
 </head>
-<body style="margin:0px; padding:0px; background:#ebeff2;">
+<body style="margin:0px; padding:0px; background:#000;">
 
-	<table width="100%" cellpadding="0" cellspacing="0" style="background:#ebeff2;">
+	<table width="100%" cellpadding="0" cellspacing="0" style="background:#000;">
 <tr>
 	<td style="text-align:center;width:100%">
 		<a href="{{ url('/') }}" class="">
@@ -114,7 +114,7 @@
 
 </tr>
 	</table>
-<table width="100%" cellpadding="0" cellspacing="0" style="background:#ebeff2;">
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#000;">
 
 
 

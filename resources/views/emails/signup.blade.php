@@ -12,8 +12,10 @@ Thank you for joining FlexSited.
 
 @if (isset($user->rawPassword) && $user->rawPassword != null)
 <p>
-We’re glad you’re here! Following are your account details:
+We’re glad you’re here!
 </p>
+<p>&nbsp;</p>
+<p>Following are your account details:</p>
 <p>&nbsp;</p>
 <p>
 Email: <strong>{{ $user->email }}</strong>
@@ -23,14 +25,15 @@ Password: <strong>{{ $user->rawPassword }}</strong>
 </p>
 <p>&nbsp;</p>
 <p>
-You can Login by clicking <a href="{{ route('login') }}">Here</a>
+You may login by clicking <a href="{{ route('login') }}">Here</a>.
 </p>
 <p>&nbsp;</p>
 @endif
 
 
 <p>&nbsp;</p>
-<p>If you have any questions whatsoever, please don’t hesitate to reach out and contact us.
+<p>
+If you have any questions, please don’t hesitate to contact us.
 </p>
 <p>&nbsp;</p>
 
