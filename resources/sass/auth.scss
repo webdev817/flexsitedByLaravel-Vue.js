@@ -71,7 +71,14 @@ a:hover {
      padding: 9px;
     font-size: 15px;
   }
+  body{
+    background: white;
+  }
+  .noneShadowOn576Below {
+    box-shadow: none !important;
+  }
 }
+
 @media (max-width: 400px) {
   .authLogo {
     top: 1rem;
@@ -89,7 +96,7 @@ a:hover {
   .authNavContainer {
       width: 100%;
   }
-  
+
   .authLogo {
       top: 4rem;
       left: 35%;

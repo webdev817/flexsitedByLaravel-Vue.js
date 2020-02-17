@@ -3,7 +3,7 @@
   <script src="{{ asset('js/welcomeWizered.js') . "?ver=" . date('ymdhis') }}" charset="utf-8"></script>
 @endsection
 @section('body')
-<div class="container-fluid p-0 shadow-sm mb-5">
+<div class="container-fluid p-0 mb-5">
   <div class="row m-0">
     <div class="col-12 text-center " style="background-color:black;">
       <img src="{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" alt="" class="navLogo noselect">

@@ -25,7 +25,8 @@ Password: <strong>{{ $user->rawPassword }}</strong>
 </p>
 <p>&nbsp;</p>
 <p>
-You may login by clicking <a href="{{ route('login') }}">Here</a>.
+You may login by clicking <a href="{{ route('login') }}">Here</a> to complete your order if you haven’t already
+done so.
 </p>
 <p>&nbsp;</p>
 @endif
@@ -33,8 +34,15 @@ You may login by clicking <a href="{{ route('login') }}">Here</a>.
 
 <p>&nbsp;</p>
 <p>
+We look forward to working with you.
+</p>
+<p>&nbsp;</p>
+<p>
 If you have any questions, please don’t hesitate to contact us.
 </p>
+
+<p>&nbsp;</p>
+<p>Best Regards,</p>
 <p>&nbsp;</p>
 
 <p>Team FlexSited</p>

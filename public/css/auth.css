@@ -76,6 +76,14 @@ a:hover {
     padding: 9px;
     font-size: 15px;
   }
+
+  body {
+    background: white;
+  }
+
+  .noneShadowOn576Below {
+    box-shadow: none !important;
+  }
 }
 
 @media (max-width: 400px) {

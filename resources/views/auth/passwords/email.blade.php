@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 @section('body')
-<div class="container p-0 shadow-sm">
+<div class="container p-0 shadow-sm noneShadowOn576Below">
 
     <div class="row m-0">
         <div class="col-12 prelative p-0">
