@@ -18,8 +18,8 @@
         </div>
     </div>
     <div class="row bg-white m-0">
-        <div class="col-12 text-center favColor my-5 py-3">
-            <h4>Account Login</h4>
+        <div class="col-12 text-center favColor py-3">
+            {{-- <h4>Account Login</h4> --}}
         </div>
         <div class="col-10 offset-1">
           @if ($errors->any())
