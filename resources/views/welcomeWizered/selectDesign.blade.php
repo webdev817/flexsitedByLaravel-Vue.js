@@ -17,7 +17,7 @@
 <div class="container ">
   <div class="row m-0 py-3">
     <div class="col-12 text-center">
-      <button class=" float-left btn btn-cstm rounded-0 shadow-none backBtn" type="button">Back</button>
+      <button onclick="window.location = '{{ route('root') }}'" class=" float-left btn btn-cstm rounded-0 shadow-none backBtn" type="button">Back</button>
     </div>
   </div>
 </div>
