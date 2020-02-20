@@ -2,6 +2,22 @@
 @section('js')
   <script src="{{ asset('js/welcomeWizered.js') . "?ver=" . date('ymdhis') }}" charset="utf-8"></script>
 @endsection
+@section('head')
+
+  <style media="screen">
+    .progressBar{
+    @if ($currentStep == 2)
+      width: 40%;
+    @elseif ($currentStep == 3)
+      width: 60%;
+    @elseif ($currentStep == 4)
+      width: 80%;
+    @elseif ($currentStep == 5)
+      width: 100%;
+    @endif
+    }
+  </style>
+@endsection
 @section('body')
 <div class="container-fluid p-0 mb-5">
   <div class="row m-0">
@@ -11,7 +27,18 @@
   </div>
   <div class="row m-4">
     <div class="col-12 p-0 wTopNav1">
-      <h1 class="favColor paddingCurrentStepText fontTopNav">Website Domain <span class=" d-inline fontTopNav d-xl-none wTopNav1steps">1/5</span></h1>
+      <h1 class="favColor fontTopNav paddingCurrentStepText text-uppercase">
+        @if ($currentStep == 1)
+          Website Domain
+        @endif
+        @if ($currentStep == 2)
+          WEBSITE DESIGN INSPIRATION
+        @endif
+        @if ($currentStep == 3)
+          Website Package
+        @endif
+        <span class=" d-inline fontTopNav d-xl-none wTopNav1steps">{{ $currentStep }}/5</span>
+      </h1>
     </div>
     <div class="col-12  p-0 d-block d-xl-none progressBarBG">
       <div class="progressBar">
@@ -38,10 +65,10 @@
       </div>
 
       <div class="col p-0">
-        <div class="wizeredHeadingItem">
+        <div class="wizeredHeadingItem @if($currentStep == 2) active @endif">
           Website Design Inspiration
         </div>
-        <div class="wizeredBullet prelative d-flex justify-content-center">
+        <div class="wizeredBullet prelative d-flex justify-content-center @if($currentStep == 2) active @endif">
           <div class="bRound">2</div>
           <div class="leftLine"></div>
           <div class="rightLine"></div>
@@ -50,11 +77,11 @@
 
       </div>
       <div class="col p-0">
-        <div class="wizeredHeadingItem">
+        <div class="wizeredHeadingItem @if($currentStep == 3) active @endif">
           Website Package
         </div>
 
-        <div class="wizeredBullet prelative d-flex justify-content-center">
+        <div class="wizeredBullet prelative d-flex justify-content-center @if($currentStep == 3) active @endif">
           <div class="bRound">3</div>
           <div class="leftLine"></div>
           <div class="rightLine"></div>
@@ -63,10 +90,10 @@
 
       </div>
       <div class="col p-0">
-        <div class="wizeredHeadingItem">
+        <div class="wizeredHeadingItem @if($currentStep == 4) active @endif">
           Subscription Plan and Billing
         </div>
-        <div class="wizeredBullet prelative d-flex justify-content-center">
+        <div class="wizeredBullet prelative d-flex justify-content-center @if($currentStep == 4) active @endif">
           <div class="bRound">4</div>
           <div class="leftLine"></div>
           <div class="rightLine"></div>
@@ -75,10 +102,10 @@
 
       </div>
       <div class="col p-0">
-        <div class="wizeredHeadingItem">
+        <div class="wizeredHeadingItem @if($currentStep == 5) active @endif">
           Website Information
         </div>
-        <div class="wizeredBullet prelative d-flex justify-content-center">
+        <div class="wizeredBullet prelative d-flex justify-content-center @if($currentStep == 5) active @endif">
           <div class="bRound">5</div>
           <div class="leftLine"></div>
           <div class="rightLine"></div>
@@ -88,7 +115,17 @@
     </div>
   </div>
 
-  @include('welcomeWizered.websiteDomain')
+  @if ($currentStep == 1)
+    @include('welcomeWizered.websiteDomain')
+  @endif
+
+  @if ($currentStep == 2)
+    @include('welcomeWizered.selectDesign')
+  @endif
+  @if ($currentStep == 3)
+
+  @endif
+
 
 </div>
 

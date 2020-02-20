@@ -1,0 +1,55 @@
+[20-Mar-2018 09:20:03 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:03 UTC] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php:54
+Stack trace:
+#0 /home/apinametest/public_html/api.php(54): SoapClient->SoapClient('http://windows....', Array)
+#1 /home/apinametest/public_html/api.php(1711): APIConnection_SOAP->__construct('http://windows....')
+#2 /home/apinametest/public_html/api.php(1645): DomainNameAPI_PHPLibrary->setConnectionMethod('Auto')
+#3 /home/apinametest/public_html/Example.CheckAvailability.php(15): DomainNameAPI_PHPLibrary->useTestMode(false)
+#4 {main}
+  thrown in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:12 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:12 UTC] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php:54
+Stack trace:
+#0 /home/apinametest/public_html/api.php(54): SoapClient->SoapClient('http://windows....', Array)
+#1 /home/apinametest/public_html/api.php(1711): APIConnection_SOAP->__construct('http://windows....')
+#2 /home/apinametest/public_html/api.php(1645): DomainNameAPI_PHPLibrary->setConnectionMethod('Auto')
+#3 /home/apinametest/public_html/Example.CheckAvailability.php(15): DomainNameAPI_PHPLibrary->useTestMode(false)
+#4 {main}
+  thrown in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:13 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:13 UTC] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php:54
+Stack trace:
+#0 /home/apinametest/public_html/api.php(54): SoapClient->SoapClient('http://windows....', Array)
+#1 /home/apinametest/public_html/api.php(1711): APIConnection_SOAP->__construct('http://windows....')
+#2 /home/apinametest/public_html/api.php(1645): DomainNameAPI_PHPLibrary->setConnectionMethod('Auto')
+#3 /home/apinametest/public_html/Example.CheckAvailability.php(15): DomainNameAPI_PHPLibrary->useTestMode(false)
+#4 {main}
+  thrown in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:15 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:15 UTC] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php:54
+Stack trace:
+#0 /home/apinametest/public_html/api.php(54): SoapClient->SoapClient('http://windows....', Array)
+#1 /home/apinametest/public_html/api.php(1711): APIConnection_SOAP->__construct('http://windows....')
+#2 /home/apinametest/public_html/api.php(1645): DomainNameAPI_PHPLibrary->setConnectionMethod('Auto')
+#3 /home/apinametest/public_html/Example.CheckAvailability.php(15): DomainNameAPI_PHPLibrary->useTestMode(false)
+#4 {main}
+  thrown in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:17 UTC] PHP Fatal error:  SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php on line 54
+[20-Mar-2018 09:20:17 UTC] PHP Fatal error:  Uncaught SoapFault exception: [WSDL] SOAP-ERROR: Parsing WSDL: Couldn't load from 'http://windows.domainnameapi.com/domainapi.svc?singlewsdl' : failed to load external entity "http://windows.domainnameapi.com/domainapi.svc?singlewsdl"
+ in /home/apinametest/public_html/api.php:54
+Stack trace:
+#0 /home/apinametest/public_html/api.php(54): SoapClient->SoapClient('http://windows....', Array)
+#1 /home/apinametest/public_html/api.php(1711): APIConnection_SOAP->__construct('http://windows....')
+#2 /home/apinametest/public_html/api.php(1645): DomainNameAPI_PHPLibrary->setConnectionMethod('Auto')
+#3 /home/apinametest/public_html/Example.CheckAvailability.php(15): DomainNameAPI_PHPLibrary->useTestMode(false)
+#4 {main}
+  thrown in /home/apinametest/public_html/api.php on line 54

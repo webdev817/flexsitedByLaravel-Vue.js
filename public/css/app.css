@@ -10900,6 +10900,14 @@ a.text-dark:focus {
   color: #65c5b4;
 }
 
+.domainSelectBtn {
+  padding: 7px;
+}
+
+.hide {
+  display: none;
+}
+
 .favBG {
   background-color: #65c5b4;
 }

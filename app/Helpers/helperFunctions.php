@@ -5,6 +5,26 @@ function sendSignUpEmail(array $data)
     $email = $data['email'];
     \Mail::to($email)->send(new App\Mail\SignUpMail($data));
 }
+function json($message, $data)
+{
+    return response()->json(
+        [
+        'status'=>1,
+        'message'=> $message,
+        'data'=> $data
+        ]
+    );
+}
+function error($message, $data)
+{
+    return response()->json(
+        [
+        'status'=>0,
+        'message'=> $message,
+        'data'=>$data
+        ]
+    );
+}
 
 function sendInvoicedSignUpEmail(array $data)
 {
@@ -97,7 +117,7 @@ function poolChangeRequestApproved(array $data)
 function unixtoDate($timestamp)
 {
     if ($timestamp == null) {
-      return '';
+        return '';
     }
     $carbon = \Carbon\Carbon::createFromTimestamp($timestamp);
     return $carbon->format('F d, Y');
@@ -105,7 +125,7 @@ function unixtoDate($timestamp)
 function dateTimeToFormatedDate($timestamp)
 {
     if ($timestamp == null) {
-      return '';
+        return '';
     }
     $carbon = \Carbon\Carbon::parse($timestamp);
     return $carbon->format('F d, Y');
@@ -268,11 +288,12 @@ function writeToFile($text,$file = "file",$ext = "txt",$replace = 0)
 
 
 
-function generateCSV($data ,$headings){
-  $csvExporter = new \Laracsv\Export();
-  $csvExporter->build($data, $headings);
+function generateCSV($data ,$headings)
+{
+    $csvExporter = new \Laracsv\Export();
+    $csvExporter->build($data, $headings);
 
-  return $csvExporter->download();
+    return $csvExporter->download();
 }
 
 
@@ -280,57 +301,57 @@ function getAmericaStates()
 {
     return [
 
-      "AK" =>	"Alaska",
-      "AL" =>	"Alabama",
-      "AR" =>	"Arkansas",
-      "AZ" =>	"Arizona",
-      "CA" =>	"California",
-      "CO" =>	"Colorado",
-      "CT" =>	"Connecticut",
-      "DC" =>	"District of Columbia",
-      "DE" =>	"Delaware",
-      "FL" =>	"Florida",
-      "GA" =>	"Georgia",
-      "HI" =>	"Hawaii",
-      "IA" =>	"Iowa",
-      "ID" =>	"Idaho	",
-      "IL" =>	"Illinois	",
-      "IN" =>	"Indiana",
-      "KS" =>	"Kansas",
-      "KY" =>	"Kentucky",
-      "LA" =>	"Louisiana",
-      "MA" =>	"Massachusetts",
-      "MD" =>	"Maryland",
-      "ME" =>	"Maine",
-      "MI" =>	"Michigan",
-      "MN" =>	"Minnesota",
-      "MO" =>	"Missouri",
-      "MS" =>	"Mississippi",
-      "MT" =>	"Montana",
-      "NC" =>	"North Carolina",
-      "ND" =>	"North Dakota",
-      "NE" =>	"Nebraska",
-      "NH" =>	"New Hampshire",
-      "NJ" =>	"New Jersey",
-      "NM" =>	"New Mexico",
-      "NV" =>	"Nevada",
-      "NY" =>	"New York",
-      "OH" =>	"Ohio",
-      "OK" =>	"Oklahoma",
-      "OR" =>	"Oregon",
-      "PA" =>	"Pennsylvania",
-      "RI" =>	"Rhode Island",
-      "SC" =>	"South Carolina",
-      "SD" =>	"South Dakota",
-      "TN" =>	"Tennessee",
-      "TX" =>	"Texas",
-      "UT" =>	"Utah",
-      "VA" =>	"Virginia",
-      "VT" =>	"Vermont",
-      "WA" =>	"Washington",
-      "WI" =>	"Wisconsin",
-      "WV" =>	"West Virginia",
-      "WY" =>	"Wyoming"
+      "AK" =>    "Alaska",
+      "AL" =>    "Alabama",
+      "AR" =>    "Arkansas",
+      "AZ" =>    "Arizona",
+      "CA" =>    "California",
+      "CO" =>    "Colorado",
+      "CT" =>    "Connecticut",
+      "DC" =>    "District of Columbia",
+      "DE" =>    "Delaware",
+      "FL" =>    "Florida",
+      "GA" =>    "Georgia",
+      "HI" =>    "Hawaii",
+      "IA" =>    "Iowa",
+      "ID" =>    "Idaho	",
+      "IL" =>    "Illinois	",
+      "IN" =>    "Indiana",
+      "KS" =>    "Kansas",
+      "KY" =>    "Kentucky",
+      "LA" =>    "Louisiana",
+      "MA" =>    "Massachusetts",
+      "MD" =>    "Maryland",
+      "ME" =>    "Maine",
+      "MI" =>    "Michigan",
+      "MN" =>    "Minnesota",
+      "MO" =>    "Missouri",
+      "MS" =>    "Mississippi",
+      "MT" =>    "Montana",
+      "NC" =>    "North Carolina",
+      "ND" =>    "North Dakota",
+      "NE" =>    "Nebraska",
+      "NH" =>    "New Hampshire",
+      "NJ" =>    "New Jersey",
+      "NM" =>    "New Mexico",
+      "NV" =>    "Nevada",
+      "NY" =>    "New York",
+      "OH" =>    "Ohio",
+      "OK" =>    "Oklahoma",
+      "OR" =>    "Oregon",
+      "PA" =>    "Pennsylvania",
+      "RI" =>    "Rhode Island",
+      "SC" =>    "South Carolina",
+      "SD" =>    "South Dakota",
+      "TN" =>    "Tennessee",
+      "TX" =>    "Texas",
+      "UT" =>    "Utah",
+      "VA" =>    "Virginia",
+      "VT" =>    "Vermont",
+      "WA" =>    "Washington",
+      "WI" =>    "Wisconsin",
+      "WV" =>    "West Virginia",
+      "WY" =>    "Wyoming"
 
 
     ];
@@ -345,9 +366,10 @@ function is_valid_json( $raw_json )
 
 }
 
-function getRandomStr($str = ''){
-  $rnd = Illuminate\Support\Str::random(40);;
-  return $rnd . $str;
+function getRandomStr($str = '')
+{
+    $rnd = Illuminate\Support\Str::random(40);;
+    return $rnd . $str;
 }
 
 function dev()

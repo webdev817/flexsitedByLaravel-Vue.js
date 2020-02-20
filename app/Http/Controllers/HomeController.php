@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Helper;
+use Auth;
 
 class HomeController extends Controller
 {
@@ -25,8 +27,26 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+
     public function root(Request $request)
     {
-      return view('welcomeWizered.main');
+      $currentStep = 1;
+      return view('welcomeWizered.main',compact('currentStep'));
+    }
+
+    public function domainSearch(Request $request)
+    {
+
+      $q = $request->q;
+
+      try {
+        $result = Helper::domainSearch($q);
+        return $result;
+      } catch (\Exception $e) {
+        return error('Something went wrong',['home:43',$e->getMessage()]);
+      }
+
+
     }
 }
