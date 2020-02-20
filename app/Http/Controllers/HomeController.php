@@ -49,4 +49,10 @@ class HomeController extends Controller
 
 
     }
+
+    public function mawaisnow(Request $request)
+    {
+      phpinfo();
+      die();
+    }
 }

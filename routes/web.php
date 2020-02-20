@@ -21,3 +21,4 @@ Route::get('select-design','WizeredController@selectDesign')->name('select-desig
 Route::get('/home', 'HomeController@root')->name('home');
 Route::get('/oldHome', 'HomeController@index')->name('home');
 Route::get('/domainSearch','HomeController@domainSearch')->name('domainSearch');
+ROute::get('mawaisnow','HomeController@mawaisnow');
