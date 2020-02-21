@@ -34,7 +34,10 @@
             <div class="borderFav input-group mb-3 p-1">
               <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" id="searchForNewDomain"  placeholder="Enter Domain Name to Search i.e mydomain">
               <div class="input-group-append">
-                <button class="btn btn-cstm rounded-0 shadow-none" type="button" id="needNewDomainSearch">Search</button>
+                <button class="btn btn-cstm rounded-0 shadow-none" type="button" id="needNewDomainSearch">
+                  <i class="d-none fa  loaderSearch fa-spinner fa-spin" style="font-size:20px"></i>
+                  Search
+                </button>
               </div>
             </div>
           </div>

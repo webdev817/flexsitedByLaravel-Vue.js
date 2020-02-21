@@ -178,7 +178,8 @@ $("#needNewDomainSearch").click(function () {
   var r = domainSearchNameValidate(domain);
 
   if (r) {
-    domainRelatedMessage('Search...');
+    $(".loaderSearch").removeClass('d-none');
+    domainRelatedMessage('Searching... ');
     $(this).attr('disabled', 'disabled');
   } else {
     domainRelatedMessage('Enter a valid name', true);
@@ -226,6 +227,7 @@ $("#needNewDomainSearch").click(function () {
     domainRelatedMessage('Something went wrong');
     console.log(err);
   }).always(function () {
+    $(".loaderSearch").addClass('d-none');
     $("#needNewDomainSearch").removeAttr('disabled');
   });
 });

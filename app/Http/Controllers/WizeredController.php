@@ -2,110 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Wizered;
 use Illuminate\Http\Request;
+use App\DesignCategory;
+use App\Wizered;
+use App\Design;
 use Auth;
+
 
 class WizeredController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Wizered  $wizered
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Wizered $wizered)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Wizered  $wizered
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Wizered $wizered)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Wizered  $wizered
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Wizered $wizered)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Wizered  $wizered
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Wizered $wizered)
-    {
-        //
-    }
 
     public function domainSelected(Request $request)
     {
       $request->validate([
         'domain'=>'required|string|max:250'
       ]);
-      $wizered = new Wizered;
-      $wizered->key = "domain";
 
-      $wizered->userId = Auth::id();
-      $wizered->value = $request->domain;
-      try {
-        $wizered->json = json_encode($request->all());
-      } catch (\Exception $e) {
-      }
-      $wizered->save();
-
-      $wizered = new Wizered;
-      $wizered->userId = Auth::id();
-      $wizered->key = "currentStep";
-      $wizered->value = 2;
-      $wizered->save();
-
+      self::insertWizered("domain",$request->domain);
+      self::insertWizered("currentStep",2);
 
 
       return redirect()->route('select-design');
@@ -114,6 +28,49 @@ class WizeredController extends Controller
     public function selectDesign(Request $request)
     {
       $currentStep = 2;
+
+      $categoryId = (int)$request->c;
+
+      $designs = Design::with('category');
+      if ($categoryId != null) {
+        $designs = $designs->where('categoryId',$categoryId);
+      }
+
+      $designs = $designs->paginate(12);
+
+      $designCategory = DesignCategory::where('status',1)->get();
+
+      return view('welcomeWizered.main',compact('currentStep','designs','designCategory'));
+    }
+    public function websitePackege(Request $request)
+    {
+      $currentStep = 3;
       return view('welcomeWizered.main',compact('currentStep'));
+    }
+    public function selectedDesign(Request $request, $designId)
+    {
+      $designId = (int)$designId;
+      if ($designId == null || !is_int($designId)) {
+        return errorMessage('Please choose a design');
+      }
+      if (Design::where('id',$designId)->count() == 0) {
+        return errorMessage('Selected design does not exists');
+      }
+
+      self::insertWizered("selectedDesign", $designId);
+      self::insertWizered("currentStep",3);
+
+      return redirect()->route('websitePackege');
+
+    }
+
+    public static function insertWizered($key, $value){
+      Wizered::where('userId',Auth::id())->where('key',$key)->delete();
+
+      $wizered = new Wizered;
+      $wizered->userId = Auth::id();
+      $wizered->key = $key;
+      $wizered->value = $value;
+      $wizered->save();
     }
 }
