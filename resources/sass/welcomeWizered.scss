@@ -4,6 +4,55 @@ body {
     background: white;
 }
 
+.planHead {
+    background: $favColor;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    padding: 19px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    font-weight: 700;
+    line-height: 37px;
+    text-transform: uppercase;
+}
+.planPrice{
+  border-top: 3px dashed #44ad9a;
+  font-size: 30px;
+  text-transform: uppercase;
+}
+
+.planDurration{
+  color: #225c4d;
+  font-size: 17px;
+      text-transform: uppercase;
+}
+
+.planOfferBox{
+    text-align: center;
+    font-size: 15px;
+    padding: 10px;
+    color: #979797;
+    text-transform: uppercase;
+    border-right: 1px solid #e1e1e1;
+    border-left: 1px solid #e1e1e1;
+    border-bottom: 1px solid #e1e1e1;
+    font-weight: 700;
+}
+
+.planOfferBox:nth-child(odd) {
+  background: #f3f3f3;
+}
+.planOfferBox.active{
+  background: $favColor;
+  border-right: 1px solid $favColor;
+  border-left: 1px solid $favColor;
+  border-bottom: 1px solid $favColor;
+}
+.planOfferBox.active > a{
+  color: white;
+}
+
 a {
     color: #65c5b4;
 }
@@ -198,10 +247,10 @@ a:hover {
     color: $favColor;
     font-size: 18px;
     text-align: center;
-    padding: 10px 35px 10px 35px;
-}
-.designCategory:first-child{
-  border-left: 1px solid #d8d8d8;
+    padding: 10px 35px;
 }
 
+.designCategory:first-child {
+    border-left: 1px solid #d8d8d8;
+}
 @import 'welcomeWizeredMobile';

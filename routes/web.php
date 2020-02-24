@@ -25,8 +25,13 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('select-design','WizeredController@selectDesign')->name('select-design');
   Route::get('selectedDesign/{designId}','WizeredController@selectedDesign')->name('selectedDesign');
   Route::get('websitePackege','WizeredController@websitePackege')->name('websitePackege');
+  Route::get('selectedWebsitePackege/{packegeNo}','WizeredController@selectedWebsitePackege')->name('selectedWebsitePackege');
+  Route::get('planAndBilling/{planNo}','WizeredController@planAndBilling')->name('planAndBilling');
+
 
   Route::get('/home', 'HomeController@root')->name('home');
   Route::get('/oldHome', 'HomeController@index')->name('home');
   Route::get('/domainSearch','HomeController@domainSearch')->name('domainSearch');
+
+
 });

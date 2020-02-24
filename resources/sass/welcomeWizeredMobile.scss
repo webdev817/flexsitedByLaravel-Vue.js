@@ -1,4 +1,17 @@
+@media (max-width: 1000px) {
+    .planOfferBox{
+      font-size: 11px;
+    }
+    .planHead {
 
+    font-size: 17px;
+  }
+}
+@media (max-width: 768px) {
+  .hideonMobileAndSM{
+    display: none;
+  }
+}
 @media (max-width: 576px) {
   .domainTab1 {
     font-size: 16px;
@@ -26,6 +39,9 @@
 @media (min-width: 992px) {}
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .designCategory{
+    width: 31%;
+  }
   .wTopNav1{
     text-align: center;
   }

@@ -64,6 +64,32 @@ class WizeredController extends Controller
 
     }
 
+
+
+    public function selectedWebsitePackege(Request $request, $packegeNumber)
+    {
+      $packegeNumber = (int)$packegeNumber;
+
+      self::insertWizered("selectedWebsitePackege", $packegeNumber);
+      self::insertWizered("currentStep",4);
+
+      return redirect()->route('planAndBilling', $packegeNumber);
+    }
+    public function planAndBilling(Request $request, $planNumber)
+    {
+
+      $currentStep = 4;
+
+      return view('welcomeWizered.main',compact('currentStep','planNumber'));
+    }
+
+
+
+
+
+
+
+
     public static function insertWizered($key, $value){
       Wizered::where('userId',Auth::id())->where('key',$key)->delete();
 
@@ -73,4 +99,7 @@ class WizeredController extends Controller
       $wizered->value = $value;
       $wizered->save();
     }
+
+
+
 }

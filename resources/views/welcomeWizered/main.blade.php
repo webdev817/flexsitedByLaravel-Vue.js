@@ -37,6 +37,9 @@
         @if ($currentStep == 3)
           Website Package
         @endif
+        @if ($currentStep == 4)
+          Subscription Plan and Billing
+        @endif
         <span class=" d-inline fontTopNav d-xl-none wTopNav1steps">{{ $currentStep }}/5</span>
       </h1>
     </div>
@@ -123,11 +126,10 @@
     @include('welcomeWizered.selectDesign')
   @endif
   @if ($currentStep == 3)
-    <div class="container">
-      <div class="col-12 text-center favColor h4 my-5 pt-5">
-        Work in progress
-      </div>
-    </div>
+    @include('welcomeWizered.websitePackege')
+  @endif
+  @if ($currentStep == 4)
+    @include('welcomeWizered.planAndBilling')
   @endif
 
 

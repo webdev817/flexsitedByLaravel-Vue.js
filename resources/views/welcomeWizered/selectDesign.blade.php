@@ -1,7 +1,7 @@
 
 
-<div class="container">
-  <div class="row m-0 py-5">
+<div class="container hide">
+  <div class="row m-0 py-5 justify-content-center">
     @foreach ($designCategory as $designCat)
       <div class="designCategory @if($designCat->id == request()->c) favBG @endif">
         <a class="@if($designCat->id == request()->c) text-white @endif" href="{{ route('select-design',['c'=> $designCat->id]) }}">{{ $designCat->title }}</a>
@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<div class="container">
+<div class="container mt-5 pt-3">
 
 
   <div class="row m-0">
@@ -39,7 +39,7 @@
   @endif
 
   <div class="row m-0">
-    <div class="col-12 justify-content-center d-flex">
+    <div class="col-12 justify-content-center d-flex my-5">
       {{ $designs->appends(['c' => request()->c ])->links() }}
     </div>
   </div>
@@ -47,7 +47,7 @@
 
 </div>
 
-<div class="container mt-4">
+<div class="container mt-3">
     <div class="row m-0 py-3">
         <div class="col-12 text-center">
             <a class="btn btn-cstm rounded-0 shadow-none" href="#">FREQUENTLY ASKED QUESTIONS</a>
