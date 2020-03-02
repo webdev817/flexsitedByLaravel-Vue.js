@@ -93,6 +93,93 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
+$(".commonSelectPages").click(function () {
+  var abc = $(this).find('.boxRadioContainer').hasClass('active');
+
+  if (abc) {
+    $(this).find('.boxRadioContainer').removeClass('active');
+  } else {
+    $(this).find('.boxRadioContainer').addClass('active');
+  }
+}); // billing page start here
+
+$(".planHead").click(function () {
+  var path = window.location.pathname;
+
+  if (path != "/websitePackege") {
+    $(".planHead").removeClass('active');
+    $(this).addClass('active');
+    var p = $(this).children().filter('.planPrice').text();
+    $("#recurringAmount").html(p);
+  }
+});
+
+function showTotalPrice() {
+  var price = 0;
+  var logoDesign = $("#logoDesign").is(':checked');
+
+  if (logoDesign) {
+    price = 100;
+  }
+
+  var businessCardDesign = $("#businessCardDesign").is(':checked');
+
+  if (businessCardDesign) {
+    price = price + 150;
+  }
+
+  var flayerDesign = $("#flayerDesign").is(':checked');
+
+  if (flayerDesign) {
+    price = price + 200;
+  }
+
+  var recurringAmount = $("#recurringAmount").text();
+  recurringAmount = recurringAmount.replace('$', '');
+  recurringAmount = parseFloat(recurringAmount);
+  price = price + recurringAmount;
+  $("#amount").html("$" + price);
+} // amount
+
+
+$(".planHead").click(showTotalPrice);
+$("#logoDesign").change(showTotalPrice);
+$("#businessCardDesign").change(showTotalPrice);
+$("#flayerDesign").change(showTotalPrice);
+var path = window.location.pathname;
+
+if (path != "/websitePackege") {
+  $(".planHead.active").trigger('click');
+}
+
+$("#logoDesign").change(function () {
+  var result = $(this).is(':checked');
+
+  if (result) {
+    $(".logoDesign").removeClass('active').addClass('active');
+  } else {
+    $(".logoDesign").removeClass('active');
+  }
+});
+$("#businessCardDesign").change(function () {
+  var result = $(this).is(':checked');
+
+  if (result) {
+    $(".businessCardDesign").removeClass('active').addClass('active');
+  } else {
+    $(".businessCardDesign").removeClass('active');
+  }
+});
+$("#flayerDesign").change(function () {
+  var result = $(this).is(':checked');
+
+  if (result) {
+    $(".flayerDesign").removeClass('active').addClass('active');
+  } else {
+    $(".flayerDesign").removeClass('active');
+  }
+}); // billing page maybee end here
+
 $(".domainTabs").click(function () {
   $('.domainTabs').removeClass('active');
   $(this).addClass('active');
@@ -241,7 +328,7 @@ $("#needNewDomainSearch").click(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /code/websites/personal/Full/flexSited/resources/js/welcomeWizered.js */"./resources/js/welcomeWizered.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\websites\flexsited\resources\js\welcomeWizered.js */"./resources/js/welcomeWizered.js");
 
 
 /***/ })

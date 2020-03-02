@@ -82,8 +82,11 @@ class WizeredController extends Controller
 
       return view('welcomeWizered.main',compact('currentStep','planNumber'));
     }
-
-
+    public function businessInformation(Request $request)
+    {
+      $currentStep = 5;
+      return view('welcomeWizered.main',compact('currentStep'));
+    }
 
 
 

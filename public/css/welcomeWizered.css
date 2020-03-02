@@ -2,8 +2,55 @@ body {
   background: white;
 }
 
-.planHead {
+.grayColor {
+  color: #979797;
+}
+
+.addonsp1 {
+  color: white;
+  font-size: 19px;
+  text-align: center;
+  background: #b9b9b9;
+}
+
+.boxRadioContainer {
+  background: #b9b9b9;
+  padding: 20px;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+.resetOfSiteStructor {
+  font-size: 17px;
+  color: #b9b9b9;
+  padding: 20px;
+  font-weight: bold;
+}
+
+.boxRadioContainer.active > .roundRound {
   background: #65c5b4;
+}
+
+.boxRadioContainer.active {
+  background: #65c5b4;
+}
+
+.roundRound {
+  border: 6px solid white;
+  width: 20px;
+  height: 20px;
+  background: #b9b9b9;
+  border-radius: 16px;
+}
+
+.addonsHead {
+  font-size: 18px;
+  color: #979797;
+}
+
+.planHead {
+  background: #adadad;
   color: white;
   font-size: 20px;
   text-align: center;
@@ -15,14 +62,60 @@ body {
   text-transform: uppercase;
 }
 
-.planPrice {
+.planHead.active > .planPrice {
   border-top: 3px dashed #44ad9a;
+}
+
+.planHead.active {
+  background: #65c5b4;
+}
+
+.planHead.active > .planDurration {
+  color: #085c4d;
+}
+
+.StripeElement {
+  box-sizing: border-box;
+  height: 40px;
+  padding: 10px 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: white;
+  box-shadow: 0 1px 3px 0 #e6ebf1;
+  transition: box-shadow 150ms ease;
+}
+
+.StripeElement--focus {
+  box-shadow: 0 1px 3px 0 #cfd7df;
+}
+
+.StripeElement--invalid {
+  border-color: #fa755a;
+}
+
+.StripeElement--webkit-autofill {
+  background-color: #fefde5 !important;
+}
+
+.addonsp1.active > .custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: #ffffff;
+  background-color: #44ad9a;
+}
+
+.addonsp1.active {
+  background: #65c5b4;
+}
+
+.planPrice {
+  border-top: 3px dashed #fff;
   font-size: 30px;
   text-transform: uppercase;
 }
 
 .planDurration {
   color: #225c4d;
+  color: #fff;
   font-size: 17px;
   text-transform: uppercase;
 }

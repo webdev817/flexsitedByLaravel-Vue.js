@@ -11,7 +11,7 @@
 |
 */
 
-
+// adadad
 Auth::routes();
 
 
@@ -27,11 +27,16 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('websitePackege','WizeredController@websitePackege')->name('websitePackege');
   Route::get('selectedWebsitePackege/{packegeNo}','WizeredController@selectedWebsitePackege')->name('selectedWebsitePackege');
   Route::get('planAndBilling/{planNo}','WizeredController@planAndBilling')->name('planAndBilling');
+  Route::get('businessInformation','WizeredController@businessInformation')->name('businessInformation');
 
+  Route::post("storeBilling", "WizeredController@storeBilling")->name('storeBilling');
+  Route::post("businessInformationStore", "WizeredController@businessInformationStore")->name('businessInformationStore');
 
   Route::get('/home', 'HomeController@root')->name('home');
   Route::get('/oldHome', 'HomeController@index')->name('home');
   Route::get('/domainSearch','HomeController@domainSearch')->name('domainSearch');
+
+  Route::get('privacy-policy','HomeController@privacyPolicy')->name('privacyPolicy');
 
 
 });
