@@ -8,7 +8,7 @@ body {
 
 .addonsp1 {
   color: white;
-  font-size: 19px;
+  font-size: 15px;
   text-align: center;
   background: #b9b9b9;
 }
@@ -95,6 +95,10 @@ body {
 
 .StripeElement--webkit-autofill {
   background-color: #fefde5 !important;
+}
+
+.addonsp1 {
+  padding-top: 20px;
 }
 
 .addonsp1.active > .custom-control-input:checked ~ .custom-control-label::before {
@@ -375,6 +379,16 @@ a:hover {
 
   .fontTopNav {
     font-size: 1.6rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .addonsHead {
+    font-size: 12px;
+  }
+
+  .navLogo {
+    width: 270px;
   }
 }
 

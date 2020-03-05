@@ -8,6 +8,32 @@
 @endsection
 
 @section('head')
+  <script type="text/javascript">
+  function planSelected(d) {
+    $("#hiddenPlanDurration").val(d);
+  }
+  function fileChanged(dis,selector) {
+    var files = $(dis)[0].files;
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      console.log(file);
+      var sizeOfFile = (file.size / 1024) / 1024;
+      if (sizeOfFile > 15) {
+        alert('File can not be large then 15 mb \n\n' + file.name + " \n\nis larger than given size");
+        $(selector).val('');
+        return 0;
+      }
+    }
+    if (files.length > 1) {
+      fileName = files.length + " Files";
+    }else {
+      fileName = $(dis).val().split('\\').pop();
+    }
+    $(selector).val(fileName);
+
+
+  }
+  </script>
   @if ($currentStep == 4)
   <script src="https://js.stripe.com/v3/"></script>
 

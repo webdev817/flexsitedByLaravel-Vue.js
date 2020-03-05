@@ -11,7 +11,7 @@ body {
 .addonsp1 {
     // background: #65c5b4;
     color: white;
-    font-size: 19px;
+    font-size: 15px;
     text-align: center;
     background: #b9b9b9;
 }
@@ -97,7 +97,9 @@ body {
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
 }
-
+.addonsp1{
+  padding-top: 20px
+}
 
 .addonsp1.active > .custom-control-input:checked ~ .custom-control-label::before {
     color: #fff;

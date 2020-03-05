@@ -15,6 +15,10 @@ function json($message, $data)
         ]
     );
 }
+function myConf($name){
+  return config('mawaisnow.' . $name);
+}
+
 function error($message, $data)
 {
     return response()->json(

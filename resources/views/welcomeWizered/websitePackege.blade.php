@@ -6,7 +6,7 @@
 
 
         <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-            <div class="w-100 planHead active ">
+            <div class="w-100 planHead active">
                 basic plan
                 <div class="w-100 mt-2 pt-3 planPrice "> $39.95 </div>
                 <div class="w-100 planDurration mt-2 "> Monthly Plan </div>

@@ -39,4 +39,6 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('privacy-policy','HomeController@privacyPolicy')->name('privacyPolicy');
 
 
+  Route::get('createAllPlans','BillingController@createAllPlans')->name('createAllPlans');
+
 });

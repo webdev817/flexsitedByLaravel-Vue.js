@@ -23,17 +23,23 @@ $(".planHead").click(function(){
 });
 function showTotalPrice(){
   var price = 0;
+
+
+
   var logoDesign = $("#logoDesign").is(':checked');
   if (logoDesign) {
     price = 100;
+
   }
   var businessCardDesign = $("#businessCardDesign").is(':checked');
   if (businessCardDesign) {
     price = price + 150;
+
   }
   var flayerDesign = $("#flayerDesign").is(':checked');
   if (flayerDesign) {
     price = price + 200;
+
   }
 
   var recurringAmount = $("#recurringAmount").text();
@@ -223,3 +229,23 @@ $("#needNewDomainSearch").click(function(){
 
 
 });
+
+
+function saveActiveFormFields() {
+  var planDurration = $(".planHead.active").children().last().text().trim();
+  if (planDurration == "Yearly Plan") {
+
+  }
+}
+
+function dosomeActionRelatedToBusinessInformation() {
+  var allPages = [];
+  var elms = $(".boxRadioContainer.active");
+ for (var i = 0; i < elms.length; i++) {
+   var elm = elms[i];
+   var elm = $(elm).siblings().text();
+   allPages.push(elm.trim());
+ }
+ $("#hiddenPageSelected").val(allPages.toString());
+
+}

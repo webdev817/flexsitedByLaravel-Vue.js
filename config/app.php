@@ -227,6 +227,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Helper' => App\Helpers\Helper::class,
+        'StripeHelper' => App\Helpers\StripeHelper::class,
     ],
 
 ];

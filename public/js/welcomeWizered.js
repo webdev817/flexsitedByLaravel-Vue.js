@@ -319,6 +319,25 @@ $("#needNewDomainSearch").click(function () {
   });
 });
 
+function saveActiveFormFields() {
+  var planDurration = $(".planHead.active").children().last().text().trim();
+
+  if (planDurration == "Yearly Plan") {}
+}
+
+function dosomeActionRelatedToBusinessInformation() {
+  var allPages = [];
+  var elms = $(".boxRadioContainer.active");
+
+  for (var i = 0; i < elms.length; i++) {
+    var elm = elms[i];
+    var elm = $(elm).siblings().text();
+    allPages.push(elm.trim());
+  }
+
+  $("#hiddenPageSelected").val(allPages.toString());
+}
+
 /***/ }),
 
 /***/ 1:

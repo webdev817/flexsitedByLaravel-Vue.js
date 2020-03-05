@@ -1,6 +1,47 @@
-<div class="container mt-5 pt-3 mb-5">
-<form  action="{{  route('businessInformationStore') }}" method="post">
+<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+<script src="{{ asset('css\select2.min.js') }}" charset="utf-8"></script>
+<style media="screen">
+  .cstmFontForDomainInput{
+  color: #6c757d !important;
+  }
 
+  .select2-container--default .select2-selection--single {
+
+      border: 0px !important;
+      /* border-radius: 4px */
+  }
+  .select2-container--default .select2-selection--single .select2-selection__rendered {
+      color: #6c757d;
+      line-height: 48px;
+      font-size: 1rem;
+      font-weight: 600;
+  }
+  .select2-container--classic .select2-selection--single:focus {
+    border: 0px !important;
+  }
+  .select2-selection__arrow{
+    display: none;
+  }
+  .select2-selection__rendered{
+    border: 0px !important ;
+  }
+  .select2-selection__rendered:focus{
+    border: 0px !important;
+     box-shadow:none !important;
+  }
+  .select2-container *:focus {
+        outline: none;
+ }
+ .select2-container {
+   position: relative;
+       flex: 1 1 0%;
+       min-width: 0;
+}
+</style>
+<div class="container mt-5 pt-3 mb-5">
+<form  action="{{  route('businessInformationStore') }}" onsubmit="return dosomeActionRelatedToBusinessInformation()" enctype="multipart/form-data" method="post">
+
+<input type="hidden" name="hiddenPageSelected" id="hiddenPageSelected" value="">
 
 @csrf
     <div class="row justify-content-center ">
@@ -54,7 +95,7 @@
 
                 <div class="col-12 p-0">
                     <div class="input-group mb-3 border">
-                        <textarea name="name" rows="8" placeholder="Social Media Handles: Facebook, Instagram, Youtube, Other.
+                        <textarea name="socialMediaHandles" rows="8" placeholder="Social Media Handles: Facebook, Instagram, Youtube, Other.
 Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstmFormControl"></textarea>
                     </div>
                 </div>
@@ -262,9 +303,15 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
           <div class="borderFav input-group mb-3 p-1">
-            <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Are you providing content?" >
-            <div class="input-group-append">
-              <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button" >
+
+            <select class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" required id="providingContent" name="providingContent">
+              <option value="" selected disabled>Are you providing content?</option>
+              <option value="yes">Yes</option>
+              <option value="no">No</option>
+            </select>
+            {{-- <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Are you providing content?" > --}}
+             <div class="input-group-append">
+              <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" onclick="$('#providingContent').select2('open');" type="button" >
                 <i class="fa fa-angle-down" style="font-size:30px"></i>
               </button>
             </div>
@@ -275,8 +322,28 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
           <div class="borderFav input-group mb-3 p-1">
-            <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Logo Upload( If applicable)" >
-            <div class="input-group-append">
+
+            <input type="file" onchange="fileChanged(this,'.logoUploadInputDisplay')" multiple  accept=".zip,.rar,.7zip,image/*"  class="d-none" id="logoUpload" name="logoUpload[]" value="">
+
+            <input type="text" onclick="$('#logoUpload').trigger('click')" class="logoUploadInputDisplay border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Logo Upload( If applicable)" >
+            <div class="input-group-append" onclick="$('#logoUpload').trigger('click')">
+              <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button" >
+                <i class="fas fa-paperclip" style="font-size:22px"></i>
+              </button>
+            </div>
+          </div>
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
+          <div class="borderFav input-group mb-3 p-1">
+
+            <input type="file" onchange="fileChanged(this,'.contentUploadInput')" accept="application/pdf,application/msword,
+  application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt" class="d-none" id="contentUpload" name="contentUpload" value="">
+
+
+            <input type="text"  onclick="$('#contentUpload').trigger('click')"  class="contentUploadInput border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Content Upload( If applicable)" >
+            <div class="input-group-append" onclick="$('#contentUpload').trigger('click')">
               <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button" >
                 <i class="fas fa-paperclip" style="font-size:22px"></i>
 
@@ -289,8 +356,13 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
           <div class="borderFav input-group mb-3 p-1">
-            <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Content Upload( If applicable)" >
-            <div class="input-group-append">
+
+
+            <input type="file" onchange="fileChanged(this,'.galleryImagesInput')" multiple class="d-none" id="galleryImages" name="galleryImages[]" value="">
+
+
+            <input type="text"  onclick="$('#galleryImages').trigger('click')"   class="galleryImagesInput border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Gallery Images ( If applicable)" >
+            <div class="input-group-append"  onclick="$('#galleryImages').trigger('click')"  >
               <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button" >
                 <i class="fas fa-paperclip" style="font-size:22px"></i>
 
@@ -303,23 +375,19 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
           <div class="borderFav input-group mb-3 p-1">
-            <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Gallery Images ( If applicable)" >
-            <div class="input-group-append">
-              <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button" >
-                <i class="fas fa-paperclip" style="font-size:22px"></i>
+            <select class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" required id="howfindus" name="howfindus">
+              <option value="" selected disabled>How did you find us?</option>
+              <option value="Google">Google</option>
+              <option value="Flyer">Flyer</option>
+              <option value="Social Media">Social Media</option>
+              <option value="Friend">Friend</option>
+              <option value="Conference">Conference</option>
+              <option value="Other">Other</option>
 
-
-              </button>
-            </div>
-          </div>
-      </div>
-    </div>
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
-          <div class="borderFav input-group mb-3 p-1">
-            <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="How did you find us?" >
+            </select>
+            {{-- <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="How did you find us?" > --}}
             <div class="input-group-append">
-              <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button" >
+              <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" onclick="$('#howfindus').select2('open')" type="button" >
                 <i class="fa fa-angle-down" style="font-size:30px"></i>
 
 
@@ -329,6 +397,11 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
       </div>
     </div>
 
+    <div class="row justify-content-center">
+      <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
+        <button type="submit" class="btn btn-block col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6 btn-cstm rounded-0 shadow-none" name="button">Submit</button>
+      </div>
+    </div>
 
   </form>
 
@@ -336,10 +409,20 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
 
 
 
-<div class="container ">
+{{-- <div class="container ">
     <div class="row m-0 py-3">
         <div class="col-12 text-center">
             <button onclick="window.location = '{{ route('root') }}'" class=" float-left btn btn-cstm rounded-0 shadow-none backBtn" type="button">Back</button>
         </div>
     </div>
-</div>
+</div> --}}
+
+
+<script type="text/javascript">
+  $("#providingContent").select2({
+    minimumResultsForSearch: -1
+  });
+  $("#howfindus").select2({
+    minimumResultsForSearch: -1
+  });
+</script>

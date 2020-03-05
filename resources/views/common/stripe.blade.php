@@ -26,7 +26,7 @@ var style = {
       fontSmoothing: 'antialiased',
       fontSize: '16px',
       '::placeholder': {
-          color: '#32325d'
+          color: '#979797'
       }
   },
   invalid: {
@@ -70,6 +70,9 @@ var form = document.getElementById('payment-form');
 
 
 form.addEventListener('submit',  async (e) => {
+
+
+    // saveActiveFormFields();
 
     event.preventDefault();
 
