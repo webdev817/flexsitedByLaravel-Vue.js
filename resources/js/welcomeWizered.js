@@ -166,12 +166,6 @@ $('body').on('click', '.domainSelectBtn', function() {
     $("#hiddenDomainForm").submit();
 });
 
-function saveActiveFormFields() {
-  var planDurration = $(".planHead.active").children().last().text().trim();
-  if (planDurration == "Yearly Plan") {
-
-  }
-}
 
 function dosomeActionRelatedToBusinessInformation() {
   var allPages = [];
@@ -184,6 +178,7 @@ function dosomeActionRelatedToBusinessInformation() {
  $("#hiddenPageSelected").val(allPages.toString());
 
 }
+window.dosomeActionRelatedToBusinessInformation = dosomeActionRelatedToBusinessInformation;
 
 $("#needNewDomainSearch").click(function(){
 
