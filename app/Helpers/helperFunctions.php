@@ -1,5 +1,11 @@
 <?php
-
+function isWizeredDone()
+{
+  if (App\Wizered::where('userId', Auth::id())->where('key', 'wizered')->first() == null) {
+    return false;
+  }
+  return true;
+}
 function sendSignUpEmail(array $data)
 {
     $email = $data['email'];

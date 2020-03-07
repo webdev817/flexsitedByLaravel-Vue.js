@@ -27,13 +27,6 @@ class WebhookController extends CashierController
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
 
 
-            $invoiceId = $payload['data']['object']['invoice'];
-
-            //check if charge is non SUbscription charge
-            if ($invoiceId == null) {
-
-            }
-
         }
 
     }

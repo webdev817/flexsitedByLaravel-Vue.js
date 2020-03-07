@@ -29,6 +29,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('planAndBilling/{planNo}','WizeredController@planAndBilling')->name('planAndBilling');
   Route::get('businessInformation','WizeredController@businessInformation')->name('businessInformation');
 
+  Route::get('incompletePaymentCompleted','WizeredController@incompletePaymentCompleted')->name('incompletePaymentCompleted');
   Route::post("storeBilling", "WizeredController@storeBilling")->name('storeBilling');
   Route::post("businessInformationStore", "WizeredController@businessInformationStore")->name('businessInformationStore');
 
@@ -41,4 +42,9 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('createAllPlans','BillingController@createAllPlans')->name('createAllPlans');
 
+  Route::get('supportPortalHome','GeneralController@supportPortalHome')->name('supportPortalHome');
 });
+
+
+
+Route::post( 'stripe/webhook', 'WebhookController@handleWebhook' );

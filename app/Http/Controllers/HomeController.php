@@ -31,8 +31,11 @@ class HomeController extends Controller
 
     public function root(Request $request)
     {
-      $currentStep = 1;
-      return view('welcomeWizered.main',compact('currentStep'));
+      if (!isWizeredDone()) {
+        $currentStep = 1;
+        return view('welcomeWizered.main',compact('currentStep'));
+      }
+      return view('supportPortal.home');
     }
 
     public function domainSearch(Request $request)

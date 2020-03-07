@@ -14,6 +14,11 @@
   }
   function fileChanged(dis,selector) {
     var files = $(dis)[0].files;
+    if (files.length > 5) {
+      $(selector).val('');
+      alert('You can choose maximum 5 Files' + "\n\n" + "You have choosed " + files.length + " Files.");
+      return 0;
+    }
     for (var i = 0; i < files.length; i++) {
       var file = files[i];
       console.log(file);

@@ -134,16 +134,6 @@ class WizeredController extends Controller
         }
 
 
-        try {
-            $obj = StripeHelper::subscribeToPlan($user, $paymentMethod, $planId);
-
-            if ($obj->status == 0) {
-                return errorMessage($obj->message);
-            }
-            $subscription = $obj->subscription;
-        } catch (\Exception $e) {
-            return errorMessage($e->getMessage());
-        }
 
 
         $logoDesign = $request->logoDesign;
@@ -170,27 +160,101 @@ class WizeredController extends Controller
         }
         $stripeChargeAmount = $stripeChargeAmount * 100;
 
-        $chargeStatus = StripeHelper::chargeForFlexSited($paymentMethod, $stripeChargeAmount, $stripeChargeMessage);
-
-
-        if ($chargeStatus->status == 0) {
-            return errorMessage($chargeStatus->message);
-        }
 
 
         self::insertWizered("planId", $planId);
         self::insertWizered("currentStep", 5);
 
+        self::insertWizered('stripeChargeAmount',$stripeChargeAmount);
+        self::insertWizered('stripeChargeMessage',$stripeChargeMessage);
 
-
-        // in case if subscription is IncompletePayment
-        if ($obj->status == 3) {
-            return $obj->response;
+        // charge user for logo site design and flyer
+        $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
+        if ($chargeStatus->status == 3) {
+            self::insertWizered("charged", 'inComplete');
+            return $chargeStatus->response;
         }
+        if ($chargeStatus->status == 0) {
+            self::insertWizered("charged", $chargeStatus->message);
+            return errorMessage($chargeStatus->message);
+        }
+        self::insertWizered("charged", 'complete');
+
+        // subscribe to plan
+        try {
+            $obj = StripeHelper::subscribeToPlan($user, $planId);
+            if ($obj->status == 0) {
+                self::insertWizered("subscribe", $e->getMessage());
+                return errorMessage($obj->message);
+            }
+            if ($obj->status == 3) {
+                self::insertWizered("subscribe", 'inComplete');
+                return $obj->response;
+            }
+        } catch (\Exception $e) {
+            self::insertWizered("subscribe", $e->getMessage());
+            return errorMessage($e->getMessage());
+        }
+
+        self::insertWizered("subscribe", 'complete');
+
+
 
         if ($obj->status == 1 && isset($obj->subscription)) {
             return redirect()->route('businessInformation')->with('status', 'Subscription successfull');
         }
+    }
+    public function incompletePaymentCompleted(Request $request)
+    {
+        $data = self::getWizered(['subscribe', 'charged','planId']);
+
+        $chargeStatus = $data->where('key','charged')->first();
+
+        if ($chargeStatus == null) {
+          $data1 = self::getWizered(['stripeChargeAmount', 'stripeChargeMessage']);
+          $stripeChargeAmount = $data1->where('key','stripeChargeAmount')->first()->value;
+          $stripeChargeMessage = $data1->where('key','stripeChargeMessage')->first()->value;
+
+          $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
+          if ($chargeStatus->status == 3) {
+              self::insertWizered("charged", 'inComplete');
+              return $chargeStatus->response;
+          }
+          if ($chargeStatus->status == 0) {
+              self::insertWizered("charged", $chargeStatus->message);
+              return errorMessage($chargeStatus->message);
+          }
+          self::insertWizered("charged", 'complete');
+        }
+        $user = Auth::user();
+        // subscribe to plan
+        $subscribe = $data->where('key','subscribe')->first();
+
+        if ($subscribe == null) {
+          try {
+              $planId = $data->where('key','planId')->first()->value;
+              $obj = StripeHelper::subscribeToPlan($user, $planId);
+
+              if ($obj->status == 0) {
+                  self::insertWizered("subscribe", $e->getMessage());
+                  return errorMessage($obj->message);
+              }
+              if ($obj->status == 3) {
+                  self::insertWizered("subscribe", 'inComplete');
+                  return $obj->response;
+              }
+          } catch (\Exception $e) {
+
+              self::insertWizered("subscribe", $e->getMessage());
+              return errorMessage($e->getMessage());
+          }
+        }
+
+
+        self::insertWizered("subscribe", 'complete');
+
+        return redirect()->route('businessInformation')->with('status', 'Subscription successfull');
+
     }
 
 
@@ -234,34 +298,50 @@ class WizeredController extends Controller
         $contentUpload = $request->contentUpload;
         $galleryImages = $request->galleryImages;
         foreach ($logoFiles as $logoFile) {
-          $businessAttachment = new BusinessAttachment;
-          $businessAttachment->path = $logoFile->store('logoUpload');
-          $businessAttachment->type = 1;
-          $businessAttachment->createdBy = Auth::id();
-          $businessAttachment->save();
+            $businessAttachment = new BusinessAttachment;
+            $businessAttachment->path = $logoFile->store('logoUpload');
+            $businessAttachment->type = 1;
+            $businessAttachment->createdBy = Auth::id();
+            $businessAttachment->save();
         }
         if ($contentUpload != null) {
-          $businessAttachment = new BusinessAttachment;
-          $businessAttachment->path = $contentUpload->store('contentUpload');
-          $businessAttachment->type = 2;
-          $businessAttachment->createdBy = Auth::id();
-          $businessAttachment->save();
+            $businessAttachment = new BusinessAttachment;
+            $businessAttachment->path = $contentUpload->store('contentUpload');
+            $businessAttachment->type = 2;
+            $businessAttachment->createdBy = Auth::id();
+            $businessAttachment->save();
         }
 
         foreach ($galleryImages as $galleryImage) {
-          $businessAttachment = new BusinessAttachment;
-          $businessAttachment->path = $galleryImage->store('galleryImages');
-          $businessAttachment->type = 3;
-          $businessAttachment->createdBy = Auth::id();
-          $businessAttachment->save();
+            $businessAttachment = new BusinessAttachment;
+            $businessAttachment->path = $galleryImage->store('galleryImages');
+            $businessAttachment->type = 3;
+            $businessAttachment->createdBy = Auth::id();
+            $businessAttachment->save();
         }
+        self::insertWizered('wizered', 'allDone');
 
-        echo "done";
+        return redirect('supportPortalHome');
     }
 
 
 
+    public static function getWizered($data)
+    {
+        $wizerd = Wizered::query();
+        $wizerd = $wizerd->where('userId', Auth::id());
 
+        if (is_array($data)) {
+            $wizerd = $wizerd->where(function ($q)use($data) {
+                foreach ($data as $value) {
+                    $q->orWhere('key', $value);
+                }
+            });
+        } else {
+            $wizerd = $wizerd->where('key', $data);
+        }
+        return $wizerd->get();
+    }
     public static function insertWizered($key, $value)
     {
         Wizered::where('userId', Auth::id())->where('key', $key)->delete();

@@ -83,48 +83,8 @@ class StripeHelper
         }
     }
 
-    public static function purchaseDataBundles($amount, $paymentMethod, $dataAmount, $t)
-    {
-        $user = Auth::user();
-        $obj = new stdClass;
-        $obj->status = 0;
-        try {
-            $stripeCharge = $user->charge($amount, $paymentMethod, [
-          'description'=> "Charge for purchasing $amount of data at What Proxies.",
-          'metadata'=> [
-            'chargedForAmount'=> $amount,
-            'dataAmount'=> $dataAmount,
-            'tier'=>$t
-          ],
-          'statement_descriptor_suffix'=> "Charge at What Proxies"
-        ]);
 
-            $obj->status = 1;
-            $obj->message = "success";
-            $obj->stripeCharge = $stripeCharge;
-            newNotification('charged user on purchase data bundle', 'charged user on single time data refill', [
-          $stripeCharge
-        ], 503, $user->id);
-            return $obj;
-        } catch (IncompletePayment $exception) {
-            $response = redirect()->route(
-              'cashier.payment',
-              [$exception->payment->id, 'redirect' => route('home')]
-          );
-            $obj->response = $response;
-            $obj->status = 3;
-
-            return $obj;
-        } catch (\Exception $e) {
-            $obj->message = $e->getMessage();
-            newNotification('charged user failed on data purchase bundle', 'charged failed user on single time data refill', [
-          $e->getMessage()
-        ], 504, $user->id);
-            return $obj;
-        }
-    }
-
-    public static function chargeForFlexSited( $paymentMethod, $stripeChargeAmount, $stripeChargeMessage)
+    public static function chargeForFlexSited( $stripeChargeAmount, $stripeChargeMessage)
     {
 
 
@@ -133,25 +93,32 @@ class StripeHelper
       $obj = new stdClass;
       $obj->status = 0;
       try {
-        $stripeCharge = $user->charge($stripeChargeAmount, $paymentMethod,[
-          'description'=> "Charge for purchasing $stripeChargeMessage at FLEXSITED.",
-
-          'statement_descriptor_suffix'=> "Charge at Flex Sited"
-        ]);
+        $stripeCharge = $user->invoiceFor("Charge for purchasing $stripeChargeMessage at FLEXSITED." , $stripeChargeAmount);
 
         $obj->status = 1;
         $obj->message = "success";
         $obj->stripeCharge = $stripeCharge;
 
         return $obj;
+      } catch (IncompletePayment $exception) {
+          $response = redirect()->route(
+                'cashier.payment',
+                [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
+            );
+
+          $obj->response = $response;
+          $obj->status = 3;
+
+          return $obj;
       }catch (\Exception $e) {
+
         $obj->message = $e->getMessage();
         return $obj;
       }
 
 
     }
-    public static function subscribeToPlan($user, $paymentMethod, $planId)
+    public static function subscribeToPlan($user,  $planId)
     {
       $obj = new stdClass;
       $obj->status = 1;
@@ -160,13 +127,9 @@ class StripeHelper
 
       try {
 
-          if ($paymentMethod) {
-              $subscription = $user->newSubscription($planId, $planId)
-              ->create($paymentMethod);
-          } else {
-              $subscription = $user->newSubscription($planId, $planId)
-              ->create();
-          }
+
+          $subscription = $user->newSubscription($planId, $planId)
+          ->create();
 
           $obj->status = 1;
           $obj->subscription = $subscription;
@@ -175,13 +138,9 @@ class StripeHelper
       } catch (IncompletePayment $exception) {
           $response = redirect()->route(
                 'cashier.payment',
-                [$exception->payment->id, 'redirect' => route('businessInformation')]
+                [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
             );
-            dd(
-              $exception->getMessage(),
-              $exception,
-              $response
-            );
+
           $obj->response = $response;
           $obj->status = 3;
 
