@@ -107,13 +107,13 @@
                 <div class="col-12 p-0">
                     <div class="input-group mb-3 border">
                         <input value="{{ old('appointment') }}" name="appointment" type="text" class="border-0 form-control shadow-none cstmFormControl" placeholder="Appointment Booking Provider: (If applicable)"
-                          aria-label="Appointment Booking Provider: (If applicable)" required>
+                          aria-label="Appointment Booking Provider: (If applicable)"  >
                     </div>
                 </div>
 
                 <div class="col-12 p-0">
                     <div class="input-group mb-3 border">
-                        <textarea name="socialMediaHandles" rows="8" placeholder="Social Media Handles: Facebook, Instagram, Youtube, Other.
+                        <textarea name="socialMediaHandles" required rows="8" placeholder="Social Media Handles: Facebook, Instagram, Youtube, Other.
 Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstmFormControl"></textarea>
                     </div>
                 </div>
