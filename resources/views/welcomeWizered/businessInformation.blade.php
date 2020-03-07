@@ -376,7 +376,7 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
           <div class="borderFav input-group mb-3 p-1">
 
 
-            <input type="file" onchange="fileChanged(this,'.galleryImagesInput')" multiple class="d-none" id="galleryImages" name="galleryImages[]" value="">
+            <input type="file" onchange="fileChanged(this,'.galleryImagesInput')"  accept=".zip,.rar,.7zip,image/*"   multiple class="d-none" id="galleryImages" name="galleryImages[]" value="">
 
 
             <input type="text"  onclick="$('#galleryImages').trigger('click')"   class="galleryImagesInput border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput"  placeholder="Gallery Images ( If applicable)" >
