@@ -44,13 +44,31 @@
 <input type="hidden" name="hiddenPageSelected" id="hiddenPageSelected" value="">
 
 @csrf
+
+
+
     <div class="row justify-content-center ">
         <div class="col-12 col-md-6 col-lg-6 col-xl-6 grayColor mt-3 p-0">
             <h4 class="d-inline favColor">BUSINESS INFORMATION</h4>
         </div>
         <div class="col-12"></div>
     </div>
-
+    @if (isset($errors) && $errors->any())
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-12 col-lg-6 col-xl-6 p-0">
+          <div class="">
+            @foreach ($errors->all() as $key => $error)
+            <div class="alert alert-solid alert-danger" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+                {{ $error }}
+            </div>
+            @endforeach
+          </div>
+      </div>
+    </div>
+    @endif
 
     <div class="row justify-content-center">
         <div class="col-12 col-md-6 col-lg-6 col-xl-6">

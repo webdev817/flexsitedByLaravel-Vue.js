@@ -297,12 +297,14 @@ class WizeredController extends Controller
         $logoFiles = $request->logoUpload;
         $contentUpload = $request->contentUpload;
         $galleryImages = $request->galleryImages;
-        foreach ($logoFiles as $logoFile) {
+        if ($logoFiles != null) {
+          foreach ($logoFiles as $logoFile) {
             $businessAttachment = new BusinessAttachment;
             $businessAttachment->path = $logoFile->store('logoUpload');
             $businessAttachment->type = 1;
             $businessAttachment->createdBy = Auth::id();
             $businessAttachment->save();
+          }
         }
         if ($contentUpload != null) {
             $businessAttachment = new BusinessAttachment;
@@ -312,12 +314,14 @@ class WizeredController extends Controller
             $businessAttachment->save();
         }
 
-        foreach ($galleryImages as $galleryImage) {
+        if ($galleryImages != null) {
+          foreach ($galleryImages as $galleryImage) {
             $businessAttachment = new BusinessAttachment;
             $businessAttachment->path = $galleryImage->store('galleryImages');
             $businessAttachment->type = 3;
             $businessAttachment->createdBy = Auth::id();
             $businessAttachment->save();
+          }
         }
         self::insertWizered('wizered', 'allDone');
 
