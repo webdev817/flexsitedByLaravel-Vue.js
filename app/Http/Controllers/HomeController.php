@@ -68,7 +68,7 @@ class HomeController extends Controller
         $allDomains[] = $obj;
       }
 
-      return $allDomains;
+      return json('Domains List', $allDomains);
     } catch (\Exception $e) {
       return error('Something went wrong');
     }
