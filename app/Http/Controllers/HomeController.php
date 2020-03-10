@@ -5,69 +5,78 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Helper;
 use Auth;
+use stdClass;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
+  /**
+   * Create a new controller instance.
+   *
+   * @return void
+   */
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
+
+  /**
+   * Show the application dashboard.
+   *
+   * @return \Illuminate\Contracts\Support\Renderable
+   */
+  public function index()
+  {
+    return view('home');
+  }
+
+
+  public function root(Request $request)
+  {
+    if (!isWizeredDone()) {
+      $currentStep = 1;
+      return view('welcomeWizered.main', compact('currentStep'));
+    }
+    return view('supportPortal.home');
+  }
+
+
+
+  public function domainSearch(Request $request)
+  {
+
+    $q = $request->q;
+
+    $isValid = filter_var($q, FILTER_VALIDATE_DOMAIN);
+    if (!$isValid) {
+      return error('Please enter a valid domain name');
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        return view('home');
-    }
+    $domains = ["com", "net", "org", "site", "info ", "io"];
+    $allDomains = [];
+    try {
 
+      foreach ($domains as $domain) {
+        $obj = new stdClass;
+        $obj->status = 0;
 
-    public function root(Request $request)
-    {
-      if (!isWizeredDone()) {
-        $currentStep = 1;
-        return view('welcomeWizered.main',compact('currentStep'));
-      }
-      return view('supportPortal.home');
-    }
+        $obj->domain = $q . $domain;
+        $result = shell_exec("dsearch " . $q . $domain);
 
-    public function domainSearch(Request $request)
-    {
-
-      $q = $request->q;
-
-      $isValid = filter_var($q, FILTER_VALIDATE_DOMAIN);
-      if (!$isValid) {
-        return error('Please enter a valid domain name');
-      }
-
-      $domains = ".{com,net,org,site,info,io}";
-      try {
-
-        $result = shell_exec("dsearch " . $q . $domains);
-        if ($request->ip() == "39.38.255.82") {
-          dd($result);
+        if (strpos($result, 'AVAILABLE') !== false) {
+          $obj->status = 1;
         }
-      } catch (\Exception $e) {
-        return error('Something went wrong');
+        $allDomains[] = $obj;
       }
-
-
+    } catch (\Exception $e) {
+      return error('Something went wrong');
     }
+  }
 
-    public function mawaisnow(Request $request)
-    {
-      dd(
 
-      );
-      phpinfo();
-      die();
-    }
+  public function mawaisnow(Request $request)
+  {
+    dd();
+    phpinfo();
+    die();
+  }
 }
