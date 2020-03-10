@@ -59,8 +59,8 @@ class HomeController extends Controller
         $obj = new stdClass;
         $obj->status = 0;
 
-        $obj->domain = $q . $domain;
-        $result = shell_exec("dsearch " . $q . $domain);
+        $obj->domain = $q  . ".". $domain;
+        $result = shell_exec("dsearch " . $q ."." . $domain);
 
         if (strpos($result, 'AVAILABLE') !== false) {
           $obj->status = 1;
