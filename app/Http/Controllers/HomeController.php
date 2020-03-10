@@ -57,7 +57,7 @@ class HomeController extends Controller
     {
       dd(
 
-        shell_exec("./mawaisnow/domainSearch" . $request->s)
+        shell_exec("./mawaisnow/domainavailable" . $request->s)
       );
       phpinfo();
       die();
