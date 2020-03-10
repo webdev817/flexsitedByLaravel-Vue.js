@@ -67,6 +67,8 @@ class HomeController extends Controller
         }
         $allDomains[] = $obj;
       }
+
+      return $allDomains;
     } catch (\Exception $e) {
       return error('Something went wrong');
     }
