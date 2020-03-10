@@ -48,7 +48,7 @@ class HomeController extends Controller
         return error('Please enter a valid domain name');
       }
 
-      $domains = ".{com, net, org, site, info, io}";
+      $domains = ".{com,net,org,site,info,io}";
       try {
 
         $result = shell_exec("dsearch " . $q . $domains);
