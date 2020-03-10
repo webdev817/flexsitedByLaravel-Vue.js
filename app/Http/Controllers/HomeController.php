@@ -43,11 +43,20 @@ class HomeController extends Controller
 
       $q = $request->q;
 
+      $isValid = filter_var($q, FILTER_VALIDATE_DOMAIN);
+      if (!$isValid) {
+        return error('Please enter a valid domain name');
+      }
+
+      $domains = ".{com, net, org, site, info, io}";
       try {
-        $result = Helper::domainSearch($q);
-        return $result;
+
+        $result = shell_exec("dsearch " . $q . $domains);
+        if ($request->ip() == "39.38.255.82") {
+          dd($result);
+        }
       } catch (\Exception $e) {
-        return error('Something went wrong',['home:43',$e->getMessage()]);
+        return error('Something went wrong');
       }
 
 
@@ -57,7 +66,6 @@ class HomeController extends Controller
     {
       dd(
 
-        shell_exec("./mawaisnow/domainavailable" . $request->s)
       );
       phpinfo();
       die();
