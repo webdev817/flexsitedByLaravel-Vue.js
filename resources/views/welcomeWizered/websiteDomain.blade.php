@@ -32,7 +32,7 @@
         <div class="col-12 py-5">
           <div class="col-12 p-0    col-sm-10 offset-sm-1">
             <div class="borderFav input-group mb-3 p-1">
-              <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" id="searchForNewDomain"  placeholder="Enter Domain Name to Search i.e mydomain">
+              <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" id="searchForNewDomain"  placeholder="your domain name (exclude .com)">
               <div class="input-group-append">
                 <button class="btn btn-cstm rounded-0 shadow-none" type="button" id="needNewDomainSearch">
                   <i class="d-none fa  loaderSearch fa-spinner fa-spin" style="font-size:20px"></i>

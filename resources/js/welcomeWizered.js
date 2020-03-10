@@ -5,6 +5,12 @@ $(".commonSelectPages").click(function(){
   if (abc) {
     $(this).find('.boxRadioContainer').removeClass('active');
   }else {
+    var maxPagesToBeSelected = $("#maxPagesToBeSelected").val();
+    var elms = $(".boxRadioContainer.active");
+    if (maxPagesToBeSelected <= elms.length) {
+      alert('You can select max '+ maxPagesToBeSelected + " Pages");
+      return 0;
+    }
     $(this).find('.boxRadioContainer').addClass('active');
   }
 });

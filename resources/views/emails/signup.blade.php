@@ -5,7 +5,7 @@
 <p>Hello {{ $user->name }}</p>
 <p>&nbsp;</p>
 <p>
-Thank you for joining FlexSited.
+Thank you for joining Flexsited.
 </p>
 
 <p>&nbsp;</p>
@@ -45,6 +45,6 @@ If you have any questions, please don’t hesitate to contact us.
 <p>Best Regards,</p>
 <p>&nbsp;</p>
 
-<p>Team FlexSited</p>
+<p>Team Flexsited</p>
 
 @include('emails.common.footer')

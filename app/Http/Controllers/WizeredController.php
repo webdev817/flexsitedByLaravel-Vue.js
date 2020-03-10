@@ -86,7 +86,19 @@ class WizeredController extends Controller
     public function businessInformation(Request $request)
     {
         $currentStep = 5;
-        return view('welcomeWizered.main', compact('currentStep'));
+        $selectedWebsitePackege = self::getWizered('selectedWebsitePackege')->first()->value;
+        $pages = 0;
+        if ($selectedWebsitePackege == 1) {
+          $pages = 1;
+        }elseif ($selectedWebsitePackege == 2) {
+          $pages = 3;
+        }elseif ($selectedWebsitePackege == 3) {
+          $pages = 5;
+        }else {
+          $pages = 10;
+        }
+
+        return view('welcomeWizered.main', compact('currentStep', 'pages'));
     }
     public function storeBilling(Request $request)
     {

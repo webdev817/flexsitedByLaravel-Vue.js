@@ -10,7 +10,7 @@
                   <i style="font-size:26px" class="ion ion-ios-bug"></i>
                     <h1>500</h1>
                     <p>Oops! That's a bug</p>
-                    <span>Please send us a ticket at <a href="mailto:support@flexSited.com">support@flexSited.com</a></span>
+                    <span>Please send us a ticket at <a href="mailto:support@Flexsited.com">support@Flexsited.com</a></span>
                 </div>
 
             </div>

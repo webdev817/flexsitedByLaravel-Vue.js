@@ -28,6 +28,6 @@ class SignUpMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Welcome to FlexSited')->view('emails.signup');
+        return $this->subject('Welcome to Flexsited')->view('emails.signup');
     }
 }

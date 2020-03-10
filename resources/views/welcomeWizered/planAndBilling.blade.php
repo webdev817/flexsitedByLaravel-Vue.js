@@ -228,7 +228,8 @@
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-8 p-3">
                         <div class="float-left addonsHead"> Logo Design </div>
-                        <div class="float-right"> <a href="#">Learn More</a> </div>
+                        <div class="float-right"> <a data-container="body" data-toggle="popover" data-placement="left"
+                          data-content="You will receive three design concepts and allowed three revisions." href="javascript:void(0)">Learn More</a> </div>
                     </div>
                 </div>
                 <div class="row mb-3 border">
@@ -240,7 +241,8 @@
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-8 p-3">
                         <div class="float-left addonsHead"> Business Card Design </div>
-                        <div class="float-right"> <a href="#">Learn More</a> </div>
+                        <div class="float-right"> <a data-container="body" data-toggle="popover" data-placement="left"
+                          data-content="You receive three design concepts and allowed three revisions." href="javascript:void(0)">Learn More</a> </div>
                     </div>
                 </div>
                 <div class="row mb-3 border">
@@ -252,7 +254,8 @@
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-8 p-3">
                         <div class="float-left addonsHead"> Flyer Design </div>
-                        <div class="float-right"> <a href="#">Learn More</a> </div>
+                        <div class="float-right"> <a  data-container="body" data-toggle="popover" data-placement="left"
+                          data-content="You will receive one design concept and allowed three revisions.  " href="javascript:void(0)">Learn More</a> </div>
                     </div>
 
                 </div>

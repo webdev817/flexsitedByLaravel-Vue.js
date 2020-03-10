@@ -1,1 +1,155 @@
-a,a:hover{color:#65c5b4}a:hover{text-decoration:underline}.prelative{position:relative}.authLogo{position:absolute;top:11rem;left:34%;width:408px}.authNavItem:hover{cursor:pointer}.authNavItem{background:#65c5b4;padding:13px;text-align:center;color:#fff;font-size:20px}.authNavItemInActive{background:rgba(165,167,167,.7)}.authNavContainer{position:absolute;bottom:0;left:15px;width:100%}.input-group-text{border-radius:0;border:none;background-color:transparent}.cstmFormControl{height:calc(2.1em + .75rem + 2px);padding:.375rem .75rem;font-size:1rem;color:#495057;background-color:#fff}.btn-cstm{background-color:#65c5b4;color:#fff}.btn-cstm:hover{background-color:#4fa999;color:#fff}@media (max-width:576px){.authLogo{top:2rem;left:30%;width:220px}.authNavItem{padding:9px;font-size:15px}body{background:#fff}.noneShadowOn576Below{box-shadow:none!important}}@media (max-width:400px){.authLogo{top:1rem;left:29%;width:169px}.authNavItem{padding:9px;font-size:12px}}@media (min-width:576px){.authNavContainer{width:100%}.authLogo{top:4rem;left:35%;width:260px}.authNavItem{font-size:19px}}@media (min-width:768px){.authNavContainer{width:100%}.authLogo{position:absolute;top:4rem;left:24%;width:408px}}@media (min-width:992px){.authNavContainer{width:100%}.authLogo{top:7rem;left:32%}}@media (min-width:1200px){.container{max-width:1074px}}
+a {
+  color: #65c5b4;
+}
+
+a:hover {
+  color: #65c5b4;
+  text-decoration: underline;
+}
+
+.prelative {
+  position: relative;
+}
+
+.authLogo {
+  position: absolute;
+  top: 11rem;
+  left: 34%;
+  width: 408px;
+}
+
+.authNavItem:hover {
+  cursor: pointer;
+}
+
+.authNavItem {
+  background: #65c5b4;
+  padding: 13px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}
+
+.authNavItemInActive {
+  background: rgba(165, 167, 167, 0.7);
+}
+
+.authNavContainer {
+  position: absolute;
+  bottom: 0;
+  left: 15px;
+  width: 100%;
+}
+
+.input-group-text {
+  border-radius: 0;
+  border: none;
+  background-color: transparent;
+}
+
+.cstmFormControl {
+  height: calc(2.1em + 0.75rem + 2px);
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  color: #495057;
+  background-color: #fff;
+}
+
+.btn-cstm {
+  background-color: #65c5b4;
+  color: white;
+}
+
+.btn-cstm:hover {
+  background-color: #4fa999;
+  color: white;
+}
+
+@media (max-width: 576px) {
+  .authLogo {
+    top: 2rem;
+    left: 30%;
+    width: 220px;
+  }
+
+  .authNavItem {
+    padding: 9px;
+    font-size: 15px;
+  }
+
+  body {
+    background: white;
+  }
+
+  .noneShadowOn576Below {
+    box-shadow: none !important;
+  }
+}
+
+@media (max-width: 400px) {
+  .authLogo {
+    top: 1rem;
+    left: 29%;
+    width: 169px;
+  }
+
+  .authNavItem {
+    padding: 9px;
+    font-size: 12px;
+  }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+
+@media (min-width: 576px) {
+  .authNavContainer {
+    width: 100%;
+  }
+
+  .authLogo {
+    top: 4rem;
+    left: 35%;
+    width: 260px;
+  }
+
+  .authNavItem {
+    font-size: 19px;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) The navbar toggle appears at this breakpoint */
+
+@media (min-width: 768px) {
+  .authNavContainer {
+    width: 100%;
+  }
+
+  .authLogo {
+    position: absolute;
+    top: 4rem;
+    left: 24%;
+    width: 408px;
+  }
+}
+
+/* Large devices (desktops, 992px and up) */
+
+@media (min-width: 992px) {
+  .authNavContainer {
+    width: 100%;
+  }
+
+  .authLogo {
+    top: 7rem;
+    left: 32%;
+  }
+}
+
+/* Extra large devices (large desktops, 1200px and up) */
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1074px;
+  }
+}
+

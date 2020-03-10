@@ -5,6 +5,11 @@
 @if ($currentStep == 4)
   @include('common.stripe')
 @endif
+<script type="text/javascript">
+$(function () {
+$('[data-toggle="popover"]').popover()
+})
+</script>
 @endsection
 
 @section('head')

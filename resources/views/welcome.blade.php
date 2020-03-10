@@ -80,7 +80,7 @@
             @endif
 
             <div class="content">
-              <h2>Welcome to FlexSited</h2>
+              <h2>Welcome to Flexsited</h2>
             </div>
 
         </div>

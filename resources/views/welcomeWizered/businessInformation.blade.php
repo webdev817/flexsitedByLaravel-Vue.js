@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 <script src="{{ asset('css\select2.min.js') }}" charset="utf-8"></script>
 <style media="screen">
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #6c757d;
+}
   .cstmFontForDomainInput{
   color: #6c757d !important;
   }
@@ -38,6 +41,7 @@
        min-width: 0;
 }
 </style>
+<input type="hidden" id="maxPagesToBeSelected" value="{{ $pages }}">
 <div class="container mt-5 pt-3 mb-5">
 <form  action="{{  route('businessInformationStore') }}" onsubmit="return dosomeActionRelatedToBusinessInformation()" enctype="multipart/form-data" method="post">
 
@@ -323,7 +327,7 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
           <div class="borderFav input-group mb-3 p-1">
 
             <select class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" required id="providingContent" name="providingContent">
-              <option value="" selected disabled>Are you providing content?</option>
+              {{-- <option value="" selected disabled>Are you providing content?</option> --}}
               <option value="yes">Yes</option>
               <option value="no">No</option>
             </select>
@@ -394,7 +398,7 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
           <div class="borderFav input-group mb-3 p-1">
             <select class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" required id="howfindus" name="howfindus">
-              <option value="" selected disabled>How did you find us?</option>
+              {{-- <option value="" selected disabled>How did you find us?</option> --}}
               <option value="Google">Google</option>
               <option value="Flyer">Flyer</option>
               <option value="Social Media">Social Media</option>
@@ -438,9 +442,11 @@ Type Social Media Links" cols="80" class="border-0 form-control shadow-none cstm
 
 <script type="text/javascript">
   $("#providingContent").select2({
-    minimumResultsForSearch: -1
-  });
+    minimumResultsForSearch: -1,
+    placeholder: "Are you providing content?"
+  }).val(null).change();
   $("#howfindus").select2({
-    minimumResultsForSearch: -1
-  });
+    minimumResultsForSearch: -1,
+    placeholder: "How did you find us?"
+  }).val(null).change();
 </script>
