@@ -55,6 +55,10 @@ class HomeController extends Controller
 
     public function mawaisnow(Request $request)
     {
+      dd(
+
+        shell_exec("dir")
+      );
       phpinfo();
       die();
     }
