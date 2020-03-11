@@ -10,4 +10,15 @@ class GeneralController extends Controller
     {
       return view('supportPortal.home');
     }
+    public function switchPageWidth(Request $request)
+    {
+      $pageWidth = setting('pageWidth','container');
+      
+      if ($pageWidth == "container") {
+        setSetting('pageWidth','fluid-container');
+      }else {
+        setSetting('pageWidth','container');
+      }
+      return status('Done');
+    }
 }

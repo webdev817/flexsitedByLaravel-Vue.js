@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use stdClass;
 use Helper;
 use Auth;
-use stdClass;
 
 class HomeController extends Controller
 {
@@ -29,13 +30,22 @@ class HomeController extends Controller
     return view('home');
   }
 
-
+  public function handleSuperAdmin($request)
+  {
+    $usersCount = User::where('role',1)->count();
+    return view('admin.home',compact('usersCount'));
+  }
   public function root(Request $request)
   {
+    if (superAdmin()) {
+      return $this->handleSuperAdmin($request);
+    }
+
     if (!isWizeredDone()) {
       $currentStep = 1;
       return view('welcomeWizered.main', compact('currentStep'));
     }
+
     return view('supportPortal.home');
   }
 

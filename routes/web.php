@@ -43,6 +43,14 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('createAllPlans','BillingController@createAllPlans')->name('createAllPlans');
 
   Route::get('supportPortalHome','GeneralController@supportPortalHome')->name('supportPortalHome');
+
+});
+
+Route::group(['middleware' => ['auth', 'SuperAdminOnly']], function () {
+
+  Route::resource('users','UsersController');
+  Route::get('switchPageWidth','GeneralController@switchPageWidth')->name('switchPageWidth');
+
 });
 
 

@@ -1,4 +1,21 @@
 <?php
+function setting($key , $default = null)
+{
+  $setting = App\Setting::where('userId', Auth::id())->where('key', $key)->first();
+  if ($setting == null) {
+    return $default;
+  }
+  return $setting->value;
+}
+function setSetting($key , $value)
+{
+  App\Setting::where('userId', Auth::id())->where('key', $key)->delete();
+  return App\Setting::insert([
+    'userId'=>Auth::id(),
+    'key'=>$key,
+    'value'=> $value
+  ]);
+}
 function isWizeredDone()
 {
   if (App\Wizered::where('userId', Auth::id())->where('key', 'wizered')->first() == null) {
