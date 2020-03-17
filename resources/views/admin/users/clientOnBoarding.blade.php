@@ -65,6 +65,18 @@
                     <span>Social Media Handles:</span>
                     {{ $wizeredObj->socialMediaHandles }}
                 </p>
+                <p class="contact-item">
+                    <span>Pages Selected:</span>
+                    {{ $wizeredObj->pageSelected }}
+                </p>
+                <p class="contact-item">
+                    <span>Providing Content:</span>
+                    {{ $wizeredObj->providingContent }}
+                </p>
+                <p class="contact-item">
+                    <span>How Find Us:</span>
+                    {{ $wizeredObj->howfindus }}
+                </p>
 
                 @endif
 
