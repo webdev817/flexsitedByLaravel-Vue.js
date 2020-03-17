@@ -4,7 +4,7 @@
 @if (isset($errors) && $errors->any())
 <div class="">
     @foreach ($errors->all() as $key => $error)
-    <div class="alert alert-solid alert-danger" role="alert">
+    <div class="alert alert-danger" role="alert">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">×</span>
         </button>
@@ -17,7 +17,7 @@
 
 @if (Session::has('status'))
 <div class="">
-<div class="alert alert-solid alert-info" role="alert">
+<div class="alert   alert-success" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">×</span>
     </button>

@@ -19,6 +19,7 @@ ROute::get('devmawaisnow','HomeController@mawaisnow');
 
 
 Route::group(['middleware' => ['auth']], function () {
+
   Route::get('/','HomeController@root')->name('root');
 
   Route::post('domainSelected','WizeredController@domainSelected')->name('domainSelected');
@@ -44,13 +45,26 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('supportPortalHome','GeneralController@supportPortalHome')->name('supportPortalHome');
 
+  Route::get('subscription/invoice/{id}','BillingController@invoiceDownload')->name('invoiceDownload');
+  Route::get('couponInfo', 'CouponController@couponInfo')->name('couponInfo');
+
+  
 });
 
 Route::group(['middleware' => ['auth', 'SuperAdminOnly']], function () {
 
   Route::resource('users','UsersController');
+  Route::get('clientOnBoarding/{user}', 'UsersController@clientOnBoarding')->name('clientOnBoarding');
+
+  Route::post('changeUserStatus','UsersController@changeUserStatus')->name('changeUserStatus');
+  Route::post('deleteUser','UsersController@deleteUser')->name('deleteUser');
+  Route::get('subscriptionHistory/{subscriptionId}','BillingController@subscriptionHistory')->name('subscriptionHistory');
+
+  Route::post('cancelSubscription','BillingController@cancelSubscription')->name( 'cancelSubscription');
+
   Route::get('switchPageWidth','GeneralController@switchPageWidth')->name('switchPageWidth');
 
+  Route::resource('coupons','CouponController');
 });
 
 

@@ -1,16 +1,51 @@
 <?php
-function setting($key , $default = null)
+function setting($key, $default = null)
 {
-  $setting = App\Setting::where('userId', Auth::id())->where('key', $key)->first();
-  if ($setting == null) {
-    return $default;
-  }
-  return $setting->value;
+    $setting = App\Setting::where('userId', Auth::id())->where('key', $key)->first();
+    if ($setting == null) {
+        return $default;
+    }
+    return $setting->value;
 }
-function setSetting($key , $value)
+function fileInfo($file)
 {
-  App\Setting::where('userId', Auth::id())->where('key', $key)->delete();
-  return App\Setting::insert([
+  return (object)pathinfo($file);
+}
+function requestIs($path)
+{
+    if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {
+        return 'active';
+    }
+}
+function obj($status = 1, $message = 'Something went wrong!', $dataFor = 'data', $data = null) {
+  $obj = new \stdClass;
+  $obj->message = $message;
+  $obj->$dataFor = $data;
+
+  if ($status == 1) {
+    $obj->status = 1;
+  }else {
+    $obj->status = 0;
+  }
+
+  return $obj;
+}
+function requestIsFromArray($arr)
+{
+    foreach ($arr as $path) {
+        if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {
+            return 'active';
+        }
+    }
+}
+function noPermission()
+{
+    return errorMessage("You don't have permission to do this operation");
+}
+function setSetting($key, $value)
+{
+    App\Setting::where('userId', Auth::id())->where('key', $key)->delete();
+    return App\Setting::insert([
     'userId'=>Auth::id(),
     'key'=>$key,
     'value'=> $value
@@ -18,10 +53,10 @@ function setSetting($key , $value)
 }
 function isWizeredDone()
 {
-  if (App\Wizered::where('userId', Auth::id())->where('key', 'wizered')->first() == null) {
-    return false;
-  }
-  return true;
+    if (App\Wizered::where('userId', Auth::id())->where('key', 'wizered')->first() == null) {
+        return false;
+    }
+    return true;
 }
 function sendSignUpEmail(array $data)
 {
@@ -38,8 +73,9 @@ function json($message, $data)
         ]
     );
 }
-function myConf($name){
-  return config('mawaisnow.' . $name);
+function myConf($name)
+{
+    return config('mawaisnow.' . $name);
 }
 
 function error($message, $data)
@@ -190,15 +226,27 @@ function getClassMethodsName($classObjectOrName)
         $names
     );
 }
+
 function status($message)
 {
     return redirectBackWith('status', $message);
 }
-function redirectBackWith($key,$value)
+function statusTo($status, $to)
+{
+  return redirect($to)->with('status', $status)->withInput();
+}
+function redirectBackWith($key, $value)
 {
     return redirect()->back()->with($key, $value);
 }
 function superAdmin()
+{
+    if (\Auth()->user()->role == 9) {
+        return true;
+    }
+    return false;
+}
+function isSuperAdmin()
 {
     if (\Auth()->user()->role == 9) {
         return true;
@@ -213,7 +261,7 @@ function isAuthorizedToModify($id)
     return false;
 }
 
-function pasteVal($actual,$old)
+function pasteVal($actual, $old)
 {
     if (old($old) != null) {
         return old($old);
@@ -227,20 +275,7 @@ function isRouteName($name)
     }
     return false;
 }
-function requestIs($path)
-{
-    if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {
-        return 'active';
-    }
-}
-function requestIsFromArray($arr)
-{
-    foreach ($arr as $path) {
-        if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {
-            return 'active';
-        }
-    }
-}
+
 function userUpdate($data)
 {
     $userId = Auth::id();
@@ -299,12 +334,12 @@ function updateCard($token)
         return $obj;
     }
 }
-function writeJson($data,$file = '')
+function writeJson($data, $file = '')
 {
     $file = date('Y_m_d_H_i_s_A') ."_". $file ."_". ".json";
     \Storage::disk('logs')->put($file, $data);
 }
-function writeToFile($text,$file = "file",$ext = "txt",$replace = 0)
+function writeToFile($text, $file = "file", $ext = "txt", $replace = 0)
 {
     if ($replace) {
         \Storage::disk('logs')->put($file.'.'.$ext, $text);
@@ -315,7 +350,7 @@ function writeToFile($text,$file = "file",$ext = "txt",$replace = 0)
 
 
 
-function generateCSV($data ,$headings)
+function generateCSV($data, $headings)
 {
     $csvExporter = new \Laracsv\Export();
     $csvExporter->build($data, $headings);
@@ -383,19 +418,19 @@ function getAmericaStates()
 
     ];
 }
-function is_valid_json( $raw_json )
+function is_valid_json($raw_json)
 {
     try {
-        return ( json_decode($raw_json, true) == null ) ? false : true ; // Yes! thats it.
+        return (json_decode($raw_json, true) == null) ? false : true ; // Yes! thats it.
     } catch (\Exception $e) {
         return false;
     }
-
 }
 
 function getRandomStr($str = '')
 {
-    $rnd = Illuminate\Support\Str::random(40);;
+    $rnd = Illuminate\Support\Str::random(40);
+    ;
     return $rnd . $str;
 }
 
@@ -408,4 +443,43 @@ function dev()
         return true;
     }
     return false;
+}
+function getWizeredObj($userId)
+{
+    $fields = [
+      'domain', 'currentStep', 'selectedDesign', 'selectedWebsitePackege', 'logoDesign', 'businessCardDesign', 'flayerDesign', 'planId','stripeChargeAmount',
+      'stripeChargeAmount', 'charged', 'subscribe','businessName','businessPhoneNumber','businessAddress','hoursOfOperation','whatBeautyServicesDoYouOffer',
+      'appointment','socialMediaHandles','pageSelected','providingContent','howfindus','wizered', 'chargeInvoiceId', 'couponUsedId'
+    ];
+    $wizerd = App\Wizered::query();
+    $wizerd = $wizerd->where('userId', $userId);
+
+
+    $wizerd = $wizerd->where(function ($q) use ($fields) {
+        foreach ($fields as $value) {
+            $q->orWhere('key', $value);
+        }
+    });
+
+    $data = $wizerd->get();
+
+    $obj = new \stdClass;
+    foreach ($fields as $key) {
+      $temp = $data->where('key',$key)->first();
+      if ($temp != null) {
+        $obj->$key = $temp->value;
+      }else {
+        $obj->$key = '';
+      }
+    }
+
+    $obj->selectedDesignObj = null;
+    if ($obj->selectedDesign != null) {
+      $obj->selectedDesignObj = App\Design::where('id',$obj->selectedDesign)->first();
+    }
+    $obj->logoUpload = App\BusinessAttachment::where('createdBy',$userId)->where('type',1)->get();
+    $obj->contentUpload = App\BusinessAttachment::where('createdBy',$userId)->where('type',2)->get();
+    $obj->galleryImages = App\BusinessAttachment::where('createdBy',$userId)->where('type',3)->get();
+
+    return $obj;
 }

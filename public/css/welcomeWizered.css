@@ -6,6 +6,15 @@ body {
   color: #979797;
 }
 
+.couponApplied {
+  text-decoration: line-through;
+  font-size: 12px;
+}
+
+.font8px {
+  font-size: 8px;
+}
+
 .addonsp1 {
   color: white;
   font-size: 15px;

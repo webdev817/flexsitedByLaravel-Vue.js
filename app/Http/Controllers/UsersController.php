@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -13,7 +14,8 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::where('role', 1)->paginate(20);
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -80,5 +82,35 @@ class UsersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function clientOnBoarding(Request $request, User $user)
+    {
+        $invoices = null;
+
+        $array = [ 'user' => $user ,
+                   'mainSubscription'=> $user->subscription('main'),
+                   'wizeredObj'=> getWizeredObj($user->id),
+                ];
+
+        return view('admin.users.clientOnBoarding', $array);
+    }
+
+    public function changeUserStatus(Request $request)
+    {
+        if (!isSuperAdmin()) {
+            return noPermission();
+        }
+        $status = $request->status;
+        $userId = $request->userId;
+        $user = User::find($userId);
+
+        User::where('id', $userId)->update(
+           [
+           'status' => $status,
+           ]
+       );
+
+        return status("Status changed successfully");
     }
 }

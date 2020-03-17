@@ -12,12 +12,12 @@ class GeneralController extends Controller
     }
     public function switchPageWidth(Request $request)
     {
-      $pageWidth = setting('pageWidth','container');
-      
-      if ($pageWidth == "container") {
-        setSetting('pageWidth','fluid-container');
+      $pageWidth = setting('pageWidth',null);
+
+      if ($pageWidth == null) {
+        setSetting('pageWidth','slim-full-width');
       }else {
-        setSetting('pageWidth','container');
+        setSetting('pageWidth',null);
       }
       return status('Done');
     }

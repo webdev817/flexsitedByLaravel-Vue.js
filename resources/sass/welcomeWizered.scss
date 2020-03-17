@@ -7,7 +7,13 @@ body {
 .grayColor {
     color: #979797;
 }
-
+.couponApplied{
+  text-decoration: line-through;
+  font-size: 12px;
+}
+.font8px{
+  font-size: 8px;
+}
 .addonsp1 {
     // background: #65c5b4;
     color: white;

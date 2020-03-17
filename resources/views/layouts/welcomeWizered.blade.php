@@ -22,12 +22,26 @@
 
     @yield('css')
     @yield('head')
+
 </head>
 <body>
   @yield('body')
 
 
-    @yield('js')
 
+
+    @yield('js')
+    <script type="text/javascript">
+    function doAjax(obj){
+      $.ajax({
+          url: obj.url,
+          method: ((obj.method == undefined) ? 'post' : obj.method ),
+          data: obj.data
+      })
+      .done(obj.done)
+      .fail(obj.fail);
+    }
+
+    </script>
 </body>
 </html>

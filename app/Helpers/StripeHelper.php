@@ -12,6 +12,9 @@ use Stripe\Token as StripeToken;
 use Stripe\Charge as StripeCharge;
 use Stripe\Refund as StripeRefund;
 use Stripe\Invoice as StripeInvoice;
+
+use Stripe\Coupon as StripeCoupon;
+
 use Stripe\Customer as StripeCustomer;
 use Stripe\BankAccount as StripeBankAccount;
 use Stripe\InvoiceItem as StripeInvoiceItem;
@@ -26,6 +29,67 @@ class StripeHelper
     private static $isInit = false;
 
 
+    public static function isCouponExists($couponId)
+    {
+      self::init();
+      try {
+        $coupon = StripeCoupon::retrieve($couponId);
+        return true;
+      } catch (\Exception $e) {
+        return false;
+      }
+
+    }
+    public static function getCoupon($couponId)
+    {
+      self::init();
+      try {
+        $coupon = StripeCoupon::retrieve($couponId);
+        return obj(1, "Coupon retrieved successfully", 'coupon', $coupon);
+      } catch (\Exception $e) {
+        return obj(0, $e->getMessage());
+      }
+
+    }
+    public static function deleteCoupon($id)
+    {
+      $result = self::getCoupon($id);
+      if ($result->status == 0) {
+        return true;
+      }
+      try {
+        $result->coupon->delete();
+        return obj(1,'Deleted coupon');
+      } catch (\Exception $e) {
+        return obj(0,'Deleted coupon');
+      }
+    }
+    public static function createCoupon($data)
+    {
+
+      self::init();
+
+      $name = $data['code'];
+      $id = $data['code'];
+
+      if (self::isCouponExists($id)) {
+        return self::getCoupon($id);
+      }
+      try {
+        $coupon = StripeCoupon::create([
+          'name' => $name,
+          'percent_off' => $data['percentOff'],
+          'id' => $id,
+          'duration'=>'once',
+          'currency'=> 'usd'
+        ]);
+        return obj(1, "Coupon created successfully", 'coupon', $coupon);
+      } catch (\Exception $e) {
+        return obj(0, $e->getMessage());
+      }
+
+
+    }
 
     public static function chargeSuccess()
     {
@@ -118,7 +182,7 @@ class StripeHelper
 
 
     }
-    public static function subscribeToPlan($user,  $planId)
+    public static function subscribeToPlan($user,  $planId, $coupon)
     {
       $obj = new stdClass;
       $obj->status = 1;
@@ -127,9 +191,23 @@ class StripeHelper
 
       try {
 
+          $couponIdToApply = null;
 
-          $subscription = $user->newSubscription($planId, $planId)
-          ->create();
+          if ($coupon != null) {
+            if (self::isCouponExists($coupon->code)) {
+              $couponIdToApply = $coupon->code;
+            }
+          }
+
+
+          if ($couponIdToApply != null) {
+            $subscription = $user->newSubscription('main', $planId)
+            ->withCoupon($couponIdToApply)
+            ->create();
+          }else {
+            $subscription = $user->newSubscription('main', $planId)
+            ->create();
+          }
 
           $obj->status = 1;
           $obj->subscription = $subscription;
@@ -155,48 +233,6 @@ class StripeHelper
           return $obj;
       }
     }
-    public static function createMonthlySubscription($user, $paymentMethod = null)
-    {
-        $obj = new stdClass;
-        $obj->status = 1;
-        $obj->message = "";
-
-        try {
-            $planId = self::getMonthlyPlanID();
-
-            if ($paymentMethod) {
-                $subscription = $user->newSubscription('main', $planId)
-                // ->trialUntil(Carbon::now()->addMinutes(1))
-                ->create($paymentMethod);
-            } else {
-                $subscription = $user->newSubscription('main', $planId)
-                // ->trialUntil(Carbon::now()->addMinutes(1))
-                ->create();
-            }
-
-            $obj->status = 1;
-            $obj->subscription = $subscription;
-
-            return $obj;
-        } catch (IncompletePayment $exception) {
-            $response = redirect()->route(
-                  'cashier.payment',
-                  [$exception->payment->id, 'redirect' => route('home')]
-              );
-            $obj->response = $response;
-            $obj->status = 3;
-
-            return $obj;
-        } catch (\Exception $e) {
-            $user->subscription('main')->cancelNow();
-            myLog('error while creating subscription', [
-              $user,
-              $e->getMessage()
-            ], 10);
-            $obj->message = $e->getMessage();
-            return $obj;
-        }
-    }
 
 
 
@@ -215,31 +251,6 @@ class StripeHelper
 
 
 
-
-    public static function createMonthlyPlan($options)
-    {
-        self::init();
-        return self::createPlan($options);
-    }
-
-
-    public static function getMonthlyPlanID()
-    {
-        self::init();
-        $stripePlanId = setting('stripePlanId');
-
-
-        if (self::isPlanExists($stripePlanId)) {
-            return $stripePlanId;
-        }
-
-        try {
-            $plan = self::createMonthlyPlan();
-            return $stripePlanId;
-        } catch (\Exception $e) {
-            return $e;
-        }
-    }
 
 
 
@@ -364,7 +375,7 @@ class StripeHelper
             $options,
             [
             'currency' => 'usd',
-            'statement_descriptor' => 'Charge At WP'
+            'statement_descriptor' => 'Charge At FS'
             ]
         );
         try {

@@ -223,7 +223,16 @@
                     <div class="col-lg-2  col-md-2 col-sm-2 col-4 addonsp1 logoDesign">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" name="logoDesign" class="custom-control-input" id="logoDesign">
-                            <label class="custom-control-label" for="logoDesign">$100</label>
+                            <label class="custom-control-label" for="logoDesign">
+
+                              <div class="logoDiscountedPrice hide">
+                                <span class=" couponApplied">$100</span> Free
+                              </div>
+                              <div class="logoNormalPrice">
+                                <span class=" ">$100</span>
+                              </div>
+
+                            </label>
                         </div>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-8 p-3">
@@ -236,7 +245,17 @@
                     <div class=" col-lg-2  col-md-2 col-sm-2 col-4   addonsp1 businessCardDesign">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" name="businessCardDesign" class="custom-control-input" id="businessCardDesign">
-                            <label class="custom-control-label" for="businessCardDesign">$150</label>
+                            <label class="custom-control-label" for="businessCardDesign">
+
+                              <div class="businessDiscountedPrice hide">
+                                <span class=" couponApplied">$150</span> Free
+                              </div>
+                              <div class="businessNormalPrice">
+                                <span class=" ">$150</span>
+                              </div>
+
+
+                            </label>
                         </div>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-8 p-3">
@@ -249,7 +268,14 @@
                     <div class=" col-lg-2  col-md-2 col-sm-2 col-4   addonsp1 flayerDesign">
                         <div class="custom-control custom-checkbox">
                             <input type="checkbox" name="flayerDesign" class="custom-control-input" id="flayerDesign">
-                            <label class="custom-control-label" for="flayerDesign">$200</label>
+                            <label class="custom-control-label" for="flayerDesign">
+                              <div class="flayerDiscountedPrice hide">
+                                <span class=" couponApplied">$200</span> Free
+                              </div>
+                              <div class="flayerNormalPrice">
+                                <span class=" ">$200</span>
+                              </div>
+                            </label>
                         </div>
                     </div>
                     <div class="col-lg-10 col-md-10 col-sm-10 col-8 p-3">
@@ -275,24 +301,21 @@
         <div class="row justify-content-center mb-2">
             <div class="col-12 col-md-12 col-lg-6 col-xl-6 p-0">
               <div class="borderFav input-group mb-3 p-1">
-                  <input type="text" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" id="applayPromoCode" placeholder="Ex: 123456AB">
+                  <input type="text" name="couponCode" class="border-0 form-control shadow-none cstmFormControl cstmFontForDomainInput" id="couponCode" placeholder="Ex: 123456AB">
                   <div class="input-group-append">
-                      <button class="btn btn-cstm rounded-0 shadow-none" type="button" id="applayPromoCode">Apply</button>
+                      <button class="btn btn-cstm rounded-0 shadow-none" type="button" id="applyPromoCode">Apply</button>
                   </div>
               </div>
             </div>
+            <input type="hidden" id="couponJsonHai" value="">
         </div>
         <div class="row justify-content-center mb-2">
             <div class="col-12 col-md-12 col-lg-6 col-xl-6 p-0">
-
-                      <h4 class="d-inline grayColor">Total:</h4>
-                      <h4 class="favColor d-inline" id="amount"></h4>
-
+                  <h4 class="d-inline grayColor">Total:</h4>
+                  <h4 class="favColor d-inline" id="amount"></h4>
                   <div class="col-12"></div>
-
-                      <h6 class="d-inline grayColor">RECURRING AMOUNT:</h6>
-                      <h6 class="favColor d-inline" id="recurringAmount">$0</h6>
-
+                  <h6 class="d-inline grayColor">RECURRING AMOUNT:</h6>
+                  <h6 class="favColor d-inline" id="recurringAmount">$0</h6>
             </div>
         </div>
 

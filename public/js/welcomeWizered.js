@@ -109,7 +109,14 @@ $(".commonSelectPages").click(function () {
 
     $(this).find('.boxRadioContainer').addClass('active');
   }
-}); // billing page start here
+});
+
+function getRecurringAmount() {
+  var elms = $(".planHead.active");
+  var p = $(elms).children().filter('.planPrice').text();
+  return p;
+} // billing page start here
+
 
 $(".planHead").click(function () {
   var path = window.location.pathname;
@@ -117,38 +124,154 @@ $(".planHead").click(function () {
   if (path != "/websitePackege") {
     $(".planHead").removeClass('active');
     $(this).addClass('active');
-    var p = $(this).children().filter('.planPrice').text();
-    $("#recurringAmount").html(p);
+    updateRecurringPriceYo();
   }
 });
 
-function showTotalPrice() {
+function updateRecurringPriceYo() {
+  var recurringAmount = getRecurringAmount();
+  recurringAmount = recurringAmount.replace('$', '');
+  recurringAmount = parseFloat(recurringAmount);
+  var coupon = getCouponObj();
+  var recurringAmountForTotal = 0;
+
+  if (coupon.subscriptionDiscount == 1) {
+    var percentage = coupon.percentOff;
+    var howMuchToSubtract = recurringAmount * (percentage / 100);
+    var recurringAmountAfterDiscount = recurringAmount - howMuchToSubtract;
+
+    if (recurringAmountAfterDiscount == 0) {
+      recurringAmountAfterDiscount = "Free";
+    } else {
+      recurringAmountForTotal = recurringAmountAfterDiscount;
+      recurringAmountAfterDiscount = "$" + recurringAmountAfterDiscount;
+    }
+
+    var finalOutput = "<div class='couponApplied d-inline'>$" + recurringAmount + "</div> " + " <span class='font8px'>,One Time</span> " + recurringAmountAfterDiscount;
+    $("#recurringAmount").html(finalOutput);
+  } else if (coupon.freeOnePageWebsite == 1 && $("#hiddenPlanNumber").val() == 1) {
+    recurringAmountForTotal = 0;
+    var finalOutput = "<div class='couponApplied d-inline'>$" + recurringAmount + "</div> " + " <span class='font8px'>,One Time</span> Free";
+    $("#recurringAmount").html(finalOutput);
+  } else {
+    recurringAmountForTotal = recurringAmount;
+    $("#recurringAmount").html(recurringAmount);
+  }
+
   var price = 0;
   var logoDesign = $("#logoDesign").is(':checked');
 
-  if (logoDesign) {
+  if (logoDesign && coupon.freeLogo != 1) {
     price = 100;
   }
 
   var businessCardDesign = $("#businessCardDesign").is(':checked');
 
-  if (businessCardDesign) {
+  if (businessCardDesign && coupon.freeBusinessCard != 1) {
     price = price + 150;
   }
 
   var flayerDesign = $("#flayerDesign").is(':checked');
 
-  if (flayerDesign) {
+  if (flayerDesign && coupon.freeFlayer != 1) {
     price = price + 200;
   }
 
-  var recurringAmount = $("#recurringAmount").text();
-  recurringAmount = recurringAmount.replace('$', '');
-  recurringAmount = parseFloat(recurringAmount);
-  price = price + recurringAmount;
-  $("#amount").html("$" + price);
-} // amount
+  price = price + recurringAmountForTotal;
 
+  if (price == 0) {
+    price = "Free";
+  } else {
+    price = "$" + price;
+  }
+
+  $("#amount").html(price);
+}
+
+function getCouponObj() {
+  var coupon = $("#couponJsonHai").val();
+
+  try {
+    var coupon = JSON.parse(coupon);
+  } catch (e) {}
+
+  if (coupon == null) {
+    coupon = {
+      freeLogo: 0,
+      freeFlayer: 0,
+      freeBusinessCard: 0,
+      subscriptionDiscount: 0,
+      percentOff: 0,
+      freeOnePageWebsite: 0
+    };
+  }
+
+  return coupon;
+}
+
+function showTotalPrice() {
+  updateRecurringPriceYo();
+  updatePricesIfThereIsCouponForAddons();
+}
+
+function doVisibitlyWork(hideTo, showTo) {
+  $(hideTo).removeClass('hide');
+  $(showTo).removeClass('hide').addClass('hide');
+}
+
+function updatePricesIfThereIsCouponForAddons() {
+  var coupon = getCouponObj();
+
+  if (coupon.freeLogo == 1) {
+    doVisibitlyWork(".logoDiscountedPrice", ".logoNormalPrice");
+  } else {
+    doVisibitlyWork(".logoNormalPrice", ".logoDiscountedPrice");
+  }
+
+  if (coupon.freeFlayer == 1) {
+    doVisibitlyWork(".flayerDiscountedPrice", ".flayerNormalPrice");
+  } else {
+    doVisibitlyWork(".flayerNormalPrice", ".flayerDiscountedPrice");
+  }
+
+  if (coupon.freeBusinessCard == 1) {
+    doVisibitlyWork(".businessDiscountedPrice", ".businessNormalPrice");
+  } else {
+    doVisibitlyWork(".businessNormalPrice", ".businessDiscountedPrice");
+  }
+}
+
+$("#applyPromoCode").click(function () {
+  var couponCode = $("#couponCode").val();
+
+  if (couponCode.length < 1) {
+    alert('Please enter a valid Coupon');
+    return 0;
+  }
+
+  doAjax({
+    url: '/couponInfo',
+    method: 'get',
+    data: {
+      couponCode: couponCode
+    },
+    done: function done(response) {
+      if (response.status == 0) {
+        $("#couponJsonHai").val('');
+        $("#couponCode").val('');
+        alert(response.message);
+        return 0;
+      } else {
+        var json = JSON.stringify(response.data.coupon);
+        $("#couponJsonHai").val(json);
+        showTotalPrice();
+      }
+    },
+    fail: function fail(error) {
+      alert(error);
+    }
+  });
+}); // amount
 
 $(".planHead").click(showTotalPrice);
 $("#logoDesign").change(showTotalPrice);

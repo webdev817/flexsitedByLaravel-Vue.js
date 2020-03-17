@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\BusinessAttachment;
 use App\DesignCategory;
 use App\Wizered;
+use App\Coupon;
+
 use App\Design;
 use Auth;
 use StripeHelper;
@@ -108,6 +110,13 @@ class WizeredController extends Controller
             ]
         );
 
+        $coupon = null;
+        if ($request->couponCode != null) {
+          $coupon = Coupon::where('code',$request->couponCode)->where('status',1)->first();
+          if ($coupon != null) {
+            self::insertWizered('couponUsedId', $coupon->id);
+          }
+        }
         $user = Auth::user();
         $paymentMethod = $request->paymentMethod;
         $obj = StripeHelper::updateCard($paymentMethod);
@@ -155,22 +164,31 @@ class WizeredController extends Controller
 
         if ($logoDesign == "on") {
             self::insertWizered("logoDesign", $logoDesign);
-            $stripeChargeAmount = 100;
+            if ($coupon == null || $coupon->freeLogo != 1) {
+              $stripeChargeAmount = 100;
+            }
             $stripeChargeMessage = "Logo Design  ";
         }
         $businessCardDesign = $request->businessCardDesign;
         if ($businessCardDesign == "on") {
             self::insertWizered("businessCardDesign", $businessCardDesign);
-            $stripeChargeAmount = $stripeChargeAmount + 150;
+
+            if ($coupon == null || $coupon->freeBusinessCard != 1) {
+              $stripeChargeAmount = $stripeChargeAmount + 150;
+            }
+
             $stripeChargeMessage .= "Business Card Design  ";
+
         }
         $flayerDesign = $request->flayerDesign;
         if ($flayerDesign == "on") {
             self::insertWizered("flayerDesign", $flayerDesign);
-            $stripeChargeAmount = $stripeChargeAmount + 200;
+            if ($coupon == null || $coupon->freeFlayer != 1) {
+              $stripeChargeAmount = $stripeChargeAmount + 200;
+            }
             $stripeChargeMessage .= "Flayer Design    ";
         }
-        $stripeChargeAmount = $stripeChargeAmount * 100;
+        $stripeChargeAmount = $stripeChargeAmount * 100; // cents to dollers
 
 
 
@@ -181,20 +199,28 @@ class WizeredController extends Controller
         self::insertWizered('stripeChargeMessage',$stripeChargeMessage);
 
         // charge user for logo site design and flyer
-        $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
-        if ($chargeStatus->status == 3) {
-            self::insertWizered("charged", 'inComplete');
-            return $chargeStatus->response;
+        if ($stripeChargeAmount > 0) {
+          $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
+          if ($chargeStatus->status == 3) {
+              self::insertWizered("charged", 'inComplete');
+              return $chargeStatus->response;
+          }
+          if ($chargeStatus->status == 0) {
+              self::insertWizered("charged", $chargeStatus->message);
+              return errorMessage($chargeStatus->message);
+          }
+          self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
+
+          self::insertWizered("charged", 'complete');
+        }else {
+          self::insertWizered("charged", 'NotNeeded');
         }
-        if ($chargeStatus->status == 0) {
-            self::insertWizered("charged", $chargeStatus->message);
-            return errorMessage($chargeStatus->message);
-        }
-        self::insertWizered("charged", 'complete');
+
 
         // subscribe to plan
         try {
-            $obj = StripeHelper::subscribeToPlan($user, $planId);
+
+            $obj = StripeHelper::subscribeToPlan($user, $planId, $coupon);
             if ($obj->status == 0) {
                 self::insertWizered("subscribe", $e->getMessage());
                 return errorMessage($obj->message);
@@ -236,7 +262,9 @@ class WizeredController extends Controller
               self::insertWizered("charged", $chargeStatus->message);
               return errorMessage($chargeStatus->message);
           }
+
           self::insertWizered("charged", 'complete');
+          self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
         }
         $user = Auth::user();
         // subscribe to plan
@@ -245,7 +273,17 @@ class WizeredController extends Controller
         if ($subscribe == null) {
           try {
               $planId = $data->where('key','planId')->first()->value;
-              $obj = StripeHelper::subscribeToPlan($user, $planId);
+
+              $coupon = null;
+              $tempData = self::getWizered(['couponUsedId']);
+              $tempData = $tempData->first();
+
+              if ($tempData != null) {
+                $couponId = $tempData->value;
+                $coupon = Coupon::find($couponId);
+              }
+
+              $obj = StripeHelper::subscribeToPlan($user, $planId ,$coupon);
 
               if ($obj->status == 0) {
                   self::insertWizered("subscribe", $e->getMessage());
