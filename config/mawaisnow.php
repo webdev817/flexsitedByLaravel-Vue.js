@@ -6,5 +6,6 @@ return [
   'description'=>"",
   'contactAddress'=> 'support@Flexsited.com',
   'keywords'=>"",
-  'phoneNumber'=>''
+  'phoneNumber'=>'',
+  'author'=>''
 ];

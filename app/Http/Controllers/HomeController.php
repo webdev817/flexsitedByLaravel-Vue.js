@@ -32,8 +32,9 @@ class HomeController extends Controller
 
   public function handleSuperAdmin($request)
   {
-    $usersCount = User::where('role',1)->count();
-    return view('admin.home',compact('usersCount'));
+    return redirect()->route('adminHome');
+    // $usersCount = User::where('role',1)->count();
+    // return view('admin.home',compact('usersCount'));
   }
   public function root(Request $request)
   {
