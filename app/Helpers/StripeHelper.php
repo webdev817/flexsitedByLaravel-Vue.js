@@ -413,4 +413,26 @@ class StripeHelper
             return $e;
         }
     }
+    public static function getInvoice($user, $subscriptionId)
+    {
+      self::init();
+      $stripeCustomerId = $user->stripe_id;
+      try {
+        $invoices = StripeInvoice::all([
+          'customer'=> $stripeCustomerId,
+          'subscription'=> $subscriptionId
+        ]);
+      } catch (\Exception $e) {
+        return null;
+      }
+      $invoice = null;
+      foreach ($invoices as $invoice) {
+        $invoice = $invoice;
+        break;
+      }
+      if ($invoice == null) {
+        return null;
+      }
+      return new \Laravel\Cashier\Invoice($user, $invoice);
+    }
 }

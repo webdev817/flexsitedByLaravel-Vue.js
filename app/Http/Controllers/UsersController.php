@@ -92,7 +92,7 @@ class UsersController extends Controller
                    'mainSubscription'=> $user->subscription('main'),
                    'wizeredObj'=> getWizeredObj($user->id),
                 ];
-
+      
         return view('admin.users.clientOnBoarding', $array);
     }
 

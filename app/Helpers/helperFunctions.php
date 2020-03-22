@@ -11,6 +11,36 @@ function fileInfo($file)
 {
   return (object)pathinfo($file);
 }
+function fileInfoWithClassObj($file)
+{
+  $obj = fileInfo($file);
+  $obj->fullName = $obj->filename . ".$obj->extension";
+  
+  $obj->size = filesize_formatted($file);
+
+  $obj->class = "fas fa-file";
+
+  if (in_array($obj->extension, ['jpeg', 'jpg', 'png', 'bmp', 'tiff', 'gif'])) {
+    $obj->class = "fas fa-file-image";
+  }
+  if (in_array($obj->extension, ['zip'])) {
+    $obj->class = "fas fa-file-archive";
+  }
+  if (in_array($obj->extension, ['doc', 'docx'])) {
+    $obj->class = "fas fa-file-word";
+  }
+  if (in_array($obj->extension, ['pdf'])) {
+    $obj->class = "fas fa-file-pdf";
+  }
+  return $obj;
+}
+function filesize_formatted($path)
+{
+    $size = filesize($path);
+    $units = array( 'B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+    $power = $size > 0 ? floor(log($size, 1024)) : 0;
+    return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
+}
 function requestIs($path)
 {
     if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {

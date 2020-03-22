@@ -13,7 +13,7 @@ class AdminController extends Controller
 
     public function home(Request $request)
     {
-        return view('layouts.dashboard.master');
+        return view('admin.home');
     }
 
 

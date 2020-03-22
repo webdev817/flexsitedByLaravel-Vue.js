@@ -10250,6 +10250,22 @@ div.code-toolbar > .toolbar span:hover {
   background: #04a9f5;
   border-color: #04a9f5;
 }
+.text-lowercase {
+  text-transform: lowercase !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase !important;
+}
+
+.text-capitalize {
+  text-transform: capitalize !important;
+}
+
+.text-break {
+    word-break: break-word!important;
+    overflow-wrap: break-word!important;
+}
 
 /**====== Calendar css end ======**/
 /**  =====================

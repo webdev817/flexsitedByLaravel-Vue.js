@@ -337,7 +337,7 @@ class WizeredController extends Controller
         $request->validate([
           'logoUpload.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
           'galleryImages.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-          'contentUpload' => 'nullable|max:25000'
+          'contentUpload' => 'nullable|max:25000|mimes:doc,pdf,docx,zip'
           ], [
           'logoUpload.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
           'logoUpload.*.max' => 'Sorry! Maximum allowed size can be 15MB',
