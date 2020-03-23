@@ -156,7 +156,7 @@
 <div class="card-header">
     <h5>Order Total</h5>
 </div>
-<div class="card-header">
+<div class="card-header pt-0">
   <div class="table-responsive">
       <table class="table">
           <tbody>
@@ -187,7 +187,7 @@
 
 
             <strong>
-              ${{ $totalAmount }}
+              ${{ $totalAmount / 100 }}
             </strong>
           </td>
         </tr>

@@ -30,7 +30,10 @@
     <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/css/style.css') }}">
 
     <script src="{{ asset( 'mawaisnow/able/assets/js/vendor-all.min.js' ) }}"></script>
-
+    @yield('head')
+    @yield('head1')
+    @yield('head2')
+    @yield('head3')
 </head>
 
 <body>
@@ -460,11 +463,13 @@
     <script src="{{ asset( 'mawaisnow/able/assets/plugins/bootstrap/js/bootstrap.min.js' ) }}"></script>
     <script src="{{ asset( 'mawaisnow/able/assets/js/pcoded.min.js' ) }}"></script>
 
-    <!-- sweet alert Js -->
-    <script src="{{ asset('mawaisnow/able/assets/plugins/sweetalert/js/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('mawaisnow/able/assets/js/pages/ac-alert.js') }}"></script>
+
     @yield('js')
+    @yield('js1')
+    @yield('js2')
+    @yield('js3')
     @yield('jsEnd')
+    @yield('jsCommon')
 
 </body>
 </html>

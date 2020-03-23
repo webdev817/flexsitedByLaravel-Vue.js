@@ -14,7 +14,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::where('role', 1)->paginate(20);
+        $users = User::where('role', 1)->paginate(10);
         return view('admin.users.index', compact('users'));
     }
 
@@ -58,7 +58,7 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('admin.users.editUser');
     }
 
     /**
@@ -81,7 +81,17 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        try {
+            if ($user->subscription('main') != null) {
+                $user->subscription('main')->cancelNow();
+            }
+        } catch (\Exception $e) {
+            return errorMessage($e->getMessage());
+        }
+        User::where('id', $id)->delete();
+
+        return statusTo('User deleted successfully', route('users.index'));
     }
 
     public function clientOnBoarding(Request $request, User $user)
@@ -92,7 +102,7 @@ class UsersController extends Controller
                    'mainSubscription'=> $user->subscription('main'),
                    'wizeredObj'=> getWizeredObj($user->id),
                 ];
-      
+
         return view('admin.users.clientOnBoarding', $array);
     }
 
@@ -106,13 +116,11 @@ class UsersController extends Controller
         $user = User::find($userId);
 
         User::where('id', $userId)->update(
-           [
+            [
            'status' => $status,
            ]
-       );
+        );
 
         return status("Status changed successfully");
     }
-
-
 }

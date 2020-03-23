@@ -60,8 +60,12 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::post('deleteUser', 'UsersController@deleteUser')->name('deleteUser');
     Route::get('subscriptionHistory/{subscriptionId}', 'BillingController@subscriptionHistory')->name('subscriptionHistory');
     Route::post('cancelSubscription', 'BillingController@cancelSubscription')->name('cancelSubscription');
+    Route::get('allSubscriptions','BillingController@allSubscriptions')->name('allSubscriptions');
+
+    
     Route::get('switchPageWidth', 'GeneralController@switchPageWidth')->name('switchPageWidth');
     Route::resource('coupons', 'CouponController');
+
 });
 
 

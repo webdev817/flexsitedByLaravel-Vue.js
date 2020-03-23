@@ -268,7 +268,7 @@ class StripeHelper
 
     public static function getPlansArray()
     {
-        $projectName = "Flex Sited ";
+        $projectName = "Flexsited ";
 
         return $plans = [
         [

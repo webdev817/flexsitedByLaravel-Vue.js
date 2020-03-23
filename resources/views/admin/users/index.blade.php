@@ -89,7 +89,11 @@
                                                         <td>
                                                           <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
                                                           <a href="#!" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
-                                                          <a href="#!" class="label theme-bg2 text-white f-12"><i class="fas fa-trash text-white"></i> Delete</a>
+                                                          <a href="javascript:void(0)" data-obj='{
+                                                            "userId": "{{$user->id}}",
+                                                            "url": "{{ route('users.destroy', $user->id) }}",
+                                                            "method": "delete"
+                                                          }' data-html="Once you delete this user, all of it's related Data will be deleted, including subscription." class="label theme-bg2 text-white f-12 deleteConfirm"><i class="fas fa-trash text-white"></i> Delete</a>
 
                                                         </td>
                                                     </tr>
@@ -131,4 +135,9 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('jsCommon')
+  @include('common.js')
 @endsection

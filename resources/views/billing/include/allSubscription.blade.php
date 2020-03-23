@@ -3,7 +3,7 @@
         <div class="modal-content bgWTP" style="width:100% !important">
 
             <!-- Modal Header -->
-            <div class="modal-header text-white bg-primary rounded-0 border-0" style="padding: 8px 19px">
+            <div class="modal-header" style="padding: 8px 19px">
                 <h4 class="modal-title">
                   {{ $user->name }}  Subscriptions
                 </h4>
@@ -16,16 +16,7 @@
               <div class="row">
                 @foreach ($user->subscriptions as $subscription)
                 <ul class="list-group list-group-flush mb-3 col-6">
-                    <li class="list-group-item">
-                        <span class="float-left">Subscription: </span>
-                        <span class="float-right">
-                            <strong>
-                                @if ($subscription->name == "main")
-                                  Monthly Subscription
-                                @endif
-                            </strong>
-                        </span>
-                    </li>
+                    
                     <li class="list-group-item">
                         <span class="float-left">Subscription Id: </span>
                         <span class="float-right">{{ $subscription->stripe_id }}</span>
@@ -62,7 +53,7 @@
                             <form action="{{ route('resumeSubscription') }}" method="post">
                                 @csrf
                                 <input type="hidden" name="subscription" value="{{ $subscription->id }}">
-                                <button type="submit" class="btn btn-success btn-sm" name="button">Resume</button>
+                                <button type="submit" class="btn btn-primary btn-sm" name="button">Resume</button>
                             </form>
                         </span>
                     </li>
@@ -96,7 +87,7 @@
                     <li class="list-group-item">
                         <span class="float-left">View Subscription: </span>
                         <span class="float-right">
-                            <a href="{{ route('subscriptionHistory',$subscription->id) }}" class="btn btn-success btn-sm">View</a>
+                            <a href="{{ route('subscriptionHistory',$subscription->id) }}" class="btn btn-primary btn-sm">View</a>
                         </span>
                     </li>
                 </ul>

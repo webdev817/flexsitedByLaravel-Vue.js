@@ -13,20 +13,10 @@ class BillingController extends Controller
 {
     public function allSubscriptions(Request $request)
     {
-        $s = $request->s;
-        $users = User::with('subscriptions')->where('role', 0);
-
-        if ($s != null) {
-            $users = $users->where(
-             function ($q) use ($s) {
-                 $q->where('email', 'like', "%$s%")->orWhere('name', 'like', "%$s%")
-                     ->orWhere('discordUsername', 'like', "%$s%");
-             }
-         );
-        }
+        $users = User::with('subscriptions')->where('role', 1);
         $users = $users->paginate(10);
 
-        return view('billing.allSubscriptions', compact('users', 's'));
+        return view('billing.allSubscriptions', compact('users'));
     }
 
 
