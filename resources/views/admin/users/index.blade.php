@@ -78,9 +78,9 @@
                                                         </td>
                                                         <td>
                                                           @if ($user->status == 1)
-                                                            <a href="#" class="label theme-bg f-12 text-white">Active</a>
+                                                            <a href="javascript:void(0)" class="label theme-bg f-12 text-white">Active</a>
                                                           @else
-                                                            <a href="#!" class="label theme-bg2 f-12 text-white">Not Active</a>
+                                                            <a href="javascript:void(0)" class="label theme-bg2 f-12 text-white">Not Active</a>
                                                           @endif
                                                         </td>
                                                         <td>
@@ -88,7 +88,7 @@
                                                         </td>
                                                         <td>
                                                           <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
-                                                          <a href="#!" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
+                                                          <a href="{{ route('users.edit', $user->id) }}" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
                                                           <a href="javascript:void(0)" data-obj='{
                                                             "userId": "{{$user->id}}",
                                                             "url": "{{ route('users.destroy', $user->id) }}",

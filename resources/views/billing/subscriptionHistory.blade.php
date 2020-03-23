@@ -150,7 +150,7 @@
                                             <li class="list-group-item">
                                                 Amount: <span class="float-right">{{ $upcomingInvoice->total() }}</span>
                                             </li>
-                                            
+
                                             <li class="list-group-item">
                                                 Start Date: <span class="float-right">
                                                     {{ unixtoDate($upcomingInvoice->period_start) }}
@@ -272,6 +272,27 @@
                                                 </tr>
 
 
+
+                                                <tr>
+                                                    <td><i class="fa-pencil-alt fas m-r-5"></i> Edit:</td>
+                                                    <td class="text-right">
+                                                      <a href="{{ route('users.edit',$user->id) }}" class="btn btn-outline-success btn-sm ">Yes</a>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                  <td><i class="far fa-trash-alt m-r-5"></i> Delete:</td>
+
+                                                  <td  class="text-right">
+                                                    <a href="javascript:void(0)" data-obj='{
+                                                      "userId": "{{$user->id}}",
+                                                      "url": "{{ route('users.destroy', $user->id) }}",
+                                                      "method": "delete"
+                                                    }' data-html="Once you delete this user, all of it's related Data will be deleted, including subscription." class=" btn-sm btn btn-outline-danger label f-12 deleteConfirm">Yes</a>
+                                                  </td>
+                                                </tr>
+
+
                                             </tbody>
                                         </table>
 
@@ -295,4 +316,9 @@
     </div>
 </div>
 
+@endsection
+
+
+@section('jsCommon')
+  @include('common.js')
 @endsection

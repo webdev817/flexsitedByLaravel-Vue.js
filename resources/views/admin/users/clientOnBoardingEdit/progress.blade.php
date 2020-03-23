@@ -18,8 +18,7 @@
             Registered
             @endif
 
-            <a href="{{ route('clientOnBoardingEdit', $user->id) }}" class="float-right ">Edit</a>
-
+           
         </h6>
         @if (is_numeric($wizeredObj->currentStep))
 

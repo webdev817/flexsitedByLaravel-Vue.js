@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use Auth;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -58,7 +60,8 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.users.editUser');
+        $user = User::findOrFail($id);
+        return view('admin.users.editUser', compact('user'));
     }
 
     /**
@@ -70,7 +73,30 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+          'name'=> 'required|max:255|min:1',
+          'businessName'=> 'required|max:255|min:1',
+          'password' => ['nullable', 'string', 'min:6'],
+        ]);
+        if ($request->password != $request->password_confirm) {
+          return errorMessage('Password does not matched.');
+        }
+
+        $user = User::findOrFail($id);
+        $user->name = $request->name;
+        $user->businessName = $request->businessName;
+        if ($request->status == 1) {
+          $user->status = 1;
+        }else {
+          $user->status = 0;
+        }
+        if ($request->password != null) {
+          $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return statusTo('User updated', route('users.index'));
     }
 
     /**

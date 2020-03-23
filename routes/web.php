@@ -62,9 +62,12 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::post('cancelSubscription', 'BillingController@cancelSubscription')->name('cancelSubscription');
     Route::get('allSubscriptions','BillingController@allSubscriptions')->name('allSubscriptions');
 
-    
     Route::get('switchPageWidth', 'GeneralController@switchPageWidth')->name('switchPageWidth');
     Route::resource('coupons', 'CouponController');
+
+    Route::get('edit/clientOnBoarding/{userId}', 'WizeredController@clientOnBoardingEdit')->name('clientOnBoardingEdit');
+    Route::post('clientOnBoardingStore', 'WizeredController@clientOnBoardingStore')->name('clientOnBoardingStore');
+
 
 });
 

@@ -62,11 +62,16 @@
                     <li class="nav-item pcoded-menu-caption">
                         <label>Navigation</label>
                     </li>
-                    <li  class="nav-item">
-                        <a href="{{ route('adminHome') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
+                    <li  class="nav-item {{ requestIsFromArray(['adminHome']) }}">
+                        <a href="{{ route('adminHome') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
-                    <li class="nav-item">
-                        <a href="{{ route('users.index') }}" class="nav-link"><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Users</span></a>
+
+                    <li class="nav-item {{ requestIsFromArray(['users.index', 'users.edit', 'clientOnBoarding']) }}">
+                        <a href="{{ route('users.index') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Users</span></a>
+                    </li>
+
+                    <li class="nav-item {{ requestIsFromArray(['allSubscriptions', 'subscriptionHistory']) }}">
+                        <a href="{{ route('allSubscriptions') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Subscriptions</span></a>
                     </li>
 
 

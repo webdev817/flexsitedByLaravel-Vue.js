@@ -5,12 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\BusinessAttachment;
 use App\DesignCategory;
-use App\Wizered;
-use App\Coupon;
-
-use App\Design;
-use Auth;
 use StripeHelper;
+use App\Wizered;
+use App\Design;
+use App\Coupon;
+use App\User;
+use Auth;
 
 class WizeredController extends Controller
 {
@@ -91,13 +91,13 @@ class WizeredController extends Controller
         $selectedWebsitePackege = self::getWizered('selectedWebsitePackege')->first()->value;
         $pages = 0;
         if ($selectedWebsitePackege == 1) {
-          $pages = 1;
-        }elseif ($selectedWebsitePackege == 2) {
-          $pages = 3;
-        }elseif ($selectedWebsitePackege == 3) {
-          $pages = 5;
-        }else {
-          $pages = 10;
+            $pages = 1;
+        } elseif ($selectedWebsitePackege == 2) {
+            $pages = 3;
+        } elseif ($selectedWebsitePackege == 3) {
+            $pages = 5;
+        } else {
+            $pages = 10;
         }
 
         return view('welcomeWizered.main', compact('currentStep', 'pages'));
@@ -112,10 +112,10 @@ class WizeredController extends Controller
 
         $coupon = null;
         if ($request->couponCode != null) {
-          $coupon = Coupon::where('code',$request->couponCode)->where('status',1)->first();
-          if ($coupon != null) {
-            self::insertWizered('couponUsedId', $coupon->id);
-          }
+            $coupon = Coupon::where('code', $request->couponCode)->where('status', 1)->first();
+            if ($coupon != null) {
+                self::insertWizered('couponUsedId', $coupon->id);
+            }
         }
         $user = Auth::user();
         $paymentMethod = $request->paymentMethod;
@@ -165,7 +165,7 @@ class WizeredController extends Controller
         if ($logoDesign == "on") {
             self::insertWizered("logoDesign", $logoDesign);
             if ($coupon == null || $coupon->freeLogo != 1) {
-              $stripeChargeAmount = 100;
+                $stripeChargeAmount = 100;
             }
             $stripeChargeMessage = "Logo Design  ";
         }
@@ -174,17 +174,16 @@ class WizeredController extends Controller
             self::insertWizered("businessCardDesign", $businessCardDesign);
 
             if ($coupon == null || $coupon->freeBusinessCard != 1) {
-              $stripeChargeAmount = $stripeChargeAmount + 150;
+                $stripeChargeAmount = $stripeChargeAmount + 150;
             }
 
             $stripeChargeMessage .= "Business Card Design  ";
-
         }
         $flayerDesign = $request->flayerDesign;
         if ($flayerDesign == "on") {
             self::insertWizered("flayerDesign", $flayerDesign);
             if ($coupon == null || $coupon->freeFlayer != 1) {
-              $stripeChargeAmount = $stripeChargeAmount + 200;
+                $stripeChargeAmount = $stripeChargeAmount + 200;
             }
             $stripeChargeMessage .= "Flayer Design    ";
         }
@@ -195,31 +194,30 @@ class WizeredController extends Controller
         self::insertWizered("planId", $planId);
         self::insertWizered("currentStep", 5);
 
-        self::insertWizered('stripeChargeAmount',$stripeChargeAmount);
-        self::insertWizered('stripeChargeMessage',$stripeChargeMessage);
+        self::insertWizered('stripeChargeAmount', $stripeChargeAmount);
+        self::insertWizered('stripeChargeMessage', $stripeChargeMessage);
 
         // charge user for logo site design and flyer
         if ($stripeChargeAmount > 0) {
-          $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
-          if ($chargeStatus->status == 3) {
-              self::insertWizered("charged", 'inComplete');
-              return $chargeStatus->response;
-          }
-          if ($chargeStatus->status == 0) {
-              self::insertWizered("charged", $chargeStatus->message);
-              return errorMessage($chargeStatus->message);
-          }
-          self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
+            $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
+            if ($chargeStatus->status == 3) {
+                self::insertWizered("charged", 'inComplete');
+                return $chargeStatus->response;
+            }
+            if ($chargeStatus->status == 0) {
+                self::insertWizered("charged", $chargeStatus->message);
+                return errorMessage($chargeStatus->message);
+            }
+            self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
 
-          self::insertWizered("charged", 'complete');
-        }else {
-          self::insertWizered("charged", 'NotNeeded');
+            self::insertWizered("charged", 'complete');
+        } else {
+            self::insertWizered("charged", 'NotNeeded');
         }
 
 
         // subscribe to plan
         try {
-
             $obj = StripeHelper::subscribeToPlan($user, $planId, $coupon);
             if ($obj->status == 0) {
                 self::insertWizered("subscribe", $e->getMessage());
@@ -246,65 +244,63 @@ class WizeredController extends Controller
     {
         $data = self::getWizered(['subscribe', 'charged','planId']);
 
-        $chargeStatus = $data->where('key','charged')->first();
+        $chargeStatus = $data->where('key', 'charged')->first();
 
         if ($chargeStatus == null) {
-          $data1 = self::getWizered(['stripeChargeAmount', 'stripeChargeMessage']);
-          $stripeChargeAmount = $data1->where('key','stripeChargeAmount')->first()->value;
-          $stripeChargeMessage = $data1->where('key','stripeChargeMessage')->first()->value;
+            $data1 = self::getWizered(['stripeChargeAmount', 'stripeChargeMessage']);
+            $stripeChargeAmount = $data1->where('key', 'stripeChargeAmount')->first()->value;
+            $stripeChargeMessage = $data1->where('key', 'stripeChargeMessage')->first()->value;
 
-          $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
-          if ($chargeStatus->status == 3) {
-              self::insertWizered("charged", 'inComplete');
-              return $chargeStatus->response;
-          }
-          if ($chargeStatus->status == 0) {
-              self::insertWizered("charged", $chargeStatus->message);
-              return errorMessage($chargeStatus->message);
-          }
+            $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
+            if ($chargeStatus->status == 3) {
+                self::insertWizered("charged", 'inComplete');
+                return $chargeStatus->response;
+            }
+            if ($chargeStatus->status == 0) {
+                self::insertWizered("charged", $chargeStatus->message);
+                return errorMessage($chargeStatus->message);
+            }
 
-          self::insertWizered("charged", 'complete');
-          self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
+            self::insertWizered("charged", 'complete');
+            self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
         }
         $user = Auth::user();
         // subscribe to plan
-        $subscribe = $data->where('key','subscribe')->first();
+        $subscribe = $data->where('key', 'subscribe')->first();
 
         if ($subscribe == null) {
-          try {
-              $planId = $data->where('key','planId')->first()->value;
+            try {
+                $planId = $data->where('key', 'planId')->first()->value;
 
-              $coupon = null;
-              $tempData = self::getWizered(['couponUsedId']);
-              $tempData = $tempData->first();
+                $coupon = null;
+                $tempData = self::getWizered(['couponUsedId']);
+                $tempData = $tempData->first();
 
-              if ($tempData != null) {
-                $couponId = $tempData->value;
-                $coupon = Coupon::find($couponId);
-              }
+                if ($tempData != null) {
+                    $couponId = $tempData->value;
+                    $coupon = Coupon::find($couponId);
+                }
 
-              $obj = StripeHelper::subscribeToPlan($user, $planId ,$coupon);
+                $obj = StripeHelper::subscribeToPlan($user, $planId, $coupon);
 
-              if ($obj->status == 0) {
-                  self::insertWizered("subscribe", $e->getMessage());
-                  return errorMessage($obj->message);
-              }
-              if ($obj->status == 3) {
-                  self::insertWizered("subscribe", 'inComplete');
-                  return $obj->response;
-              }
-          } catch (\Exception $e) {
-
-              self::insertWizered("subscribe", $e->getMessage());
-              return errorMessage($e->getMessage());
-          }
+                if ($obj->status == 0) {
+                    self::insertWizered("subscribe", $e->getMessage());
+                    return errorMessage($obj->message);
+                }
+                if ($obj->status == 3) {
+                    self::insertWizered("subscribe", 'inComplete');
+                    return $obj->response;
+                }
+            } catch (\Exception $e) {
+                self::insertWizered("subscribe", $e->getMessage());
+                return errorMessage($e->getMessage());
+            }
         }
 
 
         self::insertWizered("subscribe", 'complete');
 
         return redirect()->route('businessInformation')->with('status', 'Subscription successfull');
-
     }
 
 
@@ -348,13 +344,13 @@ class WizeredController extends Controller
         $contentUpload = $request->contentUpload;
         $galleryImages = $request->galleryImages;
         if ($logoFiles != null) {
-          foreach ($logoFiles as $logoFile) {
-            $businessAttachment = new BusinessAttachment;
-            $businessAttachment->path = $logoFile->store('logoUpload');
-            $businessAttachment->type = 1;
-            $businessAttachment->createdBy = Auth::id();
-            $businessAttachment->save();
-          }
+            foreach ($logoFiles as $logoFile) {
+                $businessAttachment = new BusinessAttachment;
+                $businessAttachment->path = $logoFile->store('logoUpload');
+                $businessAttachment->type = 1;
+                $businessAttachment->createdBy = Auth::id();
+                $businessAttachment->save();
+            }
         }
         if ($contentUpload != null) {
             $businessAttachment = new BusinessAttachment;
@@ -365,13 +361,13 @@ class WizeredController extends Controller
         }
 
         if ($galleryImages != null) {
-          foreach ($galleryImages as $galleryImage) {
-            $businessAttachment = new BusinessAttachment;
-            $businessAttachment->path = $galleryImage->store('galleryImages');
-            $businessAttachment->type = 3;
-            $businessAttachment->createdBy = Auth::id();
-            $businessAttachment->save();
-          }
+            foreach ($galleryImages as $galleryImage) {
+                $businessAttachment = new BusinessAttachment;
+                $businessAttachment->path = $galleryImage->store('galleryImages');
+                $businessAttachment->type = 3;
+                $businessAttachment->createdBy = Auth::id();
+                $businessAttachment->save();
+            }
         }
         self::insertWizered('wizered', 'allDone');
 
@@ -386,7 +382,7 @@ class WizeredController extends Controller
         $wizerd = $wizerd->where('userId', Auth::id());
 
         if (is_array($data)) {
-            $wizerd = $wizerd->where(function ($q)use($data) {
+            $wizerd = $wizerd->where(function ($q) use ($data) {
                 foreach ($data as $value) {
                     $q->orWhere('key', $value);
                 }
@@ -402,6 +398,60 @@ class WizeredController extends Controller
 
         $wizered = new Wizered;
         $wizered->userId = Auth::id();
+        $wizered->key = $key;
+        $wizered->value = $value;
+        $wizered->save();
+    }
+
+    public function clientOnBoardingEdit(Request $request, $userId)
+    {
+        $invoices = null;
+
+        $user = User::findOrFail($userId);
+
+        $array = [ 'user' => $user ,
+                 'mainSubscription'=> $user->subscription('main'),
+                 'wizeredObj'=> getWizeredObj($user->id),
+              ];
+
+
+
+        return view('admin.users.editClientOnBoarding', $array);
+    }
+    public function clientOnBoardingStore(Request $request)
+    {
+        $arr = [
+        "businessName",
+        "businessPhoneNumber",
+        "businessAddress",
+        "hoursOfOperation",
+        "whatBeautyServicesDoYouOffer",
+        "appointment",
+        "socialMediaHandles",
+        "domain"
+      ];
+      $userId = $request->userId;
+
+      foreach ($arr as $key => $value) {
+        $input = $request->$value;
+        if ($input != null) {
+          self::insertWizeredByUser($value, $input, $userId);
+        }
+      }
+
+      $pageSelected = $request->pageSelected;
+      $pageSelected = implode(",", $pageSelected);
+
+      self::insertWizered('pageSelected',$pageSelected, $userId);
+      return statusTo('Data update successfull', route('clientOnBoarding', $userId));
+    }
+
+    public static function insertWizeredByUser($key, $value, $userId)
+    {
+        Wizered::where('userId', $userId)->where('key', $key)->delete();
+
+        $wizered = new Wizered;
+        $wizered->userId = $userId;
         $wizered->key = $key;
         $wizered->value = $value;
         $wizered->save();
