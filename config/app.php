@@ -228,6 +228,8 @@ return [
 
         'Helper' => App\Helpers\Helper::class,
         'StripeHelper' => App\Helpers\StripeHelper::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
     ],
 
 ];

@@ -395,6 +395,8 @@ class StripeHelper
     public static function init()
     {
         $key = env('STRIPE_SECRET');
+        Stripe::setApiKey($key);
+
         if (!self::$isInit) {
             Stripe::setApiKey($key);
         }
@@ -412,6 +414,18 @@ class StripeHelper
         } catch (\Exception $e) {
             return $e;
         }
+    }
+
+    public static function getStripeInvoiceById($id)
+    {
+      self::init();
+      try {
+        return StripeInvoice::retrieve($id);
+      } catch (\Exception $e) {
+        storeDataToDisk($e->getMessage());
+        return null;
+      }
+
     }
     public static function getInvoice($user, $subscriptionId)
     {

@@ -15,7 +15,7 @@ function fileInfoWithClassObj($file)
 {
   $obj = fileInfo($file);
   $obj->fullName = $obj->filename . ".$obj->extension";
-  
+
   $obj->size = filesize_formatted($file);
 
   $obj->class = "fas fa-file";
@@ -92,6 +92,22 @@ function sendSignUpEmail(array $data)
 {
     $email = $data['email'];
     \Mail::to($email)->send(new App\Mail\SignUpMail($data));
+}
+function sendInvoicePaidEmail(array $data)
+{
+    $email = $data['email'];
+    \Mail::to($email)->send(new App\Mail\InvoiceEmail($data));
+}
+function storeDataToDisk($data) {
+  $data = serialize($data);
+  file_put_contents('tempSerilizedData',$data);
+}
+function getDataFromDisk() {
+  $data = file_get_contents('tempSerilizedData');
+  $data = unserialize($data);
+  dd(
+    $data
+  );
 }
 function json($message, $data)
 {

@@ -14,6 +14,8 @@ use Laravel\Cashier\Payment;
 use Laravel\Cashier\Subscription;
 use Stripe\PaymentIntent as StripePaymentIntent;
 use Symfony\Component\HttpFoundation\Response;
+use Stripe\Stripe;
+use StripeHelper;
 use Helper;
 
 
@@ -35,7 +37,21 @@ class WebhookController extends CashierController
 
     public function handleInvoicePaymentSucceeded($payload)
     {
+        // storeDataToDisk($payload);
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
+
+         
+          $invoiceId = $payload['data']['object']['id'];
+
+          $invoice = StripeHelper::getStripeInvoiceById($invoiceId);
+
+          $laravelInvoice = new \Laravel\Cashier\Invoice($user, $invoice);
+
+          sendInvoicePaidEmail([
+            'email'=> $user->email,
+            'user'=> $user,
+            'invoice'=> $laravelInvoice
+            ]);
 
         }
 

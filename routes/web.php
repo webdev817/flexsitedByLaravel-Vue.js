@@ -68,9 +68,11 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::get('edit/clientOnBoarding/{userId}', 'WizeredController@clientOnBoardingEdit')->name('clientOnBoardingEdit');
     Route::post('clientOnBoardingStore', 'WizeredController@clientOnBoardingStore')->name('clientOnBoardingStore');
 
-
 });
 
+Route::get('log',function () {
+  getDataFromDisk();
+});
 
 Route::redirect('admin', 'admin/home');
 
