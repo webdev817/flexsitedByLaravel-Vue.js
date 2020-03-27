@@ -13,7 +13,7 @@
     </div>
 
 
-    <div class="card-block task-details pt-0 pb-0">
+    <div class="card-block task-details table-responsive">
         <table class="table">
             <tbody>
                 <tr>

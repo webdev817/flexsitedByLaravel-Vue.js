@@ -83,7 +83,7 @@
 
 
 
-                            <div class="col-xl-4 col-lg-12">
+                            <div class="col-xl-4 col-lg-12 ">
                               @include('admin.users.clientOnBoarding.user')
                             </div>
 
