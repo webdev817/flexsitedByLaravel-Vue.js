@@ -81,7 +81,8 @@
             <!-- Organization Name / Image -->
             <td align="right">
                 {{-- <strong>{{ $header ?? $vendor }}</strong> --}}
-                <img style="width:200px" src="{{ public_path('\mawaisnow\logo\FLEXSITED-2.jpg') }}" alt="">
+                {{ public_path('\mawaisnow\logo\FLEXSITED-2.jpg') }}
+                {{-- <img style="width:200px" src="{{ public_path('\mawaisnow\logo\FLEXSITED-2.jpg') }}" alt=""> --}}
             </td>
         </tr>
         <tr valign="top">
