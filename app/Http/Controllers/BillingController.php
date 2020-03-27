@@ -150,10 +150,10 @@ class BillingController extends Controller
                 $id,
                 [
                     'vendor'  => config('mawaisnow.title'),
-                    'product' => '',
-                    'street' => '1111 E 117th St',
-                    'location' => 'Burnsville, MN 1111',
-                    'phone' => '111-111-1111',
+                    'product' => 'Flexsited',
+                    'street' => '1755 NORTH BROWN',
+                    'location' => 'ROAD SUITE 200, LAWRENCEVILLE, GA 30043',
+                    'phone' => '678-741-1928',
                     'url'=> url('/')
                   ]
             );

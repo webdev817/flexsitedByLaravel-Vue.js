@@ -105,9 +105,10 @@ function storeDataToDisk($data) {
 function getDataFromDisk() {
   $data = file_get_contents('tempSerilizedData');
   $data = unserialize($data);
-  dd(
-    $data
-  );
+  // dd(
+  //   $data
+  // );
+  return $data;
 }
 function json($message, $data)
 {

@@ -50,145 +50,164 @@
 <div class="container">
     <table style="margin-left: auto; margin-right: auto;" width="550">
         <tr>
-            <td width="160">
-                &nbsp;
+            <td width="50%">
+              <strong>
+                {{ $vendor }}
+
+              </strong>
+              <br>
+
+              @if (isset($street))
+                  {{ $street }}<br>
+              @endif
+
+              @if (isset($location))
+                  {{ $location }}<br>
+              @endif
+
+              @if (isset($phone))
+                  <strong>T</strong> {{ $phone }}<br>
+              @endif
+
+              @if (isset($vendorVat))
+                  {{ $vendorVat }}<br>
+              @endif
+
+              @if (isset($url))
+                  <a href="{{ $url }}">{{ $url }}</a>
+              @endif
             </td>
 
             <!-- Organization Name / Image -->
             <td align="right">
-                <strong>{{ $header ?? $vendor }}</strong>
+                {{-- <strong>{{ $header ?? $vendor }}</strong> --}}
+                <img style="width:200px" src="{{ public_path() . '\mawaisnow\logo\FLEXSITED-2.jpg' }}" alt="">
             </td>
         </tr>
         <tr valign="top">
-            <td style="font-size: 28px; color: #ccc;">
-                Receipt
-            </td>
-
-            <!-- Organization Name / Date -->
-            <td>
+            <td></td>
+            <td align="right">
                 <br><br>
                 <strong>To:</strong> {{ $owner->email ?: $owner->name }}
                 <br>
-                <strong>Date:</strong> {{ $invoice->date()->toFormattedDateString() }}
+                <strong>Invoice Date:</strong> {{ $invoice->date()->toFormattedDateString() }}
             </td>
         </tr>
-        <tr valign="top">
-            <!-- Organization Details -->
-            <td style="font-size:9px;">
-                {{ $vendor }}<br>
 
-                @if (isset($street))
-                    {{ $street }}<br>
-                @endif
-
-                @if (isset($location))
-                    {{ $location }}<br>
-                @endif
-
-                @if (isset($phone))
-                    <strong>T</strong> {{ $phone }}<br>
-                @endif
-
-                @if (isset($vendorVat))
-                    {{ $vendorVat }}<br>
-                @endif
-
-                @if (isset($url))
-                    <a href="{{ $url }}">{{ $url }}</a>
-                @endif
-            </td>
-            <td>
-                <!-- Invoice Info -->
-                <p>
-                    <strong>Product:</strong> {{ $product }}<br>
-                    <strong>Invoice Number:</strong> {{ $id ?? $invoice->id }}<br>
-                </p>
-
-                <!-- Extra / VAT Information -->
-                @if (isset($vat))
-                    <p>
-                        {{ $vat }}
-                    </p>
-                @endif
-
-                <br><br>
-
-                <!-- Invoice Table -->
-                <table width="100%" class="table" border="0">
-                    <tr>
-                        <th align="left">Description</th>
-                        <th align="right">Date</th>
-                        <th align="right">Amount</th>
-                    </tr>
-
-                    <!-- Display The Invoice Items -->
-                    @foreach ($invoice->invoiceItems() as $item)
-                        <tr class="row">
-                            <td colspan="2">{{ $item->description }}</td>
-                            <td>{{ $item->total() }}</td>
-                        </tr>
-                    @endforeach
-
-                    <!-- Display The Subscriptions -->
-                    @foreach ($invoice->subscriptions() as $subscription)
-                        <tr class="row">
-                            <td>Subscription ({{ $subscription->quantity }})</td>
-                            <td>
-                                {{ $subscription->startDateAsCarbon()->formatLocalized('%B %e, %Y') }} -
-                                {{ $subscription->endDateAsCarbon()->formatLocalized('%B %e, %Y') }}
-                            </td>
-                            <td>{{ $subscription->total() }}</td>
-                        </tr>
-                    @endforeach
-
-                    <!-- Display The Subtotal -->
-                    @if ($invoice->hasDiscount() || $invoice->tax_percent || $invoice->hasStartingBalance())
-                        <tr>
-                            <td colspan="2" style="text-align: right;">Subtotal</td>
-                            <td>{{ $invoice->subtotal() }}</td>
-                        </tr>
-                    @endif
-
-                    <!-- Display The Discount -->
-                    @if ($invoice->hasDiscount())
-                        <tr>
-                            <td colspan="2" style="text-align: right;">
-                                @if ($invoice->discountIsPercentage())
-                                    {{ $invoice->coupon() }} ({{ $invoice->percentOff() }}% Off)
-                                @else
-                                    {{ $invoice->coupon() }} ({{ $invoice->amountOff() }} Off)
-                                @endif
-                            </td>
-
-                            <td>-{{ $invoice->discount() }}</td>
-                        </tr>
-                    @endif
-
-                    <!-- Display The Tax Amount -->
-                    @if ($invoice->tax_percent)
-                        <tr>
-                            <td colspan="2" style="text-align: right;">Tax ({{ $invoice->tax_percent }}%)</td>
-                            <td>{{ $invoice->tax() }}</td>
-                        </tr>
-                    @endif
-
-                    <!-- Starting Balance -->
-                    @if ($invoice->hasStartingBalance())
-                        <tr>
-                            <td colspan="2" style="text-align: right;">Customer Balance</td>
-                            <td>{{ $invoice->startingBalance() }}</td>
-                        </tr>
-                    @endif
-
-                    <!-- Display The Final Total -->
-                    <tr>
-                        <td colspan="2" style="text-align: right;"><strong>Total</strong></td>
-                        <td><strong>{{ $invoice->total() }}</strong></td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
     </table>
+    <table style="margin-left: auto; margin-right: auto;" width="550" style="padding:0px">
+      <tr valign="top">
+          <!-- Organization Details -->
+          <td colspan="2" align="center" style="padding:0px">
+            <br>
+            <br>
+            <!-- Invoice Info -->
+            <p style="margin-bottom:0px;margin-top:12px;">
+                {{-- <strong>Product:</strong> {{ $product }}<br> --}}
+                <strong>Invoice Number:</strong> {{ $id ?? $invoice->id }}<br>
+            </p>
+
+            <!-- Extra / VAT Information -->
+            @if (isset($vat))
+                <p>
+                    {{ $vat }}
+                </p>
+            @endif
+            <br>
+
+          </td>
+
+      </tr>
+
+      <tr>
+        <td colspan="2">
+
+
+            <!-- Invoice Table -->
+            <table width="100%" class="table" border="0">
+                <tr>
+                    <th align="left">Description</th>
+                    <th align="right">Date</th>
+                    <th align="right">Amount</th>
+                </tr>
+
+                <!-- Display The Invoice Items -->
+                @foreach ($invoice->invoiceItems() as $item)
+                    <tr class="row">
+                        <td colspan="2">{{ $item->description }}</td>
+                        <td>{{ $item->total() }}</td>
+                    </tr>
+                @endforeach
+
+                <!-- Display The Subscriptions -->
+                @foreach ($invoice->subscriptions() as $subscription)
+                    <tr class="row">
+                        <td>Subscription ({{ $subscription->quantity }})</td>
+                        <td>
+                            {{ $subscription->startDateAsCarbon()->formatLocalized('%B %e, %Y') }} -
+                            {{ $subscription->endDateAsCarbon()->formatLocalized('%B %e, %Y') }}
+                        </td>
+                        <td>{{ $subscription->total() }}</td>
+                    </tr>
+                @endforeach
+
+                <!-- Display The Subtotal -->
+                @if ($invoice->hasDiscount() || $invoice->tax_percent || $invoice->hasStartingBalance())
+                    <tr>
+                        <td colspan="2" style="text-align: right;">Subtotal</td>
+                        <td>{{ $invoice->subtotal() }}</td>
+                    </tr>
+                @endif
+
+                <!-- Display The Discount -->
+                @if ($invoice->hasDiscount())
+                    <tr>
+                        <td colspan="2" style="text-align: right;">
+                            @if ($invoice->discountIsPercentage())
+                                {{ $invoice->coupon() }} ({{ $invoice->percentOff() }}% Off)
+                            @else
+                                {{ $invoice->coupon() }} ({{ $invoice->amountOff() }} Off)
+                            @endif
+                        </td>
+
+                        <td>-{{ $invoice->discount() }}</td>
+                    </tr>
+                @endif
+
+                <!-- Display The Tax Amount -->
+                @if ($invoice->tax_percent)
+                    <tr>
+                        <td colspan="2" style="text-align: right;">Tax ({{ $invoice->tax_percent }}%)</td>
+                        <td>{{ $invoice->tax() }}</td>
+                    </tr>
+                @endif
+
+                <!-- Starting Balance -->
+                @if ($invoice->hasStartingBalance())
+                    <tr>
+                        <td colspan="2" style="text-align: right;">Customer Balance</td>
+                        <td>{{ $invoice->startingBalance() }}</td>
+                    </tr>
+                @endif
+
+                <!-- Display The Final Total -->
+                <tr>
+                    <td colspan="2" style="text-align: right;"><strong>Total</strong></td>
+                    <td><strong>{{ $invoice->total() }}</strong></td>
+                </tr>
+            </table>
+        </td>
+      </tr>
+
+    </table>
+    <table style="margin-left: auto; margin-right: auto;" width="550">
+      <tr>
+        <td width="100%" align="center">
+          <strong>Thank you for your business!</strong>
+        </td>
+      </tr>
+    </table>
+
 </div>
 </body>
 </html>
