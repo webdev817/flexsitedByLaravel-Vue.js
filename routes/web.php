@@ -76,5 +76,8 @@ Route::get('log',function () {
 
 Route::redirect('admin', 'admin/home');
 
-
+Route::get('logmeout',function () {
+  Auth::logout();
+  return redirect('login');
+});
 Route::post('stripe/webhook', 'WebhookController@handleWebhook');
