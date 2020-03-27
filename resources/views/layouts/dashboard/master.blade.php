@@ -27,7 +27,7 @@
     <!-- animation css -->
     <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/plugins/animation/css/animate.min.css') }}">
     <!-- vendor css -->
-    <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/css/style.css') . "?ver=". date('ymdihs') }}">
 
     <script src="{{ asset( 'mawaisnow/able/assets/js/vendor-all.min.js' ) }}"></script>
     @yield('head')
@@ -46,16 +46,17 @@
     <!-- [ Pre-loader ] End -->
 
     <!-- [ navigation menu ] start -->
-    <nav class="pcoded-navbar">
+    <nav class="pcoded-navbar navbar-image-1">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
               <a href="{{ route('adminHome') }}" class="b-brand">
-                  <div class="b-bg">
+                <img class="img-fluid" style="" src="{{ asset('mawaisnow\logo\FLEXSITED.png') }}" alt="">
+                  {{-- <div class="b-bg">
                       <i class="feather icon-trending-up"></i>
                   </div>
-                  <span class="b-title">{{ myconf('logoText') }}</span>
+                  <span class="b-title">{{ myconf('logoText') }}</span> --}}
               </a>
-                <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a>
+                {{-- <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a> --}}
             </div>
             <div class="navbar-content scroll-div">
                 <ul class="nav pcoded-inner-navbar">
