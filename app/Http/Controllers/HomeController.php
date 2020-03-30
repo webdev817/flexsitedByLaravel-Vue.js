@@ -47,7 +47,10 @@ class HomeController extends Controller
       return view('welcomeWizered.main', compact('currentStep'));
     }
 
-    return view('supportPortal.home');
+
+    if (isWizeredDone()) {
+      return view('supportPortal.home');
+    }
   }
 
 

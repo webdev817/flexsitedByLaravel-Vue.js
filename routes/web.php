@@ -17,6 +17,13 @@ Auth::routes();
 
 ROute::get('devmawaisnow', 'HomeController@mawaisnow');
 
+Route::group(['middleware' => ['auth']], function () {
+
+  // Route::get('contactUs')
+
+});
+
+
 
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/', 'HomeController@root')->name('root');
@@ -48,8 +55,23 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('couponInfo', 'CouponController@couponInfo')->name('couponInfo');
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
 Route::get('admin/login', 'AdminController@login')->name('adminLogin');
 Route::post('adminLogin', 'AdminController@adminLogin')->name('adminLoginPost');
+
+
+
 
 Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], function () {
 
