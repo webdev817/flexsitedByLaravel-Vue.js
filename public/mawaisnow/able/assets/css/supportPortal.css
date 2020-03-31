@@ -1,0 +1,34 @@
+.bg1{
+  background: #5ABAA5 !important;
+}
+.txt1{
+  color: #5ABAA5;
+}
+.cardHeader{
+  font-size: 23px;
+  background-color: #5ABAA5 !important;
+  color: white;
+}
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #5abaa500;
+    outline: 0;
+    box-shadow: 0 0 0 0.08rem rgb(206, 212, 218);
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #3f9e8a;
+    border-color: #4aab95;
+}
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #1c8c73;
+    border-color: #23ab8d;
+}
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(90, 186, 165, 0);
+}
+.pcoded-navbar a {
+    color: #fff;
+}

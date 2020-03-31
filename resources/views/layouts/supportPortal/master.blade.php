@@ -61,17 +61,24 @@
             </div>
             <div class="navbar-content scroll-div">
                 <ul class="nav pcoded-inner-navbar">
-                    <li class="nav-item pcoded-menu-caption">
+                    {{-- <li class="nav-item pcoded-menu-caption">
                         <label>Navigation</label>
-                    </li>
+                    </li> --}}
                     <li  class="nav-item {{ requestIsFromArray(['root']) }}">
                         <a href="{{ route('root') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
 
 
 
-                    <li class="nav-item {{ requestIsFromArray(['contactUs']) }}">
-                        <a href="{{ route('contactUs') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Contact Us</span></a>
+                    <li class="nav-item {{ requestIsFromArray(['marketingServiceIndex']) }}">
+                        <a href="{{ route('marketingServiceIndex') }}" class="nav-link "><span class="pcoded-micon">
+
+                          <i class="fas fa-bullhorn"></i></span><span class="pcoded-mtext">Marketing</span></a>
+                    </li>
+                    <li class="nav-item {{ requestIsFromArray(['contactUsIndex']) }}">
+                        <a href="{{ route('contactUsIndex') }}" class="nav-link "><span class="pcoded-micon">
+
+                          <i class="feather icon-phone-call"></i></span><span class="pcoded-mtext">Contact Us</span></a>
                     </li>
 
 

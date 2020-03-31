@@ -19,7 +19,14 @@ ROute::get('devmawaisnow', 'HomeController@mawaisnow');
 
 Route::group(['middleware' => ['auth']], function () {
 
-  // Route::get('contactUs')
+  Route::get('contactUs', 'ContactUsController@index')->name('contactUsIndex');
+  Route::post('contactUsStore', 'ContactUsController@store')->name('contactUsStore');
+
+
+  Route::get('marketingService', 'MarketingServiceController@index')->name('marketingServiceIndex');
+  Route::post('marketingServiceStore', 'MarketingServiceController@store')->name('marketingServiceStore');
+
+
 
 });
 
