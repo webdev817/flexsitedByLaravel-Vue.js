@@ -41,10 +41,10 @@ function filesize_formatted($path)
     $power = $size > 0 ? floor(log($size, 1024)) : 0;
     return number_format($size / pow(1024, $power), 2, '.', ',') . ' ' . $units[$power];
 }
-function requestIs($path)
+function requestIs($path, $retClass = 'active')
 {
     if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {
-        return 'active';
+        return $retClass;
     }
 }
 function obj($status = 1, $message = 'Something went wrong!', $dataFor = 'data', $data = null) {
@@ -60,11 +60,11 @@ function obj($status = 1, $message = 'Something went wrong!', $dataFor = 'data',
 
   return $obj;
 }
-function requestIsFromArray($arr)
+function requestIsFromArray($arr, $retClass = 'active')
 {
     foreach ($arr as $path) {
         if (request()->route()->getName() == $path || request()->is($path) || request()->is($path ."/*")) {
-            return 'active';
+            return $retClass;
         }
     }
 }

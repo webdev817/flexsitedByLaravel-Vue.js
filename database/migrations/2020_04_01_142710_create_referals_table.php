@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMarketingServicesTable extends Migration
+class CreateReferalsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateMarketingServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('marketing_services', function (Blueprint $table) {
+        Schema::create('referals', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->string('marketingService')->nullable();
-            $table->integer('createdBy')->nullable();
+            $table->string('link')->nullable();
+
+            $table->integer('userInvitedId')->nullable();
+            $table->integer('userInvitedBy')->nullable();
+
+            
 
             $table->timestamps();
         });
@@ -30,6 +34,6 @@ class CreateMarketingServicesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('marketing_services');
+        Schema::dropIfExists('referals');
     }
 }

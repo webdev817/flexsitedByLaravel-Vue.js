@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\MarketingService;
+use App\Referal;
 use Illuminate\Http\Request;
-use Auth;
 
-class MarketingServiceController extends Controller
+class ReferalController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class MarketingServiceController extends Controller
      */
     public function index()
     {
-          return view('supportPortal.marketingService.index');
+        return view('supportPortal.referal.index');
     }
 
     /**
@@ -36,24 +35,16 @@ class MarketingServiceController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
-          'marketingService'=> 'required'
-        ]);
-        $data['createdBy'] = Auth::id();
-
-        $marketingService = new MarketingService($data);
-        $marketingService->save();
-
-        return status('Your request has been received');
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\MarketingService  $marketingService
+     * @param  \App\Referal  $referal
      * @return \Illuminate\Http\Response
      */
-    public function show(MarketingService $marketingService)
+    public function show(Referal $referal)
     {
         //
     }
@@ -61,10 +52,10 @@ class MarketingServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\MarketingService  $marketingService
+     * @param  \App\Referal  $referal
      * @return \Illuminate\Http\Response
      */
-    public function edit(MarketingService $marketingService)
+    public function edit(Referal $referal)
     {
         //
     }
@@ -73,10 +64,10 @@ class MarketingServiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\MarketingService  $marketingService
+     * @param  \App\Referal  $referal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, MarketingService $marketingService)
+    public function update(Request $request, Referal $referal)
     {
         //
     }
@@ -84,10 +75,10 @@ class MarketingServiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\MarketingService  $marketingService
+     * @param  \App\Referal  $referal
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MarketingService $marketingService)
+    public function destroy(Referal $referal)
     {
         //
     }

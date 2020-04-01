@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('marketingService', 'MarketingServiceController@index')->name('marketingServiceIndex');
   Route::post('marketingServiceStore', 'MarketingServiceController@store')->name('marketingServiceStore');
 
+  Route::get('referal', 'ReferalController@index')->name('referal');
 
 
 });

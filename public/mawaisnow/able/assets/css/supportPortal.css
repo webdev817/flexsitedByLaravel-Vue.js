@@ -32,3 +32,44 @@
 .pcoded-navbar a {
     color: #fff;
 }
+.select2-container .select2-selection--single {
+    height: 43px !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    line-height: 43px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 41px !important;
+
+}
+.headingColor{
+  color: #5f5f5f;
+}
+
+.minHeight1{
+  min-height: 236px;
+}
+
+.socialIconForReferral{
+  width: 65px;
+padding: 13px;
+font-size: 22px;
+}
+
+
+
+@media (max-width: 992px) {
+
+  .minHeight1 {
+    min-height: 342px;
+  }
+
+
+}
+
+@media (max-width: 576px) {
+    .cardHeader{
+      font-size: 16px;
+    }
+}
