@@ -149,4 +149,54 @@ class UsersController extends Controller
 
         return status("Status changed successfully");
     }
+
+    public function changePassword(Request $request)
+    {
+      $user = Auth::user();
+
+      return view('supportPortal.users.changePassword', compact('user'));
+    }
+    public function changePasswordStore(request $request)
+    {
+      $userId = Auth::id();
+
+      $isSame = $request->password == $request->password_confirm;
+
+      if (!$isSame) {
+        return errorMessage("Password confirm does not match");
+      }
+      User::where('id', $userId)->update(
+          [
+         'password' => Hash::make($request->password),
+         ]
+      );
+      return status('Password changed');
+    }
+
+    public function profileEditSp(Request $request)
+    {
+
+    }
+    public function closeAccount(Request $request)
+    {
+      
+      $request->validate([
+        'password'=> "required|max:255",
+        'password_confirm'=> 'required',
+        'reasontoclose'=> 'required|1000'
+      ]);
+      if ($request->password != $request->password_confirm) {
+        return errorMessage("Password confirm does not match");
+      }
+      $user = User::find(Auth::id());
+      if (!Hash::check($request->password, $user->password)) {
+        return errorMessage("Wrong Password");
+      }
+      dd(
+        Auth::id()
+      );
+      User::where('id', Auth::id())->delete();
+      Auth::logout();
+      return statusTo("We are sorry to see you go", route('login'));
+    }
 }

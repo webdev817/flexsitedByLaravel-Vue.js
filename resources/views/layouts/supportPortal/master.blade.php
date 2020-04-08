@@ -76,6 +76,11 @@
 
 
 
+                    <li class="nav-item {{ requestIsFromArray(['orders.index' , 'orders.edit']) }}">
+                        <a href="{{ route('orders.index') }}" class="nav-link "><span class="pcoded-micon">
+
+                          <i class="fas fa-receipt"></i></span><span class="pcoded-mtext">Orders</span></a>
+                    </li>
                     <li class="nav-item {{ requestIsFromArray(['marketingServiceIndex']) }}">
                         <a href="{{ route('marketingServiceIndex') }}" class="nav-link "><span class="pcoded-micon">
 

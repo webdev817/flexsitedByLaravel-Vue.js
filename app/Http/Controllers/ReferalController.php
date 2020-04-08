@@ -82,4 +82,46 @@ class ReferalController extends Controller
     {
         //
     }
+
+
+    public function invite(Request $request, $id)
+    {
+      return redirect()->route('welcomeFlexsited', $id);
+    }
+    public function welcomeFlexsited(Request $request, $id)
+    {
+      return view('frontend.referral', compact('id'));
+    }
+    public function saveReferal(Request $request)
+    {
+      $data = $request->validate([
+        'name' => 'required|min:2|max:255',
+        'businessPhoneNumber' => 'required|min:2|max:255',
+        'email' => 'required|email|min:2|max:255',
+      ]);
+
+      if ($request->logoDesign == "on") {
+        $data['logoDesign'] = 1;
+      }
+      if ($request->businessCardDesign == "on") {
+        $data['businessCardDesign'] = 1;
+      }
+
+      if ($request->flayerDesign == "on") {
+        $data['flayerDesign'] = 1;
+      }
+      if ($request->Website == "on") {
+        $data['Website'] = 1;
+      }
+      if ($request->marketing == "on") {
+        $data['marketing'] = 1;
+      }
+      $data['userInvitedBy'] = $request->userInvitedBy;
+
+      $ref = new Referal($data);
+      $ref->save();
+
+
+      return status('Your message received, We will be in touch soon.');
+    }
 }

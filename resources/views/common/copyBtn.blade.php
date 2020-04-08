@@ -1,21 +1,7 @@
 
-<div style="background:white;color:black;position:fixed;top:30px;left:30%" id="textOfAlertOfCopy">
-
-</div>
-<!-- Trigger -->
-<button data-data="4242424242424242" class="btn btn-outline-primary btn-sm copyBtnAy" type="button" >
-copy card
-</button>
-
-<button data-data="4000002500003155" title="4000002500003155 require auth first time" class="btn btn-outline-primary btn-sm ml-2 copyBtnAy" type="button"  >
-copy card
-</button>
-
-<button data-data="4000002760003184" title="4000002760003184 always required auth" class="btn btn-outline-primary btn-sm ml-2 copyBtnAy" type="button" >
-copy card
-</button>
 
 <script type="text/javascript">
+
 function copyData(data){
   var input = "<input id='dataAyyyyyy' style='position:fixed;bottom:3999px' value='"+data+"'>";
   $("body").append(input);
@@ -31,6 +17,7 @@ function copyData(data){
 
   $("#dataAyyyyyy").remove();
 }
+
 window.onload = function(){
   $(".copyBtnAy").click(function(){
     var data = $(this).attr('data-data');

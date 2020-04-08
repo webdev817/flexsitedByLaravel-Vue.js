@@ -29,7 +29,7 @@
                             <div class="col-12 col-sm-6 col-md-4">
                               <div class="card">
                                   <div class="card-header border-0 text-center">
-                                    <img class="img-fluid" src="{{ asset('mawaisnow\sp\referal\Group 414.png') }}" alt="">
+                                    <img class="img-fluid noselect" src="{{ asset('mawaisnow\sp\referal\Group 414.png') }}" alt="">
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
                                     <div class="col-12  text-center">
@@ -45,7 +45,7 @@
                             <div class="col-12 col-sm-6 col-md-4">
                               <div class="card">
                                   <div class="card-header border-0 text-center">
-                                    <img class="img-fluid" src="{{ asset('mawaisnow\sp\referal\Group 415.png') }}" alt="">
+                                    <img class="img-fluid noselect" src="{{ asset('mawaisnow\sp\referal\Group 415.png') }}" alt="">
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
                                     <div class="col-12  text-center">
@@ -61,7 +61,7 @@
                             <div class="col-12 col-sm-6 col-md-4">
                               <div class="card">
                                   <div class="card-header border-0 text-center">
-                                    <img class="img-fluid" src="{{ asset('mawaisnow\sp\referal\Group 416.png') }}" alt="">
+                                    <img class="img-fluid noselect" src="{{ asset('mawaisnow\sp\referal\Group 416.png') }}" alt="">
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
                                     <div class="col-12  text-center">
@@ -87,29 +87,29 @@
 
                         <div class="col-12">
                           <div class="row">
-                            <div class="col-7">
+                            <div class="col-12  col-sm-5  col-md-6 col-lg-7">
                               <div class="row">
                                 <div class="col-12">
                                   <h5>Your Invite Link</h5>
                                 </div>
                                 <div class="col-12 mt-3">
                                   <div class="input-group mb-3">
-                                      <input type="text" class="form-control bg-white" value="" >
+                                      <input type="text" class="form-control bg-white" readonly disabled value="{{ route('invite', Auth::id() ) }}" >
                                       <div class="input-group-append">
-                                          <button class="btn btn-primary" type="button">Button</button>
+                                          <button class="btn btn-primary" type="button" onclick="copyData('{{ route('invite', Auth::id() ) }}')">Copy</button>
                                       </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-12 col-sm-7 col-md-6 col-lg-4">
                               <div class="row">
                                 <div class="col-12">
                                   <h5>Share via Social</h5>
                                 </div>
 
                                 <div class="col-3 mt-1">
-                                  <a href="#">
+                                  <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ route('invite', Auth::id() ) }}">
                                     <div class="col-auto rounded-circle bg-white socialIconForReferral text-center">
                                         <i class="fab fa-facebook-f text-primary"></i>
                                     </div>
@@ -117,7 +117,7 @@
 
                                 </div>
                                 <div class="col-3 mt-1">
-                                  <a href="#">
+                                  <a target="_blank" href="https://twitter.com/intent/tweet?text={{ route('invite', Auth::id() ) }}">
                                     <div class="col-auto rounded-circle bg-white socialIconForReferral text-center">
                                         <i class="fab fa-twitter text-c-blue "></i>
                                     </div>
@@ -149,6 +149,8 @@
         </div>
     </div>
 </div>
+
+@include('common.copyBtn')
 
 @endsection
 

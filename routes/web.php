@@ -15,7 +15,14 @@
 Auth::routes();
 
 
-ROute::get('devmawaisnow', 'HomeController@mawaisnow');
+Route::get('devmawaisnow', 'HomeController@mawaisnow');
+
+
+Route::get('invite/{invitedBy}', 'ReferalController@invite')->name('invite');
+Route::get('welcomeFlexsited/{invitedBy}', 'ReferalController@welcomeFlexsited')->name('welcomeFlexsited');
+Route::post('saveReferal', 'ReferalController@saveReferal')->name('saveReferal');
+
+
 
 Route::group(['middleware' => ['auth']], function () {
 
@@ -28,6 +35,17 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('referal', 'ReferalController@index')->name('referal');
 
+  Route::resource('orders', 'OrderController');
+
+  Route::get('changePassword','UsersController@changePassword')->name('changePasswordSP');
+  Route::post('changePasswordStore','UsersController@changePasswordStore')->name('changePasswordSPStore');
+
+  Route::get('profileEdit', 'UsersController@profileEdit')->name('profileEditSp');
+
+
+  Route::post('closeAccountSp', 'UsersController@closeAccount')->name('closeAccountSp');
+
+  // Route::get('support', '');
 
 });
 

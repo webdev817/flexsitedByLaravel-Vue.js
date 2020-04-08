@@ -1,0 +1,35 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	0	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+.bg1	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.bg1 {$/;"	function	line:1
+.txt1	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.txt1 {$/;"	function	line:5
+.cardHeader	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.cardHeader {$/;"	function	line:9
+a	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^a {$/;"	function	line:14
+.bold	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.bold{$/;"	function	line:17
+.profileSPBusinessName	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.profileSPBusinessName{$/;"	function	line:20
+.headingOrder	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.headingOrder {$/;"	function	line:30
+.imgContainerOrder	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.imgContainerOrder {$/;"	function	line:34
+.form-control:focus	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.form-control:focus {$/;"	function	line:38
+.btn-primary:hover	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.btn-primary:hover {$/;"	function	line:46
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {$/;"	function	line:52
+.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {$/;"	function	line:58
+.pcoded-navbar a	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.pcoded-navbar a {$/;"	function	line:62
+.select2-container .select2-selection--single	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.select2-container .select2-selection--single {$/;"	function	line:66
+.select2-container--default .select2-selection--single .select2-selection__rendered	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.select2-container--default .select2-selection--single .select2-selection__rendered {$/;"	function	line:70
+.select2-container--default .select2-selection--single .select2-selection__arrow	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.select2-container--default .select2-selection--single .select2-selection__arrow {$/;"	function	line:74
+.noselect	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.noselect {$/;"	function	line:78
+.headingColor	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.headingColor {$/;"	function	line:86
+.minHeight1	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.minHeight1 {$/;"	function	line:90
+.socialIconForReferral	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.socialIconForReferral {$/;"	function	line:94
+.orderBoxes	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.orderBoxes {$/;"	function	line:100
+.fontSize14px	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.fontSize14px {$/;"	function	line:106
+.linkspCPassword	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.linkspCPassword {$/;"	function	line:110
+.blackColorOrderForm	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^.blackColorOrderForm {$/;"	function	line:116
+@media (max-width: 1200px)	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^@media (max-width: 1200px) {}$/;"	function	line:120
+@media (max-width: 992px)	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^@media (max-width: 992px) {$/;"	function	line:122
+.minHeight1	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^    .minHeight1 {$/;"	function	line:123
+@media (max-width: 576px)	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^@media (max-width: 576px) {$/;"	function	line:128
+.cardHeader	C:\xampp\htdocs\websites\flexsited\public\mawaisnow\able\assets\css\supportPortal.css	/^    .cardHeader {$/;"	function	line:129

@@ -1,14 +1,55 @@
-.bg1{
-  background: #5ABAA5 !important;
+.bg1 {
+    background: #5ABAA5 !important;
 }
-.txt1{
-  color: #5ABAA5;
+
+.txt1 {
+    color: #5ABAA5;
 }
-.cardHeader{
-  font-size: 23px;
-  background-color: #5ABAA5 !important;
-  color: white;
+
+.cardHeader {
+    font-size: 23px;
+    background-color: #5ABAA5 !important;
+    color: white;
 }
+
+a {
+    color: #5ABAA5;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.roundForIcon {
+    width: 38px;
+    padding: 7px;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 22px;
+    background: #23ab8d;
+    color: white;
+}
+
+.modelcloseAccount {}
+
+.profileSPBusinessName {
+    background: #d9d9d9;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bold;
+    /* padding-top: 0.7rem;
+  padding-bottom: 0.7rem; */
+    padding: 0.3rem 0px;
+}
+
+.headingOrder {
+    font-size: 18px;
+}
+
+.imgContainerOrder {
+    min-height: 131px;
+}
+
 .form-control:focus {
     color: #495057;
     background-color: #fff;
@@ -16,22 +57,27 @@
     outline: 0;
     box-shadow: 0 0 0 0.08rem rgb(206, 212, 218);
 }
+
 .btn-primary:hover {
     color: #fff;
     background-color: #3f9e8a;
     border-color: #4aab95;
 }
-.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle {
+
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show>.btn-primary.dropdown-toggle {
     color: #fff;
     background-color: #1c8c73;
     border-color: #23ab8d;
 }
+
 .btn-primary:not(:disabled):not(.disabled).active:focus, .btn-primary:not(:disabled):not(.disabled):active:focus, .show>.btn-primary.dropdown-toggle:focus {
     box-shadow: 0 0 0 0.2rem rgba(90, 186, 165, 0);
 }
+
 .pcoded-navbar a {
     color: #fff;
 }
+
 .select2-container .select2-selection--single {
     height: 43px !important;
 }
@@ -39,37 +85,70 @@
 .select2-container--default .select2-selection--single .select2-selection__rendered {
     line-height: 43px !important;
 }
+
 .select2-container--default .select2-selection--single .select2-selection__arrow {
     height: 41px !important;
-
-}
-.headingColor{
-  color: #5f5f5f;
 }
 
-.minHeight1{
-  min-height: 236px;
+.noselect {
+    pointer-events: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.socialIconForReferral{
-  width: 65px;
-padding: 13px;
-font-size: 22px;
+.headingColor {
+    color: #5f5f5f;
 }
 
+.minHeight1 {
+    min-height: 236px;
+}
 
+.socialIconForReferral {
+    width: 65px;
+    padding: 13px;
+    font-size: 22px;
+}
+
+.orderBoxes {
+    border-radius: 8px;
+    background: white;
+    margin-bottom: 14px;
+}
+
+.fontSize14px {
+    font-size: 14px;
+}
+
+.linkspCPassword {
+    color: #323437;
+    padding-bottom: 3px;
+    border-bottom: 3px solid #63c5b4;
+}
+
+.blackColorOrderForm {
+    color: #514F4F;
+}
+
+@media (max-width: 1200px) {}
 
 @media (max-width: 992px) {
-
-  .minHeight1 {
-    min-height: 342px;
-  }
-
-
+    .minHeight1 {
+        min-height: 342px;
+    }
 }
 
 @media (max-width: 576px) {
-    .cardHeader{
-      font-size: 16px;
+    .cardHeader {
+        font-size: 16px;
+    }
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 715px;
+        margin: 1.75rem auto;
     }
 }
