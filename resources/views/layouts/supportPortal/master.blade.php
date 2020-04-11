@@ -31,6 +31,8 @@
     <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/css/supportPortal.css') . "?ver=". date('ymdihs') }}">
 
     <script src="{{ asset( 'mawaisnow/able/assets/js/vendor-all.min.js' ) }}"></script>
+    <script src="{{ asset( 'mawaisnow/able/assets/js/common.js' ) }}"></script>
+
     @yield('head')
     @yield('head1')
     @yield('head2')
@@ -91,12 +93,17 @@
 
                           <i class="feather icon-phone-call"></i></span><span class="pcoded-mtext">Contact Us</span></a>
                     </li>
+                    <li class="nav-item {{ requestIsFromArray(['supportSp']) }}">
+                        <a href="{{ route('supportSp') }}" class="nav-link "><span class="pcoded-micon">
+
+                          <i class="fas fa-hands-helping"></i></span><span class="pcoded-mtext">Support</span></a>
+                    </li>
                     <li class="nav-item {{ requestIsFromArray(['referal'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                         <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Bonus</span></a>
                         <ul class="pcoded-submenu">
                             <li class="{{ requestIsFromArray(['referal']) }}"><a href="{{ route('referal') }}" class="">Referal</a></li>
-                            <li class=""><a href="task-board.html" class="">Board</a></li>
-                            <li class=""><a href="task-detail.html" class="">Detail</a></li>
+                            {{-- <li class=""><a href="task-board.html" class="">Board</a></li>
+                            <li class=""><a href="task-detail.html" class="">Detail</a></li> --}}
                         </ul>
                     </li>
 

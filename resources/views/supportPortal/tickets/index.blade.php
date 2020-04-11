@@ -155,13 +155,5 @@
 
     });
     $("#generalTabToTriggerClick").click();
-
-
-    $(".supportTabs").click(function () {
-      $(".supportTabs").removeClass('active');
-
-      $(this).removeClass('active').addClass('active');
-    });
-
 </script>
 @endsection

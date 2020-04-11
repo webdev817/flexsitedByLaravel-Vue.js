@@ -36,6 +36,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('referal', 'ReferalController@index')->name('referal');
 
   Route::resource('orders', 'OrderController');
+  Route::resource('projects', 'ProjectController');
 
   Route::get('changePassword','UsersController@changePassword')->name('changePasswordSP');
   Route::post('changePasswordStore','UsersController@changePasswordStore')->name('changePasswordSPStore');
@@ -45,7 +46,9 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::post('closeAccountSp', 'UsersController@closeAccount')->name('closeAccountSp');
 
-  // Route::get('support', '');
+  Route::get('support', 'SupportController@index')->name('supportSp');
+
+  Route::resource('tickets','TicketController');
 
 });
 
@@ -115,6 +118,9 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
 
     Route::get('edit/clientOnBoarding/{userId}', 'WizeredController@clientOnBoardingEdit')->name('clientOnBoardingEdit');
     Route::post('clientOnBoardingStore', 'WizeredController@clientOnBoardingStore')->name('clientOnBoardingStore');
+
+    Route::resource('supportFAQ', 'SupportFAQController');
+
 
 });
 

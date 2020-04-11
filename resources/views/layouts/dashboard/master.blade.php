@@ -29,6 +29,8 @@
     <!-- vendor css -->
     <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/css/style.css') . "?ver=". date('ymdihs') }}">
 
+    <link rel="stylesheet" href="{{ asset('mawaisnow\able\assets\css\admin.css') . "?ver=". date('ymdihs') }}">
+
     <script src="{{ asset( 'mawaisnow/able/assets/js/vendor-all.min.js' ) }}"></script>
     @yield('head')
     @yield('head1')
@@ -59,10 +61,10 @@
                 {{-- <a class="mobile-menu" id="mobile-collapse" href="#!"><span></span></a> --}}
             </div>
             <div class="navbar-content scroll-div">
-                <ul class="nav pcoded-inner-navbar">
-                    <li class="nav-item pcoded-menu-caption">
+                <ul class="nav pcoded-inner-navbar mt-4">
+                    {{-- <li class="nav-item pcoded-menu-caption">
                         <label>Navigation</label>
-                    </li>
+                    </li> --}}
                     <li  class="nav-item {{ requestIsFromArray(['adminHome']) }}">
                         <a href="{{ route('adminHome') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
@@ -74,7 +76,14 @@
                     <li class="nav-item {{ requestIsFromArray(['allSubscriptions', 'subscriptionHistory']) }}">
                         <a href="{{ route('allSubscriptions') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Subscriptions</span></a>
                     </li>
-
+                    <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit'], 'active pcoded-trigger') }}  pcoded-hasmenu">
+                        <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
+                        <ul class="pcoded-submenu">
+                            <li class="{{ requestIsFromArray(['supportFAQ.index']) }}"><a href="{{ route('supportFAQ.index') }}" class="">Faqs</a></li>
+                            {{-- <li class=""><a href="task-board.html" class="">Board</a></li>
+                            <li class=""><a href="task-detail.html" class="">Detail</a></li> --}}
+                        </ul>
+                    </li>
 
                 </ul>
             </div>

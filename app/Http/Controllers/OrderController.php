@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
 use Illuminate\Http\Request;
+
+use App\Project;
+use App\Order;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -26,17 +29,40 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
-        $orders = self::getOrders();
-        if (! isset($orders[$request->type])) {
-          return errorMessage("Invalid Order Number");
-        }
-        $order = $orders[$request->type];
 
-        return view('supportPortal.orders.create', [
-          'order'=> $order
-        ]);
     }
 
+    public function handleMainStore($request)
+    {
+      $user = Auth::user();
+      $orderId = $request->orderId;
+      $order = Order::where('createdBy',$user->id)->where('id',$request->orderId)->first();
+
+      if ($order == null) {
+        return status('Permission Denied');
+      }
+      try {
+        $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100);
+        $invoiceNumber = $invoice->asStripeInvoice()->id;
+      } catch (\Exception $e) {
+        return errorMessage($e->getMessage());
+      }
+
+
+      Order::where('createdBy',$user->id)->where('id',$request->orderId)
+      ->update(['invoiceNumber'=> $invoiceNumber]);
+
+      $project = new Project([
+        'orderId'=> $order->id,
+        'title'=> $order->title,
+        'description'=> $order->orderDetails,
+        'createdBy'=> Auth::id()
+      ]);
+      $project->save();
+
+      return redirect()->route('projects.show', $project->id);
+
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -45,7 +71,29 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+      if ($request->step == "main") {
+        return $this->handleMainStore($request);
+      }
+      $orders = self::getOrders();
+      if (! isset($orders[$request->type])) {
+        return errorMessage("Invalid Order Number");
+      }
+      // dummy data of order
+      $order = $orders[$request->type];
+
+      $myOrder = new Order([
+        'type'=> $request->type,
+        'title'=> $order->title,
+        'price'=> $order->price,
+        'orderDetails'=> $request->description,
+        'createdBy'=> Auth::id()
+      ]);
+      $myOrder->save();
+
+      return view('supportPortal.orders.create', [
+        'order'=> $myOrder,
+        'dummyOrder'=> $order
+      ]);
     }
 
     /**
@@ -118,6 +166,12 @@ class OrderController extends Controller
         ],
         (object)[
           'title'=> 'Banner Design',
+          'price'=> 35,
+          'img' => 'mawaisnow\sp\order\bannerDesign.png',
+          'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        ],
+        (object)[
+          'title'=> 'Website Design',
           'price'=> 35,
           'img' => 'mawaisnow\sp\order\bannerDesign.png',
           'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'

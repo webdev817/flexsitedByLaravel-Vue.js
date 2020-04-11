@@ -1,11 +1,29 @@
+:root{
+  --c1: #5ABAA5;
+}
 .bg1 {
     background: #5ABAA5 !important;
 }
-
+.hand{
+  cursor: pointer;
+}
 .txt1 {
     color: #5ABAA5;
 }
-
+.questionsAccordion{
+  display: none;
+}
+.questionsAccordion.active{
+  display: block;
+}
+.borderTopRound{
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+.headingWhite{
+  font-size: 22px;
+  color: white;
+}
 .cardHeader {
     font-size: 23px;
     background-color: #5ABAA5 !important;
@@ -130,6 +148,16 @@ a {
 
 .blackColorOrderForm {
     color: #514F4F;
+}
+.supportTabs{
+  width: 70px;
+    display: inline;
+    color: #000;
+    font-weight: bold;
+    margin-right: 43px;
+}
+.supportTabs.active{
+border-bottom: 2px solid var(--c1);
 }
 
 @media (max-width: 1200px) {}
