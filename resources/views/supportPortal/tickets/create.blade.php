@@ -13,12 +13,12 @@
 
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('adminHome') }}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('supportFAQ.index') }}">Support Faqs</a></li>
+                                    <li class="breadcrumb-item"><a href="{{ route('supportFAQ.index') }}">My Requests</a></li>
                                     <li class="breadcrumb-item">
                                       @isset($supportFaq)
-                                        Add Question
+                                        Submit Ticket
                                       @else
-                                        Edit Question
+                                        Submit Ticket
                                       @endisset
                                     </li>
                                 </ul>
@@ -41,9 +41,9 @@
                                 <div class="card user-list">
                                     <div class="card-header">
                                         <h5>@isset($supportFaq)
-                                          Add Question
+                                          Submit Ticket
                                         @else
-                                          Edit Question
+                                          Submit Ticket
                                         @endisset</h5>
                                         <div class="card-header-right">
                                             <div class="btn-group card-option">
