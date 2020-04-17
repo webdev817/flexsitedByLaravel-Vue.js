@@ -18,7 +18,8 @@ class CreateProjectChatsTable extends Migration
             $table->string('message')->nullable();
             $table->integer('projectId')->nullable();
             $table->integer('createdBy')->nullable();
-
+            $table->integer('isAttachment')->nullable();
+            $table->integer('attachmentId')->nullable();
 
             $table->timestamps();
         });

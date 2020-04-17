@@ -1,0 +1,16 @@
+.main-friend-chat{
+  overflow-y: auto;
+  padding-bottom: 0px;
+  height: 100%;
+}
+#fileChoosenDisplayed{
+  background: #f4f7fa;
+  color: black;
+}
+
+.h-list-body .chat-messages .chat-menu-content > div:before {
+    color: #60baaa;
+}
+.h-list-body .chat-messages .chat-menu-content > div p {
+background: linear-gradient(-135deg, #5a9e91 0%, #62c3b2 100%);
+}

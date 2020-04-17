@@ -16,3 +16,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/auth.scss', 'public/css')
     .sass('resources/sass/welcomeWizered.scss', 'public/css')
     .sass('resources/sass/app.scss', 'public/css');
+
+mix.browserSync('flexsited.test');

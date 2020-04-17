@@ -26,8 +26,14 @@ Route::post('saveReferal', 'ReferalController@saveReferal')->name('saveReferal')
 
 Route::group(['middleware' => ['auth']], function () {
 
+  Route::get('projectChat','API\ProjectChatController@index')->name('projectChatApi');
+  Route::post('projectChatMine','API\ProjectChatController@projectChatMine')->name('projectChatMine');
+  Route::post('projectChat','API\ProjectChatController@store');
+
+
   Route::get('contactUs', 'ContactUsController@index')->name('contactUsIndex');
   Route::post('contactUsStore', 'ContactUsController@store')->name('contactUsStore');
+
 
 
   Route::get('marketingService', 'MarketingServiceController@index')->name('marketingServiceIndex');

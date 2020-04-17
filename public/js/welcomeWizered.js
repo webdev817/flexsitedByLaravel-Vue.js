@@ -474,7 +474,7 @@ $("#needNewDomainSearch").click(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\websites\flexsited\resources\js\welcomeWizered.js */"./resources/js/welcomeWizered.js");
+module.exports = __webpack_require__(/*! /Users/mawais/websites/flexsited/resources/js/welcomeWizered.js */"./resources/js/welcomeWizered.js");
 
 
 /***/ })

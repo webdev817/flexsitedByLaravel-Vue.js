@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\ProjectChat;
+use Auth;
 
 class ProjectController extends Controller
 {
@@ -47,6 +49,9 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $arr['project'] = $project;
+
+        $arr['projectChat'] = ProjectChat::where('createdBy', Auth::id())
+        ->where('projectId', $project->id)->get();
 
         return view('supportPortal.project.show', $arr);
     }

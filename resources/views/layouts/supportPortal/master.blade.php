@@ -33,6 +33,9 @@
     <script src="{{ asset( 'mawaisnow/able/assets/js/vendor-all.min.js' ) }}"></script>
     <script src="{{ asset( 'mawaisnow/able/assets/js/common.js' ) }}"></script>
 
+    <script type="text/javascript">
+    var APP_URL = {!! json_encode(url('/')) !!}
+    </script>
     @yield('head')
     @yield('head1')
     @yield('head2')

@@ -110,7 +110,7 @@ function getDataFromDisk() {
   // );
   return $data;
 }
-function json($message, $data)
+function json($message, $data = null)
 {
     return response()->json(
         [
@@ -125,7 +125,7 @@ function myConf($name)
     return config('mawaisnow.' . $name);
 }
 
-function error($message, $data)
+function error($message, $data = null)
 {
     return response()->json(
         [

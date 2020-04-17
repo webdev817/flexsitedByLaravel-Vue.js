@@ -15,7 +15,7 @@
                         <div class="row">
 
 
-                            <div class="col-8 ">
+                            <div class="col-lg-8 col-12 ">
                               <div class="row">
                                 <div class="col-12">
 
@@ -85,81 +85,33 @@
 
                             </div>
 
-                            <div class="col-4">
+                            <div class="col-lg-4 col-12">
                               <div class=" card">
 
 
-                                <div class="ch-block">
+                                <div class=""  id="projectChat">
                                     <div class="h-list-body">
                                         <div class="msg-user-chat scroll-div ps">
-                                            <div class="main-friend-chat" id="projectChat">
+                                            <div class="main-friend-chat" id="projectChatBody">
 
-                                                {{-- <div style="height:100%; background:#fafafa">
+                                              <div v-if="chat == null" style="height:100%; background:#fafafa">
+                                              </div>
 
-                                                </div> --}}
 
-                                                <div class="media chat-messages">
-                                                    <a class="media-left photo-table" href="javascript:void(0)"><img class="media-object img-radius img-radius m-t-5" src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image"></a>
-                                                    <div class="media-body chat-menu-content">
+
+
+                                                <div v-else v-for="m in chat" class="media chat-messages">
+                                                    <a v-if="m.createdBy != userId" class="media-left photo-table" href="javascript:void(0)"><img class="media-object img-radius img-radius m-t-5" src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image"></a>
+                                                    <div v-bind:class="{ 'chat-menu-reply': m.createdBy == userId, 'chat-menu-content': m.createdBy != userId }" class="media-body ">
                                                         <div class="">
-                                                            <p class="chat-cont">hello Datta! Will you tell me something</p>
-                                                            <p class="chat-cont">about yourself?</p>
+                                                            <p class="chat-cont">@{{ m.message }}</p>
                                                         </div>
-                                                        <p class="chat-time">8:20 a.m.</p>
+
                                                     </div>
                                                 </div>
-                                                <div class="media chat-messages">
-                                                    <div class="media-body chat-menu-reply">
-                                                        <div class="">
-                                                            <p class="chat-cont">Ohh! very nice</p>
-                                                        </div>
-                                                        <p class="chat-time">8:22 a.m.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="media chat-messages">
-                                                    <a class="media-left photo-table" href="javascript:void(0)"><img class="media-object img-radius img-radius m-t-5" src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image"></a>
-                                                    <div class="media-body chat-menu-content">
-                                                        <div class="">
-                                                            <p class="chat-cont">can you help me?</p>
-                                                        </div>
-                                                        <p class="chat-time">8:20 a.m.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="media chat-messages">
-                                                    <a class="media-left photo-table" href="javascript:void(0)"><img class="media-object img-radius img-radius m-t-5" src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image"></a>
-                                                    <div class="media-body chat-menu-content">
-                                                        <div class="">
-                                                            <p class="chat-cont">hello Datta! Will you tell me something</p>
-                                                            <p class="chat-cont">about yourself?</p>
-                                                        </div>
-                                                        <p class="chat-time">8:20 a.m.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="media chat-messages">
-                                                    <div class="media-body chat-menu-reply">
-                                                        <div class="">
-                                                            <p class="chat-cont">Ohh! very nice</p>
-                                                        </div>
-                                                        <p class="chat-time">8:22 a.m.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="media chat-messages">
-                                                    <div class="media-body chat-menu-reply">
-                                                        <div class="">
-                                                            <p class="chat-cont">Ohh! very nice</p>
-                                                        </div>
-                                                        <p class="chat-time">8:22 a.m.</p>
-                                                    </div>
-                                                </div>
-                                                <div class="media chat-messages">
-                                                    <a class="media-left photo-table" href="javascript:void(0)"><img class="media-object img-radius img-radius m-t-5" src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image"></a>
-                                                    <div class="media-body chat-menu-content">
-                                                        <div class="">
-                                                            <p class="chat-cont">can you help me?</p>
-                                                        </div>
-                                                        <p class="chat-time">8:20 a.m.</p>
-                                                    </div>
-                                                </div>
+
+
+
 
 
                                             </div>
@@ -169,15 +121,22 @@
                                     <hr class="m-0">
                                     <div class="msg-form">
                                         <div class="input-group mb-0">
-                                            <input type="text" class="form-control msg-send-chat" placeholder="Text . . .">
+                                            <input type="text" class="form-control msg-send-chat"  v-on:keyup.enter="sendMessage" v-model="message" id="message" placeholder="Message . . .">
                                             <div class="input-group-append">
-                                                <input type="file" id="imgupload" style="display:none">
+                                                <input type="file" v-on:change="" id="imgupload" style="display:none">
                                                 <button onclick="$('#imgupload').click()" class="btn btn-secondary btn-icon" type="button" data-toggle="tooltip" title="" data-original-title="file attachment"><i class="feather icon-paperclip"></i></button>
                                             </div>
                                             <div class="input-group-append">
-                                                <button class="btn btn-primary btn-icon btn-msg-send" type="button"><i class="feather icon-play"></i></button>
+                                                <button id="messageSendBtn" v-on:click="sendMessage" class="btn btn-primary btn-icon btn-msg-send" type="button">
+
+                                                  <i class="feather icon-play"></i>
+
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div id="fileChoosenDisplayed" class="mt-1 w-100">
+
                                     </div>
                                 </div>
                                 </div>
@@ -206,36 +165,15 @@
 
 @endsection
 
-@include('common.loadJS', ['select2'=>true])
-
 @section('js')
-<script type="text/javascript">
-    $("#marketingService").select2({
-        minimumResultsForSearch: -1,
-        placeholder: "Which Service are you interested in?"
-    }).val(null).change();
-
-    $('#projectChat').scrollTop(1000000);
-
-
-
-
-</script>
+  @include('supportPortal.project.chat.js', [ 'projectId' => $project->id ])
 @endsection
-@section('head')
-  <style media="screen">
-    .main-friend-chat{
-      overflow-y: scroll;
-      padding-bottom: 0px;
-      height: 100%;
-    }
 
-    .h-list-body .chat-messages .chat-menu-content > div:before {
-        color: #60baaa;
-    }
-    .h-list-body .chat-messages .chat-menu-content > div p {
-    background: linear-gradient(-135deg, #5a9e91 0%, #62c3b2 100%);
-    }
-  </style>
+
+
+@section('head')
+  <link rel="stylesheet" href="{{ asset('mawaisnow/chat/chat.css') }}">
+  <script src="{{ asset('mawaisnow/vue/vue.js') }}" charset="utf-8"></script>
+  <script src="{{ asset('mawaisnow/axios/axios.min.js') }}" charset="utf-8"></script>
 
 @endsection
