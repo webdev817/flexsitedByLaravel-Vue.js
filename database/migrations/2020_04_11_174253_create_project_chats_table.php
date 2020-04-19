@@ -19,7 +19,9 @@ class CreateProjectChatsTable extends Migration
             $table->integer('projectId')->nullable();
             $table->integer('createdBy')->nullable();
             $table->integer('isAttachment')->nullable();
-            $table->integer('attachmentId')->nullable();
+
+            $table->string('path')->nullable();
+            $table->string('fileName')->nullable();
 
             $table->timestamps();
         });

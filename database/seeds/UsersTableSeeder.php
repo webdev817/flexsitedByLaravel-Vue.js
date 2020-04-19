@@ -30,5 +30,7 @@ class UsersTableSeeder extends Seeder
         $user->role = 9;
         $user->password = bcrypt('murphy.anitra@yahoo.com11');
         $user->save();
+
+        
     }
 }

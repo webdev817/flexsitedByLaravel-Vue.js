@@ -29,6 +29,9 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('projectChat','API\ProjectChatController@index')->name('projectChatApi');
   Route::post('projectChatMine','API\ProjectChatController@projectChatMine')->name('projectChatMine');
   Route::post('projectChat','API\ProjectChatController@store');
+  Route::post('projectMilestone\{project}','ProjectController@projectMilestone')->name('projectMilestone');
+
+  Route::post('commentMilestone\{projectAttachment}','ProjectController@commentMilestone')->name('commentMilestone');
 
 
   Route::get('contactUs', 'ContactUsController@index')->name('contactUsIndex');

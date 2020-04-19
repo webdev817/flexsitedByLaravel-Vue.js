@@ -20,6 +20,7 @@ class CreateProjectsTable extends Migration
             $table->integer('createdBy')->nullable();
             $table->integer('orderId')->nullable();
             $table->integer('status')->default(1);
+            $table->date('dueOn')->nullable();
 
             $table->timestamps();
         });

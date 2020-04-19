@@ -11,4 +11,7 @@ class Project extends Model
     public function order(){
       return $this->hasOne('App\Order','id','orderId');
     }
+    public function projectAttachments(){
+      return $this->hasMany('App\ProjectAttachment','projectId','id');
+    }
 }

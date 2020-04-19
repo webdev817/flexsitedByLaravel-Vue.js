@@ -85,12 +85,24 @@ class ProjectChatController extends Controller
       if (!superAdmin() && $project->createdBy != Auth::id()) {
         return error("Not Authorized");
       }
-      $projectChat = new ProjectChat([
+      $chatArray = [
         'message'=> $message,
         "projectId"=> $projectId,
         'createdBy'=> Auth::id(),
         'isAttachment'=> 0,
-      ]);
+      ];
+
+      if ($request->hasFile('file')) {
+        $isArray = getimagesize($request->file->getPathName());
+        if (!is_array($isArray)) {
+          return error('Please choose a valid image');
+        }
+        $chatArray['isAttachment'] = 1;
+        $chatArray['path'] = $request->file->store('attachments');
+        $chatArray['fileName'] = $request->fileName;
+      }
+
+      $projectChat = new ProjectChat($chatArray);
 
       $projectChat->save();
 

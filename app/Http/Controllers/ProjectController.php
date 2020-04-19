@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Project;
 use Illuminate\Http\Request;
 use App\ProjectChat;
+use App\ProjectAttachment;
+use App\ProjectMilestoneChat;
+
 use Auth;
 
 class ProjectController extends Controller
@@ -88,5 +91,51 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+    public function commentMilestone(Request $request, ProjectAttachment $projectAttachment)
+    {
+      $project = $projectAttachment->project;
+
+      if ($project->createdBy != Auth::id() && !superAdmin()) {
+        return noPermission();
+      }
+      if ($projectAttachment->status == 2) {
+        return errorMessage('This is already approved');
+      }
+      $projectMilestoneChat = new ProjectMilestoneChat([
+        'projectId'=> $project->id,
+        'projectAttachmentId'=> $projectAttachment->id,
+        'comment'=>$request->message,
+        'createdBy'=> Auth::id()
+      ]);
+      $projectMilestoneChat->save();
+      if ($request->status == 2) {
+        $projectAttachment->update([
+          'status'=> 2
+        ]);
+        return status('Approved');
+      }
+      return status('Comment saved');
+    }
+    public function projectMilestone(Request $request,Project $project)
+    {
+      $data = $request->validate([
+        'file'=> 'required|max:80000',
+        'message'=> 'string|nullable'
+      ]);
+
+      if ($project->createdBy != Auth::id() && !superAdmin()) {
+        return noPermission();
+      }
+      $data  = [
+        'message'=> $request->message
+      ];
+      $data['createdBy'] = Auth::id();
+      $data['projectId'] = $project->id;
+      $data['path'] = $request->file->store('milestones');
+      $projectAttachment = new ProjectAttachment($data);
+      $projectAttachment->save();
+
+      return status('Work uploaded');
     }
 }
