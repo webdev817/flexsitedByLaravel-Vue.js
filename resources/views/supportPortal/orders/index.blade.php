@@ -34,19 +34,19 @@
                               <div class="col-xl-10 col-lg-9 col-md-9 col-12">
                                 <div class="row">
                                   <div class="col-12">
-                                    <div class="float-left headingOrder mb-1">
+                                    <div class="float-left  headingOrder">
                                       {{ $order->title }}
                                     </div>
-                                    <div class="float-right headingOrder mb-1">
+                                    <div class="float-right headingOrder">
                                       ${{ $order->price }}
                                     </div>
                                   </div>
                                 </div>
-                                <p>
+                                <p class=" mt-2 mb-3">
                                   {{ $order->description }}
                                 </p>
 
-                                <textarea name="description" class="form-control bg-transparent" rows="2" cols="80" placeholder="Add Order Details"></textarea>
+                                <textarea name="description" class="form-control bg-transparent" rows="3" cols="80" placeholder="Add Order Details"></textarea>
                               </div>
                             </div>
                           </div>

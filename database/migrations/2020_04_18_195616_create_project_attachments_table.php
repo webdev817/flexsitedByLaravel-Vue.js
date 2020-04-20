@@ -22,6 +22,8 @@ class CreateProjectAttachmentsTable extends Migration
             $table->text('message')->nullable();
 
             $table->integer('status')->default(0);
+            $table->integer('isFinalDeliverAbles')->default(0);
+            $table->string('workSourcePath')->nullable();
 
             $table->integer('createdBy')->nullable();
 

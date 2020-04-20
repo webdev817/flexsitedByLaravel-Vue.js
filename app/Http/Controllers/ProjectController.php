@@ -23,7 +23,7 @@ class ProjectController extends Controller
 
         if (superAdmin()) {
         }else {
-
+          $projects = $projects->where('createdBy', Auth::id());
         }
         $projects = $projects->orderBy('id','desc')->paginate(10);
 
@@ -32,7 +32,34 @@ class ProjectController extends Controller
 
         return view('supportPortal.project.listProject',$arr);
     }
+    public function startProjectWork(Request $request, Project $project)
+    {
+      if (!superAdmin()) {
+        return noPermission();
+      }
+      if ($project->status != 1) {
+        return errorMessage('Project is not in Initialization state');
+      }
+      if ($project->dueOn == null) {
+        return status('Please set Project Due on first.');
+      }
+      $project->update([
+        'status'=> 2
+      ]);
+      return status('Status updated successfully');
+    }
+    public function changeProjectStatus(Request $request, Project $project)
+    {
+      if (!superAdmin()) {
+        return noPermission();
+      }
+      $project->update([
+          'status'=> $request->projectStatus
+      ]);
 
+      return status('Status updated successfully');
+
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -73,6 +100,9 @@ class ProjectController extends Controller
 
         $arr['projectChat'] = ProjectChat::where('createdBy', Auth::id())
         ->where('projectId', $project->id)->get();
+
+        $arr['projectAttachments'] = $project->projectAttachments()->where('isFinalDeliverAbles',0)->get();
+        $arr['projectFinalDeliverables'] = $project->projectAttachments()->where('isFinalDeliverAbles','!=',0)->get();
 
         return view('supportPortal.project.show', $arr);
     }
@@ -174,7 +204,13 @@ class ProjectController extends Controller
       $data['projectId'] = $project->id;
       $data['path'] = $request->file->store('milestones');
       $projectAttachment = new ProjectAttachment($data);
+
+      if ($request->isFinalDeliverAbles == 1) {
+        $projectAttachment->isFinalDeliverAbles = 1;
+        $projectAttachment->workSourcePath = $request->source->store('source');
+      }
       $projectAttachment->save();
+      Project::where('id',$project->id)->update(['status'=>3]);
 
       return status('Work uploaded');
     }

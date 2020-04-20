@@ -135,7 +135,25 @@ a {
     background: white;
     margin-bottom: 14px;
 }
-
+.statusInitlizing,.statusInProgress,.statusCancelled,.statusInReview,.statusCompleted{
+  background: #FC7C0B;
+  color: white;
+  display: inline;
+  padding: 10px;
+  border-radius: 20px;
+}
+.statusInProgress{
+  background: #18369A;
+}
+.statusCancelled{
+  background: #FF0000;
+}
+.statusInReview{
+  background: #63C6B4;
+}
+.statusCompleted{
+  background: #199F00;
+}
 .fontSize14px {
     font-size: 14px;
 }

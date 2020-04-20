@@ -121,15 +121,7 @@
                                                             {{ $project->order->price }} USD
                                                         </td>
                                                         <td>
-                                                          @if ($project->status == 1)
-                                                            Initializing
-                                                          @elseif ($project->status == 2)
-                                                            In Progress
-                                                          @elseif ($project->status == 4)
-                                                            In Review
-                                                          @elseif ($project->status == 10)
-                                                            Completed
-                                                          @endif
+                                                          @include('supportPortal.common.projectStatus', ['status' => $project->status])
                                                         </td>
 
                                                         {{-- <td>

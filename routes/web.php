@@ -26,13 +26,15 @@ Route::post('saveReferal', 'ReferalController@saveReferal')->name('saveReferal')
 
 Route::group(['middleware' => ['auth']], function () {
 
+  Route::get('startProjectWork/{project}','ProjectController@startProjectWork')->name('startProjectWork');
+  Route::post('changeProjectStatus/{project}', 'ProjectController@changeProjectStatus')->name('changeProjectStatus');
+
   Route::get('projectChat','API\ProjectChatController@index')->name('projectChatApi');
   Route::post('projectChatMine','API\ProjectChatController@projectChatMine')->name('projectChatMine');
   Route::post('projectChat','API\ProjectChatController@store');
   Route::post('projectMilestone\{project}','ProjectController@projectMilestone')->name('projectMilestone');
-
   Route::get('updateProjectDueDate','ProjectController@updateProjectDueDate')->name('updateProjectDueDate');
-  
+
   Route::get('approveProject/{project}','ProjectController@approveProject')->name('approveProject');
 
   Route::post('commentMilestone\{projectAttachment}','ProjectController@commentMilestone')->name('commentMilestone');

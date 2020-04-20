@@ -20,6 +20,17 @@ class CreateProjectsTable extends Migration
             $table->integer('createdBy')->nullable();
             $table->integer('orderId')->nullable();
             $table->integer('status')->default(1);
+
+            /**
+            1  = initliizting
+            2 = in progress
+            3 = in review
+            10 = completed
+
+            20 = Canceled
+
+            **/ 
+
             $table->date('dueOn')->nullable();
 
             $table->timestamps();
