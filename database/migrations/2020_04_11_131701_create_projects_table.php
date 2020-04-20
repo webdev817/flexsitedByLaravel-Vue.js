@@ -29,9 +29,14 @@ class CreateProjectsTable extends Migration
 
             20 = Canceled
 
-            **/ 
+            **/
 
             $table->date('dueOn')->nullable();
+
+
+            $table->double('stars')->nullable();
+            $table->text('improveMessage')->nullable();
+
 
             $table->timestamps();
         });

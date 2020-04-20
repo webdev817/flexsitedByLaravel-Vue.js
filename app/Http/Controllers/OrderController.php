@@ -81,11 +81,14 @@ class OrderController extends Controller
       }
       // dummy data of order
       $order = $orders[$request->type];
-
+      $price = $order->price;
+      if ($request->type == 4) {
+        $price = 0;
+      }
       $myOrder = new Order([
         'type'=> $request->type,
         'title'=> $order->title,
-        'price'=> $order->price,
+        'price'=> $price,
         'orderDetails'=> $request->description,
         'createdBy'=> Auth::id()
       ]);

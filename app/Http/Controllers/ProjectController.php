@@ -152,6 +152,20 @@ class ProjectController extends Controller
       ]);
 
     }
+    public function projectFeedback(Request $request, Project $project){
+      if ($project->createdBy != Auth::id() && !superAdmin()) {
+        return noPermission();
+      }
+      $data = $request->validate([
+        'stars'=> 'required|string',
+        'improveMessage'=> 'required|string'
+      ]);
+
+      Project::where('id',$project->id)->update($data);
+
+      return status('Thanks, your feedback has been saved.');
+
+    }
     public function approveProject(Request $request, Project $project)
     {
       if ($project->createdBy != Auth::id() && !superAdmin()) {

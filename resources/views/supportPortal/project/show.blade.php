@@ -96,7 +96,57 @@
 
                                     </div>
                                 </div>
+                                @if ($project->status == 10 && $project->stars == null)
+                                  <div class="row">
+                                      <div class="col-12 ">
+                                          <div class="card bg1 mb-0">
+                                              <div class="card-header">
+                                                <h4 class="text-white">Order Completed</h4>
+                                              </div>
+                                          </div>
+                                      </div>
+                                      <div class="col-12">
+                                        <div class="card">
+                                            <div class="card-body">
+                                              <div class="row">
+                                                <div class="col-6">
+                                                  <form action="{{ route('projectFeedback', $project->id) }}" method="post">
+                                                    @csrf
+                                                  <h4>Give Feedback</h4>
+                                                  <br>
+                                                  <p>How was your experience been with us so far?</p>
+                                                  <div class="card-block border text-center pt-2 mb-2 pl-2 ">
+                                                      <div class="stars stars-example-css">
+                                                          <select id="example-css" class="rating-star" name="stars" autocomplete="off">
+                                                              <option value="1">1</option>
+                                                              <option value="2">2</option>
+                                                              <option value="3">3</option>
+                                                              <option value="4">4</option>
+                                                              <option value="5">5</option>
+                                                          </select>
+                                                      </div>
+                                                  </div>
+                                                  <p>How can we improve?</p>
+                                                  <textarea name="improveMessage" rows="8" class="form-control" placeholder="Please write your message" cols="80"></textarea>
 
+                                                  <button type="submit" class="btn btn-primary btn-block" name="button">Submit Review</button>
+                                                </form>
+
+                                                </div>
+                                                <div class="col-6">
+                                                  <img class="img-fluid noselect" src="{{ asset('mawaisnow/sp/order/orderCompleteRating.png') }}" alt="">
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                      </div>
+
+
+
+
+
+                                  </div>
+                                @endif
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="card">
@@ -120,73 +170,8 @@
                                             <div class="card-body ">
                                                 <div class="row">
                                                     @foreach ($projectAttachments as $attachment)
-                                                    <div class="col-12 col-md-6  mb-4">
-                                                        @if (getimagesize(Storage::path($attachment->path)))
 
-                                                        @include('supportPortal.project.show.modal', [ 'attachment'=> $attachment ])
-
-                                                        <div class="border">
-                                                            <div class="w-100 p-2">
-
-                                                                @if ($attachment->status == 2)
-
-                                                                <a href="javascript:void(0)" style="color:black;">
-
-                                                                    Approved
-                                                                </a>
-                                                                @else
-                                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#milestoneComment{{ $attachment->id }}">
-                                                                    <i class="feather icon-message-circle"></i>
-                                                                    Make comment
-                                                                </a>
-                                                                @endif
-
-
-                                                            </div>
-                                                            <a target="_blank" href="{{ Storage::url($attachment->path) }}">
-                                                                <img class="img-fluid" src="{{ Storage::url($attachment->path) }}" alt="">
-                                                            </a>
-                                                            <br>
-                                                            <div class="w-100 p-3">
-                                                                {{ $attachment->message }}
-                                                            </div>
-                                                        </div>
-
-                                                        @else
-                                                        <div class="border">
-                                                          @include('supportPortal.project.show.modal', [ 'attachment'=> $attachment ])
-
-                                                          <div class="w-100 p-2">
-
-                                                              @if ($attachment->status == 2)
-
-                                                              <a href="javascript:void(0)" style="color:black;">
-
-                                                                  Approved
-                                                              </a>
-                                                              @else
-                                                              <a href="javascript:void(0)" data-toggle="modal" data-target="#milestoneComment{{ $attachment->id }}">
-                                                                  <i class="feather icon-message-circle"></i>
-                                                                  Make comment
-                                                              </a>
-                                                              @endif
-
-
-                                                          </div>
-                                                            <div class="p-3">
-                                                                <a target="_blank" href="{{ Storage::url($attachment->path) }}">
-                                                                    {{ pathinfo(Storage::path($attachment->path))['basename'] }}
-                                                                </a>
-                                                                <br>
-                                                                <div class="w-100">
-                                                                    {{ $attachment->message }}
-                                                                </div>
-                                                            </div>
-
-                                                        </div>
-                                                        @endif
-
-                                                    </div>
+                                                      @include('supportPortal.project.show.milestones', ['attachment' => $attachment])
 
                                                     @endforeach
                                                 </div>
@@ -218,93 +203,24 @@
                                               <div class="card-body ">
                                                   <div class="row">
                                                       @foreach ($projectFinalDeliverables as $attachment)
-                                                      <div class="col-12 col-md-6  mb-4">
-                                                          @if (getimagesize(Storage::path($attachment->path)))
-
-                                                          @include('supportPortal.project.show.modal', [ 'attachment'=> $attachment ])
-
-                                                          <div class="border">
-                                                              <div class="w-100 p-2">
-
-                                                                  @if ($attachment->status == 2)
-
-                                                                  <a href="javascript:void(0)" style="color:black;">
-
-                                                                      Approved
-                                                                  </a>
-                                                                  @else
-                                                                  <a href="javascript:void(0)" data-toggle="modal" data-target="#milestoneComment{{ $attachment->id }}">
-                                                                      <i class="feather icon-message-circle"></i>
-                                                                      Make comment
-                                                                  </a>
-                                                                  @endif
-
-
-                                                              </div>
-                                                              <a target="_blank" href="{{ Storage::url($attachment->path) }}">
-                                                                  <img class="img-fluid" src="{{ Storage::url($attachment->path) }}" alt="">
-                                                              </a>
-                                                              <br>
-                                                              <div class="w-100 p-3">
-                                                                  {{ $attachment->message }}
-                                                              </div>
-                                                          </div>
-
-                                                          @else
-                                                          <div class="border">
-                                                            @include('supportPortal.project.show.modal', [ 'attachment'=> $attachment ])
-
-                                                            <div class="w-100 p-2">
-
-                                                                @if ($attachment->status == 2)
-
-                                                                <a href="javascript:void(0)" style="color:black;">
-
-                                                                    Approved
-                                                                </a>
-                                                                @else
-                                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#milestoneComment{{ $attachment->id }}">
-                                                                    <i class="feather icon-message-circle"></i>
-                                                                    Make comment
-                                                                </a>
-                                                                @endif
-
-
-                                                            </div>
-                                                              <div class="p-3">
-                                                                  <a target="_blank" href="{{ Storage::url($attachment->path) }}">
-                                                                      {{ pathinfo(Storage::path($attachment->path))['basename'] }}
-                                                                  </a>
-                                                                  <br>
-                                                                  <div class="w-100">
-                                                                      {{ $attachment->message }}
-                                                                  </div>
-                                                              </div>
-
-                                                          </div>
-                                                          @endif
-
-                                                      </div>
-
+                                                        @include('supportPortal.project.show.workCompleted', ['attachment' => $attachment])
                                                       @endforeach
                                                   </div>
-
                                               </div>
                                             @endif
 
 
                                             <div class="card-header pb-5">
                                                 @if (superAdmin() && $project->status != 10 && $project->status != 20)
-                                                <button data-toggle="modal" data-target="#finalUpload" type="button" class="d-inline btn  btn-primary" name="button">
-                                                    Deliver Project
-                                                </button>
+                                                  <button data-toggle="modal" data-target="#finalUpload" type="button" class="d-inline btn  btn-primary" name="button">
+                                                      Deliver Project
+                                                  </button>
                                                 @else
                                                   @if ($project->status == 3)
                                                     <a class=" d-inline btn  btn-primary" href="{{ route('approveProject',$project->id) }}">
                                                         Approve Project
                                                     </a>
                                                   @endif
-
                                                 @endif
 
                                             </div>
@@ -535,8 +451,18 @@
 
 @section('js')
 @include('supportPortal.project.chat.js', [ 'projectId' => $project->id ])
-
+@if ($project->status == 10)
+  <script src="{{ asset('mawaisnow/able/assets/plugins/ratting/js/jquery.barrating.min.js') }}" charset="utf-8"></script>
+@endif
 <script type="text/javascript">
+    @if ($project->status == 10)
+    $('.rating-star').barrating({
+         theme: 'css-stars',
+         showSelectedRating: false
+     });
+    @else
+
+    @endif
     function showthefilename(ths, showid) {
         f = ths.value
         f = f.replace(/.*[\/\\]/, '');
@@ -564,12 +490,31 @@
 <link rel="stylesheet" href="{{ asset('mawaisnow/chat/chat.css') }}">
 <script src="{{ asset('mawaisnow/vue/vue.js') }}" charset="utf-8"></script>
 <script src="{{ asset('mawaisnow/axios/axios.min.js') }}" charset="utf-8"></script>
-
 <style media="screen">
     .fileHai {}
 
     .chat-cont {
         word-break: break-word;
     }
+
+    .br-theme-css-stars .br-widget a.br-active:after {
+      color: #5abaa5 !important;
+    }
+    .br-theme-css-stars .br-widget a.br-selected:after {
+      color: #5abaa5 !important;
+    }
+
+    .br-theme-css-stars .br-widget {
+      display: inline-block;
+
+    }
+    .br-theme-css-stars .br-widget a {
+        width: 32px !important;
+
+        font-size: 31px !important;
+    }
+
 </style>
+<link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/plugins/ratting/css/css-stars.css') }}">
+
 @endsection

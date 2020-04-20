@@ -39,6 +39,8 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::post('commentMilestone\{projectAttachment}','ProjectController@commentMilestone')->name('commentMilestone');
 
+  Route::post('projectFeedback\{project}','ProjectController@projectFeedback')->name('projectFeedback');
+
 
   Route::get('contactUs', 'ContactUsController@index')->name('contactUsIndex');
   Route::post('contactUsStore', 'ContactUsController@store')->name('contactUsStore');
