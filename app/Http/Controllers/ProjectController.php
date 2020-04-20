@@ -19,7 +19,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $projects = Project::query();
+
+        if (superAdmin()) {
+        }else {
+
+        }
+        $projects = $projects->orderBy('id','desc')->paginate(10);
+
+
+        $arr['projects'] = $projects;
+
+        return view('supportPortal.project.listProject',$arr);
     }
 
     /**
@@ -52,6 +63,13 @@ class ProjectController extends Controller
     public function show(Project $project)
     {
         $arr['project'] = $project;
+        if ($project->createdBy != Auth::id() && !superAdmin()) {
+          return noPermission();
+        }
+
+        if ($project->status == 1 && !superAdmin()) {
+          return status('After your order has been processed, you will receive a call from a Flexsited design specialist');
+        }
 
         $arr['projectChat'] = ProjectChat::where('createdBy', Auth::id())
         ->where('projectId', $project->id)->get();
@@ -91,6 +109,28 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         //
+    }
+    public function updateProjectDueDate(Request $request)
+    {
+      if (!superAdmin()) {
+        return noPermission();
+      }
+      $project = Project::find($request->id);
+
+      $project->update([
+        'dueOn'=> $request->date
+      ]);
+
+    }
+    public function approveProject(Request $request, Project $project)
+    {
+      if ($project->createdBy != Auth::id() && !superAdmin()) {
+        return noPermission();
+      }
+      $project->update([
+        'status'=> 10
+      ]);
+      return status('Project approved');
     }
     public function commentMilestone(Request $request, ProjectAttachment $projectAttachment)
     {

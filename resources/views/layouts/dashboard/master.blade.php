@@ -68,22 +68,17 @@
                     <li  class="nav-item {{ requestIsFromArray(['adminHome']) }}">
                         <a href="{{ route('adminHome') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Dashboard</span></a>
                     </li>
+                    <li class="nav-item {{ requestIsFromArray(['projects.index' ]) }}">
+                        <a href="{{ route('projects.index') }}" class="nav-link "><span class="pcoded-micon">
+                          <i class="fas fa-braille"></i></span><span class="pcoded-mtext">Projects</span></a>
+                    </li>
 
                     <li class="nav-item {{ requestIsFromArray(['users.index', 'users.edit', 'clientOnBoarding']) }}">
                         <a href="{{ route('users.index') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Users</span></a>
                     </li>
 
-                    <li class="nav-item {{ requestIsFromArray(['allSubscriptions', 'subscriptionHistory']) }}">
-                        <a href="{{ route('allSubscriptions') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Subscriptions</span></a>
-                    </li>
-                    <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit'], 'active pcoded-trigger') }}  pcoded-hasmenu">
-                        <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
-                        <ul class="pcoded-submenu">
-                            <li class="{{ requestIsFromArray(['supportFAQ.index']) }}"><a href="{{ route('supportFAQ.index') }}" class="">Faqs</a></li>
-                            {{-- <li class=""><a href="task-board.html" class="">Board</a></li>
-                            <li class=""><a href="task-detail.html" class="">Detail</a></li> --}}
-                        </ul>
-                    </li>
+
+                  
 
                 </ul>
             </div>

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.master')
+@extends('layouts.supportPortal.master')
 
 @section('body')
 

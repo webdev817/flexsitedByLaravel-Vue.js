@@ -1,4 +1,5 @@
-@extends('layouts.master')
+@extends('layouts.supportPortal.master')
+
 @section('head')
 
 <script src="https://js.stripe.com/v3/"></script>

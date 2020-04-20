@@ -60,7 +60,8 @@ class OrderController extends Controller
       ]);
       $project->save();
 
-      return redirect()->route('projects.show', $project->id);
+      return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
+      // return redirect()->route('projects.show', $project->id);
 
     }
     /**
@@ -148,33 +149,33 @@ class OrderController extends Controller
       $orders = [
         (object)[
           'title'=> 'Logo Design',
-          'price'=> 100,
-          'img'=> 'mawaisnow\sp\order\logoDesign.png',
-          'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+          'price'=> 150,
+          'img'=> 'mawaisnow\sp\order\logoOrder.png',
+          'description'=> 'We will design a professional logo for your business. You will receive two design concepts for your review and feedback.Once you have decided on the design that you would like to go with. The revisions process starts. You will have three revision opportunities. Below please add the details for your design project.'
         ],
         (object)[
           'title'=> 'Flyer Design',
           'price'=> 200,
-          'img' => 'mawaisnow\sp\order\banner.png',
-          'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+          'img' => 'mawaisnow\sp\order\6.jpg',
+          'description'=> 'We will design a professional one-page flyer for your business.  You will receive one design concept based on provided instructions.  You will have three revision opportunities.  Below please add the details for your design project.'
         ],
         (object)[
           'title'=> 'Business Card Design',
           'price'=> 150,
-          'img' => 'mawaisnow\sp\order\businessCardDesign.png',
-          'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+          'img' => 'mawaisnow\sp\order\Amazing Lash Loft-1.jpg',
+          'description'=> 'We will design a set of professional business cards for your business. This includes both front and back.  You will receive two design concepts for your review and feedback.  You will have three revision opportunities.   In the box below, add the details for your design project.'
         ],
         (object)[
-          'title'=> 'Banner Design',
-          'price'=> 35,
-          'img' => 'mawaisnow\sp\order\bannerDesign.png',
-          'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+          'title'=> 'Social Media Design',
+          'price'=> 150,
+          'img' => 'mawaisnow/sp/order/socialmediaexample.jpg',
+          'description'=> 'We will design your social media banner and profile for any channel or two social media design posts for either Facebook or Instagram for your business.  You will receive one design concept based on your instructions. You will have three revision opportunities. In the box below, add the details for your design project.'
         ],
         (object)[
           'title'=> 'Website Design',
-          'price'=> 35,
-          'img' => 'mawaisnow\sp\order\bannerDesign.png',
-          'description'=> 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+          'price'=> "39-129 a month",
+          'img' => 'mawaisnow\sp\order\Screen Shot 2020-04-20 at 11.29.10 AM.png',
+          'description'=> 'We will create a new website for your business. You have the option of choosing from one of our monthly plans. '
         ]
       ];
       if ($orderType == null) {

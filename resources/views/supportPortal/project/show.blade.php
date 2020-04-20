@@ -42,8 +42,15 @@
                                             <tr>
                                                 <td>{{ $project->title }}</td>
                                                 <td>
-                                                  @if ($project->dueOn == null)
-                                                    To be determined Team
+
+                                                  @if (superAdmin())
+                                                    <input type="text" onchange="updateDueOn( this,{{ $project->id }})" class="form-control" style="width: 130px" id="dueOn" name="dueOn" value="">
+                                                  @else
+                                                    @if ($project->dueOn == null)
+                                                      To be determined Team
+                                                    @else
+                                                      {{ $project->dueOn }}
+                                                    @endif
                                                   @endif
                                                 </td>
 
@@ -53,6 +60,8 @@
                                                 <td>
                                                     @if ($project->status == 1)
                                                     Initializing
+                                                  @elseif ($project->status == 10)
+                                                    Completed
                                                     @else
                                                     Unknown
                                                     @endif
@@ -149,9 +158,16 @@
                                     @endif
 
                                     <div class="card-header">
-                                      <button data-toggle="modal" data-target="#finalUpload" type="button" class="d-inline btn  btn-primary" name="button">
-                                        Deliver Project
-                                      </button>
+                                      @if (superAdmin())
+                                        <button data-toggle="modal" data-target="#finalUpload" type="button" class="d-inline btn  btn-primary" name="button">
+                                          Deliver Project
+                                        </button>
+                                      @else
+                                        <a class="d-inline btn  btn-primary" href="{{ route('approveProject',$project->id) }}">
+                                          Approve Project
+                                        </a>
+                                      @endif
+
                                     </div>
 
 
@@ -256,12 +272,57 @@
 
 
 
-  <!-- Modal -->
+
+
+
   <div class="modal fade" id="uploadMilestone" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalCenterTitle">Upload Work For Review</h5>
+          <h5 class="modal-title" >Upload Work For Review</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+      <form action="{{ route('projectMilestone',$project->id) }}" enctype="multipart/form-data" method="post">
+        @csrf
+        <div class="modal-body">
+
+          <div class="container">
+
+              <div class="form-group col-md-12">
+
+                <div class="custom-file">
+                    <input type="file" name="file" required onchange="showthefilename(this,'showfilenameModel')" class="custom-file-input" id="milestoneFile" required="">
+                    <label class="custom-file-label" id="showfilenameModel" for="milestoneFile">Choose file...</label>
+                </div>
+
+              </div>
+
+              <div class="form-group col-12">
+                <textarea class="form-control bg-transparent" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
+              </div>
+
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="finalUpload" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Deliver Completed work</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -309,6 +370,7 @@
     </div>
 </div>
 
+@include('common.loadJS', ['flatpicker'=> true])
 
 @endsection
 
@@ -325,9 +387,17 @@
            $("#" + showid).html('Choose file');
        }
    }
-  </script>
-@endsection
+   function updateDueOn(ths, projectId) {
+     axios.get('{{ route('updateProjectDueDate') }}?date='+ ths.value + "&id="+ projectId).then(function () {
 
+     });
+   }
+   var s = flatpickr("#dueOn", {
+     defaultDate:  "{{ $project->dueOn }}"
+   });
+  </script>
+
+@endsection
 
 
 @section('head')

@@ -14,10 +14,10 @@
                                 {{-- <div class="page-header-title">
                                       <h5 class="m-b-10">Sample Page</h5>
                                   </div> --}}
-                                <ul class="breadcrumb">
+                                {{-- <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('adminHome') }}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
@@ -25,68 +25,114 @@
                 <!-- [ breadcrumb ] end -->
                 <div class="main-body">
                     <div class="page-wrapper">
+
+                      @include('common.messagesSupport')
+
                         <!-- [ Main Content ] start -->
                         <div class="row">
 
 
 
+
+                          @if (Session::has('OrderPlaced'))
+
+                            <div class="modal fade" id="orderPlaced" tabindex="-1" role="dialog" aria-hidden="true">
+                              <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+
+
+
+                                  <div class="modal-body p-0">
+                                    <div class="container-fluid p-0">
+                                      <div class="col-12 p-0">
+                                        <img class="img-fluid" src="{{ asset('mawaisnow/sp/order/orderPlaced.png') }}" alt="">
+                                      </div>
+                                    </div>
+                                    <div class="container">
+                                        <div class="row mt-4">
+                                          <div class="col-12 text-center">
+                                            <h4>Your request has been successfully submitted!</h4>
+                                            <br>
+                                            Please allow 3-5 Business days to progress your Request.
+                                          </div>
+                                        </div>
+
+
+                                    </div>
+
+                                  </div>
+                                  <div class="modal-footer bg-transparent mt-3 border-0">
+                                    <div class="container">
+                                      <div class="col-12">
+                                        <button type="button" data-dismiss="modal" class="btn btn-block btn-primary">Ok</button>
+
+                                      </div>
+                                    </div>
+                                  </div>
+
+
+
+                                </div>
+                              </div>
+                            </div>
+                            <script type="text/javascript">
+                            $(document).ready(function () {
+                              $("#orderPlaced").modal('show');
+                            });
+                            </script>
+                          @endif
+
+
+
+
+
+
+
                             <div class="col-md-12">
                                 <div class="card user-list">
-                                    <div class="card-header">
-                                        <h5>Users</h5>
-                                        <div class="card-header-right">
-                                            <div class="btn-group card-option">
-                                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="feather icon-more-horizontal"></i>
-                                                </button>
-                                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                                    {{-- <li class="dropdown-item reload-card"><a href="#!"><i class="feather icon-refresh-cw"></i> reload</a></li> --}}
-                                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                                </ul>
 
-                                            </div>
-                                        </div>
-                                    </div>
                                     <div class="card-block pb-0">
                                         <div class="table-responsive">
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Image</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Business Name</th>
+                                                        <th>Project Name</th>
+                                                        <th>Due On</th>
+                                                        <th>Total Amount</th>
                                                         <th>Satus</th>
-                                                        <th>Date</th>
-                                                        <th>Action</th>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($projects as $project)
 
                                                     <tr>
-                                                        <td><img class="rounded-circle" style="width:40px;" src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-1.jpg' ) }}" alt="activity-user"></td>
                                                         <td>
-                                                            {{ $user->name }}
+                                                            <a href="{{ route('projects.show', $project->id) }}">
+                                                              {{ $project->title }}
+                                                            </a>
                                                         </td>
                                                         <td>
-                                                            {{ $user->email }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $user->businessName }}
-                                                        </td>
-                                                        <td>
-                                                          @if ($user->status == 1)
-                                                            <a href="javascript:void(0)" class="label theme-bg f-12 text-white">Active</a>
+                                                          @if ( $project->dueOn == null)
+                                                            To be determined Team
                                                           @else
-                                                            <a href="javascript:void(0)" class="label theme-bg2 f-12 text-white">Not Active</a>
+                                                            {{ Carbon\Carbon::parse($project->dueOn)->format('d M, Y') }}
                                                           @endif
                                                         </td>
                                                         <td>
-                                                           {{ $user->created_at->diffForHumans() }}
+                                                            {{ $project->order->price }} USD
                                                         </td>
                                                         <td>
+                                                          @if ($project->status == 1)
+                                                            Initializing
+                                                          @elseif ($project->status == 2)
+                                                            In Progress
+                                                          @elseif ($project->status == 4)
+                                                            In Review
+                                                          @elseif ($project->status == 10)
+                                                            Completed
+                                                          @endif
+                                                        </td>
+
+                                                        {{-- <td>
                                                           <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
                                                           <a href="{{ route('users.edit', $user->id) }}" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
                                                           <a href="javascript:void(0)" data-obj='{
@@ -95,10 +141,10 @@
                                                             "method": "delete"
                                                           }' data-html="Once you delete this user, all of it's related Data will be deleted, including subscription." class="label theme-bg2 text-white f-12 deleteConfirm"><i class="fas fa-trash text-white"></i> Delete</a>
 
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
                                                   @endforeach
-                                                  @if ($users->count() < 1)
+                                                  @if ($projects->count() < 1)
                                                   <tr>
                                                   <td colspan="7" class="text-center">
                                                       <h3>No Records</h3>
@@ -110,12 +156,12 @@
                                             </table>
                                         </div>
                                     </div>
-                                    @if ($users->total() > $users->perPage())
+                                    @if ($projects->total() > $projects->perPage())
 
                                     <div class="card-footer tx-12 pd-y-15 bg-transparent">
                                         <div class="d-flex form-layout-footer justify-content-center submitSection">
 
-                                            {!! $users->links() !!}
+                                            {!! $projects->links() !!}
 
                                         </div>
                                     </div>
