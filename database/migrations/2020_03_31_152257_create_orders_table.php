@@ -25,7 +25,10 @@ class CreateOrdersTable extends Migration
 
             $table->integer('createdBy')->nullable();
 
-            
+
+            $table->text('billingError')->nullable();
+            $table->integer('billingStatus')->default(1);
+
             $table->timestamps();
         });
     }

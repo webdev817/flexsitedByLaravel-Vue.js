@@ -11,7 +11,8 @@
                     <div class="page-wrapper">
 
                       @include('common.messagesSupport')
-                      <form action="{{ route('orderConfirmationStore', $order->id) }}" method="post">
+
+                      <form id="payment-form" action="{{ route('orderConfirmationStore', $order->id) }}" method="post">
                         @csrf
 
                         <div class="col-12 pl-0 mb-3">
@@ -94,6 +95,30 @@
                         <div class="mt-3 col-12 headingOrder justify-content-around bg-white p-3">
 
                             <div class="row pb-2 pt-2">
+                              @if(isset($intent))
+                                <div class="col-12 blackColorOrderForm">
+                                  <label for="card-element" class="text-dark">
+                                     Please updated your billing information
+                                  </label>
+
+                                </div>
+
+
+                                <div class="col-12 col-md-12 mb-5">
+
+                                      <label for="card-element" class="grayColor">
+                                          Credit or debit card
+                                      </label>
+                                      <div id="card-element" class="form-control">
+                                          <!-- A Stripe Element will be inserted here. -->
+                                      </div>
+
+                                      <!-- Used to display form errors. -->
+                                      <div id="card-errors" role="alert"></div>
+                                  </div>
+
+                              @endif
+
                               <div class="col-12 blackColorOrderForm">
                                 <div class="float-left">
                                   Payment Summary
@@ -108,7 +133,7 @@
 
                             <div class="row pb-2 pt-2 mt-3 justify-content-center">
                               <div class="col-12">
-                                <button class="btn btn-primary btn-block" type="submit" name="button">Pay Now</button>
+                                <button @if(isset($intent))  data-secret="{{ $intent->client_secret }}"  @endif class="btn btn-primary btn-block" type="submit" name="button">Pay Now</button>
                               </div>
                               <div class="col-12 text-center mt-3 fontSize14px">
                                 On Clicking Pay Now you are agreed to Flexsited Terms & Conditions and Privacy Policy
@@ -138,10 +163,14 @@
 @include('common.loadJS', ['select2'=>true])
 
 @section('js')
-  <script type="text/javascript">
-    $("#marketingService").select2({
-      minimumResultsForSearch: -1,
-      placeholder: "Which Service are you interested in?"
-  }).val(null).change();
-  </script>
+  @if (isset($intent))
+    @include('common.stripe')
+  @endif
+
+@endsection
+
+@section('head')
+  @if (isset($intent))
+    <script src="https://js.stripe.com/v3/"></script>
+  @endif
 @endsection

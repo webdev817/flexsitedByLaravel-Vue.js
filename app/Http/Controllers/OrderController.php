@@ -67,52 +67,49 @@ class OrderController extends Controller
 
     public function orderConfirmation(Request $request, Order $order)
     {
-      if ($order->createdBy != Auth::id()) {
+      $user = Auth::user();
+      if ($order->createdBy != $user->id) {
         return errorMessage('This order does not belongs to you.');
       }
       $orders = self::getOrders();
 
       // dummy data of order
       $dummyOrder = $orders[$order->type];
+      if ($order->billingStatus == 0) {
+        return view('supportPortal.orders.create', [
+          'order'=> $order,
+          'dummyOrder'=> $dummyOrder,
+          'intent'=>  $user->createSetupIntent()
+        ])->withErrors([$order->billingError]);
+      }else {
+        return view('supportPortal.orders.create', [
+          'order'=> $order,
+          'dummyOrder'=> $dummyOrder
+        ]);
+      }
 
-      return view('supportPortal.orders.create', [
-        'order'=> $order,
-        'dummyOrder'=> $dummyOrder
-      ]);
     }
     public function orderConfirmationStore(Request $request, Order $order)
     {
       $user = Auth::user();
-      $orderId = $request->orderId;
-      $order = Order::where('createdBy',$user->id)->where('id',$request->orderId)->first();
-
-      if ($order == null) {
-        return status('Permission Denied');
+      if ($user->id != $order->createdBy) {
+        return errorMessage('This order does not belongs to you.');
       }
+
       try {
         $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100, [
           'metadata'=>['orderId'=> $order->id]
         ]);
         $invoiceNumber = $invoice->asStripeInvoice()->id;
       }catch (\Exception $e) {
-        return errorMessage($e->getMessage());
+        $order->billingStatus = 0;
+        $order->billingError = $e->getMessage();
+        $order->save();
+
+        return redirect()->back();
       }
 
-      // catch (IncompletePayment $exception) {
-      //     $response = redirect()->route(
-      //           'cashier.payment',
-      //           [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
-      //       );
-      //       return $response;
-      // }catch (\Laravel\Cashier\Exceptions\PaymentActionRequired $exception) {
-      //     $response = redirect()->route(
-      //           'cashier.payment',
-      //           [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
-      //       );
-      //       return $response;
-      // }
-      Order::where('createdBy',$user->id)->where('id',$request->orderId)
-      ->update(['invoiceNumber'=> $invoiceNumber]);
+      $order->update(['invoiceNumber'=> $invoiceNumber]);
 
       $project = new Project([
         'orderId'=> $order->id,
