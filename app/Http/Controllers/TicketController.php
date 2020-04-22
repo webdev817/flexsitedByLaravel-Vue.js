@@ -4,9 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Ticket;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class TicketController extends Controller
 {
+
+    public function myRequests(Request $request)
+    {
+      $tickets = Ticket::where('createdBy',Auth::id())->paginate(10);
+      $arr['tickets'] = $tickets;
+
+      return view('supportPortal.tickets.myRequests', $arr);
+
+    }
     /**
      * Display a listing of the resource.
      *
@@ -28,7 +39,7 @@ class TicketController extends Controller
           'General', 'Tasks', 'Plans', 'Payment', 'Profile'
         ];
         $arr['issueRelatedTo'] = $issueRelatedTo;
-        
+
         return view('supportPortal.tickets.create', $arr);
     }
 
@@ -40,7 +51,22 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+          'issueTopic'=> 'required|string',
+          'message'=> 'required|string'
+        ]);
+        $ticket = [
+          'ticketDepartment'=> $request->issueTopic,
+          'message'=> $request->message,
+          'createdBy'=> Auth::id()
+        ];
+        if ($request->hasFile('file')) {
+          $ticket['file'] = $request->file->store('supportFiles');
+        }
+        $ticket = new Ticket($ticket);
+        $ticket->save();
+
+        return status('Your request has been recived.');
     }
 
     /**

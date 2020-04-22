@@ -67,6 +67,18 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::resource('tickets','TicketController');
 
+  Route::get('myRequests','TicketController@myRequests')->name('myRequests');
+  Route::get('supportChat','SupportController@supportChat')->name('supportChat');
+
+
+  Route::get('supportChatApi','SupportController@getSupportChatList')->name('supportChatApi');
+  Route::post('supportChatApi','SupportController@storeSupportChat')->name('supportChatApi');
+  Route::post('supportChatSessionClose/{chartSessionId}','SupportController@supportChatSessionClose')->name('supportChatSessionClose');
+
+  Route::post('supportChatMine','SupportController@supportChatApi')->name('supportChatMine');
+
+  Route::get('supportChatsRequests','SupportController@supportChatsRequests')->name('supportChatsRequests');
+
 });
 
 

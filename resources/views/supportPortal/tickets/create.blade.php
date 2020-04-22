@@ -11,7 +11,7 @@
                         <div class="row align-items-center">
                             <div class="col-md-12">
 
-                                <ul class="breadcrumb">
+                                {{-- <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('adminHome') }}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item"><a href="{{ route('supportFAQ.index') }}">My Requests</a></li>
                                     <li class="breadcrumb-item">
@@ -21,7 +21,7 @@
                                         Submit Ticket
                                       @endisset
                                     </li>
-                                </ul>
+                                </ul> --}}
                             </div>
                         </div>
                     </div>
@@ -61,11 +61,11 @@
                                     </div>
                                     <form class=""
                                     @isset($supportFaq)
-                                      action="{{ route('supportFAQ.update', $supportFaq->id) }}"
+                                      action="{{ route('tickets.update', $supportFaq->id) }}"
                                     @else
-                                      action="{{ route('supportFAQ.store') }}"
+                                      action="{{ route('tickets.store') }}"
                                     @endisset
-                                      method="post">
+                                      method="post" enctype="multipart/form-data">
                                         <div class="card-block row m-0 pl-0 pr-0">
 
                                             @csrf

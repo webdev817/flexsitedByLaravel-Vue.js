@@ -530,3 +530,86 @@ function getWizeredObj($userId)
 
     return $obj;
 }
+function strToCapitalize($str) {
+  return ucfirst(strtolower($str));
+}
+function flexsitedPlans() {
+  $plans = [
+    (object)[
+      'id'=> 1,
+      'name'=> 'basic plan',
+      'price'=> 39.95,
+      'priceYearly'=> 360,
+      'image'=> 'mawaisnow/sp/plan/Group 18@2x.png',
+      'offers'=> [
+        '1 page custom website ',
+        'SOCIAL MEDIA LINKS ICONS',
+        'booking link ',
+        'Stock Images '
+      ]
+    ],
+    (object)[
+      'id'=>2,
+      'name'=> 'ESSENTIAL Plan',
+      'price'=> 59.95,
+      'priceYearly'=> 600,
+      'image'=> 'mawaisnow/sp/plan/Group 167@2x.png',
+      'offers'=> [
+        '3 page custom website',
+        'HOME PAGE SLIDER',
+        'SOCIAL MEDIA LINKS INTEGRATION',
+        'booking link',
+        '1 business email',
+        'stock images'
+      ]
+    ],
+    (object)[
+      'id'=>3,
+      'name'=> 'Active Plan',
+      'price'=> 79.95,
+      'priceYearly'=> 850,
+      'image'=> 'mawaisnow/sp/plan/Path 1920@2x.png',
+      'offers'=> [
+        '5 page custom website',
+        'HOME PAGE SLIDER',
+        'SOCIAL MEDIA LINKS INTEGRATION',
+        'booking integration',
+        '5 business emails',
+        'logo design',
+        'stock images',
+        'blog',
+        'photo gallery',
+        'instagram feed',
+        'newsletter setup',
+        'GOOLGE BUSINESS SETUP'
+      ]
+    ],
+    (object)[
+      'id'=>4,
+      'name'=> 'Complete Plan',
+      'price'=> 129.95,
+      'priceYearly'=> 1450,
+      'image'=> 'mawaisnow/sp/plan/Group 7@2x.png',
+      'offers'=> [
+        '10 page custom website',
+        'HOME PAGE SLIDER',
+        'SOCIAL MEDIA LINKS INTEGRATION',
+        'booking integration',
+        'unlimited BUSINESS',
+        'emails',
+        'logo design',
+        'stock images',
+        'blog',
+        'photo gallery',
+        'instagram feed',
+        'Newsletter setu',
+        'Google Analytic',
+        'Google Map',
+        'SEO ON PAGE SETUP',
+        'SHOPPING CART',
+        'Payment Gateway setup'
+      ]
+    ]
+  ];
+  return $plans;
+}

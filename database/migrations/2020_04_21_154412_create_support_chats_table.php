@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectChatsTable extends Migration
+class CreateSupportChatsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,12 @@ class CreateProjectChatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('project_chats', function (Blueprint $table) {
+        Schema::create('support_chats', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->text('message')->nullable();
-            $table->integer('projectId')->nullable();
+            $table->integer('SupportChatSessionId')->nullable();
+
             $table->integer('createdBy')->nullable();
             $table->integer('isAttachment')->nullable();
 
@@ -34,6 +36,6 @@ class CreateProjectChatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('project_chats');
+        Schema::dropIfExists('support_chats');
     }
 }

@@ -113,11 +113,15 @@
                     @endif
 
                     @if (!superAdmin())
-                      <li class="nav-item {{ requestIsFromArray(['supportSp']) }}">
-                          <a href="{{ route('supportSp') }}" class="nav-link "><span class="pcoded-micon">
+                      <li class="nav-item {{ requestIsFromArray(['supportSp', 'myRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
+                          <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fas fa-hands-helping" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
+                          <ul class="pcoded-submenu">
+                              <li class="{{ requestIsFromArray(['supportSp']) }}"><a href="{{ route('supportSp') }}" class="">FAQ and Support</a></li>
+                              <li class="{{ requestIsFromArray(['myRequests']) }}"><a href="{{ route('myRequests') }}" class="">My Requests</a></li>
 
-                            <i class="fas fa-hands-helping"></i></span><span class="pcoded-mtext">Support</span></a>
+                          </ul>
                       </li>
+
                     @endif
                     @if (!superAdmin())
                       <li class="nav-item {{ requestIsFromArray(['referal'], 'active pcoded-trigger') }}  pcoded-hasmenu">
@@ -136,12 +140,13 @@
                       <li class="nav-item {{ requestIsFromArray(['allSubscriptions', 'subscriptionHistory']) }}">
                           <a href="{{ route('allSubscriptions') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Subscriptions</span></a>
                       </li>
-                      <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit'], 'active pcoded-trigger') }}  pcoded-hasmenu">
+                      <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit', 'supportChatsRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                           <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
                           <ul class="pcoded-submenu">
                               <li class="{{ requestIsFromArray(['supportFAQ.index']) }}"><a href="{{ route('supportFAQ.index') }}" class="">Faqs</a></li>
-                              {{-- <li class=""><a href="task-board.html" class="">Board</a></li>
-                              <li class=""><a href="task-detail.html" class="">Detail</a></li> --}}
+                              <li class="{{ requestIsFromArray(['supportChatsRequests']) }}"><a href="{{ route('supportChatsRequests') }}" class="">Chat Requests</a></li>
+                              {{-- <li class=""><a href="task-board.html" class="">Board</a></li> --}}
+                              {{-- <li class=""><a href="task-detail.html" class="">Detail</a></li> --}}
                           </ul>
                       </li>
                     @endif

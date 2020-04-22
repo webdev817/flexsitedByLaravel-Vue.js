@@ -96,7 +96,7 @@
 
                                     </div>
                                 </div>
-                                @if ($project->status == 10 && $project->stars == null)
+                                @if ($project->status == 10 && $project->stars == null && !superAdmin())
                                   <div class="row">
                                       <div class="col-12 ">
                                           <div class="card bg1 mb-0">

@@ -70,7 +70,27 @@
 
                           </div>
 
+                          @if ($order->type == 4)
+                            <div class="mt-3 col-12 headingOrder justify-content-around bg-white p-3">
 
+                                <div class="row pb-2 pt-2">
+                                  <div class="col-12 blackColorOrderForm">
+                                    <div class="float-left">
+                                      Choose Plan
+
+                                    </div>
+
+                                    <div class="float-right">
+                                    </div>
+                                  </div>
+                                </div>
+
+
+                            </div>
+                            <div class="col-12">
+                              @include('supportPortal.orders.plan')
+                            </div>
+                          @endif
 
 
                         <div class="mt-3 col-12 headingOrder justify-content-around bg-white p-3">
@@ -83,7 +103,7 @@
                                 </div>
 
                                 <div class="float-right">
-                                  Total Due: ${{ $order->price }}
+                                  Total Due: <span id="totalDuePrice" class="totalDuePrice">${{ $order->price }}</span>
                                 </div>
                               </div>
                             </div>

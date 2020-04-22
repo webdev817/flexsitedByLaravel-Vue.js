@@ -105,7 +105,7 @@
                                 <p>Need to chat live? Our CS Team is ready to assist you</p>
                                 <br>
                                 <div class="w-100 p-2">
-                                    <a href="#" class="btn btn-primary btn-block">Chat Now!</a>
+                                    <a href="{{ route('supportChat') }}" class="btn btn-primary btn-block">Chat Now!</a>
                                 </div>
                             </div>
                         </div>
