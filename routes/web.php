@@ -94,6 +94,12 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('planAndBilling/{planNo}', 'WizeredController@planAndBilling')->name('planAndBilling');
     Route::get('businessInformation', 'WizeredController@businessInformation')->name('businessInformation');
 
+    Route::get('orderConfirmation/{order}', 'OrderController@orderConfirmation')->name('orderConfirmation');
+    Route::post('orderConfirmationStore/{order}', 'OrderController@orderConfirmationStore')->name('orderConfirmationStore');
+
+
+    Route::get('authCompleted','OrderController@authCompleted')->name('authCompleted');
+
     Route::get('incompletePaymentCompleted', 'WizeredController@incompletePaymentCompleted')->name('incompletePaymentCompleted');
     Route::post("storeBilling", "WizeredController@storeBilling")->name('storeBilling');
     Route::post("businessInformationStore", "WizeredController@businessInformationStore")->name('businessInformationStore');

@@ -32,38 +32,7 @@ class OrderController extends Controller
 
     }
 
-    public function handleMainStore($request)
-    {
-      $user = Auth::user();
-      $orderId = $request->orderId;
-      $order = Order::where('createdBy',$user->id)->where('id',$request->orderId)->first();
 
-      if ($order == null) {
-        return status('Permission Denied');
-      }
-      try {
-        $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100);
-        $invoiceNumber = $invoice->asStripeInvoice()->id;
-      } catch (\Exception $e) {
-        return errorMessage($e->getMessage());
-      }
-
-
-      Order::where('createdBy',$user->id)->where('id',$request->orderId)
-      ->update(['invoiceNumber'=> $invoiceNumber]);
-
-      $project = new Project([
-        'orderId'=> $order->id,
-        'title'=> $order->title,
-        'description'=> $order->orderDetails,
-        'createdBy'=> Auth::id()
-      ]);
-      $project->save();
-
-      return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
-      // return redirect()->route('projects.show', $project->id);
-
-    }
     /**
      * Store a newly created resource in storage.
      *
@@ -72,9 +41,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-      if ($request->step == "main") {
-        return $this->handleMainStore($request);
-      }
+
       $orders = self::getOrders();
       if (! isset($orders[$request->type])) {
         return errorMessage("Invalid Order Number");
@@ -94,11 +61,80 @@ class OrderController extends Controller
       ]);
       $myOrder->save();
 
+      return redirect()->route('orderConfirmation', $myOrder->id);
+
+    }
+
+    public function orderConfirmation(Request $request, Order $order)
+    {
+      if ($order->createdBy != Auth::id()) {
+        return errorMessage('This order does not belongs to you.');
+      }
+      $orders = self::getOrders();
+
+      // dummy data of order
+      $dummyOrder = $orders[$order->type];
+
       return view('supportPortal.orders.create', [
-        'order'=> $myOrder,
-        'dummyOrder'=> $order
+        'order'=> $order,
+        'dummyOrder'=> $dummyOrder
       ]);
     }
+    public function orderConfirmationStore(Request $request, Order $order)
+    {
+      $user = Auth::user();
+      $orderId = $request->orderId;
+      $order = Order::where('createdBy',$user->id)->where('id',$request->orderId)->first();
+
+      if ($order == null) {
+        return status('Permission Denied');
+      }
+      try {
+        $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100, [
+          'metadata'=>['orderId'=> $order->id]
+        ]);
+        $invoiceNumber = $invoice->asStripeInvoice()->id;
+      }catch (\Exception $e) {
+        return errorMessage($e->getMessage());
+      }
+
+      // catch (IncompletePayment $exception) {
+      //     $response = redirect()->route(
+      //           'cashier.payment',
+      //           [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
+      //       );
+      //       return $response;
+      // }catch (\Laravel\Cashier\Exceptions\PaymentActionRequired $exception) {
+      //     $response = redirect()->route(
+      //           'cashier.payment',
+      //           [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
+      //       );
+      //       return $response;
+      // }
+      Order::where('createdBy',$user->id)->where('id',$request->orderId)
+      ->update(['invoiceNumber'=> $invoiceNumber]);
+
+      $project = new Project([
+        'orderId'=> $order->id,
+        'title'=> $order->title,
+        'description'=> $order->orderDetails,
+        'createdBy'=> Auth::id()
+      ]);
+      $project->save();
+
+      return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
+      // return redirect()->route('projects.show', $project->id);
+
+    }
+
+    public function authCompleted(Request $request)
+    {
+      dd(
+        $request->all()
+      );
+    }
+
+
 
     /**
      * Display the specified resource.

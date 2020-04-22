@@ -11,10 +11,8 @@
                     <div class="page-wrapper">
 
                       @include('common.messagesSupport')
-                      <form action="{{ route('orders.store') }}" method="post">
+                      <form action="{{ route('orderConfirmationStore', $order->id) }}" method="post">
                         @csrf
-                        <input type="hidden" name="step" value="main">
-                        <input type="hidden" name="orderId" value="{{ $order->id }}">
 
                         <div class="col-12 pl-0 mb-3">
                           <h4 class="headingColor">Order Form</h4>
