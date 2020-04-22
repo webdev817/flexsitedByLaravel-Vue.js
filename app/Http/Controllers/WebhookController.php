@@ -38,9 +38,10 @@ class WebhookController extends CashierController
     public function handleInvoicePaymentSucceeded($payload)
     {
         // storeDataToDisk($payload);
+        dump('ddd');
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
 
-         
+
           $invoiceId = $payload['data']['object']['id'];
 
           $invoice = StripeHelper::getStripeInvoiceById($invoiceId);

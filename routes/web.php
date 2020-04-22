@@ -160,7 +160,10 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
 });
 
 Route::get('log',function () {
-  getDataFromDisk();
+  $rr = getDataFromDisk();
+  dd(
+    $rr
+  );
 });
 
 Route::redirect('admin', 'admin/home');

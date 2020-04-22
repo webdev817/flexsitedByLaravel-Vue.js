@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Project;
 use App\Order;
+use StripeHelper;
+use Laravel\Cashier\Exceptions\IncompletePayment;
 use Auth;
 
 class OrderController extends Controller
@@ -67,6 +69,7 @@ class OrderController extends Controller
 
     public function orderConfirmation(Request $request, Order $order)
     {
+      
       $user = Auth::user();
       if ($order->createdBy != $user->id) {
         return errorMessage('This order does not belongs to you.');
@@ -95,13 +98,28 @@ class OrderController extends Controller
       if ($user->id != $order->createdBy) {
         return errorMessage('This order does not belongs to you.');
       }
+      if ($request->paymentMethod != null) {
+        $paymentMethod = $request->paymentMethod;
+        $obj = StripeHelper::updateCard($paymentMethod);
+
+        if ($obj->status == 0) {
+            return errorMessage($obj->message);
+        }
+      }
 
       try {
         $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100, [
           'metadata'=>['orderId'=> $order->id]
         ]);
         $invoiceNumber = $invoice->asStripeInvoice()->id;
+      }catch (IncompletePayment $exception) {
+          $response = redirect()->route(
+                'cashier.payment',
+                [$exception->payment->id, 'redirect' => route('orderConfirmation',$order->id)]
+            );
+          return $response;
       }catch (\Exception $e) {
+
         $order->billingStatus = 0;
         $order->billingError = $e->getMessage();
         $order->save();

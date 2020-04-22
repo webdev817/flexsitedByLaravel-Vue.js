@@ -122,7 +122,6 @@
                               <div class="col-12 blackColorOrderForm">
                                 <div class="float-left">
                                   Payment Summary
-
                                 </div>
 
                                 <div class="float-right">
@@ -133,7 +132,7 @@
 
                             <div class="row pb-2 pt-2 mt-3 justify-content-center">
                               <div class="col-12">
-                                <button @if(isset($intent))  data-secret="{{ $intent->client_secret }}"  @endif class="btn btn-primary btn-block" type="submit" name="button">Pay Now</button>
+                                <button  id="card-button" @if(isset($intent))  data-secret="{{ $intent->client_secret }}"  @endif class="btn btn-primary btn-block" type="submit" name="button">Pay Now</button>
                               </div>
                               <div class="col-12 text-center mt-3 fontSize14px">
                                 On Clicking Pay Now you are agreed to Flexsited Terms & Conditions and Privacy Policy
