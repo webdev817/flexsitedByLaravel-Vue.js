@@ -7,4 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     protected $guarded = [];
+
+    public function project(){
+      return $this->belongsTo('App\Project','id','orderId');
+    }
 }

@@ -55,6 +55,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::resource('orders', 'OrderController');
   Route::resource('projects', 'ProjectController');
 
+  Route::get('profile','UsersController@profile')->name('profile');
+  
   Route::get('changePassword','UsersController@changePassword')->name('changePasswordSP');
   Route::post('changePasswordStore','UsersController@changePasswordStore')->name('changePasswordSPStore');
 

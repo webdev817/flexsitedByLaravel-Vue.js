@@ -31,7 +31,6 @@ class OrderController extends Controller
      */
     public function create(Request $request)
     {
-
     }
 
 
@@ -43,119 +42,119 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-
-      $orders = self::getOrders();
-      if (! isset($orders[$request->type])) {
-        return errorMessage("Invalid Order Number");
-      }
-      // dummy data of order
-      $order = $orders[$request->type];
-      $price = $order->price;
-      if ($request->type == 4) {
-        $price = 0;
-      }
-      $myOrder = new Order([
+        $orders = self::getOrders();
+        if (! isset($orders[$request->type])) {
+            return errorMessage("Invalid Order Number");
+        }
+        // dummy data of order
+        $order = $orders[$request->type];
+        $price = $order->price;
+        if ($request->type == 4) {
+            $price = 0;
+        }
+        $myOrder = new Order([
         'type'=> $request->type,
         'title'=> $order->title,
         'price'=> $price,
         'orderDetails'=> $request->description,
         'createdBy'=> Auth::id()
       ]);
-      $myOrder->save();
+        $myOrder->save();
 
-      return redirect()->route('orderConfirmation', $myOrder->id);
-
+        return redirect()->route('orderConfirmation', $myOrder->id);
     }
 
     public function orderConfirmation(Request $request, Order $order)
     {
+        $user = Auth::user();
+        if ($order->createdBy != $user->id) {
+            return errorMessage('This order does not belongs to you.');
+        }
 
-      $user = Auth::user();
-      if ($order->createdBy != $user->id) {
-        return errorMessage('This order does not belongs to you.');
-      }
+        if ($request->ps == 1 || $order->billingStatus == 2) {
+            return $this->authCompleted($order, $user);
+        }
 
-      if ($request->ps == 1 || $order->billingStatus == 2) {
-        return $this->authCompleted($order,$user);
-      }
-
-      $orders = self::getOrders();
-      // dummy data of order
-      $dummyOrder = $orders[$order->type];
-      if ($order->billingStatus == 0) {
-        return view('supportPortal.orders.create', [
+        $orders = self::getOrders();
+        // dummy data of order
+        $dummyOrder = $orders[$order->type];
+        if ($order->billingStatus == 0) {
+            return view('supportPortal.orders.create', [
           'order'=> $order,
           'dummyOrder'=> $dummyOrder,
           'intent'=>  $user->createSetupIntent()
         ])->withErrors([$order->billingError]);
-      }else {
-        return view('supportPortal.orders.create', [
+        } else {
+            return view('supportPortal.orders.create', [
           'order'=> $order,
           'dummyOrder'=> $dummyOrder
         ]);
-      }
-
+        }
     }
     public function orderConfirmationStore(Request $request, Order $order)
     {
-      $user = Auth::user();
-      if ($user->id != $order->createdBy) {
-        return errorMessage('This order does not belongs to you.');
-      }
-      if ($request->paymentMethod != null) {
-        $paymentMethod = $request->paymentMethod;
-        $obj = StripeHelper::updateCard($paymentMethod);
-
-        if ($obj->status == 0) {
-            return errorMessage($obj->message);
+        $user = Auth::user();
+        if ($user->id != $order->createdBy) {
+            return errorMessage('This order does not belongs to you.');
         }
-      }
+        if ($request->paymentMethod != null) {
+            $paymentMethod = $request->paymentMethod;
+            $obj = StripeHelper::updateCard($paymentMethod);
 
-      try {
-        $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100, [
+            if ($obj->status == 0) {
+                return errorMessage($obj->message);
+            }
+        }
+
+
+        // website subscription not a normal order
+        if ($order->type == 4) {
+            return $this->handleWebsiteOrder($order);
+        }
+
+        try {
+            $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100, [
           'metadata'=>['orderId'=> $order->id]
         ]);
-        $invoiceNumber = $invoice->asStripeInvoice()->id;
-      }catch (IncompletePayment $exception) {
-          $response = redirect()->route(
+            $invoiceNumber = $invoice->asStripeInvoice()->id;
+        } catch (IncompletePayment $exception) {
+            $response = redirect()->route(
                 'cashier.payment',
-                [$exception->payment->id, 'redirect' => route('orderConfirmation',[$order->id,'ps' => 1])]
+                [$exception->payment->id, 'redirect' => route('orderConfirmation', [$order->id,'ps' => 1])]
             );
-          return $response;
-      }catch (\Exception $e) {
+            return $response;
+        } catch (\Exception $e) {
+            $order->billingStatus = 0;
+            $order->billingError = $e->getMessage();
+            $order->save();
 
-        $order->billingStatus = 0;
-        $order->billingError = $e->getMessage();
-        $order->save();
+            return redirect()->back();
+        }
 
-        return redirect()->back();
-      }
+        $order->update(['invoiceNumber'=> $invoiceNumber]);
 
-      $order->update(['invoiceNumber'=> $invoiceNumber]);
-
-      $project = new Project([
+        $project = new Project([
         'orderId'=> $order->id,
         'title'=> $order->title,
         'description'=> $order->orderDetails,
         'createdBy'=> Auth::id()
       ]);
-      $project->save();
+        $project->save();
 
-      return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
-
+        return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
     }
 
-    public function authCompleted($order,$user)
+    public function authCompleted($order, $user)
     {
-      $project = new Project([
+        $project = new Project([
         'orderId'=> $order->id,
         'title'=> $order->title,
         'description'=> $order->orderDetails,
         'createdBy'=> $user->id
       ]);
-      $project->save();
+        $project->save();
 
-      return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
+        return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
     }
 
 
@@ -206,10 +205,104 @@ class OrderController extends Controller
     }
 
 
+    public function handleWebsiteOrder($order)
+    {
+        $user = Auth::user();
+        $request = request();
+
+
+
+        $planNumber = $request->planSelected;
+        $planDurration = $request->planDurration;
+        if ($planDurration == 2) {
+            $planDurration = "y";
+        }
+        $planId = "basicPlanMonthly"; //by default basic plan
+
+
+        if ($planDurration == "y") {
+            // choose Yearly plan
+            if ($planNumber == 1) {
+                $planId = "basicPlanYearly";
+            } elseif ($planNumber == 2) {
+                $planId = "essentialPlanYearly";
+            } elseif ($planNumber == 3) {
+                $planId = "activePlanYearly";
+            } elseif ($planNumber == 4) {
+                $planId = "completePlanYearly";
+            }
+        } else {
+            // monthlyPlans
+            if ($planNumber == 1) {
+                $planId = "basicPlanMonthly";
+            } elseif ($planNumber == 2) {
+                $planId = "essentialPlanMonthly";
+            } elseif ($planNumber == 3) {
+                $planId = "activePlanMonthly";
+            } elseif ($planNumber == 4) {
+                $planId = "completePlanMonthly";
+            }
+        }
+
+        $price = 0;
+        $allPlans = flexsitedPlans();
+        $planSelected = $allPlans[$request->planSelected - 1];
+        if ($request->planDurration == 2) {
+          $price = $planSelected->priceYearly;
+        }else {
+          $price = $planSelected->price;
+        }
+
+        $order->update(['price'=>$price]);
+        // subscribe to plan
+        try {
+            $obj = StripeHelper::subscribeToPlan($user, $planId, null, $order->id);
+
+
+            // unhandle able error
+            if ($obj->status == 0) {
+                $order->billingStatus = 0;
+                $order->billingError = $obj->message;
+                $order->save();
+                return redirect()->back();
+            }
+
+            // incomplete
+            if ($obj->status == 3) {
+                $response = redirect()->route(
+                    'cashier.payment',
+                    [$obj->exception->payment->id, 'redirect' => route('orderConfirmation', [$order->id,'ps' => 1])]
+                );
+                return $response;
+            }
+        } catch (\Exception $e) {
+            return errorMessage($e->getMessage());
+        }
+
+        $invoiceNumber = 0;
+
+        $order->update(['invoiceNumber'=> $invoiceNumber]);
+
+        $order->billingStatus = 1;
+        $order->billingError = null;
+        $order->save();
+
+        $project = new Project([
+          'orderId'=> $order->id,
+          'title'=> $order->title,
+          'description'=> $order->orderDetails,
+          'createdBy'=> Auth::id()
+        ]);
+        $project->save();
+
+        return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
+    }
+
+
+
     public static function getOrders($orderType = null)
     {
-
-      $orders = [
+        $orders = [
         (object)[
           'title'=> 'Logo Design',
           'price'=> 150,
@@ -241,12 +334,12 @@ class OrderController extends Controller
           'description'=> 'We will create a new website for your business. You have the option of choosing from one of our monthly plans. '
         ]
       ];
-      if ($orderType == null) {
-        return $orders;
-      }
-      if (isset($orders[$orderType])) {
-        return $orders[$orderType];
-      }
-      return null;
+        if ($orderType == null) {
+            return $orders;
+        }
+        if (isset($orders[$orderType])) {
+            return $orders[$orderType];
+        }
+        return null;
     }
 }

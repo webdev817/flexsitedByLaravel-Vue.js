@@ -182,7 +182,7 @@ class StripeHelper
 
 
     }
-    public static function subscribeToPlan($user,  $planId, $coupon)
+    public static function subscribeToPlan($user,  $planId, $coupon, $planUniqeId = 'main')
     {
       $obj = new stdClass;
       $obj->status = 1;
@@ -201,11 +201,11 @@ class StripeHelper
 
 
           if ($couponIdToApply != null) {
-            $subscription = $user->newSubscription('main', $planId)
+            $subscription = $user->newSubscription($planUniqeId, $planId)
             ->withCoupon($couponIdToApply)
             ->create();
           }else {
-            $subscription = $user->newSubscription('main', $planId)
+            $subscription = $user->newSubscription($planUniqeId, $planId)
             ->create();
           }
 
@@ -220,6 +220,7 @@ class StripeHelper
             );
 
           $obj->response = $response;
+          $obj->exception = $exception;
           $obj->status = 3;
 
           return $obj;

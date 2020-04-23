@@ -533,6 +533,35 @@ function getWizeredObj($userId)
 function strToCapitalize($str) {
   return ucfirst(strtolower($str));
 }
+function getSubscription($userId, $subscriptionId) {
+  $subscription = \App\Subscription::where('user_id',$userId)->where('stripe_id',$subscriptionId)->first();
+  if ($subscription == null) {
+    return null;
+  }
+  $subscription->title = '-';
+  if ($subscription->name == "main") {
+    $subscription->title = "Main Website Subscription";
+  }else {
+    $orderId = $subscription->name;
+    $order = \App\Order::find($orderId);
+    $subscription->order = $order;
+    try {
+      $subscription->title = $order->title;
+    } catch (\Exception $e) {
+
+    }
+
+  }
+  return $subscription;
+}
+function getOrderByInvoiceId($invoiceId) {
+
+    $order = \App\Order::where('invoiceNumber',$invoiceId)->first();
+    if ($order == null) {
+        return null;
+    }
+    return $order;
+}
 function flexsitedPlans() {
   $plans = [
     (object)[

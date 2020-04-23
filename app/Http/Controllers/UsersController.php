@@ -177,9 +177,18 @@ class UsersController extends Controller
     {
 
     }
+    public function profile()
+    {
+      $user = Auth::user();
+      $invoices = $user->invoices(true,['limit'=> 100]);
+
+
+      return view('supportPortal.users.profile', compact('user','invoices'));
+
+    }
     public function closeAccount(Request $request)
     {
-      
+
       $request->validate([
         'password'=> "required|max:255",
         'password_confirm'=> 'required',
@@ -192,9 +201,9 @@ class UsersController extends Controller
       if (!Hash::check($request->password, $user->password)) {
         return errorMessage("Wrong Password");
       }
-      dd(
-        Auth::id()
-      );
+      // dd(
+      //   Auth::id()
+      // );
       User::where('id', Auth::id())->delete();
       Auth::logout();
       return statusTo("We are sorry to see you go", route('login'));

@@ -17,49 +17,51 @@
                                 <div class="row">
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
                                         <h5 class="headingColor">
-                                            <a class="linkspCPassword border-bottom-0" href="{{ route('profile') }}">Billing History</a>
+                                            <a class="linkspCPassword @if(requestIsFromArray(['changePasswordSP'])) border-bottom-0 @endif" href="{{ route('profile') }}">Billing History</a>
                                         </h5>
                                     </div>
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
                                         <h5 class="headingColor">
-                                            <a class="linkspCPassword" href="{{ route('changePasswordSP') }}">Security</a>
+                                            <a class="linkspCPassword @if(requestIsFromArray(['profile'])) border-bottom-0 @endif" href="{{ route('changePasswordSP') }}">Security</a>
                                         </h5>
                                     </div>
                                 </div>
                                 <div class="row bg-white orderBoxes ml-0 mr-0 mt-4">
 
-                                    <div class="col-12 headingOrder p-3 border-bottom">
-                                        <i class="fa fa-lock"></i> &nbsp; Change Password
-                                    </div>
-                                    <div class="col-12 pt-5 pb-5">
 
-                                        <form class="" action="{{ route('changePasswordSPStore') }}" method="post">
-                                            @csrf
+                                  @if (count($invoices) > 0)
+                                  <table class="table table-bordered m-0 m-0 p-0">
+                                      <tr>
 
-                                            <div class="row">
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
+                                          <th>Date</th>
+                                          <th>Detail</th>
+                                          <th>Amount</th>
+                                          <th>Invoice Id</th>
+                                          <th>Action</th>
+                                      </tr>
+                                      @foreach ($invoices as $key => $invoice)
+                                        
+                                      <tr>
 
-                                                        <input class="form-control" placeholder="Enter new Password" type="password" id="password" name="password" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4">
-                                                    <div class="form-group">
-
-                                                        <input class="form-control" placeholder="Re-Enter New Password" type="password" id="password_confirm" name="password_confirm" value="">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12">
-
-                                                </div>
-                                                <div class="col-lg-4  mt-2">
-                                                    <button type="submit" class="btn btn-primary  " name="button">Change Password</button>
-                                                </div>
-                                            </div>
-                                        </form>
-
-
-                                    </div>
+                                          <td>{{ $invoice->date()->toFormattedDateString() }}</td>
+                                          <th>
+                                            @include('supportPortal.users.detailCalc',['invoice'=> $invoice])
+                                          </th>
+                                          <td>{{ $invoice->total() }}</td>
+                                          <td>{{ $invoice->id }}</td>
+                                          <td class="col-xs-2 ">
+                                              <a href="{{ route('invoiceDownload',[$invoice->id,
+                                                    'userId'=>Auth::id()
+                                                    ]) }}" class="btn btn-primary btn-sm">Download</a>
+                                          </td>
+                                      </tr>
+                                      @endforeach
+                                  </table>
+                                  @else
+                                  <div class="jumbotron text-center">
+                                      <p>No billing history</p>
+                                  </div>
+                                  @endif
                                 </div>
                             </div>
 

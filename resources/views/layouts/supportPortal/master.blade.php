@@ -110,6 +110,11 @@
 
                             <i class="feather icon-phone-call"></i></span><span class="pcoded-mtext">Contact Us</span></a>
                       </li>
+                      <li class="nav-item {{ requestIsFromArray(['profile']) }}">
+                          <a href="{{ route('profile') }}" class="nav-link "><span class="pcoded-micon">
+
+                            <i class="feather icon-user"></i></span><span class="pcoded-mtext">Profile</span></a>
+                      </li>
                     @endif
 
                     @if (!superAdmin())
