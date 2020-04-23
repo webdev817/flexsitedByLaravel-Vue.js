@@ -28,6 +28,13 @@ class CreateOrdersTable extends Migration
 
             $table->text('billingError')->nullable();
             $table->integer('billingStatus')->default(1);
+            /**
+            0 means failed
+
+            1 means ok
+
+            2 means second step is done
+            */
 
             $table->timestamps();
         });

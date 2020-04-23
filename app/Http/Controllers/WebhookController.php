@@ -38,8 +38,23 @@ class WebhookController extends CashierController
     public function handleInvoicePaymentSucceeded($payload)
     {
         // storeDataToDisk($payload);
-        dump('ddd');
+        dump(
+          isset($payload['data']['object']['lines']['data'][0]['metadata']['orderId']),
+          'is set or not'
+        );
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
+
+          try {
+            $orderId = $payload['data']['object']['lines']['data'][0]['metadata']['orderId'];
+            $invoiceId = $payload['data']['object']['id'];
+
+            \App\Order::where('id',$orderId)->update([
+              'billingStatus'=> 2,
+              'invoiceNumber'=> $invoiceId
+            ]);
+          } catch (\Exception $e) {
+
+          }
 
 
           $invoiceId = $payload['data']['object']['id'];

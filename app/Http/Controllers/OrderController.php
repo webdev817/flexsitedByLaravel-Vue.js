@@ -69,13 +69,17 @@ class OrderController extends Controller
 
     public function orderConfirmation(Request $request, Order $order)
     {
-      
+
       $user = Auth::user();
       if ($order->createdBy != $user->id) {
         return errorMessage('This order does not belongs to you.');
       }
-      $orders = self::getOrders();
 
+      if ($request->ps == 1 || $order->billingStatus == 2) {
+        return $this->authCompleted($order,$user);
+      }
+
+      $orders = self::getOrders();
       // dummy data of order
       $dummyOrder = $orders[$order->type];
       if ($order->billingStatus == 0) {
@@ -115,7 +119,7 @@ class OrderController extends Controller
       }catch (IncompletePayment $exception) {
           $response = redirect()->route(
                 'cashier.payment',
-                [$exception->payment->id, 'redirect' => route('orderConfirmation',$order->id)]
+                [$exception->payment->id, 'redirect' => route('orderConfirmation',[$order->id,'ps' => 1])]
             );
           return $response;
       }catch (\Exception $e) {
@@ -138,15 +142,20 @@ class OrderController extends Controller
       $project->save();
 
       return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
-      // return redirect()->route('projects.show', $project->id);
 
     }
 
-    public function authCompleted(Request $request)
+    public function authCompleted($order,$user)
     {
-      dd(
-        $request->all()
-      );
+      $project = new Project([
+        'orderId'=> $order->id,
+        'title'=> $order->title,
+        'description'=> $order->orderDetails,
+        'createdBy'=> $user->id
+      ]);
+      $project->save();
+
+      return redirect()->route('projects.index')->with('OrderPlaced','Order has been placed');
     }
 
 
