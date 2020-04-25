@@ -56,7 +56,7 @@ Route::group(['middleware' => ['auth']], function () {
   Route::resource('projects', 'ProjectController');
 
   Route::get('profile','UsersController@profile')->name('profile');
-  
+
   Route::get('changePassword','UsersController@changePassword')->name('changePasswordSP');
   Route::post('changePasswordStore','UsersController@changePasswordStore')->name('changePasswordSPStore');
 
@@ -80,6 +80,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::post('supportChatMine','SupportController@supportChatApi')->name('supportChatMine');
 
   Route::get('supportChatsRequests','SupportController@supportChatsRequests')->name('supportChatsRequests');
+
+
 
 });
 
@@ -115,7 +117,8 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('createAllPlans', 'BillingController@createAllPlans')->name('createAllPlans');
 
-    Route::get('supportPortalHome', 'GeneralController@supportPortalHome')->name('supportPortalHome');
+    Route::redirect('supportPortalHome','/')->name('supportPortalHome');
+    // Route::get('supportPortalHome', 'GeneralController@supportPortalHome')->name('supportPortalHome');
 
     Route::get('subscription/invoice/{id}', 'BillingController@invoiceDownload')->name('invoiceDownload');
     Route::get('couponInfo', 'CouponController@couponInfo')->name('couponInfo');

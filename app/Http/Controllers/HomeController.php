@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Order;
+use App\MarketingService;
+
 use stdClass;
 use Helper;
 use Auth;
@@ -49,7 +52,13 @@ class HomeController extends Controller
 
 
     if (isWizeredDone()) {
-      return view('supportPortal.home');
+      $orders = Order::has('project')->where('createdBy',Auth::id())->get();
+
+      $webDevelopment = Order::where('type',4)->where('createdBy',Auth::id())->count();
+      $graphicDesing = Order::where('type','!=',4)->where('createdBy',Auth::id())->count();
+      $marketingCount = MarketingService::where('createdBy',Auth::id())->count();
+      
+      return view('supportPortal.home', compact('orders', 'webDevelopment', 'graphicDesing', 'marketingCount'));
     }
   }
 

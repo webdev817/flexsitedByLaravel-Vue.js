@@ -24,6 +24,61 @@
   font-size: 22px;
   color: white;
 }
+.projectTaskIcon{
+  font-size: 15px;
+}
+.taskProjectIcon{
+  width: 70px;
+  color: white;
+  font-size: 28px;
+  background: #63C6B4;
+  border-radius: 10px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+}
+.borderRadius{
+  border-radius: 10px;
+
+}
+.inActiveProject{
+  background: #808080;
+}
+.projectActiveDashboarddown{
+  width: 109px;
+  color: white;
+  font-size: 42px;
+  background: #63C6B4;
+  border-radius: 10px;
+  height: 109px;
+  display: flex;
+  justify-content: center;
+}
+.positionReltive{
+  position: relative;
+  margin-top: 50px;
+}
+.activeProjecttitle{
+  font-size: 18px;
+  font-weight: bold;
+  align-self: center;
+  display: flex;
+}
+.nleftrightm{
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.taskprojectTitle{
+  display: flex;
+  width: 160px;
+  height: 70px;
+  justify-content: center;
+}
+.headingBlack{
+  font-size: 22px;
+  color: black;
+}
 .cardHeader {
     font-size: 23px;
     background-color: #5ABAA5 !important;
@@ -167,6 +222,11 @@ a {
 .blackColorOrderForm {
     color: #514F4F;
 }
+.clientTaskDue{
+  font-size: 12px;
+  margin-top: 10px;
+  color: #a6a6a6cf;
+}
 .supportTabs{
   width: 70px;
     display: inline;
@@ -174,11 +234,34 @@ a {
     font-weight: bold;
     margin-right: 43px;
 }
+.fontSizeGeneralControl{
+  font-size: 12px;
+}
 .supportTabs.active{
 border-bottom: 2px solid var(--c1);
 }
+@media (max-width: 1415px) {
+    .taskProjectIcon{
+      width: 60px;
+      height: 60px;
+    }
+    .taskprojectTitle{
+      width: 133px;
+      height: 60px;
+    }
+}
+@media (max-width: 1315px) and (min-width:  1100px) {
+  .taskProjectIcon {
+      width: 50px;
+      height: 50px;
+  }
+  .btn{
+    padding: 6px 7px;
+  }
+}
+@media (max-width: 1200px) {
 
-@media (max-width: 1200px) {}
+}
 
 @media (max-width: 992px) {
     .minHeight1 {

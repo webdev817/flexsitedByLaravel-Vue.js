@@ -2,7 +2,7 @@
 <input type="hidden" id="planDurration" name="planDurration" value="">
 <div class="row bg-white">
 
-  @foreach (flexsitedPlans() as $plan)
+  @foreach (flexsitedPlans() as $key => $plan)
 
     <div class="col-xl-6 col-md-6 col-12 commonPlanCommon  text-center p-3">
 
@@ -23,8 +23,25 @@
                       </div>
                     </div>
                 </div>
-              @endforeach
 
+              @endforeach
+              @if ($key == 0)
+                <div class="d-none d-md-block">
+                  <br>
+                  <br>
+                </div>
+              @endif
+              @if ($key == 2)
+                <div class="d-none d-md-block">
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                  <br>
+                </div>
+              @endif
               <div class="w-100 mt-5">
                 <div class="priceBoxes monthlyPrice">$<div class="priceItself">{{ $plan->price }}</div> / Month</div>
               </div>
