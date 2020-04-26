@@ -492,6 +492,7 @@ function dev()
     }
     return false;
 }
+
 function getWizeredObj($userId)
 {
     $fields = [

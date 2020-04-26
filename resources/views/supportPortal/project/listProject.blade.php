@@ -99,6 +99,7 @@
                                                         <th>Project Name</th>
                                                         <th>Due On</th>
                                                         <th>Total Amount</th>
+                                                        <th>Current Plan</th>
                                                         <th>Satus</th>
                                                 </thead>
                                                 <tbody>
@@ -119,6 +120,11 @@
                                                         </td>
                                                         <td>
                                                             {{ $project->order->price }} USD
+                                                        </td>
+                                                        <td>
+                                                          @if ($project->order->type == 0)
+                                                            
+                                                          @endif
                                                         </td>
                                                         <td>
                                                           @include('supportPortal.common.projectStatus', ['status' => $project->status])

@@ -9,6 +9,9 @@ use StripeHelper;
 use App\Wizered;
 use App\Design;
 use App\Coupon;
+use App\Order;
+use App\Project;
+
 use App\User;
 use Auth;
 
@@ -168,6 +171,7 @@ class WizeredController extends Controller
                 $stripeChargeAmount = 100;
             }
             $stripeChargeMessage = "Logo Design  ";
+            self::createOrder(0);
         }
         $businessCardDesign = $request->businessCardDesign;
         if ($businessCardDesign == "on") {
@@ -178,6 +182,7 @@ class WizeredController extends Controller
             }
 
             $stripeChargeMessage .= "Business Card Design  ";
+            self::createOrder(2);
         }
         $flayerDesign = $request->flayerDesign;
         if ($flayerDesign == "on") {
@@ -186,12 +191,15 @@ class WizeredController extends Controller
                 $stripeChargeAmount = $stripeChargeAmount + 200;
             }
             $stripeChargeMessage .= "Flayer Design    ";
+
+            self::createOrder(1);
         }
         $stripeChargeAmount = $stripeChargeAmount * 100; // cents to dollers
 
 
 
         self::insertWizered("planId", $planId);
+        self::insertWizered("planDurration", $planDurration);
         self::insertWizered("currentStep", 5);
 
         self::insertWizered('stripeChargeAmount', $stripeChargeAmount);
@@ -231,7 +239,7 @@ class WizeredController extends Controller
             self::insertWizered("subscribe", $e->getMessage());
             return errorMessage($e->getMessage());
         }
-
+        self::createOrder(4);
         self::insertWizered("subscribe", 'complete');
 
 
@@ -291,6 +299,7 @@ class WizeredController extends Controller
                     self::insertWizered("subscribe", 'inComplete');
                     return $obj->response;
                 }
+                self::createOrder(4);
             } catch (\Exception $e) {
                 self::insertWizered("subscribe", $e->getMessage());
                 return errorMessage($e->getMessage());
@@ -392,6 +401,50 @@ class WizeredController extends Controller
         }
         return $wizerd->get();
     }
+
+    public static function createOrder($type)
+    {
+      $orders = getSupportOrders();
+
+      $order = $orders[$type];
+      $price = $order->price;
+      if ($type == 4) {
+          $price = 0;
+
+          $planNohai = Wizered::where('key','selectedWebsitePackege')->where('userId',Auth::id())->first()->value;
+          $durration = Wizered::where('key','planDurration')->where('userId',Auth::id())->first()->value;
+          if ($planNohai != null) {
+            $plans = flexsitedPlans($planNohai);
+            $plan =  $plans[$planNohai - 1];
+            if ($plan != null) {
+              if ($durration != null && $durration == "y") {
+                $price = $plan->priceYearly;
+              }else {
+                $price = $plan->price;
+              }
+            }
+          }
+
+      }
+      $myOrder = new Order([
+        'type'=> $type,
+        'title'=> $order->title,
+        'price'=> $price,
+        'orderDetails'=> '',
+        'createdBy'=> Auth::id()
+      ]);
+      $myOrder->save();
+
+      $project = new Project([
+        'orderId'=> $myOrder->id,
+        'title'=> $myOrder->title,
+        'description'=> $myOrder->orderDetails,
+        'createdBy'=> Auth::id()
+      ]);
+      $project->save();
+
+    }
+
     public static function insertWizered($key, $value)
     {
         Wizered::where('userId', Auth::id())->where('key', $key)->delete();

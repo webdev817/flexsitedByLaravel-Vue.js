@@ -53,12 +53,12 @@ class OrderController extends Controller
             $price = 0;
         }
         $myOrder = new Order([
-        'type'=> $request->type,
-        'title'=> $order->title,
-        'price'=> $price,
-        'orderDetails'=> $request->description,
-        'createdBy'=> Auth::id()
-      ]);
+          'type'=> $request->type,
+          'title'=> $order->title,
+          'price'=> $price,
+          'orderDetails'=> $request->description,
+          'createdBy'=> Auth::id()
+        ]);
         $myOrder->save();
 
         return redirect()->route('orderConfirmation', $myOrder->id);
