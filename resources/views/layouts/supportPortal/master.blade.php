@@ -145,6 +145,9 @@
                       <li class="nav-item {{ requestIsFromArray(['allSubscriptions', 'subscriptionHistory']) }}">
                           <a href="{{ route('allSubscriptions') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Subscriptions</span></a>
                       </li>
+                      <li class="nav-item {{ requestIsFromArray(['coupons.index', 'coupons.edit']) }}">
+                          <a href="{{ route('coupons.index') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-minus"></i></span><span class="pcoded-mtext">Coupons</span></a>
+                      </li>
                       <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit', 'supportChatsRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                           <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
                           <ul class="pcoded-submenu">
@@ -560,6 +563,41 @@
     @yield('jsEnd')
     @yield('jsCommon')
 
+
+
+        <div id="deleteConfirmModel" class="modal fade">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content tx-size-sm">
+                        <div class="modal-body text-center py-5">
+
+                            <p class="mg-b-20   mg-x-20" id="error_message">Are you sure you want to delete?</p>
+                            <a href="#" id="submitForm" class="btn btn-danger btn-sm pd-x-25">Yes</a>
+                            <input type="hidden" id="formToSubmit" value="0">
+                            <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal" aria-label="Close">No</button>
+                        </div><!-- modal-body -->
+                    </div><!-- modal-content -->
+                </div><!-- modal-dialog -->
+            </div>
+
+
+            <script type="text/javascript">
+            $(".confirmDelete").click(function(){
+              var formId = 0;
+              if($(this)[0].hasAttribute('formId')){
+                formId = jQuery.trim($(this).attr('formId'));
+              }
+              $("#formToSubmit").val(formId);
+
+
+              $('#deleteConfirmModel').modal('show');
+              return false;
+            });
+
+            $("#submitForm").click(function(event) {
+                var formToSubmit = $("#formToSubmit").val();
+                $("#"+formToSubmit).submit();
+              });
+            </script>
 
 </body>
 </html>
