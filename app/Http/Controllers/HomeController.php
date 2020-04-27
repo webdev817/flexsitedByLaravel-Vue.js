@@ -57,7 +57,7 @@ class HomeController extends Controller
       $webDevelopment = Order::where('type',4)->where('createdBy',Auth::id())->count();
       $graphicDesing = Order::where('type','!=',4)->where('createdBy',Auth::id())->count();
       $marketingCount = MarketingService::where('createdBy',Auth::id())->count();
-      
+
       return view('supportPortal.home', compact('orders', 'webDevelopment', 'graphicDesing', 'marketingCount'));
     }
   }
@@ -100,8 +100,8 @@ class HomeController extends Controller
 
   public function mawaisnow(Request $request)
   {
-    dd();
-    phpinfo();
-    die();
+
+
+    return view('mawaisnow');
   }
 }

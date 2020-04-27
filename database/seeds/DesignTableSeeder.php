@@ -13,17 +13,16 @@ class DesignTableSeeder extends Seeder
     public function run()
     {
         $arr = [
-        'mawaisnow/select-design/1.jpg',
-        'mawaisnow/select-design/2.jpg',
-        'mawaisnow/select-design/3.jpg',
-        'mawaisnow/select-design/4.jpg',
-        'mawaisnow/select-design/5.jpg',
-        'mawaisnow/select-design/6.jpg',
-        'mawaisnow/select-design/8.jpg',
-        'mawaisnow/select-design/9.jpg',
-        'mawaisnow/select-design/41.jpg',
-        'mawaisnow/select-design/46708-original.jpg',
-        'mawaisnow/select-design/d599192977cf24a1e8891c75c3490e1d'
+        'mawaisnow/select-design/Axii.jpg',
+        'mawaisnow/select-design/Beauty Salon   Just another site.jpg',
+        'mawaisnow/select-design/Bougenville — A Beautiful   Casual Tumblr Theme.jpg',
+        'mawaisnow/select-design/Haiber - Haircut Beauty Salon Muse Template.jpg',
+        'mawaisnow/select-design/Hairy   Barber Html5 Template.jpg',
+        'mawaisnow/select-design/Helen Spa   Welness   Health Theme – Helen Spa   Welness   Health Theme.jpg',
+        'mawaisnow/select-design/Muhil.jpg',
+        'mawaisnow/select-design/Sofee.jpg',
+        'mawaisnow/select-design/Barber – Health   Beauty WordPress Themes.jpg',
+        'mawaisnow/select-design/Trisha.jpg'
         ];
 
         for ($i=0; $i < 3; $i++) {
@@ -71,6 +70,10 @@ class DesignTableSeeder extends Seeder
 
             $design = new Design;
             $design->image = $arr[8]; //41th image name
+            $design->categoryId = 1;
+            $design->save();
+            $design = new Design;
+            $design->image = $arr[9]; //41th image name
             $design->categoryId = 1;
             $design->save();
         }
