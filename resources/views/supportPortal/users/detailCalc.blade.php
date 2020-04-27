@@ -40,7 +40,7 @@ $invoiceItem = $invoice->invoiceItems();
     $order = getOrderByInvoiceId($invoice->id);
   @endphp
   @if ($order == null)
-    --
+    Order Charges
   @else
     @if ($order->project != null && $order->project->status != 1)
       <a href="{{ route('projects.show',$order->id) }}">

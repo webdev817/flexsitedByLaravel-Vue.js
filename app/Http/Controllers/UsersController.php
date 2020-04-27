@@ -199,7 +199,8 @@ class UsersController extends Controller
     {
       $user = Auth::user();
       $invoices = $user->invoices(true,['limit'=> 100]);
-
+      // storeDataToDisk();
+      // $invoices = getDataFromDisk();
 
       return view('supportPortal.users.profile', compact('user','invoices'));
 

@@ -124,6 +124,8 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('subscription/invoice/{id}', 'BillingController@invoiceDownload')->name('invoiceDownload');
     Route::get('couponInfo', 'CouponController@couponInfo')->name('couponInfo');
 
+    Route::get('mySubscriptions','PortalController@mySubscriptions')->name('mySubscriptions');
+
 
 
 });
@@ -164,6 +166,7 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::post('clientOnBoardingStore', 'WizeredController@clientOnBoardingStore')->name('clientOnBoardingStore');
 
     Route::resource('supportFAQ', 'SupportFAQController');
+    Route::get('contactUsRequests','AdminController@contactUsRequests')->name('contactUsRequests');
 
 
 });

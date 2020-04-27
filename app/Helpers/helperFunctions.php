@@ -556,6 +556,11 @@ function getSubscription($userId, $subscriptionId) {
   }
   return $subscription;
 }
+function getOrderById($orderId)
+{
+  $order = \App\Order::where('id',$orderId)->first();
+  return $order;
+}
 function getOrderByInvoiceId($invoiceId) {
 
     $order = \App\Order::where('invoiceNumber',$invoiceId)->first();

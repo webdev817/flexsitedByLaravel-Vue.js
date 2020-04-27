@@ -92,7 +92,7 @@
                     @endif
 
 
-                    <li class="nav-item {{ requestIsFromArray(['projects.index' ]) }}">
+                    <li class="nav-item {{ requestIsFromArray(['projects.index', 'projects.edit', 'projects.show' ]) }}">
                         <a href="{{ route('projects.index') }}" class="nav-link "><span class="pcoded-micon">
                           <i class="fas fa-braille"></i></span><span class="pcoded-mtext">Projects</span></a>
                     </li>
@@ -114,6 +114,11 @@
                           <a href="{{ route('profile') }}" class="nav-link "><span class="pcoded-micon">
 
                             <i class="feather icon-user"></i></span><span class="pcoded-mtext">Profile</span></a>
+                      </li>
+                      <li class="nav-item {{ requestIsFromArray(['mySubscriptions']) }}">
+                          <a href="{{ route('mySubscriptions') }}" class="nav-link "><span class="pcoded-micon">
+
+                            <i class="feather icon-user"></i></span><span class="pcoded-mtext">My Subscriptions</span></a>
                       </li>
                     @endif
 
@@ -150,6 +155,9 @@
                       </li>
                       <li class="nav-item {{ requestIsFromArray(['coupons.index', 'coupons.edit']) }}">
                           <a href="{{ route('coupons.index') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-minus"></i></span><span class="pcoded-mtext">Coupons</span></a>
+                      </li>
+                      <li class="nav-item {{ requestIsFromArray(['contactUsRequests']) }}">
+                          <a href="{{ route('contactUsRequests') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Contact Messsags</span></a>
                       </li>
 
                       <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit', 'supportChatsRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">

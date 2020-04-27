@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\User;
+use App\ContactUs;
+
 use Hash;
 
 class AdminController extends Controller
@@ -16,7 +18,11 @@ class AdminController extends Controller
         return view('admin.home');
     }
 
-
+    public function contactUsRequests(Request $request)
+    {
+      $contactMessages = ContactUs::paginate(20);
+      return view('supportPortal.contactUs.list', compact('contactMessages'));
+    }
     public function login(Request $request)
     {
       if (Auth::check()) {

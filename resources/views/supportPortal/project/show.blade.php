@@ -249,8 +249,18 @@
 
 
                                                     <div v-else v-for="m in chat" class="media chat-messages">
-                                                        <a v-if="m.createdBy != userId" class="media-left photo-table" href="javascript:void(0)"><img class="media-object img-radius img-radius m-t-5"
-                                                              src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}" alt="Generic placeholder image"></a>
+                                                        <a v-if="m.createdBy != userId" class="media-left photo-table" href="javascript:void(0)">
+                                                          <img class="media-object img-radius img-radius m-t-5"
+                                        @if ($project->user->image != null && superAdmin())
+                                        src="{{ asset(Storage::url($project->user->image)) }}"
+                                        @else
+                                        src="{{ asset('mawaisnow/able/assets/images/user/avatar-2.jpg') }}"
+                                        @endif
+
+
+                                                            alt="Generic placeholder image">
+
+                                                            </a>
                                                         <div v-bind:title="m.created_at" v-bind:class="{ 'chat-menu-reply': m.createdBy == userId, 'chat-menu-content': m.createdBy != userId }" class="media-body ">
 
                                                             <div class="">

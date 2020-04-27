@@ -93,13 +93,17 @@
 
                                     <div class="card-block pb-0">
                                         <div class="table-responsive">
-                                            <table class="table table-hover">
+                                            <table class="table table-hover" >
                                                 <thead>
                                                     <tr>
                                                         <th>Project Name</th>
                                                         <th>Due On</th>
                                                         <th>Total Amount</th>
-                                                        <th>Current Plan</th>
+
+                                                        @if (superAdmin())
+                                                          <th>By</th>
+                                                        @endif
+
                                                         <th>Satus</th>
                                                 </thead>
                                                 <tbody>
@@ -121,11 +125,14 @@
                                                         <td>
                                                             {{ $project->order->price }} USD
                                                         </td>
-                                                        <td>
-                                                          @if ($project->order->type == 0)
-                                                            
-                                                          @endif
-                                                        </td>
+
+
+                                                        @if (superAdmin())
+                                                          <td title="{{ $project->user->email }}">
+                                                            {{ $project->user->name }}
+                                                          </td>
+                                                        @endif
+
                                                         <td>
                                                           @include('supportPortal.common.projectStatus', ['status' => $project->status])
                                                         </td>

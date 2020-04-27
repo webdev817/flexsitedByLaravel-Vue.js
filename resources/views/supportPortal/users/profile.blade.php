@@ -26,11 +26,12 @@
                                         </h5>
                                     </div>
                                 </div>
-                                <div class="row bg-white orderBoxes ml-0 mr-0 mt-4">
+                                <div class="row bg-white orderBoxes ml-0 mr-0 mt-4 table-responsive">
 
 
                                   @if (count($invoices) > 0)
-                                  <table class="table table-responsive table-bordered m-0 m-0 p-0">
+                                  <table class="table  table-bordered m-0 m-0 p-0">
+
                                       <tr>
 
                                           <th>Date</th>

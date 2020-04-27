@@ -19,7 +19,7 @@
                             <div class="col-md-12">
                                 <div class="card user-list">
                                     <div class="card-header">
-                                        <h5>Users</h5>
+                                        <h5>Subscriptions</h5>
                                         <div class="card-header-right">
                                             <div class="btn-group card-option">
                                                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -40,79 +40,76 @@
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Image</th>
-                                                        <th>Name</th>
-                                                        <th>Email</th>
-                                                        <th>Business Name</th>
-                                                        <th>Satus</th>
-                                                        <th>Date</th>
+                                                        <th>ID</th>
+                                                        <th>Detail</th>
+                                                        <th>Status</th>
+                                                        <th>Plan</th>
                                                         <th>Action</th>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($users as $user)
+                                                    @foreach ($subscriptions as $subscription)
 
                                                     <tr>
-                                                        <td>
-                                                          <img class="rounded-circle" style="width:40px;"
-                                                          @if ($user->image != null)
-                                                            src="{{ asset( Storage::url($user->image)) }}"                                                            
-                                                          @else
-                                                          src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-1.jpg' ) }}"
-                                                          @endif
 
+                                                        <td>
+                                                            {{ $subscription->stripe_id }}
+                                                        </td>
 
-                                                           alt="activity-user">
-                                                        </td>
                                                         <td>
-                                                            {{ $user->name }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $user->email }}
-                                                        </td>
-                                                        <td>
-                                                            {{ $user->businessName }}
-                                                        </td>
-                                                        <td>
-                                                          @if ($user->status == 1)
-                                                            <a href="javascript:void(0)" class="label theme-bg f-12 text-white">Active</a>
+                                                          @if ($subscription->name == "main")
+                                                            Main Website Subscription
                                                           @else
-                                                            <a href="javascript:void(0)" class="label theme-bg2 f-12 text-white">Not Active</a>
+                                                            @php
+                                                            $order =  getOrderById($subscription->name);
+                                                            @endphp
+                                                            @if ($order->project != null && $order->project->status != 1)
+                                                              <a href="{{ route('projects.show', $order->project->id ) }}">{{ $order->project->title }}</a>
+                                                            @endif
                                                           @endif
                                                         </td>
                                                         <td>
-                                                           {{ $user->created_at->diffForHumans() }}
+                                                            @if ($subscription->ended())
+                                                            Cancelled
+                                                            @endif
+                                                            @if ($subscription->onGracePeriod())
+                                                            On Grace Period
+                                                            @endif
+                                                            @if ($subscription->active())
+                                                            Active
+                                                            @endif
                                                         </td>
                                                         <td>
+                                                            <a href="{{ route('subscriptionHistory',$subscription->id) }}" class="btn btn-success btn-sm">View</a>
+                                                        </td>
+                                                        {{-- <td>
                                                           <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
-                                                          <a href="{{ route('users.edit', $user->id) }}" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
-                                                          <a href="javascript:void(0)" data-obj='{
+                                                        <a href="{{ route('users.edit', $user->id) }}" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
+                                                        <a href="javascript:void(0)" data-obj='{
                                                             "userId": "{{$user->id}}",
                                                             "url": "{{ route('users.destroy', $user->id) }}",
                                                             "method": "delete"
-                                                          }' data-html="Once you delete this user, all of it's related Data will be deleted, including subscription." class="label theme-bg2 text-white f-12 deleteConfirm"><i class="fas fa-trash text-white"></i> Delete</a>
+                                                          }' data-html="Once you delete this user, all of it's related Data will be deleted, including subscription." class="label theme-bg2 text-white f-12 deleteConfirm"><i
+                                                              class="fas fa-trash text-white"></i> Delete</a>
 
-                                                        </td>
+                                                        </td> --}}
                                                     </tr>
-                                                  @endforeach
-                                                  @if ($users->count() < 1)
-                                                  <tr>
-                                                  <td colspan="7" class="text-center">
-                                                      <h3>No Records</h3>
-                                                  </td>
-                                                  </tr>
-                                                  @endif
+                                                    @endforeach
+                                                    @if ($subscriptions->count() < 1) <tr>
+                                                        <td colspan="7" class="text-center">
+                                                            <h3>No Records</h3>
+                                                        </td>
+                                                        </tr>
+                                                        @endif
 
                                                 </tbody>
                                             </table>
                                         </div>
                                     </div>
-                                    @if ($users->total() > $users->perPage())
+                                    @if ($subscriptions->total() > $subscriptions->perPage())
 
                                     <div class="card-footer tx-12 pd-y-15 bg-transparent">
                                         <div class="d-flex form-layout-footer justify-content-center submitSection">
-
-                                            {!! $users->links() !!}
-
+                                            {!! $subscriptions->links() !!}
                                         </div>
                                     </div>
                                     @endif
@@ -135,5 +132,5 @@
 
 
 @section('jsCommon')
-  @include('common.js')
+@include('common.js')
 @endsection

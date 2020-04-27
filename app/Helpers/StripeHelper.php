@@ -266,7 +266,15 @@ class StripeHelper
         self::init();
         return StripePlan::retrieve($planId);
     }
-
+    public static function getPlanById($planId){
+      $plans = self::getPlansArray();
+      foreach ($plans as $plan) {
+        if ($plan['id'] == $planId) {
+          return (object) $plan;
+        }
+      }
+      return null;
+    }
     public static function getPlansArray()
     {
         $projectName = "Flexsited ";
