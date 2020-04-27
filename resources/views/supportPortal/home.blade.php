@@ -9,9 +9,7 @@
 
                 <div class="main-body">
                   @include('common.messagesSupport')
-                  @php
-                    dd(request()->all(), session()->all());
-                  @endphp
+                  
                     <div class="page-wrapper m-0 p-0">
 
                         <div class="container fontSizeGeneralControl pl-0 pl-sm-1 pl-md-2 pr-0 pr-sm-1 pr-md-2">

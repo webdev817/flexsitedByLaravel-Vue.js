@@ -70,7 +70,17 @@
 
                                 <div class="text-center project-main pb-0">
                                     <a href="{{ route('profileEditSp') }}">
-                                        <img src="{{ asset('mawaisnow\slim\img\avatar_11.png') }}" class="img-radius img-fluid rounded-circle" alt="User-Profile-Image">
+                                        <img
+                                        @if ($user->image != null)
+                                          src="{{ asset(Storage::url($user->image)) }}"
+                                         class="img-fluid "
+                                        @else
+                                         class="img-radius img-fluid rounded-circle"
+                                          src="{{ asset('mawaisnow\slim\img\avatar_11.png') }}"
+                                        @endif
+
+
+ alt="User-Profile-Image">
                                     </a>
 
                                     <h6 class="mt-4">{{ $user->name }}</h6>

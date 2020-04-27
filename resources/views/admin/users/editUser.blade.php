@@ -37,7 +37,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <form class="" action="{{ route('users.update', $user->id) }}" method="post">
+                                    <form class="" action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
                                         <div class="card-block row m-0 pl-0 pr-0">
 
                                             @csrf
@@ -85,7 +85,7 @@
                                             </div>
 
                                             <div class="col-lg-12 mb-4">
-                                              <input type="text" onclick="$('#fileInput').click()" class="form-control" placeholder="Profile Picture" name="fileName" id="filechoosed" value="">
+                                              <input type="text" onclick="$('#fileInput').click()" class="form-control" placeholder="Profile Picture"  id="filechoosed" value="">
                                               <input onchange="showthefilename(this, 'filechoosed','Profile Picture')" accept="image/*" type="file" class="d-none" id="fileInput" name="image" value="">
                                             </div>
                                             <div class="col-12">
