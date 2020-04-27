@@ -115,11 +115,11 @@
 
                             <i class="feather icon-user"></i></span><span class="pcoded-mtext">Profile</span></a>
                       </li>
-                      <li class="nav-item {{ requestIsFromArray(['mySubscriptions']) }}">
+                      {{-- <li class="nav-item {{ requestIsFromArray(['mySubscriptions']) }}">
                           <a href="{{ route('mySubscriptions') }}" class="nav-link "><span class="pcoded-micon">
 
                             <i class="feather icon-user"></i></span><span class="pcoded-mtext">My Subscriptions</span></a>
-                      </li>
+                      </li> --}}
                     @endif
 
                     @if (!superAdmin())

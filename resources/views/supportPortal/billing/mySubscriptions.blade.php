@@ -11,7 +11,7 @@
                 <!-- [ breadcrumb ] end -->
                 <div class="main-body">
                     <div class="page-wrapper">
-                        <!-- [ Main Content ] start -->
+
                         <div class="row">
 
 
@@ -78,6 +78,25 @@
                                                             Active
                                                             @endif
                                                         </td>
+
+                                                        <td>
+
+                                                          @php
+                                                            $plan = StripeHelper::getPlanById($subscription->stripe_plan);
+                                                          @endphp
+
+                                                          @php dd(
+                                                            $plan
+
+                                                            )  @endphp
+
+
+
+
+                                                        </td>
+
+
+
                                                         <td>
                                                             <a href="{{ route('subscriptionHistory',$subscription->id) }}" class="btn btn-success btn-sm">View</a>
                                                         </td>
