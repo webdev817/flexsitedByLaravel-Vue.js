@@ -13,7 +13,7 @@
                         @include('common.messagesSupport')
                         <div class="row">
 
-                            <div class="col-xl-8 col-lg-8 col-md-12 pl-0 mb-3">
+                            <div class="col-xl-8 col-lg-12 col-md-12 pl-0 mb-3">
                                 <div class="row">
                                     <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
                                         <h5 class="headingColor">
@@ -30,7 +30,7 @@
 
 
                                   @if (count($invoices) > 0)
-                                  <table class="table table-bordered m-0 m-0 p-0">
+                                  <table class="table table-responsive table-bordered m-0 m-0 p-0">
                                       <tr>
 
                                           <th>Date</th>
@@ -40,7 +40,7 @@
                                           <th>Action</th>
                                       </tr>
                                       @foreach ($invoices as $key => $invoice)
-                                        
+
                                       <tr>
 
                                           <td>{{ $invoice->date()->toFormattedDateString() }}</td>
@@ -66,7 +66,7 @@
                             </div>
 
 
-                            <div class="col-xl-4 col-lg-4 col-md-12 bg-white orderBoxes">
+                            <div class="col-xl-4 col-lg-12 col-md-12 bg-white orderBoxes">
 
                                 <div class="text-center project-main pb-0">
                                     <a href="{{ route('profileEditSp') }}">
@@ -91,7 +91,7 @@
 
                                 <div class="w-100 mt-4">
                                     <h6 class="float-left text-dark bold">Personal Information</h6>
-                                    <a href="#" class="float-right ">Edit Info.</a>
+                                    <a href="{{ route('profileEditSp') }}" class="float-right ">Edit Info.</a>
                                 </div>
                                 <div class="w-100 row mt-2">
 

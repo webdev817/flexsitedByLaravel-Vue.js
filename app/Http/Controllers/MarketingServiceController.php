@@ -15,8 +15,15 @@ class MarketingServiceController extends Controller
      */
     public function index()
     {
-          return view('supportPortal.marketingService.index');
+        return view('supportPortal.marketingService.index');
     }
+
+    public function marketingServices()
+    {
+        $marketingServices = MarketingService::paginate(20);
+        return view('supportPortal.marketingService.list',compact('marketingServices'));
+    }
+
 
     /**
      * Show the form for creating a new resource.

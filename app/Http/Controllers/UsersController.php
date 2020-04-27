@@ -9,6 +9,13 @@ use Hash;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+      $this->middleware('SuperAdminOnly')->except([
+        'edit','update', 'changePassword', 'changePasswordStore',
+        'profile', 'closeAccount'
+      ]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -58,8 +65,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id = null)
     {
+        if ($id == null && !superAdmin()) {
+          $id = Auth::id();
+        }
         $user = User::findOrFail($id);
         return view('admin.users.editUser', compact('user'));
     }
@@ -85,11 +95,22 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         $user->businessName = $request->businessName;
-        if ($request->status == 1) {
-          $user->status = 1;
-        }else {
-          $user->status = 0;
+
+        if ($request->hasFile('image')) {
+          $request->validate([
+            'image'=> 'mimes:jpeg,jpg,png,gif|required|max:10000'
+          ]);
+          $user->image = $request->image->store('profilePics');
         }
+        if (superAdmin()) {
+          if ($request->status == 1) {
+            $user->status = 1;
+          }else {
+            $user->status = 0;
+          }
+
+        }
+
         if ($request->password != null) {
           $user->password = Hash::make($request->password);
         }
@@ -173,10 +194,7 @@ class UsersController extends Controller
       return status('Password changed');
     }
 
-    public function profileEditSp(Request $request)
-    {
 
-    }
     public function profile()
     {
       $user = Auth::user();

@@ -145,9 +145,13 @@
                       <li class="nav-item {{ requestIsFromArray(['allSubscriptions', 'subscriptionHistory']) }}">
                           <a href="{{ route('allSubscriptions') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-users"></i></span><span class="pcoded-mtext">Subscriptions</span></a>
                       </li>
+                      <li class="nav-item {{ requestIsFromArray(['marketingServices']) }}">
+                          <a href="{{ route('marketingServices') }}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-bullhorn"></i></span><span class="pcoded-mtext">Marketing Requests</span></a>
+                      </li>
                       <li class="nav-item {{ requestIsFromArray(['coupons.index', 'coupons.edit']) }}">
                           <a href="{{ route('coupons.index') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-minus"></i></span><span class="pcoded-mtext">Coupons</span></a>
                       </li>
+
                       <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit', 'supportChatsRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                           <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
                           <ul class="pcoded-submenu">

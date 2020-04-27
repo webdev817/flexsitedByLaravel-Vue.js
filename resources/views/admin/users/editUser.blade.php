@@ -7,20 +7,7 @@
         <div class="pcoded-content">
             <div class="pcoded-inner-content">
 
-                <div class="page-header">
-                    <div class="page-block">
-                        <div class="row align-items-center">
-                            <div class="col-md-12">
 
-                                <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ route('adminHome') }}"><i class="feather icon-home"></i></a></li>
-                                    <li class="breadcrumb-item"><a href="{{ route('users.index') }}">Users</a></li>
-                                    <li class="breadcrumb-item">Edit User</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
                 <div class="main-body">
                     <div class="page-wrapper">
@@ -68,6 +55,9 @@
                                                     <input class="form-control" type="text" id="businessName" name="businessName" value="{{ $user->businessName ?? old('businessName') }}" required="required">
                                                 </div>
                                             </div>
+
+                                            @if (superAdmin())
+
                                             <div class="col-lg-4">
                                                 <div class="form-group">
                                                     <label class="form-control-label w-100" for="status">Status: </label>
@@ -79,6 +69,7 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                          @endif
 
                                             <div class="col-lg-4">
                                                 <div class="form-group">
@@ -93,6 +84,10 @@
                                                 </div>
                                             </div>
 
+                                            <div class="col-lg-12 mb-4">
+                                              <input type="text" onclick="$('#fileInput').click()" class="form-control" placeholder="Profile Picture" name="fileName" id="filechoosed" value="">
+                                              <input onchange="showthefilename(this, 'filechoosed','Profile Picture')" accept="image/*" type="file" class="d-none" id="fileInput" name="image" value="">
+                                            </div>
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary" name="button">Update</button>
                                             </div>

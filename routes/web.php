@@ -48,6 +48,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
   Route::get('marketingService', 'MarketingServiceController@index')->name('marketingServiceIndex');
+  Route::get('marketingServices', 'MarketingServiceController@marketingServices')->name('marketingServices');
   Route::post('marketingServiceStore', 'MarketingServiceController@store')->name('marketingServiceStore');
 
   Route::get('referal', 'ReferalController@index')->name('referal');
@@ -60,8 +61,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::get('changePassword','UsersController@changePassword')->name('changePasswordSP');
   Route::post('changePasswordStore','UsersController@changePasswordStore')->name('changePasswordSPStore');
 
-  Route::get('profileEdit', 'UsersController@profileEdit')->name('profileEditSp');
-
+  Route::get('profileEdit', 'UsersController@edit')->name('profileEditSp');
+  Route::resource('users', 'UsersController');
 
   Route::post('closeAccountSp', 'UsersController@closeAccount')->name('closeAccountSp');
 
@@ -109,7 +110,7 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post("businessInformationStore", "WizeredController@businessInformationStore")->name('businessInformationStore');
 
     Route::get('/home', 'HomeController@root')->name('home');
-    Route::get('/oldHome', 'HomeController@index')->name('home');
+    Route::redirect('/oldHome', '/')->name('home');
     Route::get('/domainSearch', 'HomeController@domainSearch')->name('domainSearch');
 
     Route::get('privacy-policy', 'HomeController@privacyPolicy')->name('privacyPolicy');
@@ -122,6 +123,9 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::get('subscription/invoice/{id}', 'BillingController@invoiceDownload')->name('invoiceDownload');
     Route::get('couponInfo', 'CouponController@couponInfo')->name('couponInfo');
+
+
+
 });
 
 
@@ -145,7 +149,7 @@ Route::post('adminLogin', 'AdminController@adminLogin')->name('adminLoginPost');
 Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], function () {
 
     Route::get('/home', 'AdminController@home')->name('adminHome');
-    Route::resource('users', 'UsersController');
+
     Route::get('clientOnBoarding/{user}', 'UsersController@clientOnBoarding')->name('clientOnBoarding');
     Route::post('changeUserStatus', 'UsersController@changeUserStatus')->name('changeUserStatus');
     Route::post('deleteUser', 'UsersController@deleteUser')->name('deleteUser');
