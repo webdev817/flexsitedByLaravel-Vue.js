@@ -16,6 +16,7 @@ class CreateDesignsTable extends Migration
         Schema::create('designs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('image')->nullable();
+            $table->string('imageFull')->nullable();
             $table->integer('status')->default(1);
             $table->integer('categoryId')->nullable();
 

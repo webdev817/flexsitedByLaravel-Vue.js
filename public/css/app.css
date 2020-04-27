@@ -10916,3 +10916,10 @@ a.text-dark:focus {
   border-radius: 0;
 }
 
+@media (min-width: 600px) {
+  .modal600per70 {
+    max-width: 70% !important;
+    margin: 1.75rem auto;
+  }
+}
+

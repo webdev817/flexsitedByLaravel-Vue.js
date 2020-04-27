@@ -81,7 +81,7 @@
 <div class="container ">
   <div class="row m-0 py-3">
     <div class="col-12 text-center">
-      <a class="btn btn-cstm rounded-0 shadow-none" href="#">FREQUENTLY ASKED QUESTIONS</a>
+      <a class="btn btn-cstm rounded-0 shadow-none" href="javascript:void(0)" data-toggle="modal" data-target="#faqModal">FREQUENTLY ASKED QUESTIONS</a>
     </div>
   </div>
 </div>
@@ -108,3 +108,6 @@
 
   </form>
 </div>
+
+
+@include('welcomeWizered.modal.domainfaq')
