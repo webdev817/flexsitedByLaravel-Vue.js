@@ -6,6 +6,7 @@
 
     <div class="container mt-5 pt-3 mb-5">
 
+
             @if (isset($errors) && $errors->any())
               <div class="row justify-content-center">
                 <div class="col-12 col-md-12 col-lg-6 col-xl-6 p-0">

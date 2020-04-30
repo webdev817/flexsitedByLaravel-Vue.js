@@ -12,10 +12,101 @@
 
                         @include('common.messagesSupport')
                         <div class="row">
+                          <div class="col-xl-4 col-lg-12 col-md-12 bg-white orderBoxes d-xl-none">
+
+                              <div class="text-center project-main pb-0">
+                                  <a href="{{ route('profileEditSp') }}">
+                                      <img
+                                      @if ($user->image != null)
+                                        src="{{ asset(Storage::url($user->image)) }}"
+                                       class="img-fluid "
+                                      @else
+                                       class="img-radius img-fluid rounded-circle"
+                                        src="{{ asset('mawaisnow\slim\img\avatar_11.png') }}"
+                                      @endif
+                                      alt="User-Profile-Image">
+                                      <br>
+                                      <i class="fas fa-pencil-alt"></i>
+                                  </a>
+
+                                  <h6 class="mt-4">{{ $user->name }}</h6>
+
+                                  <div class="row mt-3">
+                                      <div class="col-12 pl-0 pr-0 profileSPBusinessName">
+                                          Business Name
+                                          <br>
+                                          @if ($user->businessName != null)
+                                          {{ $user->businessName }}
+
+                                          @endif
+
+                                      </div>
+                                  </div>
+
+                              </div>
+
+                              <div class="w-100 mt-4">
+                                  <h6 class="float-left text-dark bold">Personal Information</h6>
+                                  <a href="{{ route('profileEditSp') }}" class="float-right ">Edit Info.</a>
+                              </div>
+                              <div class="w-100 row mt-2">
+
+
+                                  <table class="table">
+
+                                      <tr>
+                                          <td align="center">
+                                              <div class="roundForIcon">
+                                                  <i class="fa fa-phone"></i>
+                                              </div>
+                                          </td>
+                                          <td class="fontSize14px">
+                                              {{ $user->phone }}
+                                              <br>
+                                              Phone No
+                                          </td>
+                                      </tr>
+
+                                      <tr>
+                                          <td align="center">
+                                              <div class="roundForIcon">
+                                                  <i class="fa fa-envelope"></i>
+                                              </div>
+                                          </td>
+                                          <td class="fontSize14px">
+                                              {{ $user->email }}
+                                              <br>
+                                              Email Address
+                                          </td>
+                                      </tr>
+                                      <tr>
+                                          <td align="center">
+                                              {{-- <div class="roundForIcon">
+                                                  <i class="fa fa-envelope"></i>
+                                              </div> --}}
+                                          </td>
+                                          <td class="fontSize14px">
+                                              <a  href="javascript:void(0)"
+                                              data-toggle="modal" data-target="#closeAccount"
+                                               class="btn btn-danger">Close Account</a>
+                                          </td>
+                                      </tr>
+
+
+                                  </table>
+
+
+
+
+                              </div>
+
+
+
+                          </div>
 
                             <div class="col-xl-8 col-lg-12 col-md-12 pl-0 mb-3">
                                 <div class="row">
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
+                                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-5 col-6">
                                         <h5 class="headingColor">
                                             <a class="linkspCPassword @if(requestIsFromArray(['changePasswordSP'])) border-bottom-0 @endif" href="{{ route('profile') }}">Billing History</a>
                                         </h5>
@@ -67,7 +158,7 @@
                             </div>
 
 
-                            <div class="col-xl-4 col-lg-12 col-md-12 bg-white orderBoxes">
+                            <div class="col-xl-4 col-lg-12 col-md-12 bg-white orderBoxes d-none d-xl-block">
 
                                 <div class="text-center project-main pb-0">
                                     <a href="{{ route('profileEditSp') }}">
@@ -79,9 +170,7 @@
                                          class="img-radius img-fluid rounded-circle"
                                           src="{{ asset('mawaisnow\slim\img\avatar_11.png') }}"
                                         @endif
-
-
- alt="User-Profile-Image">
+                                        alt="User-Profile-Image">
                                     </a>
 
                                     <h6 class="mt-4">{{ $user->name }}</h6>

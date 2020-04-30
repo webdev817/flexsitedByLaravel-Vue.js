@@ -84,6 +84,12 @@
                       </li>
                     @endif
 
+
+                    <li class="nav-item {{ requestIsFromArray(['projects.index', 'projects.edit', 'projects.show' ]) }}">
+                        <a href="{{ route('projects.index') }}" class="nav-link "><span class="pcoded-micon">
+                          <i class="fas fa-braille"></i></span><span class="pcoded-mtext">Projects</span></a>
+                    </li>
+
                     @if (!superAdmin())
                       <li class="nav-item {{ requestIsFromArray(['orders.index' , 'orders.edit']) }}">
                           <a href="{{ route('orders.index') }}" class="nav-link "><span class="pcoded-micon">
@@ -91,11 +97,6 @@
                       </li>
                     @endif
 
-
-                    <li class="nav-item {{ requestIsFromArray(['projects.index', 'projects.edit', 'projects.show' ]) }}">
-                        <a href="{{ route('projects.index') }}" class="nav-link "><span class="pcoded-micon">
-                          <i class="fas fa-braille"></i></span><span class="pcoded-mtext">Projects</span></a>
-                    </li>
 
 
                     @if (!superAdmin())
@@ -105,24 +106,6 @@
                       </li>
                     @endif
                     @if (!superAdmin())
-                      <li class="nav-item {{ requestIsFromArray(['contactUsIndex']) }}">
-                          <a href="{{ route('contactUsIndex') }}" class="nav-link "><span class="pcoded-micon">
-
-                            <i class="feather icon-phone-call"></i></span><span class="pcoded-mtext">Contact Us</span></a>
-                      </li>
-                      <li class="nav-item {{ requestIsFromArray(['profile']) }}">
-                          <a href="{{ route('profile') }}" class="nav-link "><span class="pcoded-micon">
-
-                            <i class="feather icon-user"></i></span><span class="pcoded-mtext">Profile</span></a>
-                      </li>
-                      {{-- <li class="nav-item {{ requestIsFromArray(['mySubscriptions']) }}">
-                          <a href="{{ route('mySubscriptions') }}" class="nav-link "><span class="pcoded-micon">
-
-                            <i class="feather icon-user"></i></span><span class="pcoded-mtext">My Subscriptions</span></a>
-                      </li> --}}
-                    @endif
-
-                    @if (!superAdmin())
                       <li class="nav-item {{ requestIsFromArray(['supportSp', 'myRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                           <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fas fa-hands-helping" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
                           <ul class="pcoded-submenu">
@@ -131,15 +114,26 @@
 
                           </ul>
                       </li>
-
                     @endif
                     @if (!superAdmin())
-                      <li class="nav-item {{ requestIsFromArray(['referal'], 'active pcoded-trigger') }}  pcoded-hasmenu">
-                          <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Bonus</span></a>
-                          <ul class="pcoded-submenu">
-                              <li class="{{ requestIsFromArray(['referal']) }}"><a href="{{ route('referal') }}" class="">Referal</a></li>
+                      <li class="nav-item {{ requestIsFromArray(['contactUsIndex']) }}">
+                          <a href="{{ route('contactUsIndex') }}" class="nav-link "><span class="pcoded-micon">
 
-                          </ul>
+                            <i class="feather icon-phone-call"></i></span><span class="pcoded-mtext">Contact Us</span></a>
+                      </li>
+                      {{-- <li class="nav-item {{ requestIsFromArray(['profile']) }}">
+                          <a href="{{ route('profile') }}" class="nav-link "><span class="pcoded-micon">
+
+                            <i class="feather icon-user"></i></span><span class="pcoded-mtext">Profile</span></a>
+                      </li> --}}
+
+                    @endif
+
+
+                    @if (!superAdmin())
+                      <li class="nav-item {{ requestIsFromArray(['referal']) }}">
+                          <a href="{{ route('referal') }}" class="nav-link "><span class="pcoded-micon">
+                            <i class="fa fa-gift"></i></span><span class="pcoded-mtext">Referral Program</span></a>
                       </li>
                     @endif
 
@@ -264,7 +258,7 @@
                         </div>
                     </div>
                 </li>
-                <li><a href="#!" class="displayChatbox"><i class="icon feather icon-mail"></i></a></li>
+
                 <li>
                     <div class="dropdown drp-user">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -283,10 +277,9 @@
                                                               </form>
                             </div>
                             <ul class="pro-body">
-                                <li><a href="#!" class="dropdown-item"><i class="feather icon-settings"></i> Settings</a></li>
-                                <li><a href="#!" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
-                                <li><a href="message.html" class="dropdown-item"><i class="feather icon-mail"></i> My Messages</a></li>
-                                <li><a href="auth-signin.html" class="dropdown-item"><i class="feather icon-lock"></i> Lock Screen</a></li>
+
+                                <li><a href="{!! route('profile') !!}" class="dropdown-item"><i class="feather icon-user"></i> Profile</a></li>
+
                             </ul>
                         </div>
                     </div>

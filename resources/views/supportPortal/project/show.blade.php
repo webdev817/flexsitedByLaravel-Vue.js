@@ -57,7 +57,7 @@
                                                             <input type="text" onchange="updateDueOn( this,{{ $project->id }})" class="form-control" style="width: 130px" id="dueOn" name="dueOn" value="">
                                                             @else
                                                                 @if ($project->dueOn == null)
-                                                                To be determined Team
+                                                                TBD
                                                                 @else
                                                                 {{ $project->dueOn }}
                                                                 @endif

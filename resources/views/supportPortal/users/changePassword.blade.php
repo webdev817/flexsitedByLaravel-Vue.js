@@ -15,7 +15,7 @@
 
                             <div class="col-xl-8 col-lg-8 col-md-12 pl-0 mb-3">
                                 <div class="row">
-                                    <div class="col-xl-2 col-lg-3 col-md-4 col-sm-5 col-6">
+                                    <div class="col-xl-2 col-lg-4 col-md-4 col-sm-5 col-6">
                                         <h5 class="headingColor">
                                             <a class="linkspCPassword border-bottom-0" href="{{ route('profile') }}">Billing History</a>
                                         </h5>

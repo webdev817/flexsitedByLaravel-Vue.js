@@ -53,7 +53,7 @@
                                           <div class="col-12 text-center">
                                             <h4>Your request has been successfully submitted!</h4>
                                             <br>
-                                            Please allow 3-5 Business days to progress your Request.
+                                            Thank you for your order!  We are processing your order, you will receive a call from a Flexsited Design Specialist within 24 hours.
                                           </div>
                                         </div>
 
@@ -117,7 +117,7 @@
                                                         </td>
                                                         <td>
                                                           @if ( $project->dueOn == null)
-                                                            To be determined Team
+                                                            TBD
                                                           @else
                                                             {{ Carbon\Carbon::parse($project->dueOn)->format('d M, Y') }}
                                                           @endif

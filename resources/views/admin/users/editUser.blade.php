@@ -23,19 +23,7 @@
                                 <div class="card user-list">
                                     <div class="card-header">
                                         <h5>Edit User</h5>
-                                        <div class="card-header-right">
-                                            <div class="btn-group card-option">
-                                                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <i class="feather icon-more-horizontal"></i>
-                                                </button>
-                                                <ul class="list-unstyled card-option dropdown-menu dropdown-menu-right">
-                                                    <li class="dropdown-item full-card"><a href="#!"><span><i class="feather icon-maximize"></i> maximize</span><span style="display:none"><i class="feather icon-minimize"></i> Restore</span></a></li>
-                                                    <li class="dropdown-item minimize-card"><a href="#!"><span><i class="feather icon-minus"></i> collapse</span><span style="display:none"><i class="feather icon-plus"></i> expand</span></a></li>
-                                                    <li class="dropdown-item close-card"><a href="#!"><i class="feather icon-trash"></i> remove</a></li>
-                                                </ul>
 
-                                            </div>
-                                        </div>
                                     </div>
                                     <form class="" action="{{ route('users.update', $user->id) }}" method="post" enctype="multipart/form-data">
                                         <div class="card-block row m-0 pl-0 pr-0">
@@ -53,6 +41,13 @@
                                                 <div class="form-group">
                                                     <label class="form-control-label w-100" for="businessName">Business Name: <span class="text-danger">*</span> </label>
                                                     <input class="form-control" type="text" id="businessName" name="businessName" value="{{ $user->businessName ?? old('businessName') }}" required="required">
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <div class="form-group">
+                                                    <label class="form-control-label w-100" for="Phone">Phone: <span class="text-danger">*</span> </label>
+                                                    <input class="form-control" type="text" id="Phone" name="phone" value="{{ $user->phone ?? old('phone') }}" required="required">
                                                 </div>
                                             </div>
 

@@ -87,6 +87,7 @@ class UsersController extends Controller
           'name'=> 'required|max:255|min:1',
           'businessName'=> 'required|max:255|min:1',
           'password' => ['nullable', 'string', 'min:6'],
+          'phone'=> 'required|min:4|max:30'
         ]);
         if ($request->password != $request->password_confirm) {
           return errorMessage('Password does not matched.');
@@ -114,6 +115,7 @@ class UsersController extends Controller
         if ($request->password != null) {
           $user->password = Hash::make($request->password);
         }
+        $user->phone = $request->phone;
 
         $user->save();
 
