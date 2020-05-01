@@ -95,7 +95,7 @@ class ProjectController extends Controller
         }
 
         if ($project->status == 1 && !superAdmin()) {
-          return status('After your order has been processed, you will receive a call from a Flexsited design specialist');
+          return status('Thank you for your order!  We are processing your order, you will receive a call from a Flexsited Design Specialist within 24 hours');
         }
 
         $arr['projectChat'] = ProjectChat::where('createdBy', Auth::id())

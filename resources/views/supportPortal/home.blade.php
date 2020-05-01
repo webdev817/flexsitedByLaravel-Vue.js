@@ -9,7 +9,7 @@
 
                 <div class="main-body">
                   @include('common.messagesSupport')
-                  
+
                     <div class="page-wrapper m-0 p-0">
 
                         <div class="container fontSizeGeneralControl pl-0 pl-sm-1 pl-md-2 pr-0 pr-sm-1 pr-md-2">
@@ -73,7 +73,7 @@
                                     </div>
                                 </div>
                                 <div class="col-xl-3 col-lg-4 col-md-6 col-12">
-                                    <div class="card p-2 shadow-sm">
+                                    <div class="card p-2 shadow-sm" onclick="location = '{{ route('orders.index') }}'">
                                         <div class="card-body p-0">
                                             <div class="row m-0">
                                                 <div class="@if($marketingCount != 0 || $webDevelopment != 0 || $graphicDesing != 0) @else inActiveProject @endif taskProjectIcon">
@@ -173,32 +173,34 @@
                                         </div>
                                     </div>
                                     <div class="card mt-3">
-                                        <div class="card-body pt-3 pl-3 pb-3 pr-0">
-                                            <div class="row">
+                                        <div class="card-body pt-3 pl-3 pb-4 pr-0">
+                                            <div class="row pb-1">
                                                 <div class="col-12">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/Logo Design icon.png') }}" alt="">
                                                     <span class="ml-1">Logo Designing</span>
                                                 </div>
-                                                <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/business card icon.png') }}" alt="">
-                                                    <span class="ml-1">Business Card Design</span>
-                                                </div>
-                                                <div class="col-12 mt-2">
+                                                <div class="col-12 mt-3">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/flyer Design.png') }}" alt="">
                                                     <span class="ml-1">Flayer Design</span>
                                                 </div>
-                                                <div class="col-12 mt-2">
+                                                <div class="col-12 mt-3">
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/business card icon.png') }}" alt="">
+                                                    <span class="ml-1">Business Card Design</span>
+                                                </div>
+
+                                                <div class="col-12 mt-3">
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/social media kit icon.png') }}" alt="">
+                                                    <span class="ml-1">Social Media Design</span>
+                                                </div>
+                                                <div class="col-12 mt-3">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/web design icon.png') }}" alt="">
                                                     <span class="ml-1">Website Design</span>
                                                 </div>
-                                                <div class="col-12 mt-2">
+                                                {{-- <div class="col-12 mt-2">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/menu card design icon.png') }}" alt="">
                                                     <span class="ml-1">Price Menu Design</span>
-                                                </div>
-                                                <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/social media kit icon.png') }}" alt="">
-                                                    <span class="ml-1">Social Media Kit Design</span>
-                                                </div>
+                                                </div> --}}
+
                                             </div>
                                         </div>
                                     </div>
@@ -214,29 +216,32 @@
                                         <div class="card-body  pt-3 pl-3 pb-3 pr-0">
                                             <div class="row">
                                                 <div class="col-12">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/Logo Design icon.png') }}" alt="">
-                                                    <span class="ml-1">Logo Designing</span>
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/brand icon.png') }}" alt="">
+                                                    <span class="ml-1">Brand Startegy</span>
+                                                </div>
+
+                                                <div class="col-12 mt-2">
+                                                  <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/email market icon.png') }}" alt="">
+                                                  <span class="ml-1">Email Marketing</span>
+                                                </div>
+
+                                                <div class="col-12 mt-2">
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/social marketing.png') }}" alt="">
+                                                    <span class="ml-1">Social Media Marketing</span>
                                                 </div>
                                                 <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/business card icon.png') }}" alt="">
-                                                    <span class="ml-1">Business Card Design</span>
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/SEO.png') }}" alt="">
+                                                    <span class="ml-1">Search Engine Optimization</span>
                                                 </div>
                                                 <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/flyer Design.png') }}" alt="">
-                                                    <span class="ml-1">Flayer Design</span>
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/video market icon.png') }}" alt="">
+                                                    <span class="ml-1">Video Marketing</span>
                                                 </div>
                                                 <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/web design icon.png') }}" alt="">
-                                                    <span class="ml-1">Website Design</span>
+                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/content icon.png') }}" alt="">
+                                                    <span class="ml-1">Content Marketing</span>
                                                 </div>
-                                                <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/menu card design icon.png') }}" alt="">
-                                                    <span class="ml-1">Price Menu Design</span>
-                                                </div>
-                                                <div class="col-12 mt-2">
-                                                    <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/social media kit icon.png') }}" alt="">
-                                                    <span class="ml-1">Social Media Kit Design</span>
-                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
@@ -252,7 +257,11 @@
                               @foreach ($orders as $order)
 
                                 <div class="col-lg-3 positionReltive col-md-4 col-sm-6 col-12">
-                                  <div class="card  shadow-sm p-4">
+                                  <div class="card  shadow-sm p-4"
+                                  @if ($order->project->status != 1)
+                                  onclick="location = '{{ route('projects.show',$order->project->id) }}'"
+                                  @endif
+                                  >
                                     <div class="projectActiveDashboarddown align-self-center">
 
                                     @if ($order->type == 0)
@@ -270,9 +279,15 @@
 
 
 
-
                                     <div class="activeProjecttitle mt-3">
-                                      {{ $order->title }}
+                                      @if ($order->project->status != 1)
+                                        <a href="{{ route('projects.show',$order->project->id) }}">
+                                          {{ $order->title }}
+                                        </a>
+                                      @else
+                                        {{ $order->title }}
+                                      @endif
+
                                     </div>
 
 

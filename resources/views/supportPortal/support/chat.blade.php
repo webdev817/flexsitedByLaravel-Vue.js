@@ -25,8 +25,13 @@
                                             <div class="msg-user-chat scroll-div ps">
                                                 <div class="main-friend-chat" id="supportChatBody">
 
-                                                    <div v-if="chat == null" style="height:100%; background:#fafafa">
+                                                    <div v-if="chat == null || chat.length == 0" style="padding-top: 20px;height:100%; background:#fafafa; text-align:center">
+                                                      @if (isset($new))
+                                                        Welcome to Chat!  A Flexsited specialist will be with you shortly
+                                                      @endif
+
                                                     </div>
+
 
 
 

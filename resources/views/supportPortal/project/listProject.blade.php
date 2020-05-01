@@ -53,7 +53,7 @@
                                           <div class="col-12 text-center">
                                             <h4>Your request has been successfully submitted!</h4>
                                             <br>
-                                            Thank you for your order!  We are processing your order, you will receive a call from a Flexsited Design Specialist within 24 hours.
+                                            Thank you!  Your Order has been successfully submitted.  Please allow 1-3 business days to process your order. 
                                           </div>
                                         </div>
 

@@ -16,7 +16,7 @@
                         @csrf
 
                         <div class="col-12 pl-0 mb-3">
-                          <h4 class="headingColor">Order Form</h4>
+                          {{-- <h4 class="headingColor">Order Form</h4> --}}
                         </div>
 
 
@@ -121,7 +121,7 @@
 
                               <div class="col-12 blackColorOrderForm">
                                 <div class="float-left">
-                                  Payment Summary
+                                  Summary
                                 </div>
 
                                 <div class="float-right">

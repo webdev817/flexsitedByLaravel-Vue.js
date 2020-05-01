@@ -37,6 +37,8 @@ class SupportController extends Controller
           'createdBy'=> Auth::id()
         ]);
         $supportChatSession->save();
+
+        $arr['new'] = true;
       }
 
       $arr['supportChatSession'] = $supportChatSession;
@@ -47,7 +49,7 @@ class SupportController extends Controller
     public function supportChatSessionClose(Request $request,$id)
     {
       $supportChatSession = SupportChatSession::find($id);
-      
+
       if ($supportChatSession->createdBy != Auth::id() && !superAdmin()) {
         return noPermission();
       }
