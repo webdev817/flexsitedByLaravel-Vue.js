@@ -15,6 +15,24 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('title')->nullable();
+            $table->string('redirectURL')->nullable();
+            $table->string('redirectRoute')->nullable();
+
+            $table->string('currentRoute')->nullable();
+            $table->string('currentUrl')->nullable();
+
+            $table->integer('type')->default(1);
+
+            $table->timestamp('readAt')->nullable();
+            $table->string('readAtHumanFormat')->nullable();
+            $table->integer('status')->default(0);
+            // unseen 0
+            // seen 1
+            // hide
+
+            $table->integer('createdBy')->nullable();
+
             $table->timestamps();
         });
     }

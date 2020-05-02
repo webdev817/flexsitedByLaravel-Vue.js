@@ -4,7 +4,7 @@
 
     <div class="row m-0">
         <div class="col-12 prelative p-0">
-            <img src="{{ asset('mawaisnow/img/authbg.png') }}" alt="" class="img-fluid w-100 noselect">
+            <img src="{{ asset('mawaisnow/img/authbg.jpg') }}" alt="" class="img-fluid w-100 noselect">
             <img src="{{ asset('mawaisnow/logo/FLEXSITED.png') }}" alt="" class="authLogo noselect">
 
             {{-- <div class="row authNavContainer">
