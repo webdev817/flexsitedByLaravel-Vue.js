@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth']], function () {
 
   Route::get('startProjectWork/{project}','ProjectController@startProjectWork')->name('startProjectWork');
   Route::post('changeProjectStatus/{project}', 'ProjectController@changeProjectStatus')->name('changeProjectStatus');
+  Route::get('markNotificationRead','NotificationController@markNotificationRead')->name('markNotificationRead');
 
   Route::get('projectChat','API\ProjectChatController@index')->name('projectChatApi');
   Route::post('projectChatMine','API\ProjectChatController@projectChatMine')->name('projectChatMine');

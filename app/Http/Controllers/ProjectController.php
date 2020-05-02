@@ -46,6 +46,7 @@ class ProjectController extends Controller
       $project->update([
         'status'=> 2
       ]);
+      newNoti(1, 'Project is now in progress...', $project->title . " is now in progress", route('projects.show',$project->id), $project->createdBy);
       return status('Status updated successfully');
     }
     public function changeProjectStatus(Request $request, Project $project)
@@ -56,6 +57,18 @@ class ProjectController extends Controller
       $project->update([
           'status'=> $request->projectStatus
       ]);
+      if ($project->status == 1) {
+        $status = "Initializating";
+      }elseif ($project->status == 2) {
+        $status = "InProgress";
+      }elseif ($project->status == 3) {
+        $status = "InReview";
+      }elseif ($project->status == 10) {
+        $status = "Completed";
+      }elseif ($project->status == 20) {
+        $status = "Canceled";
+      }
+      newNoti(1, "Project is $status...", $project->title . " is $status ", route('projects.show',$project->id), $project->createdBy);
 
       return status('Status updated successfully');
 
@@ -150,6 +163,7 @@ class ProjectController extends Controller
       $project->update([
         'dueOn'=> $request->date
       ]);
+      newNoti(1, "Project Due on is updated", $project->title . " Due on is now $request->dueOn ", route('projects.show',$project->id), $project->createdBy);
 
     }
     public function projectFeedback(Request $request, Project $project){
@@ -223,6 +237,8 @@ class ProjectController extends Controller
         $projectAttachment->isFinalDeliverAbles = 1;
         $projectAttachment->workSourcePath = $request->source->store('source');
       }
+      newNoti(1, "Project has new work", $project->title . " has new work", route('projects.show',$project->id), $project->createdBy);
+
       $projectAttachment->save();
       Project::where('id',$project->id)->update(['status'=>3]);
 

@@ -7,7 +7,27 @@ function setting($key, $default = null)
     }
     return $setting->value;
 }
+function newNoti($type ,$title,$description ,$redirectUrl, $forUser, $redirectRoute = null) {
+  App\Notification::create([
+    'type' => $type,
+    'title'=> $title,
+    'description'=> $description,
+    'redirectURL' => $redirectUrl,
+    'redirectRoute'=> $redirectRoute,
+    'forUser'=>$forUser
+  ]);
+}
+function getNotifcations($limit = 10) {
+  $obj = new \stdClass;
+  $obj->notification = App\Notification::limit($limit)->get();
+  $obj->hasNew = $obj->notification->where('status',0)->count();
+  $obj->new = $obj->notification->where('status',0);
+  $obj->old = $obj->notification->where('status',1);
+  $obj->hasOld = $obj->notification->where('status',1)->count();
 
+  $obj->hasNotification = $obj->notification->count();
+  return $obj;
+}
 function fileInfo($file)
 {
   return (object)pathinfo($file);

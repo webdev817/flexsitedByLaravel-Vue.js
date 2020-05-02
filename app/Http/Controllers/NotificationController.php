@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class NotificationController extends Controller
 {
+    public function markNotificationRead(Request $request)
+    {
+      Notification::where('forUser',\Auth::id())->update(['status'=> 1]);
+      return redirect()->back();
+    }
     /**
      * Display a listing of the resource.
      *

@@ -206,58 +206,95 @@
                       </div>
                   </div>
                 </li>
-                <li>
-                    <div class="dropdown">
-                        <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i></a>
-                        <div class="dropdown-menu dropdown-menu-right notification">
-                            <div class="noti-head">
-                                <h6 class="d-inline-block m-b-0">Notifications</h6>
-                                <div class="float-right">
-                                    <a href="#!" class="m-r-10">mark as read</a>
-                                    <a href="#!">clear all</a>
+
+
+                @if (!superAdmin())
+
+
+                  @php
+                    $obj = getNotifcations(200);
+                  @endphp
+                  @if ($obj->hasNotification)
+                    <li>
+                        <div class="dropdown">
+
+                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
+                              @if ($obj->hasNew)
+                              <span class="badge badge-danger">New</span>
+                              @endif
+                            </a>
+
+                            <div class="dropdown-menu dropdown-menu-right notification">
+                                <div class="noti-head">
+                                    <h6 class="d-inline-block m-b-0">Notifications</h6>
+                                    @if ($obj->hasNew)
+                                      <div class="float-right">
+                                          <a href="{{ route('markNotificationRead') }}" class="m-r-10">mark as read</a>
+                                          {{-- <a href="#!">clear all</a> --}}
+                                      </div>
+                                    @endif
+
                                 </div>
-                            </div>
-                            <ul class="noti-body">
-                                <li class="n-title">
-                                    <p class="m-b-0">NEW</p>
-                                </li>
-                                <li class="notification">
-                                    <div class="media">
-                                        <img class="img-radius" src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-1.jpg' ) }}" alt="Generic placeholder image">
-                                        <div class="media-body">
-                                            <p><strong>John Doe</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                            <p>New ticket Added</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="n-title">
-                                    <p class="m-b-0">EARLIER</p>
-                                </li>
-                                <li class="notification">
-                                    <div class="media">
-                                        <img class="img-radius" src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-2.jpg' ) }}" alt="Generic placeholder image">
-                                        <div class="media-body">
-                                            <p><strong>Joseph William</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                            <p>Prchace New Theme and make payment</p>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="notification">
-                                    <div class="media">
-                                        <img class="img-radius" src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-3.jpg' ) }}" alt="Generic placeholder image">
-                                        <div class="media-body">
-                                            <p><strong>Sara Soudein</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>30 min</span></p>
-                                            <p>currently login</p>
-                                        </div>
-                                    </div>
-                                </li>
-                            </ul>
-                            <div class="noti-footer">
-                                <a href="#!">show all</a>
+                                <ul class="noti-body">
+                                    @if ($obj->hasNew)
+                                    <li class="n-title">
+                                        <p class="m-b-0">NEW</p>
+                                    </li>
+                                    @endif
+                                    @if ($obj->hasNew)
+                                        @foreach ($obj->new as $noti)
+                                          <li class="notification">
+                                              <div class="media">
+                                                <a href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius p-2"></i></a>
+
+                                                  <div class="media-body">
+                                                      <p><strong>{{ $noti->title }}</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>{{ $noti->created_at->diffForhumans() }}</span></p>
+                                                      <p>{{ $noti->description }}</p>
+                                                  </div>
+                                              </div>
+                                          </li>
+                                        @endforeach
+                                    @endif
+
+
+                                    @if ($obj->hasOld)
+                                      <li class="n-title">
+                                          <p class="m-b-0">EARLIER</p>
+                                      </li>
+                                    @endif
+
+                                    @if ($obj->hasOld)
+                                        @foreach ($obj->old as $noti)
+                                          <li class="notification">
+                                              <div class="media">
+                                                <a href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius p-2"></i></a>
+                                                  <div class="media-body">
+                                                      <p><strong>{{ $noti->title }}</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>{{ $noti->created_at->diffForhumans() }}</span></p>
+                                                      <p>{{ $noti->description }}</p>
+                                                  </div>
+                                              </div>
+                                          </li>
+                                        @endforeach
+                                    @endif
+
+
+                                </ul>
+                                {{-- <div class="noti-footer">
+                                    <a href="{{ route() }}">show all</a>
+                                </div> --}}
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+
+                  @endif
+
+
+
+                @endif
+
+
+
+
 
                 <li>
                     <div class="dropdown drp-user">
