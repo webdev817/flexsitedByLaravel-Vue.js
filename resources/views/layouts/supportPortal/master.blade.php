@@ -150,6 +150,9 @@
                       <li class="nav-item {{ requestIsFromArray(['coupons.index', 'coupons.edit']) }}">
                           <a href="{{ route('coupons.index') }}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-file-minus"></i></span><span class="pcoded-mtext">Coupons</span></a>
                       </li>
+                      <li class="nav-item {{ requestIsFromArray(['clientTasks.index', 'clientTasks.edit']) }}">
+                          <a href="{{ route('clientTasks.index') }}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-tasks"></i></span><span class="pcoded-mtext">Client Tasks</span></a>
+                      </li>
                       <li class="nav-item {{ requestIsFromArray(['contactUsRequests']) }}">
                           <a href="{{ route('contactUsRequests') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Contact Messsags</span></a>
                       </li>
@@ -178,10 +181,8 @@
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse1" href="#!"><span></span></a>
             <a href="{{ route('root') }}" class="b-brand">
-                   <div class="b-bg">
-                       <i class="feather icon-trending-up"></i>
-                   </div>
-                   <span class="b-title">{{ myconf('logoText') }}</span>
+                   <img class="img-fluid" style="width: 150px" src="{{ asset('mawaisnow\logo\FLEXSITED.png') }}" alt="">
+                   
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="#!">
@@ -193,7 +194,7 @@
 
             </ul>
             <ul class="navbar-nav ml-auto">
-                <li>
+                {{-- <li>
                   <div class="main-search">
                       <div class="input-group">
                           <input type="text" id="m-search" class="form-control" placeholder="Search . . .">
@@ -205,7 +206,7 @@
                           </span>
                       </div>
                   </div>
-                </li>
+                </li> --}}
 
 
                 @if (!superAdmin())
@@ -303,7 +304,14 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right profile-notification">
                             <div class="pro-head">
-                                <img src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-1.jpg' ) }}" class="img-radius" alt="User-Profile-Image">
+                                <img 
+                                @if (Auth::user()->image != null)
+                                    src="{{ asset(Storage::url(Auth::user()->image)) }}"
+                                @else
+                                    src="{{ asset( 'mawaisnow/able/assets/images/user/avatar-1.jpg' ) }}"
+                                @endif
+                                
+                                class="img-radius" alt="User-Profile-Image">
                                 <span>{{ Auth::user()->name }}</span>
                                 <a href="{{ route('logout') }}" class="dud-logout" onclick="event.preventDefault();
                                document.getElementById('logout-form').submit();" title="Logout">

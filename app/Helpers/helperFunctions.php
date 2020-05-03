@@ -1,4 +1,11 @@
 <?php
+function getFunInfo($fun) {
+  $reflFunc = new \ReflectionFunction($fun);
+  dd(
+    $reflFunc
+  );
+  print $reflFunc->getFileName() . ':' . $reflFunc->getStartLine();
+}
 function setting($key, $default = null)
 {
     $setting = App\Setting::where('userId', Auth::id())->where('key', $key)->first();

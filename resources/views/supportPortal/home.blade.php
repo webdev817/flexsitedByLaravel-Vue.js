@@ -100,69 +100,78 @@
                                             Client Task Overview
                                         </div>
                                     </div>
+
+
+                                    @if ($clientTaskObj->totalCount)
+
+
                                     <div class="card  mt-3">
                                         <div class="card-header">
                                             <div class="row">
 
                                                 <div class="col-6">
-                                                    2 out of 4 Task Completed
+                                                    {{ $clientTaskObj->completedCount }} out of {{ $clientTaskObj->totalCount }} Task Completed
                                                 </div>
                                                 <div class="col-6">
                                                    <div class="progress">
-                                                     <div class="progress-bar progress-c-theme" role="progressbar" style="width:50%;height:11px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                                     <div class="progress-bar progress-c-theme" role="progressbar" style="width: {{ $clientTaskObj->percentage }}%;height:11px;" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body pb-0 pr-0">
+                                        <div class="card-body minHeightOfTasks pb-0 pr-0">
 
 
-                                            <div class="row">
+                                          @foreach ($clientTaskObj->tasks as $task)
+
+                                            <div class="row mb-2">
                                                 <div class="col-lg-8 col-7 ">
-                                                    Design a Prototype of Landing Page
+                                                    {{ $task->title }}
                                                     <br>
                                                     <div class="clientTaskDue">
-                                                        Due Date: 12 June 2020
+                                                        Due Date: {{ $task->dueOn }}
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4 col-5 ">
-                                                    <a href="#" class="btn btn-outline-primary">
+                                                    <a href="{{ route('clientTasks.show',$task->id) }}" class="btn btn-outline-primary">
                                                         View Details
                                                     </a>
                                                 </div>
                                             </div>
-                                            <div class="row mt-4">
-                                                <div class="col-lg-8 col-7 ">
-                                                    Design a Prototype of Landing Page
-                                                    <br>
-                                                    <div class="clientTaskDue">
-                                                        Due Date: 12 June 2020
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-4 col-5 ">
-                                                    <a href="#" class="btn btn-outline-primary">
-                                                        View Details
-                                                    </a>
-                                                </div>
-                                            </div>
+                                          @endforeach
 
-                                            <div class="row mt-4">
-                                                <div class="col-12 text-center">
-                                                    <nav aria-label="Page navigation example">
-                                                        <ul class="pagination">
-                                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                            </div>
+
+                                          @if ($clientTaskObj->tasks->total() > $clientTaskObj->tasks->perPage())
+
+                                          <div class="card-footer tx-12 pd-y-15 bg-transparent">
+                                              <div class="d-flex form-layout-footer justify-content-center submitSection">
+
+                                                  {!! $clientTaskObj->tasks->links() !!}
+
+                                              </div>
+                                          </div>
+                                          @endif
 
                                         </div>
 
                                     </div>
+                                    @else
+                                      <div class="card  mt-3">
+                                          <div class="card-header ">
+                                          <div class="row">
+                                            <div class="col-12 minHeightForNoTasks">
+                                              <div class="d-flex justify-content-center self-align-center">
+                                                <h6 class="">No Task Assigned</h6>
+
+                                              </div>
+
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    @endif
+
+
                                 </div>
 
 

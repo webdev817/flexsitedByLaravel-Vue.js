@@ -20,6 +20,12 @@ class CreateClientTasksTable extends Migration
             $table->integer('createdBy')->nullable();
             $table->integer('status')->default(1);
 
+            // status 1 in complete
+            // status 2 completed
+
+            $table->date('dueOn')->nullable();
+            $table->integer('userId')->nullable();
+
             $table->timestamps();
         });
     }

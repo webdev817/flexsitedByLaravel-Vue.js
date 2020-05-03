@@ -7,13 +7,13 @@
         <div class="pcoded-content">
             <div class="pcoded-inner-content">
                 <!-- [ breadcrumb ] start -->
-                <div class="page-header">
+                {{-- <div class="page-header">
                     <div class="page-block">
                         <div class="row align-items-center">
                             <div class="col-md-12">
-                                {{-- <div class="page-header-title">
+                                <div class="page-header-title">
                                       <h5 class="m-b-10">Sample Page</h5>
-                                  </div> --}}
+                                  </div>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('adminHome') }}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item">Subscriptions</li>
@@ -21,7 +21,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- [ breadcrumb ] end -->
                 <div class="main-body">
                     <div class="page-wrapper">
@@ -34,7 +34,7 @@
                                 <div class="card user-list">
                                     <div class="card-header">
                                         <h5>Subscriptions</h5>
-                                        
+
                                     </div>
                                     <div class="card-block pb-0">
                                         <div class="table-responsive">

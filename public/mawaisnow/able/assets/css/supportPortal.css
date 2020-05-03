@@ -10,6 +10,9 @@
 .txt1 {
     color: #5ABAA5;
 }
+.minHeightForNoTasks{
+  min-height: 244px;
+}
 .questionsAccordion{
   display: none;
 }
@@ -212,7 +215,10 @@ a {
 .fontSize14px {
     font-size: 14px;
 }
-
+.pcoded-navbar.navbar-image-1{
+  height: 100%;
+  position: fixed;
+}
 .linkspCPassword {
     color: #323437;
     padding-bottom: 3px;
@@ -249,6 +255,12 @@ border-bottom: 2px solid var(--c1);
       width: 133px;
       height: 60px;
     }
+}
+
+@media (min-width: 1200px) {
+  .minHeightOfTasks{
+    min-height: 224px;
+  }
 }
 @media (max-width: 1315px) and (min-width:  1100px) {
   .taskProjectIcon {

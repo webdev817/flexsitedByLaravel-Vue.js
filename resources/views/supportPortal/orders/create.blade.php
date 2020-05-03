@@ -135,7 +135,7 @@
                           </div>
 
                           @if ($order->type == 4)
-                             
+
                             <div class="mt-3 col-12 headingOrder justify-content-around bg-white p-3">
 
                                 <div class="row pb-2 pt-2">
@@ -249,7 +249,7 @@
 
       var baseUrl = "/payment";
       var option = $(
-        '<span><img class="img-card" /> <div class="d-inline-flex">' + optionValue.text + '</div></span>'
+        '<span><img class="img-card imgLogoCard" /> <div class="d-inline-flex optionTextHai">' + optionValue.text + '</div></span>'
       );
 
       // Use .text() instead of HTML string concatenation to avoid script injection issues
@@ -274,6 +274,14 @@
     .img-card{
       width: 50px;
       margin-top: -5px;
+    }
+    @media (max-width: 420px) {
+      .imgLogoCard{
+        width: 40px;
+      }
+      .optionTextHai{
+        font-size: 11px;
+      }
     }
   </style>
 @endsection

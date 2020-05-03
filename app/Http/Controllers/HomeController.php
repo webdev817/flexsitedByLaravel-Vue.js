@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Order;
 use App\MarketingService;
+use App\ClientTask;
 
 use stdClass;
 use Helper;
@@ -57,8 +58,22 @@ class HomeController extends Controller
       $webDevelopment = Order::where('type',4)->where('createdBy',Auth::id())->count();
       $graphicDesing = Order::where('type','!=',4)->where('createdBy',Auth::id())->count();
       $marketingCount = MarketingService::where('createdBy',Auth::id())->count();
+      $clientTaskObj = new stdClass;
 
-      return view('supportPortal.home', compact('orders', 'webDevelopment', 'graphicDesing', 'marketingCount'));
+
+      $clientTaskObj->totalCount = ClientTask::where('userId', Auth::id())->count();
+
+      $clientTaskObj->completedCount = ClientTask::where('userId', Auth::id())->where('status',2)->count();
+
+      if ($clientTaskObj->totalCount == 0) {
+        $clientTaskObj->percentage = 0;
+      }else {
+        $clientTaskObj->percentage = round(($clientTaskObj->completedCount / $clientTaskObj->totalCount) * 100);
+      }
+
+      $clientTaskObj->tasks = ClientTask::where('userId', Auth::id())->where('status', 1)->paginate(2);
+
+      return view('supportPortal.home', compact('orders', 'webDevelopment', 'graphicDesing', 'marketingCount','clientTaskObj'));
     }
   }
 
