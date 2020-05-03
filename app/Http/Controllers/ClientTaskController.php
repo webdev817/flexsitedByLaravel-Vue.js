@@ -55,7 +55,7 @@ class ClientTaskController extends Controller
         'title'=> "required|string|max:255",
         'status'=> "required|string|max:255",
         'dueOn'=> "required|string|max:255",
-        'description'=> "required|string|max:255",
+        'description'=> "required|string|max:5000",
         'users'=> "required",
       ]);
 
@@ -114,7 +114,7 @@ class ClientTaskController extends Controller
         'title'=> "required|string|max:255",
         'status'=> "required|string|max:255",
         'dueOn'=> "required|string|max:255",
-        'description'=> "required|string|max:255"
+        'description'=> "required|string|max:500"
       ]);
 
       $data = request([
