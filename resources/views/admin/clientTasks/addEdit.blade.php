@@ -64,7 +64,7 @@
                                                 <label class="form-control-label  w-100" for="status">User: <span class="tx-danger">*</span> </label>
                                                 <select class="form-control"
 
-                                                @if (!isset($clientTask))
+                                                @if (isset($clientTask))
                                                   readonly disabled
                                                 @endif
                                                   id="user" name="users[]">
