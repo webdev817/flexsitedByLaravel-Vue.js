@@ -80,15 +80,16 @@ class OrderController extends Controller
         $dummyOrder = $orders[$order->type];
         if ($order->billingStatus == 0) {
             return view('supportPortal.orders.create', [
-          'order'=> $order,
-          'dummyOrder'=> $dummyOrder,
-          'intent'=>  $user->createSetupIntent()
-        ])->withErrors([$order->billingError]);
+              'order'=> $order,
+              'dummyOrder'=> $dummyOrder,
+              'intent'=>  $user->createSetupIntent()
+            ])->withErrors([$order->billingError]);
         } else {
             return view('supportPortal.orders.create', [
-          'order'=> $order,
-          'dummyOrder'=> $dummyOrder
-        ]);
+              'order'=> $order,
+              'dummyOrder'=> $dummyOrder,
+              'paymentIntent'=>  $user->createSetupIntent()
+            ]);
         }
     }
     public function orderConfirmationStore(Request $request, Order $order)
@@ -302,6 +303,6 @@ class OrderController extends Controller
 
     public static function getOrders($orderType = null)
     {
-      return getSupportOrders($orderType);
+        return getSupportOrders($orderType);
     }
 }
