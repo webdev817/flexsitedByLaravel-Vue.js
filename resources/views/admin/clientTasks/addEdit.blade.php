@@ -62,7 +62,12 @@
                                             <div class="col-lg-4">
                                               <div class="form-group">
                                                 <label class="form-control-label  w-100" for="status">User: <span class="tx-danger">*</span> </label>
-                                                <select class="form-control" readonly disabled id="user" name="users[]">
+                                                <select class="form-control"
+
+                                                @if (!isset($clientTask))
+                                                  readonly disabled
+                                                @endif
+                                                  id="user" name="users[]">
                                                   @foreach ($users as $user)
                                                     <option value="{{ $user->id }}">{{ $user->name }}</option>
 
