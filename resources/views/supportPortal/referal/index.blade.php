@@ -15,7 +15,7 @@
                         <div class="col-12">
                           <h4 class="headingColor">Invite Friends and Receive a Free Month of Service</h4>
 
-                            
+
                         </div>
 
                         <div class="col-12">
@@ -31,7 +31,7 @@
                                       <h5 class="headingColor">Spread the world</h5>
                                     </div>
                                     <div class="col-12 mt-3">
-                                      Invite friend by sending them Referral Link directly, Post it on your website or share it on social media and other communication channel to use
+                                      Invite a friend by sending them a referral link directly via email, social media or via text.
                                     </div>
                                   </div>
                               </div>
@@ -47,7 +47,7 @@
                                       <h5 class="headingColor">A Friend Signup</h5>
                                     </div>
                                     <div class="col-12 mt-3">
-                                      Invite friend by sending them Referral Link directly, Post it on your website or share it on social media and other communication channel to use
+                                      When your friend completes the short form, we will be immediately notified and will contact them.
                                     </div>
                                   </div>
                               </div>
@@ -60,10 +60,10 @@
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
                                     <div class="col-12  text-center">
-                                      <h5 class="headingColor">You win free month of service</h5>
+                                      <h5 class="headingColor">Receive a FREE month of service</h5>
                                     </div>
                                     <div class="col-12 mt-3">
-                                      Invite friend by sending them Referral Link directly, Post it on your website or share it on social media and other communication channel to use
+                                      When your friend completes an order for one of our website package, we will credit your account. The more people you refer, the more free months you will receive!
                                     </div>
                                   </div>
                               </div>

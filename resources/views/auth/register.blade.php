@@ -97,7 +97,7 @@
             <div class="col-10 offset-1">
                 <div class="custom-control custom-checkbox">
                     <input type="checkbox" @if(old('agree') == 1) checked @endif value="1" class="custom-control-input" name="termsandConditions" id="agree" required>
-                    <label class="custom-control-label" for="agree">By creating this account, you agree to the <a href="{{ route('termsOfService') }}">terms and conditions</a>  and  <a href="{{ route('privacyPolicya') }}">Privacy Policy.</a> </label>
+                    <label class="custom-control-label" for="agree">By creating this account, you agree to the <a href="{{ route('termsOfService') }}">terms and conditions</a>  and  <a href="{{ route('privacyPolicya') }}">privacy policy.</a> </label>
                 </div>
             </div>
 
