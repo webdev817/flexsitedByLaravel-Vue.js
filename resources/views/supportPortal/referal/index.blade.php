@@ -44,7 +44,7 @@
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
                                     <div class="col-12  text-center">
-                                      <h5 class="headingColor">A Friend Signup</h5>
+                                      <h5 class="headingColor">A Friend Signs Up</h5>
                                     </div>
                                     <div class="col-12 mt-3">
                                       When your friend completes the short form, we will be immediately notified and will contact them.
