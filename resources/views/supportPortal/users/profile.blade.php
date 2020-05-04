@@ -301,7 +301,7 @@
           <div class="col-12">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="terms">
-                <label class="custom-control-label" for="terms" required>I agree with <a href="{{ route('termsOfService') }}">terms and conditions</a>  and  <a href="{{ route('privacyPolicya') }}">privacy policy</a> of closing account</label>
+                <label class="custom-control-label" for="terms" required>I agree with <a href="{{ route('termsOfService') }}">terms and conditions</a> of closing account</label>
             </div>
           </div>
 
