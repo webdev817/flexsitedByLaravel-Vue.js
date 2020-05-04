@@ -51,9 +51,9 @@
                                     <div class="container">
                                         <div class="row mt-4">
                                           <div class="col-12 text-center">
-                                            <h4>Your request has been successfully submitted!</h4>
+                                            <h4>Thank you!  Your Order has been successfully submitted.</h4>
                                             <br>
-                                            Thank you!  Your Order has been successfully submitted.  Please allow 1-3 business days to process your order. 
+                                             Please allow 1-3 business days to process your order.
                                           </div>
                                         </div>
 

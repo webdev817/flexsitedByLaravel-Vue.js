@@ -114,7 +114,7 @@ class ClientTaskController extends Controller
         'title'=> "required|string|max:255",
         'status'=> "required|string|max:255",
         'dueOn'=> "required|string|max:255",
-        'description'=> "required|string|max:500"
+        'description'=> "required|string|max:5000"
       ]);
 
       $data = request([
@@ -134,6 +134,11 @@ class ClientTaskController extends Controller
      */
     public function destroy(ClientTask $clientTask)
     {
-        //
+      if (!superAdmin()) {
+        return status('permission denied');
+      }
+      $clientTask->delete();
+
+      return status('Task is deleted');
     }
 }

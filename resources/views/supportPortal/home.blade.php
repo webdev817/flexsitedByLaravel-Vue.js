@@ -65,7 +65,7 @@
                                                 </div>
                                                 <div class="taskprojectTitle">
                                                     <div class="align-self-center">
-                                                        Marketing
+                                                        Marketing &nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;
                                                     </div>
                                                 </div>
                                             </div>
@@ -186,7 +186,7 @@
                                             <div class="row pb-1">
                                                 <div class="col-12">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/Logo Design icon.png') }}" alt="">
-                                                    <span class="ml-1">Logo Designing</span>
+                                                    <span class="ml-1">Logo Design</span>
                                                 </div>
                                                 <div class="col-12 mt-3">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/flyer Design.png') }}" alt="">
@@ -226,7 +226,7 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/brand icon.png') }}" alt="">
-                                                    <span class="ml-1">Brand Startegy</span>
+                                                    <span class="ml-1">Brand Strategy</span>
                                                 </div>
 
                                                 <div class="col-12 mt-2">
@@ -353,4 +353,13 @@
     </div>
 </div>
 
+
+<style media="screen">
+  @media (max-width: 767px) {
+    .taskprojectTitle {
+      padding-left: 10px;
+      justify-content: left;
+    }
+  }
+</style>
 @endsection

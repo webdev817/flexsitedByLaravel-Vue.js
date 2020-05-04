@@ -7,6 +7,7 @@
 .hand{
   cursor: pointer;
 }
+
 .txt1 {
     color: #5ABAA5;
 }
@@ -280,7 +281,12 @@ border-bottom: 2px solid var(--c1);
         min-height: 342px;
     }
 }
-
+@media only screen and (max-width: 991px){
+  .pcoded-header {
+      background: black;
+      color: #fff;
+  }
+}
 @media (max-width: 576px) {
     .cardHeader {
         font-size: 16px;

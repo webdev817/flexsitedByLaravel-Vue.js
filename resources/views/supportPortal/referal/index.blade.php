@@ -15,19 +15,7 @@
                         <div class="col-12">
                           <h4 class="headingColor">Invite Friends and Receive a Free Month of Service</h4>
 
-                            <div class="row mt-3 ">
-                              <div class="col-12  col-md-12">
-                                Spread the Word – Invite a friend by sending them a referral link directly via email, social media or via text.
-                                <div class="mt-1"></div>
-
-                                 Friend Signs Up-  When your friend completes the short form, we will be immediately notified and will contact them.
-                                 <div class="mt-1"></div>
-                                 Receive a FREE month of service- When your friend completes an order for one of our website package, we will credit your account.  The more people you refer, the more free months you will receive!
-                                <br>
-
-                              </div>
-                            </div>
-
+                            
                         </div>
 
                         <div class="col-12">

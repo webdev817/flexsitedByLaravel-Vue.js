@@ -7,7 +7,7 @@
         <div class="pcoded-content">
             <div class="pcoded-inner-content">
                 <!-- [ breadcrumb ] start -->
-                <div class="page-header">
+                {{-- <div class="page-header">
                     <div class="page-block">
                         <div class="row align-items-center">
                             <div class="col-md-12">
@@ -22,7 +22,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <!-- [ breadcrumb ] end -->
                 <div class="main-body">
                     <div class="page-wrapper">
@@ -35,7 +35,7 @@
                                 <div class="card user-list">
                                     <div class="card-header">
                                         <h5>Support FAQs</h5>
-                                         
+
                                     </div>
                                     <div class="card-block pb-0">
                                         <div class="table-responsive">

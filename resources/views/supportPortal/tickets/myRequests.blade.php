@@ -52,7 +52,8 @@
                                             <table class="table table-hover">
                                                 <thead>
                                                     <tr>
-                                                        <th>Subject</th>
+                                                      <th>Subject</th>
+                                                        <th>Issue</th>
                                                         <th>Activty</th>
                                                         <th>Last Activty</th>
                                                         <th>Satus</th>
@@ -61,6 +62,9 @@
                                                     @foreach ($tickets as $ticket)
 
                                                     <tr>
+                                                        <td>
+                                                          {{ $ticket->ticketDepartment }}
+                                                        </td>
                                                         <td>
                                                             {{ $ticket->message }}
                                                         </td>

@@ -284,12 +284,12 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <input class="form-control" required  placeholder="Enter new Password" type="password" id="model-password" name="password" value="">
+                  <input class="form-control" required  placeholder="Enter Password" type="password" id="model-password" name="password" value="">
               </div>
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <input class="form-control"  required placeholder="Re-Enter new Password" type="password" id="model-confirm_password" name="password_confirm" value="">
+                  <input class="form-control"  required placeholder="Re-Enter Password" type="password" id="model-confirm_password" name="password_confirm" value="">
               </div>
           </div>
           <div class="col-lg-12">
@@ -301,7 +301,7 @@
           <div class="col-12">
             <div class="custom-control custom-checkbox">
                 <input type="checkbox" class="custom-control-input" id="terms">
-                <label class="custom-control-label" for="terms" required>I agree with Terms & Conditions of closing account</label>
+                <label class="custom-control-label" for="terms" required>I agree with <a href="{{ route('termsOfService') }}">terms and conditions</a>  and  <a href="{{ route('privacyPolicya') }}">Privacy Policy</a> of closing account</label>
             </div>
           </div>
 
