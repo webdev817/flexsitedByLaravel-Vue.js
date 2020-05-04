@@ -190,7 +190,7 @@
                                                 </div>
                                                 <div class="col-12 mt-3">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/flyer Design.png') }}" alt="">
-                                                    <span class="ml-1">Flayer Design</span>
+                                                    <span class="ml-1">Flyer Design</span>
                                                 </div>
                                                 <div class="col-12 mt-3">
                                                     <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/sIcon/business card icon.png') }}" alt="">

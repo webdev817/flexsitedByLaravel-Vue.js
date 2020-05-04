@@ -36,7 +36,7 @@ class TicketController extends Controller
     public function create()
     {
         $issueRelatedTo = [
-          'General', 'Tasks', 'Plans', 'Payment', 'Profile'
+          'General', 'Tasks', 'Plans', 'Payment', 'Profile', 'Change Request'
         ];
         $arr['issueRelatedTo'] = $issueRelatedTo;
 

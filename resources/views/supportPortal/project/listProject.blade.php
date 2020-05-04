@@ -104,7 +104,7 @@
                                                           <th>By</th>
                                                         @endif
 
-                                                        <th>Satus</th>
+                                                        <th>Status</th>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($projects as $project)
