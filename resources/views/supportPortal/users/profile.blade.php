@@ -128,7 +128,7 @@
                                           <th>Date</th>
                                           <th>Detail</th>
                                           <th>Amount</th>
-                                          <th>Invoice Id</th>
+
                                           <th>Action</th>
                                       </tr>
                                       @foreach ($invoices as $key => $invoice)
@@ -140,7 +140,7 @@
                                             @include('supportPortal.users.detailCalc',['invoice'=> $invoice])
                                           </th>
                                           <td>{{ $invoice->total() }}</td>
-                                          <td>{{ $invoice->id }}</td>
+                                           
                                           <td class="col-xs-2 ">
                                               <a href="{{ route('invoiceDownload',[$invoice->id,
                                                     'userId'=>Auth::id()
