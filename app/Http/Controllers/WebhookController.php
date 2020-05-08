@@ -38,10 +38,10 @@ class WebhookController extends CashierController
     public function handleInvoicePaymentSucceeded($payload)
     {
         // storeDataToDisk($payload);
-        dump(
-          isset($payload['data']['object']['lines']['data'][0]['metadata']['orderId']),
-          'is set or not'
-        );
+        // dump(
+        //   isset($payload['data']['object']['lines']['data'][0]['metadata']['orderId']),
+        //   'is set or not'
+        // );
         if ($user = $this->getUserByStripeId($payload['data']['object']['customer'])) {
 
           try {

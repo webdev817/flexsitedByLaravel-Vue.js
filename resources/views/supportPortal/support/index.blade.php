@@ -49,7 +49,7 @@
                                         <h5 class="mb-0"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapse{{ $faq->id }}" aria-expanded="true" aria-controls="collapse{{ $faq->id }}">{{ $faq->question }}</a></h5>
                                     </div>
                                     <div id="collapse{{ $faq->id }}" class=" card-body collapse" aria-labelledby="heading{{ $faq->id }}" data-parent="#accordion">
-                                        {{ $faq->answer }}
+                                        <textarea name="name" class="form-control border-0" rows="8" cols="80">{{ $faq->answer }}</textarea>
                                     </div>
                                 </div>
 
