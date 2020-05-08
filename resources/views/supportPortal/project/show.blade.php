@@ -28,7 +28,7 @@
                                                             <h6>Project Name</h6>
                                                         </th>
                                                         <th>
-                                                            <h6>Due On</h6>
+                                                            <h6>Due Date</h6>
                                                         </th>
                                                         <th>
                                                             <h6>Total Amount</h6>

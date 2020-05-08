@@ -65,6 +65,7 @@
                                 @elseif ($wizeredObj->currentStep == 5  && $wizeredObj->wizered == "allDone" )
                                   <div class="card">
                                       @include('admin.users.clientOnBoarding.businessInformation')
+                                      @include('admin.users.clientOnBoarding.logoFlyerBusinessInfo')
                                     @include('admin.users.clientOnBoarding.domain')
                                     @include('admin.users.clientOnBoarding.design')
                                     @include('admin.users.clientOnBoarding.plan')

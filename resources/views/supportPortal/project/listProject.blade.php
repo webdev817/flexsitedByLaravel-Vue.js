@@ -97,7 +97,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>Project Name</th>
-                                                        <th>Due On</th>
+                                                        <th>Due Date</th>
                                                         <th>Total Amount</th>
 
                                                         @if (superAdmin())

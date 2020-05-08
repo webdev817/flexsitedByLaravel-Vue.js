@@ -67,9 +67,9 @@
 
                                                     <td>
                                                         @if ($clientTask->status == 1)
-                                                        Completed
+                                                          InComplete
                                                         @else
-                                                        InComplete
+                                                          Completed
                                                         @endif
                                                     </td>
 
