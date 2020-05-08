@@ -18,13 +18,13 @@
                                     General
                                 </div>
                                 <div class="hand supportTabs">
-                                    Tasks
+                                    Project
                                 </div>
                                 <div class="hand supportTabs">
                                     Plans
                                 </div>
                                 <div class="hand supportTabs">
-                                    Payment
+                                    Billing
                                 </div>
                                 <div class="hand supportTabs">
                                     Profile
