@@ -94,6 +94,9 @@ class UsersController extends Controller
         }
 
         $user = User::findOrFail($id);
+        if (!superAdmin() && $user->id != Auth::id()) {
+          return noPermission();
+        }
         $user->name = $request->name;
         $user->businessName = $request->businessName;
 
@@ -147,10 +150,11 @@ class UsersController extends Controller
     {
         $invoices = null;
 
-        $array = [ 'user' => $user ,
-                   'mainSubscription'=> $user->subscription('main'),
-                   'wizeredObj'=> getWizeredObj($user->id),
-                ];
+        $array = [
+           'user' => $user ,
+           'mainSubscription'=> $user->subscription('main'),
+           'wizeredObj'=> getWizeredObj($user->id),
+        ];
 
         return view('admin.users.clientOnBoarding', $array);
     }

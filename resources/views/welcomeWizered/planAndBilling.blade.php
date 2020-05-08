@@ -27,184 +27,34 @@
 
 
 
-            @if ($planNumber == 1)
 
 
             <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3 monthlyOrYearlyPlan">
-                <div class="w-100 planHead hand  active" onclick="planSelected('m')">
-                    basic plan
-                    <div class="w-100 mt-2 pt-3 planPrice "> $39.95 </div>
-                    <div class="w-100 planDurration mt-2 "> Monthly Plan </div>
+                <div class="w-100 planHead hand  @if(request('y') != 1) active @endif" onclick="planSelected('m')">
+                    {{ $plan->name }}
+                    <div class="w-100 mt-2 pt-3 planPrice "> ${{ $plan->price }} </div>
+                    <div class="w-100 planDurration mt-2 "> Per Month </div>
                 </div>
-
-                <div class="w-100 planOfferBox ">1 page custom website </div>
-                <div class="w-100 planOfferBox "> SOCIAL MEDIA LINKS ICONS</div>
-                <div class="w-100 planOfferBox "> booking link </div>
-                <div class="w-100 planOfferBox "> Stock Images </div>
-
+                @foreach ($plan->offers as $offer)
+                  <div class="w-100 planOfferBox ">{{ $offer->title }}</div>
+                @endforeach
             </div>
 
             <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3 monthlyOrYearlyPlan">
-                <div class="w-100 planHead hand "  onclick="planSelected('y')">
-                    basic plan
-                    <div class="w-100 mt-2 pt-3 planPrice "> $360 </div>
-                    <div class="w-100 planDurration mt-2 "> Yearly Billing </div>
+                <div class="w-100 planHead hand  @if(request('y') == 1) active @endif"  onclick="planSelected('y')">
+                    {{ $plan->name }}
+                    <div class="w-100 mt-2 pt-3 planPrice "> ${{ $plan->priceYearly }} </div>
+                    <div class="w-100 planDurration mt-2 "> Per Year </div>
                 </div>
 
-                <div class="w-100 planOfferBox ">1 page custom website </div>
-                <div class="w-100 planOfferBox "> SOCIAL MEDIA LINKS ICONS</div>
-                <div class="w-100 planOfferBox "> booking link </div>
-                <div class="w-100 planOfferBox "> Stock Images </div>
+                @foreach ($plan->offers as $offer)
+                  <div class="w-100 planOfferBox ">{{ $offer->title }}</div>
+                @endforeach
 
             </div>
 
-            @endif
 
 
-
-            @if ($planNumber == 2)
-
-            <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="w-100 planHead hand active "  onclick="planSelected('m')">
-                    ESSENTIAL Plan
-                    <div class="w-100  mt-2 pt-3 planPrice "> $59.95 </div>
-                    <div class="w-100  planDurration mt-2 "> Monthly Plan </div>
-                </div>
-                <div class="w-100  planOfferBox"> 3 page custom website </div>
-                <div class="w-100  planOfferBox"> HOME PAGE SLIDER </div>
-                <div class="w-100  planOfferBox"> SOCIAL MEDIA LINKS INTEGRATION </div>
-                <div class="w-100  planOfferBox"> booking link </div>
-                <div class="w-100  planOfferBox"> 1 business email </div>
-                <div class="w-100  planOfferBox"> stock images </div>
-
-            </div>
-            <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="w-100 planHead hand  "  onclick="planSelected('y')">
-                    ESSENTIAL Plan
-                    <div class="w-100  mt-2 pt-3 planPrice "> $600 </div>
-                    <div class="w-100  planDurration mt-2 "> Yearly Plan </div>
-                </div>
-                <div class="w-100  planOfferBox"> 3 page custom website </div>
-                <div class="w-100  planOfferBox"> HOME PAGE SLIDER </div>
-                <div class="w-100  planOfferBox"> SOCIAL MEDIA LINKS INTEGRATION </div>
-                <div class="w-100  planOfferBox"> booking link </div>
-                <div class="w-100  planOfferBox"> 1 business email </div>
-                <div class="w-100  planOfferBox"> stock images </div>
-
-            </div>
-            @endif
-
-
-
-
-            @if ($planNumber == 3)
-
-            <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="w-100 planHead hand active"  onclick="planSelected('m')">
-                    Active Plan
-                    <div class="w-100 mt-2 pt-3 planPrice "> $79.95 </div>
-                    <div class="w-100 planDurration mt-2 "> Monthly Plan </div>
-                </div>
-
-                <div class="w-100 planOfferBox"> 5 page custom website </div>
-                <div class="w-100 planOfferBox"> HOME PAGE SLIDER </div>
-                <div class="w-100 planOfferBox"> SOCIAL MEDIA LINKS INTEGRATION </div>
-                <div class="w-100 planOfferBox"> booking integration </div>
-                <div class="w-100 planOfferBox"> 5 business emails </div>
-                <div class="w-100 planOfferBox"> logo design </div>
-                <div class="w-100 planOfferBox"> stock images </div>
-                <div class="w-100 planOfferBox"> blog </div>
-                <div class="w-100 planOfferBox"> photo gallery </div>
-                <div class="w-100 planOfferBox"> instagram feed </div>
-                <div class="w-100 planOfferBox"> newsletter setup </div>
-                <div class="w-100 planOfferBox"> GOOLGE BUSINESS SETUP </div>
-
-            </div>
-
-            <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="w-100 planHead hand "   onclick="planSelected('y')" >
-                    Active Plan
-                    <div class="w-100 mt-2 pt-3 planPrice "> $850 </div>
-                    <div class="w-100 planDurration mt-2 "> Yearly Plan </div>
-                </div>
-
-                <div class="w-100 planOfferBox"> 5 page custom website </div>
-                <div class="w-100 planOfferBox"> HOME PAGE SLIDER </div>
-                <div class="w-100 planOfferBox"> SOCIAL MEDIA LINKS INTEGRATION </div>
-                <div class="w-100 planOfferBox"> booking integration </div>
-                <div class="w-100 planOfferBox"> 5 business emails </div>
-                <div class="w-100 planOfferBox"> logo design </div>
-                <div class="w-100 planOfferBox"> stock images </div>
-                <div class="w-100 planOfferBox"> blog </div>
-                <div class="w-100 planOfferBox"> photo gallery </div>
-                <div class="w-100 planOfferBox"> instagram feed </div>
-                <div class="w-100 planOfferBox"> newsletter setup </div>
-                <div class="w-100 planOfferBox"> GOOLGE BUSINESS SETUP </div>
-
-            </div>
-            @endif
-
-
-
-            @if ($planNumber == 4)
-
-            <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="w-100 planHead hand active"  onclick="planSelected('m')">
-                    Complete Plan
-
-                    <div class="w-100 mt-2 pt-3 planPrice  "> $129.95 </div>
-                    <div class="w-100 planDurration mt-2 "> Monthly Plan </div>
-                </div>
-
-                <div class="w-100  planOfferBox"> 10 page custom website </div>
-                <div class="w-100  planOfferBox"> HOME PAGE SLIDER </div>
-                <div class="w-100  planOfferBox"> SOCIAL MEDIA LINKS INTEGRATION </div>
-                <div class="w-100  planOfferBox"> booking integration </div>
-                <div class="w-100  planOfferBox"> unlimited BUSINESS </div>
-                <div class="w-100  planOfferBox"> emails </div>
-                <div class="w-100  planOfferBox"> logo design </div>
-                <div class="w-100  planOfferBox"> stock images </div>
-                <div class="w-100  planOfferBox"> blog </div>
-                <div class="w-100  planOfferBox"> photo gallery </div>
-                <div class="w-100  planOfferBox"> instagram feed </div>
-                <div class="w-100  planOfferBox"> Newsletter setup</div>
-                <div class="w-100  planOfferBox"> Google Analytics</div>
-                <div class="w-100  planOfferBox"> Google Map </div>
-                <div class="w-100  planOfferBox"> SEO ON PAGE SETUP </div>
-                <div class="w-100  planOfferBox"> SHOPPING CART </div>
-                <div class="w-100  planOfferBox"> Payment Gateway setup </div>
-
-
-            </div>
-            <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3">
-                <div class="w-100 planHead hand "  onclick="planSelected('y')">
-                    Complete Plan
-
-                    <div class="w-100 mt-2 pt-3 planPrice  "> $1450 </div>
-                    <div class="w-100 planDurration mt-2 "> Yearly Plan </div>
-                </div>
-
-                <div class="w-100  planOfferBox"> 10 page custom website </div>
-                <div class="w-100  planOfferBox"> HOME PAGE SLIDER </div>
-                <div class="w-100  planOfferBox"> SOCIAL MEDIA LINKS INTEGRATION </div>
-                <div class="w-100  planOfferBox"> booking integration </div>
-                <div class="w-100  planOfferBox"> unlimited BUSINESS </div>
-                <div class="w-100  planOfferBox"> emails </div>
-                <div class="w-100  planOfferBox"> logo design </div>
-                <div class="w-100  planOfferBox"> stock images </div>
-                <div class="w-100  planOfferBox"> blog </div>
-                <div class="w-100  planOfferBox"> photo gallery </div>
-                <div class="w-100  planOfferBox"> instagram feed </div>
-                <div class="w-100  planOfferBox"> Newsletter setup</div>
-                <div class="w-100  planOfferBox"> Google Analytics</div>
-                <div class="w-100  planOfferBox"> Google Map </div>
-                <div class="w-100  planOfferBox"> SEO ON PAGE SETUP </div>
-                <div class="w-100  planOfferBox"> SHOPPING CART </div>
-                <div class="w-100  planOfferBox"> Payment Gateway setup </div>
-
-
-            </div>
-            @endif
 
         </div>
 

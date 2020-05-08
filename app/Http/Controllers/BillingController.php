@@ -44,18 +44,18 @@ class BillingController extends Controller
         }
 
         $invoices = $user->invoices(
-         true,
-         [
+            true,
+            [
          'subscription'=>$subscription->stripe_id
          ]
-     );
+        );
         $upcomingInvoice = null;
         if (!$subscription->ended()) {
             $upcomingInvoice = $user->upcomingInvoice(
-           [
+                [
            'subscription'=>$subscription->stripe_id
            ]
-       );
+            );
         }
 
 
@@ -65,13 +65,13 @@ class BillingController extends Controller
     public function cancelSubscription(Request $request, $type = 1)
     {
         $request->validate(
-         [
+            [
          'subscription'=>'required|integer'
          ],
-         [
+            [
          'subscription.required'=>'Please choice a valid subscription'
          ]
-     );
+        );
 
         $subscriptionId = $request->subscription;
         if (superAdmin()) {
@@ -108,11 +108,11 @@ class BillingController extends Controller
     {
         $user = Auth::user();
         return view(
-          'billing.updateCard',
-          [
+            'billing.updateCard',
+            [
           'intent'=>$user->createSetupIntent()
           ]
-      );
+        );
     }
     public function updateCard(Request $request)
     {
@@ -167,25 +167,15 @@ class BillingController extends Controller
     {
         // The frequency at which a subscription is billed. One of day, week, month or year.
 
-        $projectName = "Flex Sited ";
 
-        $plans = StripeHelper::getPlansArray();
+        $plans = flexsitedPlans();
 
         foreach ($plans as $p) {
-            $options = [
-          "id"=> $p['id'],
-          "amount" => $p['amount'],
-          "interval" => $p['interval'],
-          "interval_count" =>1,
-          "product" => [
-            "name" => $p['productName']
-          ],
-          "currency" => "usd",
-          "nickname"=> $p['productName']
-        ];
-            if (!StripeHelper::isPlanExists($p['id'])) {
-                StripeHelper::createPlan($options);
-            }
+          StripeHelper::deletePlan($p->stripePlanMonthId);
+          StripeHelper::deletePlan($p->stripePlanYearId);
+
+          StripeHelper::createFlexSitedPlan($p, 'month');
+          StripeHelper::createFlexSitedPlan($p, 'year');
         }
 
         $plans = StripeHelper::allPlans();

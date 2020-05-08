@@ -14,6 +14,11 @@ $('[data-toggle="popover"]').popover()
 
 @section('head')
   <script type="text/javascript">
+
+
+
+
+
   function planSelected(d) {
     $("#hiddenPlanDurration").val(d);
   }
@@ -40,14 +45,15 @@ $('[data-toggle="popover"]').popover()
       fileName = $(dis).val().split('\\').pop();
     }
     $(selector).val(fileName);
-
-
   }
+
+
   </script>
   @if ($currentStep == 4)
   <script src="https://js.stripe.com/v3/"></script>
 
   @endif
+
   @if ($currentStep == 1 || $currentStep == 5)
   <link rel="stylesheet" href="{{ asset('css/fontawesome-free-5.12.1-web/css/all.min.css') }}">
   @endif
@@ -61,6 +67,11 @@ $('[data-toggle="popover"]').popover()
       }
   </style>
 @endsection
+
+
+
+
+
 
 @section('body')
 <div class="container-fluid p-0 mb-5">
@@ -185,4 +196,25 @@ $('[data-toggle="popover"]').popover()
 
 </div>
 
+@endsection
+
+
+@section('jsend')
+  <script type="text/javascript">
+  $(".planSwithers").click(function () {
+
+    $(".planSwithers").removeClass('active');
+    $(this).addClass('active');
+    var btnNo = $(this).attr('data-btn');
+    if (btnNo == 1) {
+      $(".monthlyPlanContainer").show();
+      $(".yearlyPlanContainer").hide();
+    }else {
+      $(".monthlyPlanContainer").hide();
+      $(".yearlyPlanContainer").show();
+    }
+  });
+
+  $(".yearlyPlanContainer").hide();
+  </script>
 @endsection

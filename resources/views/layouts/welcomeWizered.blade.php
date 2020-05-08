@@ -43,5 +43,6 @@
     }
 
     </script>
+    @yield('jsend')
 </body>
 </html>

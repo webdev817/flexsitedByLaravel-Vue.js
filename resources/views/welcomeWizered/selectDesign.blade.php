@@ -60,7 +60,7 @@
 <div class="container ">
     <div class="row m-0 py-3">
         <div class="col-12 text-center">
-            <button onclick="window.location = '{{ route('root') }}'" class=" float-left btn btn-cstm rounded-0 shadow-none backBtn" type="button">Back</button>
+            <button onclick="window.location = '{{ route('root',['back'=>1]) }}'" class=" float-left btn btn-cstm rounded-0 shadow-none backBtn" type="button">Back</button>
         </div>
     </div>
 </div>

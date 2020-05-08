@@ -17,11 +17,12 @@ use Auth;
 
 class WizeredController extends Controller
 {
+
     public function domainSelected(Request $request)
     {
         $request->validate([
-        'domain'=>'required|string|max:250'
-      ]);
+          'domain'=>'required|string|max:250'
+        ]);
 
         self::insertWizered("domain", $request->domain);
         self::insertWizered("currentStep", 2);
@@ -48,8 +49,11 @@ class WizeredController extends Controller
     }
     public function websitePackege(Request $request)
     {
-        $currentStep = 3;
-        return view('welcomeWizered.main', compact('currentStep'));
+          $currentStep = 3;
+
+        $plans = flexsitedPlans();
+
+        return view('welcomeWizered.main', compact('currentStep', 'plans'));
     }
     public function selectedDesign(Request $request, $designId)
     {
@@ -76,7 +80,15 @@ class WizeredController extends Controller
         self::insertWizered("selectedWebsitePackege", $packegeNumber);
         self::insertWizered("currentStep", 4);
 
-        return redirect()->route('planAndBilling', $packegeNumber);
+        $year = (int)$request->y;
+
+        $params = [$packegeNumber];
+
+        if ($year != null) {
+          $params['y'] = $year;
+          self::insertWizered("y", $year);
+        }
+        return redirect()->route('planAndBilling', $params);
     }
     public function planAndBilling(Request $request, $planNumber)
     {
@@ -84,9 +96,14 @@ class WizeredController extends Controller
 
         $user = $request->user();
 
+
         $intent = $user->createSetupIntent();
 
-        return view('welcomeWizered.main', compact('currentStep', 'planNumber', 'intent'));
+        $plans = flexsitedPlans();
+
+        $plan = $plans[$planNumber - 1];
+
+        return view('welcomeWizered.main', compact('currentStep', 'planNumber', 'intent', 'plans', 'plan'));
     }
     public function businessInformation(Request $request)
     {
@@ -323,6 +340,8 @@ class WizeredController extends Controller
         $appointment = $request->appointment;
         $socialMediaHandles = $request->socialMediaHandles;
         $hiddenPageSelected = $request->hiddenPageSelected;
+        $providingContent = $request->providingContent;
+        $howfindus = $request->howfindus;
 
         self::insertWizered('businessName', $businessName);
         self::insertWizered('businessPhoneNumber', $businessPhoneNumber);
@@ -333,8 +352,7 @@ class WizeredController extends Controller
         self::insertWizered('socialMediaHandles', $socialMediaHandles);
         self::insertWizered('pageSelected', $hiddenPageSelected);
 
-        $providingContent = $request->providingContent;
-        $howfindus = $request->howfindus;
+
         self::insertWizered('providingContent', $providingContent);
         self::insertWizered('howfindus', $howfindus);
 
@@ -343,12 +361,32 @@ class WizeredController extends Controller
           'logoUpload.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
           'galleryImages.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
           'contentUpload' => 'nullable|max:25000|mimes:doc,pdf,docx,zip'
-          ], [
+          ],[
           'logoUpload.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
           'logoUpload.*.max' => 'Sorry! Maximum allowed size can be 15MB',
           'galleryImages.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
           'galleryImages.*.max' => 'Sorry! Maximum allowed size can be 15MB',
         ]);
+
+        $request->validate([
+          'nameofCompanyForLog'=> 'nullable|string|max:255',
+          'taglineSlogan'=> 'nullable|string|max:255',
+          'logoColorPrefernce'=> 'nullable|string|max:255',
+          'textandImageOrText'=> 'nullable|string|max:255',
+          'logoFontPrefernce'=> 'nullable|string|max:255',
+          'logoExamples.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        ],[
+          'logoExamples.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        ]);
+
+        $request->validate([
+          'contentUploadForFlyer' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+          'flayerColorPrefernce' => 'nullable|string|max:255',
+          'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        ],[
+          'imagesandlogoForFlyer.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        ]);
+
         $logoFiles = $request->logoUpload;
         $contentUpload = $request->contentUpload;
         $galleryImages = $request->galleryImages;
@@ -371,18 +409,31 @@ class WizeredController extends Controller
 
         if ($galleryImages != null) {
             foreach ($galleryImages as $galleryImage) {
-                $businessAttachment = new BusinessAttachment;
-                $businessAttachment->path = $galleryImage->store('galleryImages');
-                $businessAttachment->type = 3;
-                $businessAttachment->createdBy = Auth::id();
-                $businessAttachment->save();
+              $businessAttachment = new BusinessAttachment;
+              $businessAttachment->path = $galleryImage->store('galleryImages');
+              $businessAttachment->type = 3;
+              $businessAttachment->createdBy = Auth::id();
+              $businessAttachment->save();
             }
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         self::insertWizered('wizered', 'allDone');
 
         return redirect('supportPortalHome');
     }
-
 
 
     public static function getWizered($data)
@@ -404,45 +455,43 @@ class WizeredController extends Controller
 
     public static function createOrder($type)
     {
-      $orders = getSupportOrders();
+        $orders = getSupportOrders();
 
-      $order = $orders[$type];
-      $price = $order->price;
-      if ($type == 4) {
-          $price = 0;
+        $order = $orders[$type];
+        $price = $order->price;
+        if ($type == 4) {
+            $price = 0;
 
-          $planNohai = Wizered::where('key','selectedWebsitePackege')->where('userId',Auth::id())->first()->value;
-          $durration = Wizered::where('key','planDurration')->where('userId',Auth::id())->first()->value;
-          if ($planNohai != null) {
-            $plans = flexsitedPlans($planNohai);
-            $plan =  $plans[$planNohai - 1];
-            if ($plan != null) {
-              if ($durration != null && $durration == "y") {
-                $price = $plan->priceYearly;
-              }else {
-                $price = $plan->price;
-              }
+            $planNohai = Wizered::where('key', 'selectedWebsitePackege')->where('userId', Auth::id())->first()->value;
+            $durration = Wizered::where('key', 'planDurration')->where('userId', Auth::id())->first()->value;
+            if ($planNohai != null) {
+                $plans = flexsitedPlans($planNohai);
+                $plan =  $plans[$planNohai - 1];
+                if ($plan != null) {
+                    if ($durration != null && $durration == "y") {
+                        $price = $plan->priceYearly;
+                    } else {
+                        $price = $plan->price;
+                    }
+                }
             }
-          }
-
-      }
-      $myOrder = new Order([
+        }
+        $myOrder = new Order([
         'type'=> $type,
         'title'=> $order->title,
         'price'=> $price,
         'orderDetails'=> '',
         'createdBy'=> Auth::id()
       ]);
-      $myOrder->save();
+        $myOrder->save();
 
-      $project = new Project([
+        $project = new Project([
         'orderId'=> $myOrder->id,
         'title'=> $myOrder->title,
         'description'=> $myOrder->orderDetails,
         'createdBy'=> Auth::id()
       ]);
-      $project->save();
-
+        $project->save();
     }
 
     public static function insertWizered($key, $value)
@@ -483,20 +532,20 @@ class WizeredController extends Controller
         "socialMediaHandles",
         "domain"
       ];
-      $userId = $request->userId;
+        $userId = $request->userId;
 
-      foreach ($arr as $key => $value) {
-        $input = $request->$value;
-        if ($input != null) {
-          self::insertWizeredByUser($value, $input, $userId);
+        foreach ($arr as $key => $value) {
+            $input = $request->$value;
+            if ($input != null) {
+                self::insertWizeredByUser($value, $input, $userId);
+            }
         }
-      }
 
-      $pageSelected = $request->pageSelected;
-      $pageSelected = implode(",", $pageSelected);
+        $pageSelected = $request->pageSelected;
+        $pageSelected = implode(",", $pageSelected);
 
-      self::insertWizered('pageSelected',$pageSelected, $userId);
-      return statusTo('Data update successfull', route('clientOnBoarding', $userId));
+        self::insertWizered('pageSelected', $pageSelected, $userId);
+        return statusTo('Data update successfull', route('clientOnBoarding', $userId));
     }
 
     public static function insertWizeredByUser($key, $value, $userId)

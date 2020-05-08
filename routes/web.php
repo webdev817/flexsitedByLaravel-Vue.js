@@ -21,12 +21,15 @@ Route::get('devmawaisnow', 'HomeController@mawaisnow');
 Route::get('invite/{invitedBy}', 'ReferalController@invite')->name('invite');
 Route::get('welcomeFlexsited/{invitedBy}', 'ReferalController@welcomeFlexsited')->name('welcomeFlexsited');
 Route::post('saveReferal', 'ReferalController@saveReferal')->name('saveReferal');
+
+
 Route::get('privacyPolicy',function () {
   return view('privacyPolicy');
 })->name('privacyPolicy');
 Route::get('privacyPolicy',function () {
   return view('privacyPolicy');
 })->name('privacyPolicya');
+
 Route::get('termsOfService',function () {
   return view('termsOfService');
 })->name('termsOfService');
@@ -179,7 +182,7 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::resource('supportFAQ', 'SupportFAQController');
     Route::get('contactUsRequests','AdminController@contactUsRequests')->name('contactUsRequests');
 
-
+    Route::resource('plans','PlanController');
 });
 
 Route::get('log',function () {

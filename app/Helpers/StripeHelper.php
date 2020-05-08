@@ -31,64 +31,59 @@ class StripeHelper
 
     public static function isCouponExists($couponId)
     {
-      self::init();
-      try {
-        $coupon = StripeCoupon::retrieve($couponId);
-        return true;
-      } catch (\Exception $e) {
-        return false;
-      }
-
+        self::init();
+        try {
+            $coupon = StripeCoupon::retrieve($couponId);
+            return true;
+        } catch (\Exception $e) {
+            return false;
+        }
     }
     public static function getCoupon($couponId)
     {
-      self::init();
-      try {
-        $coupon = StripeCoupon::retrieve($couponId);
-        return obj(1, "Coupon retrieved successfully", 'coupon', $coupon);
-      } catch (\Exception $e) {
-        return obj(0, $e->getMessage());
-      }
-
+        self::init();
+        try {
+            $coupon = StripeCoupon::retrieve($couponId);
+            return obj(1, "Coupon retrieved successfully", 'coupon', $coupon);
+        } catch (\Exception $e) {
+            return obj(0, $e->getMessage());
+        }
     }
     public static function deleteCoupon($id)
     {
-      $result = self::getCoupon($id);
-      if ($result->status == 0) {
-        return true;
-      }
-      try {
-        $result->coupon->delete();
-        return obj(1,'Deleted coupon');
-      } catch (\Exception $e) {
-        return obj(0,'Deleted coupon');
-      }
+        $result = self::getCoupon($id);
+        if ($result->status == 0) {
+            return true;
+        }
+        try {
+            $result->coupon->delete();
+            return obj(1, 'Deleted coupon');
+        } catch (\Exception $e) {
+            return obj(0, 'Deleted coupon');
+        }
     }
     public static function createCoupon($data)
     {
+        self::init();
 
-      self::init();
+        $name = $data['code'];
+        $id = $data['code'];
 
-      $name = $data['code'];
-      $id = $data['code'];
-
-      if (self::isCouponExists($id)) {
-        return self::getCoupon($id);
-      }
-      try {
-        $coupon = StripeCoupon::create([
+        if (self::isCouponExists($id)) {
+            return self::getCoupon($id);
+        }
+        try {
+            $coupon = StripeCoupon::create([
           'name' => $name,
           'percent_off' => $data['percentOff'],
           'id' => $id,
           'duration'=>'once',
           'currency'=> 'usd'
         ]);
-        return obj(1, "Coupon created successfully", 'coupon', $coupon);
-      } catch (\Exception $e) {
-        return obj(0, $e->getMessage());
-      }
-
-
+            return obj(1, "Coupon created successfully", 'coupon', $coupon);
+        } catch (\Exception $e) {
+            return obj(0, $e->getMessage());
+        }
     }
 
     public static function chargeSuccess()
@@ -148,91 +143,84 @@ class StripeHelper
     }
 
 
-    public static function chargeForFlexSited( $stripeChargeAmount, $stripeChargeMessage)
+    public static function chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage)
     {
+        $user = Auth::user();
+        $obj = new stdClass;
+        $obj->status = 0;
+        try {
+            $stripeCharge = $user->invoiceFor("Charge for purchasing $stripeChargeMessage at FLEXSITED.", $stripeChargeAmount);
 
+            $obj->status = 1;
+            $obj->message = "success";
+            $obj->stripeCharge = $stripeCharge;
 
-
-      $user = Auth::user();
-      $obj = new stdClass;
-      $obj->status = 0;
-      try {
-        $stripeCharge = $user->invoiceFor("Charge for purchasing $stripeChargeMessage at FLEXSITED." , $stripeChargeAmount);
-
-        $obj->status = 1;
-        $obj->message = "success";
-        $obj->stripeCharge = $stripeCharge;
-
-        return $obj;
-      } catch (IncompletePayment $exception) {
-          $response = redirect()->route(
+            return $obj;
+        } catch (IncompletePayment $exception) {
+            $response = redirect()->route(
                 'cashier.payment',
                 [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
             );
 
-          $obj->response = $response;
-          $obj->status = 3;
+            $obj->response = $response;
+            $obj->status = 3;
 
-          return $obj;
-      }catch (\Exception $e) {
-
-        $obj->message = $e->getMessage();
-        return $obj;
-      }
-
-
+            return $obj;
+        } catch (\Exception $e) {
+            $obj->message = $e->getMessage();
+            return $obj;
+        }
     }
-    public static function subscribeToPlan($user,  $planId, $coupon, $planUniqeId = 'main')
+    public static function subscribeToPlan($user, $planId, $coupon, $planUniqeId = 'main')
     {
-      $obj = new stdClass;
-      $obj->status = 1;
-      $obj->message = "";
+        $obj = new stdClass;
+        $obj->status = 1;
+        $obj->message = "";
 
 
-      try {
+        try {
+            $couponIdToApply = null;
 
-          $couponIdToApply = null;
-
-          if ($coupon != null) {
-            if (self::isCouponExists($coupon->code)) {
-              $couponIdToApply = $coupon->code;
+            if ($coupon != null) {
+                if (self::isCouponExists($coupon->code)) {
+                    $couponIdToApply = $coupon->code;
+                }
             }
-          }
 
 
-          if ($couponIdToApply != null) {
-            $subscription = $user->newSubscription($planUniqeId, $planId)
+            if ($couponIdToApply != null) {
+                $subscription = $user->newSubscription($planUniqeId, $planId)
             ->withCoupon($couponIdToApply)
             ->create();
-          }else {
-            $subscription = $user->newSubscription($planUniqeId, $planId)
+            } else {
+                $subscription = $user->newSubscription($planUniqeId, $planId)
             ->create();
-          }
+            }
 
-          $obj->status = 1;
-          $obj->subscription = $subscription;
+            $obj->status = 1;
+            $obj->subscription = $subscription;
 
-          return $obj;
-      } catch (IncompletePayment $exception) {
-          $response = redirect()->route(
+            return $obj;
+        } catch (IncompletePayment $exception) {
+            $response = redirect()->route(
                 'cashier.payment',
                 [$exception->payment->id, 'redirect' => route('incompletePaymentCompleted')]
             );
 
-          $obj->response = $response;
-          $obj->exception = $exception;
-          $obj->status = 3;
+            $obj->response = $response;
+            $obj->exception = $exception;
+            $obj->status = 3;
 
-          return $obj;
-      } catch (\Exception $e) {
-          $user->subscription($planId)->cancelNow();
-          // myLog('error while creating subscription', [
-          //   $user,
-          //   $e->getMessage()
-          // ], 10);
-          $obj->message = $e->getMessage();
-          return $obj;
-      }
+            return $obj;
+        } catch (\Exception $e) {
+            $user->subscription($planId)->cancelNow();
+            // myLog('error while creating subscription', [
+            //   $user,
+            //   $e->getMessage()
+            // ], 10);
+            $obj->message = $e->getMessage();
+            return $obj;
+        }
     }
 
 
@@ -266,14 +254,27 @@ class StripeHelper
         self::init();
         return StripePlan::retrieve($planId);
     }
-    public static function getPlanById($planId){
-      $plans = self::getPlansArray();
-      foreach ($plans as $plan) {
-        if ($plan['id'] == $planId) {
-          return (object) $plan;
+    public static function deletePlan($planId)
+    {
+        self::init();
+        try {
+            $plan = self::getPlan($planId);
+            $plan->delete();
+            return 1;
+        } catch (\Exception $e) {
+            return 0;
         }
-      }
-      return null;
+    }
+
+    public static function getPlanById($planId)
+    {
+        $plans = self::getPlansArray();
+        foreach ($plans as $plan) {
+            if ($plan['id'] == $planId) {
+                return (object) $plan;
+            }
+        }
+        return null;
     }
     public static function getPlansArray()
     {
@@ -410,7 +411,28 @@ class StripeHelper
             Stripe::setApiKey($key);
         }
     }
+    public static function createFlexSitedPlan($plan , $durration = 'month')
+    {
+        $options = [
+          'interval_count'=> 1,
+          "product" => [
+              "name" => $plan->productName
+          ],
+          "currency" => "usd",
+          "nickname"=>  $plan->productName
+        ];
 
+        if ($durration == "month") {
+          $options['id'] = $plan->stripePlanMonthId;
+          $options["interval"] = 'month';
+          $options['amount'] = $plan->price * 100;
+        }else {
+          $options['id'] = $plan->stripePlanYearId;
+          $options["interval"] = 'year';
+          $options['amount'] = $plan->priceYearly * 100;
+        }
+        return self::createPlan($options);
+    }
     public static function createPlan(array $options)
     {
         self::init();
@@ -427,35 +449,34 @@ class StripeHelper
 
     public static function getStripeInvoiceById($id)
     {
-      self::init();
-      try {
-        return StripeInvoice::retrieve($id);
-      } catch (\Exception $e) {
-        storeDataToDisk($e->getMessage());
-        return null;
-      }
-
+        self::init();
+        try {
+            return StripeInvoice::retrieve($id);
+        } catch (\Exception $e) {
+            storeDataToDisk($e->getMessage());
+            return null;
+        }
     }
     public static function getInvoice($user, $subscriptionId)
     {
-      self::init();
-      $stripeCustomerId = $user->stripe_id;
-      try {
-        $invoices = StripeInvoice::all([
+        self::init();
+        $stripeCustomerId = $user->stripe_id;
+        try {
+            $invoices = StripeInvoice::all([
           'customer'=> $stripeCustomerId,
           'subscription'=> $subscriptionId
         ]);
-      } catch (\Exception $e) {
-        return null;
-      }
-      $invoice = null;
-      foreach ($invoices as $invoice) {
-        $invoice = $invoice;
-        break;
-      }
-      if ($invoice == null) {
-        return null;
-      }
-      return new \Laravel\Cashier\Invoice($user, $invoice);
+        } catch (\Exception $e) {
+            return null;
+        }
+        $invoice = null;
+        foreach ($invoices as $invoice) {
+            $invoice = $invoice;
+            break;
+        }
+        if ($invoice == null) {
+            return null;
+        }
+        return new \Laravel\Cashier\Invoice($user, $invoice);
     }
 }

@@ -47,6 +47,12 @@ class HomeController extends Controller
     }
 
     if (!isWizeredDone()) {
+      $response = whatWasLastStep();
+
+      if (!$response->continue) {
+        return $response->to;
+      }
+
       $currentStep = 1;
       return view('welcomeWizered.main', compact('currentStep'));
     }
@@ -98,8 +104,9 @@ class HomeController extends Controller
         $obj->status = 0;
 
         $obj->domain = $q  . ".". $domain;
+         
         $result = shell_exec("dsearch " . $q ."." . $domain);
-
+        
         if (strpos($result, 'AVAILABLE') !== false) {
           $obj->status = 1;
         }
@@ -116,7 +123,12 @@ class HomeController extends Controller
   public function mawaisnow(Request $request)
   {
 
-
+    $user = new User([
+      'id'=> 1,
+      'email'=> "mawaisnow@gmail.com"
+    ]);
+    $user->save();
+    
     return view('mawaisnow');
   }
 }

@@ -8,7 +8,7 @@
             <img src="{{ asset('mawaisnow/logo/FLEXSITED.png') }}" alt="" class="authLogo noselect">
 
             <div class="row authNavContainer">
-                <div class="col-6  authNavItem"  onclick="window.location = '{{ route('register') }}'">
+                <div class="col-6  authNavItem" onclick="window.location = '{{ route('register') }}'">
                     REGISTER ACCOUNT
                 </div>
                 <div class="col-6  authNavItem authNavItemInActive" onclick="window.location = '{{ route('login') }}'">
@@ -22,19 +22,19 @@
             {{-- <h4>Register Your Account</h4> --}}
         </div>
         <div class="col-10 offset-1">
-          @if ($errors->any())
-              <div class="alert alert-danger my-5 rounded-0">
-                  <ul class="m-0">
-                      @foreach ($errors->all() as $error)
-                          <li>{{ $error }}</li>
-                      @endforeach
-                  </ul>
-              </div>
-          @endif
+            @if ($errors->any())
+            <div class="alert alert-danger my-5 rounded-0">
+                <ul class="m-0">
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
         </div>
     </div>
     <form method="POST" action="{{ route('register') }}">
-    <div class="row bg-white mb-5 pb-5 mx-0">
+        <div class="row bg-white mb-5 pb-5 mx-0">
             @csrf
 
             <div class="col-10 offset-1">
@@ -96,8 +96,13 @@
 
             <div class="col-10 offset-1">
                 <div class="custom-control custom-checkbox">
-                    <input type="checkbox" @if(old('agree') == 1) checked @endif value="1" class="custom-control-input" name="termsandConditions" id="agree" required>
-                    <label class="custom-control-label" for="agree">By creating this account, you agree to the <a href="{{ route('termsOfService') }}">terms and conditions</a>  and  <a href="{{ route('privacyPolicya') }}">privacy policy.</a> </label>
+                    <input type="checkbox" @if(old('agree') == 1) checked
+                    @endif value="1" class="custom-control-input" name="termsandConditions" id="agree" required>
+                    <label class="custom-control-label" for="agree">
+                        By creating this account, you agree to the <a href="{{ route('termsOfService') }}">Terms and Conditions</a> and
+                        <a href="{{ route('privacyPolicya') }}">Privacy Policy.</a>
+
+                    </label>
                 </div>
             </div>
 
@@ -105,8 +110,8 @@
                 <button type="submit" class="btn btn-block btn-cstm btn-lg rounded-0 shadow-none" name="button">Create account</button>
             </div>
 
-    </div>
-  </form>
+        </div>
+    </form>
 
 
 </div>
