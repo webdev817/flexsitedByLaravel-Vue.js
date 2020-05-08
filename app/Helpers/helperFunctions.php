@@ -7,6 +7,11 @@ function getFunInfo($fun)
     );
     print $reflFunc->getFileName() . ':' . $reflFunc->getStartLine();
 }
+function supportFaqCategories() {
+  return [
+    'General', 'Project', 'Plans', 'Billing', 'Profile'
+  ];
+}
 function setting($key, $default = null)
 {
     $setting = App\Setting::where('userId', Auth::id())->where('key', $key)->first();

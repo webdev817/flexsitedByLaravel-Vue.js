@@ -26,9 +26,7 @@ class SupportFAQController extends Controller
      */
     public function create()
     {
-        $categories = [
-          'General', 'Tasks', 'Plans', 'Payment', 'Profile'
-        ];
+        $categories = supportFaqCategories();
         $arr['categories'] = $categories;
 
         return view('admin.supportFAQ.addEdit',$arr);
@@ -76,9 +74,7 @@ class SupportFAQController extends Controller
      */
     public function edit(SupportFAQ $supportFAQ)
     {
-      $categories = [
-        'General', 'Tasks', 'Plans', 'Payment', 'Profile'
-      ];
+      $categories = supportFaqCategories();
       $arr['categories'] = $categories;
       $arr['supportFaq'] = $supportFAQ;
 

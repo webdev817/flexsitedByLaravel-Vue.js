@@ -7,22 +7,22 @@
         <div class="pcoded-content">
             <div class="pcoded-inner-content">
                 <!-- [ breadcrumb ] start -->
-                {{-- <div class="page-header">
+                <div class="page-header">
                     <div class="page-block">
                         <div class="row align-items-center">
                             <div class="col-md-12">
 
-                                <ul class="breadcrumb">
+                                {{-- <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('adminHome') }}"><i class="feather icon-home"></i></a></li>
                                     <li class="breadcrumb-item"><a href="{{ route('supportFAQ.index') }}">Support FAQs</a></li>
-                                </ul>
+                                </ul> --}}
                                 <div class="float-right mb-1">
                                   <a href="{{ route('supportFAQ.create') }}" class="btn btn-primary btn-sm ">Add A New Question</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
                 <!-- [ breadcrumb ] end -->
                 <div class="main-body">
                     <div class="page-wrapper">

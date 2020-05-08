@@ -42,9 +42,9 @@
                                 <div class="card user-list">
                                     <div class="card-header">
                                         <h5>@isset($supportFaq)
-                                          Add Question
-                                        @else
                                           Edit Question
+                                        @else
+                                          Add Question
                                         @endisset</h5>
 
                                     </div>
