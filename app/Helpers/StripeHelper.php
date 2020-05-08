@@ -213,11 +213,7 @@ class StripeHelper
 
             return $obj;
         } catch (\Exception $e) {
-          try {
-            $user->subscription($planId)->cancelNow();
-          } catch (\Exception $e) {
-            
-          }
+          
 
             // myLog('error while creating subscription', [
             //   $user,
