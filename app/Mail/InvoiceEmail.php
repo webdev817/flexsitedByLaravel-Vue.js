@@ -35,9 +35,9 @@ class InvoiceEmail extends Mailable
 
       $this->data['vendor'] = config('mawaisnow.title');
       $this->data['product'] = '';
-      $this->data['street'] = 'Burnsville, MN 1111';
-      $this->data['location'] = '1111 E 117th St';
-      $this->data['phone'] = '111-111-1111';
+      $this->data['street'] = '1755 NORTH BROWN';
+      $this->data['location'] = 'ROAD SUITE 200, LAWRENCEVILLE, GA 30043';
+      $this->data['phone'] = '678-741-1928';
       $this->data['url'] = url('/');
 
       $pdf = PDF::loadView('cashier::receipt', $this->data);
