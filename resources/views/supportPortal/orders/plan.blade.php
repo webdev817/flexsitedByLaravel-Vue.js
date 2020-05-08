@@ -19,7 +19,7 @@
                     <div class=" d-inline-block minWidthForPlan">
                       <div class="">
                         <i class="fas fa-check bg1 p-1  rounded text-white"></i> &nbsp;
-                        {{ strToCapitalize($offer) }}
+                        {{ strToCapitalize($offer->title) }}
                       </div>
                     </div>
                 </div>
@@ -29,16 +29,18 @@
                 <div class="d-none d-md-block">
                   <br>
                   <br>
+                  <br>
+                  <br>
+                  <br>
+                  
+                  <br>
                 </div>
               @endif
               @if ($key == 2)
                 <div class="d-none d-md-block">
                   <br>
                   <br>
-                  <br>
-                  <br>
-                  <br>
-                  <br>
+
                   <br>
                 </div>
               @endif
@@ -80,7 +82,7 @@
                     <div class=" d-inline-block minWidthForPlan">
                       <div class="">
                         <i class="fas fa-check bg1 p-1  rounded text-white"></i> &nbsp;
-                        {{ strToCapitalize($offer) }}
+                        {{ strToCapitalize($offer->title) }}
                       </div>
                     </div>
                 </div>
@@ -114,7 +116,7 @@
                     <div class=" d-inline-block minWidthForPlan">
                       <div class="">
                         <i class="fas fa-check bg1 p-1  rounded text-white"></i> &nbsp;
-                        {{ strToCapitalize($offer) }}
+                        {{ strToCapitalize($offer->title) }}
                       </div>
                     </div>
                 </div>

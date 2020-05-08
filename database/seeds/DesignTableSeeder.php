@@ -22,7 +22,9 @@ class DesignTableSeeder extends Seeder
         'mawaisnow/select-design/Muhil.jpg',
         'mawaisnow/select-design/Sofee.jpg',
         'mawaisnow/select-design/Barber – Health   Beauty WordPress Themes.jpg',
-        'mawaisnow/select-design/Trisha.jpg'
+        'mawaisnow/select-design/Trisha.jpg',
+        'mawaisnow/select-design/skin beauty.jpg',
+        'mawaisnow/select-design/muji.jpg',
         ];
         $arrFull = [
         'mawaisnow/select-design/Axii-full.jpg',
@@ -34,10 +36,12 @@ class DesignTableSeeder extends Seeder
         'mawaisnow/select-design/Muhil-full.jpg',
         'mawaisnow/select-design/Sofee-full.jpg',
         'mawaisnow/select-design/Barber – Health   Beauty WordPress Themes-full.jpg',
-        'mawaisnow/select-design/Trisha-full.jpg'
+        'mawaisnow/select-design/Trisha-full.jpg',
+        'mawaisnow/select-design/skin beauty-full.jpg',
+        'mawaisnow/select-design/muji-full.jpg',
         ];
 
-        for ($i=0; $i < 3; $i++) {
+        for ($i=0; $i < 1; $i++) {
 
             $design = new Design;
             $design->image = $arr[0];
@@ -100,11 +104,27 @@ class DesignTableSeeder extends Seeder
             $design->image = $arr[8]; //41th image name
             $design->imageFull = $arrFull[8];
 
+
             $design->categoryId = 1;
             $design->save();
+
             $design = new Design;
             $design->image = $arr[9]; //41th image name
             $design->imageFull = $arrFull[9];
+
+
+            $design->categoryId = 1;
+            $design->save();
+            $design = new Design;
+            $design->image = $arr[10]; //41th image name
+            $design->imageFull = $arrFull[10];
+
+
+            $design->categoryId = 1;
+            $design->save();
+            $design = new Design;
+            $design->image = $arr[11]; //41th image name
+            $design->imageFull = $arrFull[11];
 
 
             $design->categoryId = 1;
