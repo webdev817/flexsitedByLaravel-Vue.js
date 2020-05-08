@@ -1,10 +1,11 @@
 <?php
-function getFunInfo($fun) {
-  $reflFunc = new \ReflectionFunction($fun);
-  dd(
-    $reflFunc
-  );
-  print $reflFunc->getFileName() . ':' . $reflFunc->getStartLine();
+function getFunInfo($fun)
+{
+    $reflFunc = new \ReflectionFunction($fun);
+    dd(
+        $reflFunc
+    );
+    print $reflFunc->getFileName() . ':' . $reflFunc->getStartLine();
 }
 function setting($key, $default = null)
 {
@@ -14,8 +15,9 @@ function setting($key, $default = null)
     }
     return $setting->value;
 }
-function newNoti($type ,$title,$description ,$redirectUrl, $forUser, $redirectRoute = null) {
-  App\Notification::create([
+function newNoti($type, $title, $description, $redirectUrl, $forUser, $redirectRoute = null)
+{
+    App\Notification::create([
     'type' => $type,
     'title'=> $title,
     'description'=> $description,
@@ -24,43 +26,44 @@ function newNoti($type ,$title,$description ,$redirectUrl, $forUser, $redirectRo
     'forUser'=>$forUser
   ]);
 }
-function getNotifcations($limit = 10) {
-  $obj = new \stdClass;
-  $obj->notification = App\Notification::limit($limit)->get();
-  $obj->hasNew = $obj->notification->where('status',0)->count();
-  $obj->new = $obj->notification->where('status',0);
-  $obj->old = $obj->notification->where('status',1);
-  $obj->hasOld = $obj->notification->where('status',1)->count();
+function getNotifcations($limit = 10)
+{
+    $obj = new \stdClass;
+    $obj->notification = App\Notification::limit($limit)->get();
+    $obj->hasNew = $obj->notification->where('status', 0)->count();
+    $obj->new = $obj->notification->where('status', 0);
+    $obj->old = $obj->notification->where('status', 1);
+    $obj->hasOld = $obj->notification->where('status', 1)->count();
 
-  $obj->hasNotification = $obj->notification->count();
-  return $obj;
+    $obj->hasNotification = $obj->notification->count();
+    return $obj;
 }
 function fileInfo($file)
 {
-  return (object)pathinfo($file);
+    return (object)pathinfo($file);
 }
 function fileInfoWithClassObj($file)
 {
-  $obj = fileInfo($file);
-  $obj->fullName = $obj->filename . ".$obj->extension";
+    $obj = fileInfo($file);
+    $obj->fullName = $obj->filename . ".$obj->extension";
 
-  $obj->size = filesize_formatted($file);
+    $obj->size = filesize_formatted($file);
 
-  $obj->class = "fas fa-file";
+    $obj->class = "fas fa-file";
 
-  if (in_array($obj->extension, ['jpeg', 'jpg', 'png', 'bmp', 'tiff', 'gif'])) {
-    $obj->class = "fas fa-file-image";
-  }
-  if (in_array($obj->extension, ['zip'])) {
-    $obj->class = "fas fa-file-archive";
-  }
-  if (in_array($obj->extension, ['doc', 'docx'])) {
-    $obj->class = "fas fa-file-word";
-  }
-  if (in_array($obj->extension, ['pdf'])) {
-    $obj->class = "fas fa-file-pdf";
-  }
-  return $obj;
+    if (in_array($obj->extension, ['jpeg', 'jpg', 'png', 'bmp', 'tiff', 'gif'])) {
+        $obj->class = "fas fa-file-image";
+    }
+    if (in_array($obj->extension, ['zip'])) {
+        $obj->class = "fas fa-file-archive";
+    }
+    if (in_array($obj->extension, ['doc', 'docx'])) {
+        $obj->class = "fas fa-file-word";
+    }
+    if (in_array($obj->extension, ['pdf'])) {
+        $obj->class = "fas fa-file-pdf";
+    }
+    return $obj;
 }
 function filesize_formatted($path)
 {
@@ -75,18 +78,19 @@ function requestIs($path, $retClass = 'active')
         return $retClass;
     }
 }
-function obj($status = 1, $message = 'Something went wrong!', $dataFor = 'data', $data = null) {
-  $obj = new \stdClass;
-  $obj->message = $message;
-  $obj->$dataFor = $data;
+function obj($status = 1, $message = 'Something went wrong!', $dataFor = 'data', $data = null)
+{
+    $obj = new \stdClass;
+    $obj->message = $message;
+    $obj->$dataFor = $data;
 
-  if ($status == 1) {
-    $obj->status = 1;
-  }else {
-    $obj->status = 0;
-  }
+    if ($status == 1) {
+        $obj->status = 1;
+    } else {
+        $obj->status = 0;
+    }
 
-  return $obj;
+    return $obj;
 }
 function requestIsFromArray($arr, $retClass = 'active')
 {
@@ -126,17 +130,19 @@ function sendInvoicePaidEmail(array $data)
     $email = $data['email'];
     \Mail::to($email)->send(new App\Mail\InvoiceEmail($data));
 }
-function storeDataToDisk($data) {
-  $data = serialize($data);
-  file_put_contents('tempSerilizedData',$data);
+function storeDataToDisk($data)
+{
+    $data = serialize($data);
+    file_put_contents('tempSerilizedData', $data);
 }
-function getDataFromDisk() {
-  $data = file_get_contents('tempSerilizedData');
-  $data = unserialize($data);
-  // dd(
-  //   $data
-  // );
-  return $data;
+function getDataFromDisk()
+{
+    $data = file_get_contents('tempSerilizedData');
+    $data = unserialize($data);
+    // dd(
+    //   $data
+    // );
+    return $data;
 }
 function json($message, $data = null)
 {
@@ -308,7 +314,7 @@ function status($message)
 }
 function statusTo($status, $to)
 {
-  return redirect($to)->with('status', $status)->withInput();
+    return redirect($to)->with('status', $status)->withInput();
 }
 function redirectBackWith($key, $value)
 {
@@ -523,9 +529,12 @@ function dev()
 function getWizeredObj($userId)
 {
     $fields = [
-      'domain', 'currentStep', 'selectedDesign', 'selectedWebsitePackege', 'logoDesign', 'businessCardDesign', 'flayerDesign', 'planId','stripeChargeAmount',
-      'stripeChargeAmount', 'charged', 'subscribe','businessName','businessPhoneNumber','businessAddress','hoursOfOperation','whatBeautyServicesDoYouOffer',
-      'appointment','socialMediaHandles','pageSelected','providingContent','howfindus','wizered', 'chargeInvoiceId', 'couponUsedId','y'
+      'domain', 'currentStep', 'selectedDesign', 'selectedWebsitePackege', 'logoDesign', 'businessCardDesign',
+      'flayerDesign', 'planId','stripeChargeAmount', 'stripeChargeAmount', 'charged', 'subscribe','businessName',
+      'businessPhoneNumber','businessAddress','hoursOfOperation','whatBeautyServicesDoYouOffer','appointment',
+      'socialMediaHandles','pageSelected','providingContent','howfindus','wizered', 'chargeInvoiceId',
+      'couponUsedId','y', 'nameofCompanyForLog', 'taglineSlogan', 'logoColorPrefernce', 'textandImageOrText',
+      'logoFontPrefernce', 'flayerColorPrefernce', 'frontandbackdesign','businesssCardColorPrefernce'
     ];
     $wizerd = App\Wizered::query();
     $wizerd = $wizerd->where('userId', $userId);
@@ -541,108 +550,117 @@ function getWizeredObj($userId)
 
     $obj = new \stdClass;
     foreach ($fields as $key) {
-      $temp = $data->where('key',$key)->first();
-      if ($temp != null) {
-        $obj->$key = $temp->value;
-      }else {
-        $obj->$key = '';
-      }
+        $temp = $data->where('key', $key)->first();
+        if ($temp != null) {
+            $obj->$key = $temp->value;
+        } else {
+            $obj->$key = '';
+        }
     }
 
     $obj->selectedDesignObj = null;
     if ($obj->selectedDesign != null) {
-      $obj->selectedDesignObj = App\Design::where('id',$obj->selectedDesign)->first();
+        $obj->selectedDesignObj = App\Design::where('id', $obj->selectedDesign)->first();
     }
-    $obj->logoUpload = App\BusinessAttachment::where('createdBy',$userId)->where('type',1)->get();
-    $obj->contentUpload = App\BusinessAttachment::where('createdBy',$userId)->where('type',2)->get();
-    $obj->galleryImages = App\BusinessAttachment::where('createdBy',$userId)->where('type',3)->get();
+    $obj->logoUpload = App\BusinessAttachment::where('createdBy', $userId)->where('type', 1)->get();
+    $obj->contentUpload = App\BusinessAttachment::where('createdBy', $userId)->where('type', 2)->get();
+    $obj->galleryImages = App\BusinessAttachment::where('createdBy', $userId)->where('type', 3)->get();
+    $obj->logoExamples = App\BusinessAttachment::where('createdBy', $userId)->where('type', 4)->get();
+    $obj->contentUploadForFlyer = App\BusinessAttachment::where('createdBy', $userId)->where('type', 5)->get();
+    $obj->imagesandlogoForFlyer = App\BusinessAttachment::where('createdBy', $userId)->where('type', 6)->get();
+    $obj->contentFront = App\BusinessAttachment::where('createdBy', $userId)->where('type', 7)->get();
+    $obj->contentBack = App\BusinessAttachment::where('createdBy', $userId)->where('type', 8)->get();
+    $obj->logoImagesAndLogo = App\BusinessAttachment::where('createdBy', $userId)->where('type', 9)->get();
 
     return $obj;
 }
-function strToCapitalize($str) {
-  return ucfirst(strtolower($str));
+function strToCapitalize($str)
+{
+    return ucfirst(strtolower($str));
 }
-function getSubscription($userId, $subscriptionId) {
-  $subscription = \App\Subscription::where('user_id',$userId)->where('stripe_id',$subscriptionId)->first();
-  if ($subscription == null) {
-    return null;
-  }
-  $subscription->title = '-';
-  if ($subscription->name == "main") {
-    $subscription->title = "Main Website Subscription";
-  }else {
-    $orderId = $subscription->name;
-    $order = \App\Order::find($orderId);
-    $subscription->order = $order;
-    try {
-      $subscription->title = $order->title;
-    } catch (\Exception $e) {
-
+function getSubscription($userId, $subscriptionId)
+{
+    $subscription = \App\Subscription::where('user_id', $userId)->where('stripe_id', $subscriptionId)->first();
+    if ($subscription == null) {
+        return null;
     }
-
-  }
-  return $subscription;
+    $subscription->title = '-';
+    if ($subscription->name == "main") {
+        $subscription->title = "Main Website Subscription";
+    } else {
+        $orderId = $subscription->name;
+        $order = \App\Order::find($orderId);
+        $subscription->order = $order;
+        try {
+            $subscription->title = $order->title;
+        } catch (\Exception $e) {
+        }
+    }
+    return $subscription;
 }
 function getOrderById($orderId)
 {
-  $order = \App\Order::where('id',$orderId)->first();
-  return $order;
+    $order = \App\Order::where('id', $orderId)->first();
+    return $order;
 }
-function getOrderByInvoiceId($invoiceId) {
-
-    $order = \App\Order::where('invoiceNumber',$invoiceId)->first();
+function getOrderByInvoiceId($invoiceId)
+{
+    $order = \App\Order::where('invoiceNumber', $invoiceId)->first();
     if ($order == null) {
         return null;
     }
     return $order;
 }
-function whatWasLastStep() {
-  $obj = new \stdClass;
-  $obj->continue = true;
-  $temp = \App\Wizered::where('userId', Auth::id())->where('key', 'currentStep')->first();
-  $wizerdObj = getWizeredObj(Auth::id());
+function whatWasLastStep()
+{
+    $obj = new \stdClass;
+    $obj->continue = true;
+    $temp = \App\Wizered::where('userId', Auth::id())->where('key', 'currentStep')->first();
+    $wizerdObj = getWizeredObj(Auth::id());
 
 
-  if ($temp == null) {
-    $obj->currentStep = 1;
-  }else {
-    $obj->currentStep = $temp->value;
-  }
-
-  if ($obj->currentStep == null || $obj->currentStep == 2) {
-    $obj->continue = false;
-    $obj->to = redirect()->route('select-design');
-  }elseif ($obj->currentStep == 3) {
-    $obj->continue = false;
-    $obj->to = redirect()->route('websitePackege');
-  }elseif ($obj->currentStep == 4 && $wizerdObj->selectedWebsitePackege != "") {
-    $obj->continue = false;
-
-    $p = [$wizerdObj->selectedWebsitePackege];
-
-    if ($wizerdObj->y != "") {
-      $p['y'] = $wizerdObj->y;
+    if ($temp == null) {
+        $obj->currentStep = 1;
+    } else {
+        $obj->currentStep = $temp->value;
     }
 
-    $obj->to = redirect()->route('selectedWebsitePackege',$p);
-  }elseif ($obj->currentStep == 5 && $wizerdObj->subscribe == "complete") {
-    $obj->continue = false;
-    $obj->to = redirect()->route('businessInformation');
-  }
+    if ($obj->currentStep == null || $obj->currentStep == 2) {
+        $obj->continue = false;
+        $obj->to = redirect()->route('select-design');
+    } elseif ($obj->currentStep == 3) {
+        $obj->continue = false;
+        $obj->to = redirect()->route('websitePackege');
+    } elseif ($obj->currentStep == 4 && $wizerdObj->selectedWebsitePackege != "") {
+        $obj->continue = false;
+
+        $p = [$wizerdObj->selectedWebsitePackege];
+
+        if ($wizerdObj->y != "") {
+            $p['y'] = $wizerdObj->y;
+        }
+
+        $obj->to = redirect()->route('selectedWebsitePackege', $p);
+    } elseif ($obj->currentStep == 5 && $wizerdObj->subscribe == "complete") {
+        $obj->continue = false;
+        $obj->to = redirect()->route('businessInformation');
+    }
 
 
-  if (request('back') == 1) {
-    $obj->continue = true;
-  }
+    if (request('back') == 1) {
+        $obj->continue = true;
+    }
 
-  return $obj;
+    return $obj;
 }
-function flexsitedPlans() {
-  $allPlans = \App\Plan::with('offers')->get();
-  return $allPlans;
+function flexsitedPlans()
+{
+    $allPlans = \App\Plan::with('offers')->get();
+    return $allPlans;
 }
-function getSupportOrders($orderType = null) {
-  $orders = [
+function getSupportOrders($orderType = null)
+{
+    $orders = [
     (object)[
       'title'=> 'Logo Design',
       'price'=> 150,
@@ -675,11 +693,11 @@ function getSupportOrders($orderType = null) {
     ]
   ];
 
-  if ($orderType === null) {
-      return $orders;
-  }
-  if (isset($orders[$orderType])) {
-      return $orders[$orderType];
-  }
-  return null;
+    if ($orderType === null) {
+        return $orders;
+    }
+    if (isset($orders[$orderType])) {
+        return $orders[$orderType];
+    }
+    return null;
 }

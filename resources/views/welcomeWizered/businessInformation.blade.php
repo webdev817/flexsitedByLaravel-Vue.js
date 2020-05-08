@@ -41,6 +41,8 @@
        flex: 1 1 0%;
        min-width: 0;
 }
+
+
 </style>
 <input type="hidden" id="maxPagesToBeSelected" value="{{ $pages }}">
 <div class="container pl-4 mt-5 pt-3 mb-5">
@@ -126,7 +128,7 @@
 
     <div class="row justify-content-center mt-5 mb-5 pb-5">
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
-        <button type="submit" class="btn btn-block col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6 btn-cstm rounded-0 shadow-none" name="button">Submit</button>
+        <button type="submit" id="submitBtn" class="btn btn-block col-xl-2 col-lg-2 col-md-3 col-sm-4 col-6 btn-cstm rounded-0 shadow-none" name="button">Submit</button>
       </div>
     </div>
 
@@ -164,4 +166,16 @@
     placeholder: "Would you like front and back design?"
   }).val(null).change();
 
+
+  $(".sectionHeading").click(function () {
+    var target = $(this).attr('data-class');
+    var needToOpen = $("."+ target +"Sign").hasClass('fa-plus');
+    if (needToOpen) {
+      $("."+ target).collapse('show');
+      $("."+ target +"Sign").removeClass('fa-plus').addClass('fa-minus');
+    }else {
+      $("."+ target).collapse('hide');
+      $("."+ target +"Sign").removeClass('fa-minus').addClass('fa-plus');
+    }
+  })
 </script>

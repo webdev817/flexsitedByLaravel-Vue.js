@@ -17,7 +17,6 @@ use Auth;
 
 class WizeredController extends Controller
 {
-
     public function domainSelected(Request $request)
     {
         $request->validate([
@@ -49,7 +48,7 @@ class WizeredController extends Controller
     }
     public function websitePackege(Request $request)
     {
-          $currentStep = 3;
+        $currentStep = 3;
 
         $plans = flexsitedPlans();
 
@@ -85,8 +84,8 @@ class WizeredController extends Controller
         $params = [$packegeNumber];
 
         if ($year != null) {
-          $params['y'] = $year;
-          self::insertWizered("y", $year);
+            $params['y'] = $year;
+            self::insertWizered("y", $year);
         }
         return redirect()->route('planAndBilling', $params);
     }
@@ -329,7 +328,50 @@ class WizeredController extends Controller
         return redirect()->route('businessInformation')->with('status', 'Subscription successfull');
     }
 
+    public function makeValidationForBusinessInformation()
+    {
+        $rules = [
+        'logoUpload.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        'galleryImages.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        'contentUpload' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
 
+        'contentUploadForFlyer' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'flayerColorPrefernce' => 'nullable|string|max:255',
+        'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+
+        'nameofCompanyForLog'=> 'nullable|string|max:255',
+        'taglineSlogan'=> 'nullable|string|max:255',
+        'logoColorPrefernce'=> 'nullable|string|max:255',
+        'textandImageOrText'=> 'nullable|string|max:255',
+        'logoFontPrefernce'=> 'nullable|string|max:255',
+        'logoExamples.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+
+        'contentUploadForFlyer' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'flayerColorPrefernce'=> 'nullable|string|max:255',
+        'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+
+        'frontandbackdesign'=> 'nullable|string|max:255',
+        'contentFront' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'contentBack' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'businesssCardColorPrefernce'=> 'nullable|string|max:255',
+        'logoImagesAndLogo.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+
+
+      ];
+
+        $messages = [
+        'logoUpload.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
+        'logoUpload.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        'galleryImages.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
+        'galleryImages.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+
+        'logoExamples.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+
+        'imagesandlogoForFlyer.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        'logoImagesAndLogo.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+      ];
+        return [$rules, $messages];
+    }
     public function businessInformationStore(Request $request)
     {
         $businessName = $request->businessName;
@@ -342,6 +384,12 @@ class WizeredController extends Controller
         $hiddenPageSelected = $request->hiddenPageSelected;
         $providingContent = $request->providingContent;
         $howfindus = $request->howfindus;
+
+
+
+        $arr = $this->makeValidationForBusinessInformation();
+        $request->validate($arr[0], $arr[1]);
+
 
         self::insertWizered('businessName', $businessName);
         self::insertWizered('businessPhoneNumber', $businessPhoneNumber);
@@ -356,74 +404,32 @@ class WizeredController extends Controller
         self::insertWizered('providingContent', $providingContent);
         self::insertWizered('howfindus', $howfindus);
 
+        self::valueToDB('nameofCompanyForLog');
+        self::valueToDB('taglineSlogan');
+        self::valueToDB('logoColorPrefernce');
+        self::valueToDB('textandImageOrText');
+        self::valueToDB('logoFontPrefernce');
+        // logoExamples[]
 
-        $request->validate([
-          'logoUpload.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-          'galleryImages.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-          'contentUpload' => 'nullable|max:25000|mimes:doc,pdf,docx,zip'
-          ],[
-          'logoUpload.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
-          'logoUpload.*.max' => 'Sorry! Maximum allowed size can be 15MB',
-          'galleryImages.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
-          'galleryImages.*.max' => 'Sorry! Maximum allowed size can be 15MB',
-        ]);
+        // contentUploadForFlyer
+        self::valueToDB('flayerColorPrefernce');
+        // imagesandlogoForFlyer[]
 
-        $request->validate([
-          'nameofCompanyForLog'=> 'nullable|string|max:255',
-          'taglineSlogan'=> 'nullable|string|max:255',
-          'logoColorPrefernce'=> 'nullable|string|max:255',
-          'textandImageOrText'=> 'nullable|string|max:255',
-          'logoFontPrefernce'=> 'nullable|string|max:255',
-          'logoExamples.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-        ],[
-          'logoExamples.*.max' => 'Sorry! Maximum allowed size can be 15MB',
-        ]);
-
-        $request->validate([
-          'contentUploadForFlyer' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
-          'flayerColorPrefernce' => 'nullable|string|max:255',
-          'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-        ],[
-          'imagesandlogoForFlyer.*.max' => 'Sorry! Maximum allowed size can be 15MB',
-        ]);
-
-        $logoFiles = $request->logoUpload;
-        $contentUpload = $request->contentUpload;
-        $galleryImages = $request->galleryImages;
-        if ($logoFiles != null) {
-            foreach ($logoFiles as $logoFile) {
-                $businessAttachment = new BusinessAttachment;
-                $businessAttachment->path = $logoFile->store('logoUpload');
-                $businessAttachment->type = 1;
-                $businessAttachment->createdBy = Auth::id();
-                $businessAttachment->save();
-            }
-        }
-        if ($contentUpload != null) {
-            $businessAttachment = new BusinessAttachment;
-            $businessAttachment->path = $contentUpload->store('contentUpload');
-            $businessAttachment->type = 2;
-            $businessAttachment->createdBy = Auth::id();
-            $businessAttachment->save();
-        }
-
-        if ($galleryImages != null) {
-            foreach ($galleryImages as $galleryImage) {
-              $businessAttachment = new BusinessAttachment;
-              $businessAttachment->path = $galleryImage->store('galleryImages');
-              $businessAttachment->type = 3;
-              $businessAttachment->createdBy = Auth::id();
-              $businessAttachment->save();
-            }
-        }
+        self::valueToDB('frontandbackdesign');
+        self::valueToDB('businesssCardColorPrefernce');
 
 
 
+        $this->saveWizFiles('logoUpload', 1, 'multiple');
+        $this->saveWizFiles('contentUpload', 2, 'multiple');
+        $this->saveWizFiles('galleryImages', 3, 'multiple');
 
-
-
-
-
+        $this->saveWizFiles('logoExamples', 4, 'multiple');
+        $this->saveWizFiles('contentUploadForFlyer', 5, 'single');
+        $this->saveWizFiles('imagesandlogoForFlyer', 6, 'multiple');
+        $this->saveWizFiles('contentFront', 7, 'single');
+        $this->saveWizFiles('contentBack', 8, 'single');
+        $this->saveWizFiles('logoImagesAndLogo', 9, 'multiple');
 
 
 
@@ -504,7 +510,19 @@ class WizeredController extends Controller
         $wizered->value = $value;
         $wizered->save();
     }
-
+    public static function valueToDB($key, $value = null)
+    {
+        Wizered::where('userId', Auth::id())->where('key', $key)->delete();
+        $wizered = new Wizered;
+        $wizered->userId = Auth::id();
+        $wizered->key = $key;
+        if ($value) {
+            $wizered->value = request($value);
+        } else {
+            $wizered->value = request($key);
+        }
+        $wizered->save();
+    }
     public function clientOnBoardingEdit(Request $request, $userId)
     {
         $invoices = null;
@@ -519,6 +537,29 @@ class WizeredController extends Controller
 
 
         return view('admin.users.editClientOnBoarding', $array);
+    }
+    public function saveWizFiles($key, $type, $singleOrMultiple = "single")
+    {
+        $businessAttachment = new BusinessAttachment;
+        $businessAttachment->type = $type;
+        $businessAttachment->createdBy = Auth::id();
+
+        // handling multiple first
+        if ($singleOrMultiple != "single") {
+            $files = request($key);
+            if ($files != null) {
+                foreach ($files as $logoFile) {
+                    $businessAttachment->path = $logoFile->store($type);
+                    $businessAttachment->save();
+                }
+            }
+        } else {
+            $file = request($key);
+            if ($file != null) {
+              $businessAttachment->path = $file->store($type);
+              $businessAttachment->save();
+            }
+        }
     }
     public function clientOnBoardingStore(Request $request)
     {

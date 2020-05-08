@@ -403,6 +403,16 @@ function dosomeActionRelatedToBusinessInformation() {
   $("#hiddenPageSelected").val(allPages.toString());
 }
 
+$("#submitBtn").click(function () {
+  if ($("#providingContent").val() == null || $("#howfindus").val() == null) {
+    var needToOpen = $(".websiteDesignSection1Sign").hasClass('fa-plus');
+
+    if (needToOpen) {
+      $("#websiteDesignSection1").click();
+      $("#submitBtn").click();
+    }
+  }
+});
 window.dosomeActionRelatedToBusinessInformation = dosomeActionRelatedToBusinessInformation;
 $("#needNewDomainSearch").click(function () {
   $(".domainListStuff").css('display', 'none');
