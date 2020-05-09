@@ -147,6 +147,9 @@ class OrderController extends Controller
 
     public function authCompleted($order, $user)
     {
+        if (Project::where('orderId',$order->id)->exists()) {
+          return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
+        }
         $project = new Project([
         'orderId'=> $order->id,
         'title'=> $order->title,

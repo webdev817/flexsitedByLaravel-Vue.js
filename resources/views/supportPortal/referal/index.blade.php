@@ -22,8 +22,8 @@
                           <div class="row mt-4">
 
                             <div class="col-12 col-sm-6 col-md-4">
-                              <div class="card">
-                                  <div class="card-header border-0 text-center">
+                              <div class="card ">
+                                  <div class="card-header p-0 border-0 text-center">
                                     <img class="img-fluid noselect" src="{{ asset('mawaisnow\sp\referal\Group 414.png') }}" alt="">
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
@@ -39,7 +39,7 @@
 
                             <div class="col-12 col-sm-6 col-md-4">
                               <div class="card">
-                                  <div class="card-header border-0 text-center">
+                                  <div class="card-header p-0 border-0 text-center">
                                     <img class="img-fluid noselect" src="{{ asset('mawaisnow\sp\referal\Group 415.png') }}" alt="">
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
@@ -55,7 +55,7 @@
 
                             <div class="col-12 col-sm-6 col-md-4">
                               <div class="card">
-                                  <div class="card-header border-0 text-center">
+                                  <div class="card-header p-0 border-0 text-center">
                                     <img class="img-fluid noselect" src="{{ asset('mawaisnow\sp\referal\Group 416.png') }}" alt="">
                                   </div>
                                   <div class="card-body minHeight1 justify-content-center row">
@@ -145,6 +145,17 @@
     </div>
 </div>
 
+<style media="screen">
+  @media (max-width: 720px) and (min-width: 320px) {
+    .mt-3{
+        margin-top: 0px !important;
+    }
+    .minHeight1 {
+      padding-top: 0px !important;
+      min-height: 176px;
+    }
+  }
+</style>
 @include('common.copyBtn')
 
 @endsection

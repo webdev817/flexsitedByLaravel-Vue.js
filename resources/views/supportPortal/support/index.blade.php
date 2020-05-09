@@ -45,11 +45,11 @@
                                 <div class="accordion" id="accordion">
                                     @foreach ($faqs as $faq)
                                     <div class="card mb-0 cat_{{ $faq->category }} questionsAccordion @if($faq->category == " General") active @endif" >
-                                    <div class="card-header" id="heading{{ $faq->id }}">
-                                        <h5 class="mb-0"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapse{{ $faq->id }}" aria-expanded="true" aria-controls="collapse{{ $faq->id }}">{{ $faq->question }}</a></h5>
+                                    <div class="card-header cstm-header-card commonQuestionHeader" id="heading{{ $faq->id }}">
+                                        <h5 class="mb-0 h5q"><a href="javascript:void(0)" data-toggle="collapse" data-target="#collapse{{ $faq->id }}" aria-expanded="true" aria-controls="collapse{{ $faq->id }}">{{ $faq->question }}</a></h5>
                                     </div>
                                     <div id="collapse{{ $faq->id }}" class=" card-body collapse" aria-labelledby="heading{{ $faq->id }}" data-parent="#accordion">
-                                        <textarea name="name" class="form-control border-0" rows="8" cols="80">{{ $faq->answer }}</textarea>
+                                        <textarea  name="name" class="form-control bg-tranparent border-0 questionFaqTextArea"  disabled cols="80">{{ $faq->answer }}</textarea>
                                     </div>
                                 </div>
 
@@ -66,7 +66,12 @@
                     <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-md-10 col-12 text-center">
                             <h4>Do you want to contact us?</h4>
-                            <p class="text-dark">If you can't find answer to your question in our FAQ, you can always contact us. We will answer you shortly!</p>
+                            <p class="text-dark">
+                              If you can't find answer to your question in our FAQ,
+                               you can always contact us. We will answer you shortly!
+
+
+                            </p>
                         </div>
                     </div>
 
@@ -163,5 +168,30 @@
       $(this).removeClass('active').addClass('active');
     });
 
+    $(".commonQuestionHeader").click(function () {
+      setTimeout(function () {
+        $(".questionFaqTextArea").each(function (a,b) {
+          var height = $(b)[0].scrollHeight;
+
+          $(b).css('height',  height +"px")
+        });
+      }, 10);
+    });
+
 </script>
+
+
+<style media="screen">
+  .cstm-header-card{
+    padding: 10px 25px !important;
+  }
+  .h5q{
+    font-size: 15px !important;
+    font-weight: 100 !important;
+  }
+  .form-control:disabled, .form-control[readonly] {
+    background-color: white !important;
+    opacity: 1;
+  }
+</style>
 @endsection
