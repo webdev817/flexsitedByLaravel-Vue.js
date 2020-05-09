@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Auth;
 use App\User;
 use App\ContactUs;
+use App\Project;
+use App\ClientTask;
 
 use Hash;
 
@@ -15,7 +17,20 @@ class AdminController extends Controller
 
     public function home(Request $request)
     {
-        return view('admin.home');
+
+        $arr['totalUsers'] = User::count();
+        $arr['totalProjects'] = Project::count();
+        $arr['totalProjectsCompleted'] = Project::where('status',10)->count();
+        $arr['totalProjectsInProgress'] = Project::where('status',2)->count();
+        $arr['totalClientTask'] = ClientTask::count();
+        $arr['totalClientTaskCompleted'] = ClientTask::where('status',2)->count();
+
+        $thisMonthDay = date("t");
+        $arr['orderDueThisMonth'] = Project::whereDate('dueOn' ,'>=', date('Y-m') . "-1 00:00:00")
+                                         ->whereDate('dueOn' ,'<=', date('Y-m') . "-$thisMonthDay 23:59:59")->count();
+
+        return view('admin.home', $arr);
+
     }
 
     public function contactUsRequests(Request $request)

@@ -13,7 +13,7 @@
                       @include('common.messagesSupport')
 
                         <div class="col-sm-12">
-                            <div class="card bg-light">
+                            <div class="card ">
                                 <div class="card-header cardHeader">
                                     <i class="feather icon-phone-call"></i></span> &nbsp;
                                     Contact Us

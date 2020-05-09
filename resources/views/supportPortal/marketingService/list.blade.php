@@ -13,13 +13,13 @@
                         @include('common.messagesSupport')
 
                         <div class="col-sm-12">
-                            <div class="card bg-light">
+                            <div class="card">
 
 
                                 <div class="card user-list">
                                     <div class="card-header">
                                         <h5>Requests</h5>
-                                        
+
                                     </div>
                                     <div class="card-block pb-0">
                                         <div class="table-responsive">

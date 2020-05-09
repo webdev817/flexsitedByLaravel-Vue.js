@@ -153,6 +153,9 @@
                       <li class="nav-item {{ requestIsFromArray(['clientTasks.index', 'clientTasks.edit']) }}">
                           <a href="{{ route('clientTasks.index') }}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-tasks"></i></span><span class="pcoded-mtext">Client Tasks</span></a>
                       </li>
+                      <li class="nav-item {{ requestIsFromArray(['referals']) }}">
+                          <a href="{{ route('referals') }}" class="nav-link "><span class="pcoded-micon"><i class="fas fa-tasks"></i></span><span class="pcoded-mtext">Referals</span></a>
+                      </li>
                       <li class="nav-item {{ requestIsFromArray(['contactUsRequests']) }}">
                           <a href="{{ route('contactUsRequests') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Contact Messsags</span></a>
                       </li>

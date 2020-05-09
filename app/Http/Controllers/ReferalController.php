@@ -124,4 +124,10 @@ class ReferalController extends Controller
 
       return status('Your message received, We will be in touch soon.');
     }
+
+    public function referals(Request $request)
+    {
+      $referals = Referal::paginate(20);
+      return view('admin.invitedSignUp.index',compact('referals'));
+    }
 }

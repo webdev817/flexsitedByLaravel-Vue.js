@@ -13,7 +13,7 @@
                       @include('common.messagesSupport')
 
                         <div class="col-sm-12">
-                            <div class="card bg-light">
+                            <div class="card">
                                 <div class="card-header cardHeader">
                                     <i class="fas fa-bullhorn"></i></span> &nbsp;
                                     Marketing Services
