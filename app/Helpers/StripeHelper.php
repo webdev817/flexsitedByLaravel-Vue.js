@@ -213,8 +213,8 @@ class StripeHelper
 
             return $obj;
         } catch (\Exception $e) {
-          
 
+            $obj->status = 0;
             // myLog('error while creating subscription', [
             //   $user,
             //   $e->getMessage()
