@@ -342,7 +342,7 @@ $("#needNewDomainSearch").click(function() {
             }
             if (data.status == 1) {
                 $(".domainListStuff").css('display', 'block');
-                domainRelatedMessage('Please choose one of doman');
+                domainRelatedMessage('Please choose one of domain');
 
                 var html = '';
                 var domains = data.data;
