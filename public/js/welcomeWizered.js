@@ -440,7 +440,7 @@ $("#needNewDomainSearch").click(function () {
 
     if (data.status == 1) {
       $(".domainListStuff").css('display', 'block');
-      domainRelatedMessage('Please choose one of domain');
+      domainRelatedMessage('Please choose a domain');
       var html = '';
       var domains = data.data;
 
