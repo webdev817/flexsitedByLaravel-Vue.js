@@ -268,4 +268,9 @@
       font-size: 12px;
   }
 }
+@media (max-width: 1200px) and (min-width: 1027px) {
+  .planOfferBox {
+      font-size: 14px;
+  }
+}
 </style>
