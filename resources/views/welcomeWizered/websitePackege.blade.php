@@ -263,4 +263,9 @@
     background-color: #64c5b4;
     border-color: #64c5b4;
 }
+@media (max-width: 1027px) and (min-width: 992px) {
+  .planOfferBox {
+      font-size: 12px;
+  }
+}
 </style>
