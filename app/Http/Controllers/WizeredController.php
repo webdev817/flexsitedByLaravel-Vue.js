@@ -244,7 +244,7 @@ class WizeredController extends Controller
         try {
             $obj = StripeHelper::subscribeToPlan($user, $planId, $coupon);
             if ($obj->status == 0) {
-                self::insertWizered("subscribe", $e->getMessage());
+                self::insertWizered("subscribe", $obj->message);
                 return errorMessage($obj->message);
             }
             if ($obj->status == 3) {
