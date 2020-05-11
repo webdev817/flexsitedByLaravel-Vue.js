@@ -11,7 +11,7 @@
 |
 */
 
-// adadad
+
 Auth::routes();
 
 

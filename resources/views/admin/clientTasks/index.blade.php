@@ -51,13 +51,13 @@
                                                         @endif
 
                                                     </td>
-                                                     
+
                                                       <td>
                                                         <a href="{{ route('clientOnBoarding', $clientTask->user->id) }}">
                                                           {{ $clientTask->user->name }}
                                                         </a>
                                                       </td>
-                                                    @endif
+
 
 
 
