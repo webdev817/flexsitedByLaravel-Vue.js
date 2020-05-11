@@ -219,8 +219,12 @@
                                                       Deliver Project
                                                   </button>
                                                 @else
-                                                  @if ($project->status == 3)
-                                                    <a class=" d-inline btn  btn-primary" href="{{ route('approveProject',$project->id) }}">
+                                                  @if ($project->status == 3
+
+                                                    && $projectAttachments->count() && !$projectAttachments->where('status', 0)->count())
+                                                    <a
+                                                    title="Click here if you want to approve the project"
+                                                     class=" d-inline btn  btn-primary" href="{{ route('approveProject',$project->id) }}">
                                                         Approve Project
                                                     </a>
                                                   @endif
