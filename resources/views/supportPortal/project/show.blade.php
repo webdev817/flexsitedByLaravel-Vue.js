@@ -20,7 +20,7 @@
                                     <div class="col-12">
 
 
-                                        <div class="card">
+                                        <div class="card table-responsive">
                                             <table class="table">
                                                 <thead>
                                                     <tr>
@@ -109,7 +109,10 @@
                                         <div class="card">
                                             <div class="card-body">
                                               <div class="row">
-                                                <div class="col-6">
+                                                <div class="col-md-6 d-block d-md-none">
+                                                  <img class="img-fluid noselect" src="{{ asset('mawaisnow/sp/order/orderCompleteRating.png') }}" alt="">
+                                                </div>
+                                                <div class="col-md-6 ">
                                                   <form action="{{ route('projectFeedback', $project->id) }}" method="post">
                                                     @csrf
                                                   <h4>Give Feedback</h4>
@@ -133,7 +136,7 @@
                                                 </form>
 
                                                 </div>
-                                                <div class="col-6">
+                                                <div class="col-md-6 d-none d-md-block">
                                                   <img class="img-fluid noselect" src="{{ asset('mawaisnow/sp/order/orderCompleteRating.png') }}" alt="">
                                                 </div>
                                               </div>

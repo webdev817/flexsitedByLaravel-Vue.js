@@ -172,7 +172,8 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::get('/home', 'AdminController@home')->name('adminHome');
     Route::get('suggestions','AdminController@suggestions')->name('suggestions');
 
-    
+    Route::get('projectReview', 'ProjectController@projectReview')->name('projectReview');
+
     Route::get('clientOnBoarding/{user}', 'UsersController@clientOnBoarding')->name('clientOnBoarding');
     Route::post('changeUserStatus', 'UsersController@changeUserStatus')->name('changeUserStatus');
     Route::post('deleteUser', 'UsersController@deleteUser')->name('deleteUser');

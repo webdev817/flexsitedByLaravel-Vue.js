@@ -49,6 +49,11 @@ class ProjectController extends Controller
       newNoti(1, 'Project is now in progress...', $project->title . " is now in progress", route('projects.show',$project->id), $project->createdBy);
       return status('Status updated successfully');
     }
+    public function projectReview()
+    {
+      $projects = Project::where('status',10 )->where('stars','!=', null)->paginate(20);
+      return view('admin.projectRatings.index', compact('projects'));
+    }
     public function changeProjectStatus(Request $request, Project $project)
     {
       if (!superAdmin()) {

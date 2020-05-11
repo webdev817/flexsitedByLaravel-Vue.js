@@ -160,6 +160,11 @@
                           <a href="{{ route('contactUsRequests') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Contact Messsags</span></a>
                       </li>
 
+                      <li class="nav-item {{ requestIsFromArray(['projectReview']) }}">
+                        <a href="{{ route('projectReview') }}" class="nav-link "><span class="pcoded-micon">
+                          <i class="fas fa-braille"></i></span><span class="pcoded-mtext">Project Review</span></a>
+                        </li>
+
                       <li class="nav-item {{ requestIsFromArray(['supportFAQ.index', 'supportFAQ.edit', 'supportChatsRequests', 'ticketRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                           <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fa fa-gift" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
                           <ul class="pcoded-submenu">
@@ -172,10 +177,10 @@
                         <a href="{{ route('plans.index') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Plans</span></a>
                       </li>
                       <li class="nav-item {{ requestIsFromArray(['ordersList']) }}">
-                        <a href="{{ route('ordersList') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Orders</span></a>
+                        <a href="{{ route('ordersList') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-shopping-cart"></i></span><span class="pcoded-mtext">Orders</span></a>
                       </li>
                       <li class="nav-item {{ requestIsFromArray(['suggestions']) }}">
-                        <a href="{{ route('suggestions') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-inbox"></i></span><span class="pcoded-mtext">Suggestions</span></a>
+                        <a href="{{ route('suggestions') }}" class="nav-link "><span class="pcoded-micon"><i class="fa  fa-lightbulb"></i></span><span class="pcoded-mtext">Suggestions</span></a>
                       </li>
                     @endif
 
