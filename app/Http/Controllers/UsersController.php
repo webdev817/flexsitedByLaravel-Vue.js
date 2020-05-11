@@ -142,6 +142,8 @@ class UsersController extends Controller
             return errorMessage($e->getMessage());
         }
         User::where('id', $id)->delete();
+        // Project::where('')
+
 
         return statusTo('User deleted successfully', route('users.index'));
     }

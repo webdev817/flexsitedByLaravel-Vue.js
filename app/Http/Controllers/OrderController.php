@@ -6,12 +6,44 @@ use Illuminate\Http\Request;
 
 use App\Project;
 use App\Order;
+use App\SupportOrder;
 use StripeHelper;
 use Laravel\Cashier\Exceptions\IncompletePayment;
 use Auth;
 
 class OrderController extends Controller
 {
+    public function orderEdit($id)
+    {
+      $order  = SupportOrder::findOrFail($id);
+      return view('admin.orders.addEdit',compact('order'));
+    }
+    public function orderEditStore(Request $request, $orderId)
+    {
+      $order  = SupportOrder::findOrFail($orderId);
+      if ($order->id != 4 && !is_numeric($request->price)) {
+        return errorMessage('You need to enter a numeric price');
+      }
+      $request->validate([
+        'title'=> 'string|min:3|max:255'
+      ]);
+      $order->price = $request->price;
+      $order->description = $request->description;
+
+      $order->title = $request->title;
+      if ($request->hasFile('file')) {
+        $order->img = "storage/" . $request->file->store('orderImages');
+      }
+      $order->save();
+
+      return statusTo('Order updated', route('ordersList'));
+
+    }
+    public function ordersList()
+    {
+      $orders = SupportOrder::all();
+      return view('admin.orders.index',compact('orders'));
+    }
     /**
      * Display a listing of the resource.
      *

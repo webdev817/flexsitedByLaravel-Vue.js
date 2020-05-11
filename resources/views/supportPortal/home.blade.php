@@ -353,6 +353,25 @@
     </div>
 </div>
 
+<div id="suggestion" class="suggestion  hand">
+  <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/brand icon.png') }}" alt="">
+  Any Suggestions?
+</div>
+<form action="{{ route('suggestionStore') }}" method="post">
+  @csrf
+  <div id="suggestionBox" class="suggestionBox hide">
+    <div class="header p-2">
+      <img class="img-fluid" src="{{ asset('mawaisnow/sp/dashboard/brand icon.png') }}" alt="">
+      Any Suggestions?
+      <i id="closeSuggestBox" class="float-right hand mt-2 mr-2 fa fa-minus"></i>
+    </div>
+    <div class="body p-2">
+      <textarea name="suggestion" class="form-control" placeholder="Please type here" rows="8" cols="80"></textarea>
+      <br>
+      <button type="submit" class="btn btn-primary btn-block btn-sm" name="button">Submit</button>
+    </div>
+  </div>
+</form>
 
 <style media="screen">
   @media (max-width: 767px) {
@@ -361,5 +380,46 @@
       justify-content: left;
     }
   }
+  .suggestion{
+    text-align: center;
+    width: 180px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #63C6B4;
+    padding: 10px;
+    color: white;
+    border-radius: 49px;
+  }
+  .suggestionBox> .header{
+    background: #63C6B4;
+    color: white;
+  }
+  .suggestionBox{
+    width: 300px;
+    color: white;
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    background: white;
+  }
+
+  .hide{
+    display: none;
+  }
 </style>
+@endsection
+
+@section('js')
+  <script type="text/javascript">
+    $("#suggestion").click(function () {
+      $("#suggestionBox").removeClass('hide');
+      $(this).removeClass('hide').addClass('hide');
+    });
+
+    $("#closeSuggestBox").click(function () {
+      $("#suggestion").removeClass('hide');
+      $("#suggestionBox").removeClass('hide').addClass('hide');
+    });
+  </script>
 @endsection

@@ -51,7 +51,7 @@
                                                         @endif
 
                                                     </td>
-                                                    @if (superAdmin())
+                                                     
                                                       <td>
                                                         <a href="{{ route('clientOnBoarding', $clientTask->user->id) }}">
                                                           {{ $clientTask->user->name }}

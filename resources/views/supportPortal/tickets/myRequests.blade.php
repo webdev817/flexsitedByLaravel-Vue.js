@@ -39,7 +39,11 @@
 
 
                           <div class="col-12">
-                            <h4>My Requests</h4>
+                            @if (!superAdmin())
+                              <h4>My Requests</h4>
+                            @else
+                              <h4>Ticket Requests</h4>
+                            @endif
                           </div>
 
 
@@ -54,9 +58,13 @@
                                                     <tr>
                                                       <th>Subject</th>
                                                         <th>Issue</th>
-                                                        <th>Activty</th>
-                                                        <th>Last Activty</th>
-                                                        <th>Satus</th>
+                                                        <th>Active</th>
+                                                        {{-- <th>Last Activty</th> --}}
+
+                                                        <th>Status</th>
+                                                        @if (superAdmin())
+                                                          <th>Action</th>
+                                                        @endif
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($tickets as $ticket)
@@ -72,9 +80,9 @@
                                                           {{ $ticket->created_at->format('d M, Y') }}
                                                         </td>
 
-                                                        <td>
+                                                        {{-- <td>
                                                           {{ $ticket->updated_at->format('d M, Y') }}
-                                                        </td>
+                                                        </td> --}}
                                                         <td>
                                                           @if ($ticket->status == 0)
                                                             <div class="statusInitlizing">
@@ -82,25 +90,22 @@
                                                             </div>
                                                           @elseif ($ticket->status == 1)
                                                             <div class="statusInProgress">
-                                                              Active
+                                                                Active
                                                             </div>
                                                           @elseif ($ticket->status == 2)
                                                             <div class="statusCompleted">
-                                                              Solved
+                                                                Solved
                                                             </div>
                                                           @endif
                                                         </td>
 
-                                                        {{-- <td>
-                                                          <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
-                                                          <a href="{{ route('users.edit', $user->id) }}" class="label theme-bg text-white f-12"><i class="fa-pencil-alt fas text-white"></i> Edit</a>
-                                                          <a href="javascript:void(0)" data-obj='{
-                                                            "userId": "{{$user->id}}",
-                                                            "url": "{{ route('users.destroy', $user->id) }}",
-                                                            "method": "delete"
-                                                          }' data-html="Once you delete this user, all of it's related Data will be deleted, including subscription." class="label theme-bg2 text-white f-12 deleteConfirm"><i class="fas fa-trash text-white"></i> Delete</a>
+                                                        @if (superAdmin())
+                                                          <td>
 
-                                                        </td> --}}
+                                                          </td>
+                                                        @endif
+
+
                                                     </tr>
                                                   @endforeach
                                                   @if ($tickets->count() < 1)

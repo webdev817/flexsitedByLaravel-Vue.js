@@ -12,7 +12,11 @@ class TicketController extends Controller
 
     public function myRequests(Request $request)
     {
-      $tickets = Ticket::where('createdBy',Auth::id())->paginate(10);
+      if (superAdmin()) {
+        $tickets = Ticket::paginate(10);
+      }else {
+        $tickets = Ticket::where('createdBy',Auth::id())->paginate(10);
+      }
       $arr['tickets'] = $tickets;
 
       return view('supportPortal.tickets.myRequests', $arr);
@@ -35,9 +39,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        $issueRelatedTo = [
-          'General', 'Tasks', 'Plans', 'Payment', 'Profile', 'Change Request'
-        ];
+        $issueRelatedTo = supportFaqCategories();
         $arr['issueRelatedTo'] = $issueRelatedTo;
 
         return view('supportPortal.tickets.create', $arr);

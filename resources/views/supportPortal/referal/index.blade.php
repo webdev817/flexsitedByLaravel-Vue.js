@@ -63,7 +63,11 @@
                                       <h5 class="headingColor">Receive a FREE month of service</h5>
                                     </div>
                                     <div class="col-12 mt-3">
-                                      When your friend completes an order for one of our website package, we will credit your account. The more people you refer, the more free months you will receive!
+                                      
+                                       When your friend completes an order for one of our website plans and keeps the account activate for 60 days, we will credit your account.
+                                        The more people you refer, the more free months you will receive!
+
+
                                     </div>
                                   </div>
                               </div>

@@ -7,7 +7,9 @@
 .hand{
   cursor: pointer;
 }
-
+.table-responsive {
+    overflow-x: scroll !important;
+}
 .txt1 {
     color: #5ABAA5;
 }
@@ -236,7 +238,7 @@ a {
 }
 .supportTabs{
   width: 70px;
-    display: inline;
+    display: inline-block;
     color: #000;
     font-weight: bold;
     margin-right: 43px;
@@ -279,6 +281,28 @@ border-bottom: 2px solid var(--c1);
 @media (max-width: 992px) {
     .minHeight1 {
         min-height: 342px;
+    }
+    .supportTabs {
+      width: 53px;
+      display: inline-block;
+      margin-right: 8px;
+    }
+}
+@media (max-width: 440px) {
+    .supportTabs {
+      width: 100%;
+      display: inline-block;
+      margin-right: 8px;
+      margin-bottom: 11px;
+      text-align: center;
+      background: #5abaa5;
+      color: white;
+      padding: 8px;
+    }
+    .supportTabs.active{
+      background: white;
+      color: #5abaa5;
+      border: 1px solid #5ABAA5;
     }
 }
 @media only screen and (max-width: 991px){

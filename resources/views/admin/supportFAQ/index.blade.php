@@ -62,7 +62,8 @@
 
                                                         <td>
 
-                                                          <textarea name="answer" id="answer" class="form-control" rows="3" cols="80">{{ $supportFaq->answer }}</textarea>
+                                                          {{ $supportFaq->answer }}
+
                                                         </td>
 
                                                         <td>

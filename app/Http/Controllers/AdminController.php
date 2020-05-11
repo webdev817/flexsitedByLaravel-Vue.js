@@ -8,13 +8,18 @@ use App\User;
 use App\ContactUs;
 use App\Project;
 use App\ClientTask;
+use App\Suggestion;
 
 use Hash;
 
 class AdminController extends Controller
 {
 
-
+    public function suggestions()
+    {
+      $suggestions = Suggestion::paginate(20);
+      return view('admin.suggestions.index',compact('suggestions'));
+    }
     public function home(Request $request)
     {
 

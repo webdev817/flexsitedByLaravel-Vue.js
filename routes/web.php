@@ -37,6 +37,8 @@ Route::get('termsOfService',function () {
 
 Route::group(['middleware' => ['auth']], function () {
 
+  Route::post('suggestionStore','HomeController@suggestionStore')->name('suggestionStore');
+
   Route::get('startProjectWork/{project}','ProjectController@startProjectWork')->name('startProjectWork');
   Route::post('changeProjectStatus/{project}', 'ProjectController@changeProjectStatus')->name('changeProjectStatus');
   Route::get('markNotificationRead','NotificationController@markNotificationRead')->name('markNotificationRead');
@@ -84,6 +86,8 @@ Route::group(['middleware' => ['auth']], function () {
   Route::resource('tickets','TicketController');
 
   Route::get('myRequests','TicketController@myRequests')->name('myRequests');
+  Route::get('ticketRequests','TicketController@myRequests')->name('ticketRequests');
+
   Route::get('supportChat','SupportController@supportChat')->name('supportChat');
 
 
@@ -166,7 +170,9 @@ Route::post('adminLogin', 'AdminController@adminLogin')->name('adminLoginPost');
 Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], function () {
 
     Route::get('/home', 'AdminController@home')->name('adminHome');
+    Route::get('suggestions','AdminController@suggestions')->name('suggestions');
 
+    
     Route::get('clientOnBoarding/{user}', 'UsersController@clientOnBoarding')->name('clientOnBoarding');
     Route::post('changeUserStatus', 'UsersController@changeUserStatus')->name('changeUserStatus');
     Route::post('deleteUser', 'UsersController@deleteUser')->name('deleteUser');
@@ -184,6 +190,10 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::get('contactUsRequests','AdminController@contactUsRequests')->name('contactUsRequests');
 
     Route::resource('plans','PlanController');
+
+    Route::get('ordersList','OrderController@ordersList')->name('ordersList');
+    Route::get('orderEdit/{id}','OrderController@orderEdit')->name('orderEdit');
+    Route::post('orderEditStore/{orderId}','OrderController@orderEditStore')->name('orderEditStore');
 });
 
 Route::get('log',function () {

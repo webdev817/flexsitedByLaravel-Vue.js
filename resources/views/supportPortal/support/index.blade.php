@@ -65,10 +65,12 @@
 
                     <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-md-10 col-12 text-center">
-                            <h4>Do you want to contact us?</h4>
+
                             <p class="text-dark">
-                              If you can't find answer to your question in our FAQ,
+                              If you can't find the answer to your question in our FAQ,
                                you can always contact us. We will answer you shortly!
+
+
 
 
                             </p>

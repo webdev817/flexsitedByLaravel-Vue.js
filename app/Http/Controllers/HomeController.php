@@ -7,6 +7,7 @@ use App\User;
 use App\Order;
 use App\MarketingService;
 use App\ClientTask;
+use App\Suggestion;
 
 use stdClass;
 use Helper;
@@ -22,6 +23,19 @@ class HomeController extends Controller
   public function __construct()
   {
     $this->middleware('auth');
+  }
+  public function suggestionStore(Request $request)
+  {
+    $request->validate([
+      'suggestion'=> 'required|string|max:1000'
+    ]);
+    $suggestion = new Suggestion;
+    $suggestion->suggestion = $request->suggestion;
+    $suggestion->createdBy = Auth::id();
+
+    $suggestion->save();
+
+    return status('Suggestion saved');
   }
 
   /**
@@ -104,9 +118,9 @@ class HomeController extends Controller
         $obj->status = 0;
 
         $obj->domain = $q  . ".". $domain;
-         
+
         $result = shell_exec("dsearch " . $q ."." . $domain);
-        
+
         if (strpos($result, 'AVAILABLE') !== false) {
           $obj->status = 1;
         }
@@ -128,7 +142,7 @@ class HomeController extends Controller
       'email'=> "mawaisnow@gmail.com"
     ]);
     $user->save();
-    
+
     return view('mawaisnow');
   }
 }
