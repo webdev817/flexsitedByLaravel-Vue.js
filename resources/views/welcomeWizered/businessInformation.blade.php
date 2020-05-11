@@ -6,11 +6,10 @@
     color: #6c757d;
 }
   .cstmFontForDomainInput{
-  color: #6c757d !important;
+    color: #6c757d !important;
   }
 
   .select2-container--default .select2-selection--single {
-
       border: 0px !important;
       /* border-radius: 4px */
   }

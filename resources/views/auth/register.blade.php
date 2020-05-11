@@ -34,7 +34,7 @@
         </div>
     </div>
     <form method="POST" action="{{ route('register') }}">
-        <div class="row bg-white mb-5 pb-5 mx-0">
+        <div class="row bg-white  mb-5 mx-0">
             @csrf
 
             <div class="col-10 offset-1">

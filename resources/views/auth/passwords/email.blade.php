@@ -34,7 +34,7 @@
         </div>
     </div>
   <form method="POST" action="{{ route('password.email') }}">
-    <div class="row bg-white mb-5 pb-5 mx-0">
+    <div class="row bg-white pb-5 mx-0">
             @csrf
 
 

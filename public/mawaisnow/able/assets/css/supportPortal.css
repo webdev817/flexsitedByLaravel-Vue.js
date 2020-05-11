@@ -316,6 +316,15 @@ border-bottom: 2px solid var(--c1);
         font-size: 16px;
     }
 }
+@media only screen and (max-width: 575px){
+  .pcoded-header .dropdown .dropdown-menu {
+      width: 91%;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+  }  
+}
 
 @media (min-width: 576px) {
     .modal-dialog {

@@ -111,3 +111,11 @@
 
 
 @include('welcomeWizered.modal.domainfaq')
+
+<style media="screen">
+  @media (max-width: 420px) {
+    .cstmFontForDomainInput{
+      font-size: 11px;
+    }
+  }
+</style>

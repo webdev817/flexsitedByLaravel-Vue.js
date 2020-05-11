@@ -39,7 +39,7 @@
 
     <input type="hidden" name="token" value="{{ $token }}">
 
-    <div class="row bg-white m-0 mb-5 pb-5">
+    <div class="row bg-white m-0 pb-5">
 
     <div class="col-10 offset-1">
         <div class="input-group mb-3 border">

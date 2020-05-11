@@ -27,7 +27,7 @@
 
   <div class="row m-0">
     @foreach ($designs as $design)
-      <div class="col-4 mb-2">
+      <div class="col-md-4 col-sm-6 col-12 mb-2">
         <div class="">
             <img
             data-toggle="modal" data-target="#imgModel{{$design->id}}"
