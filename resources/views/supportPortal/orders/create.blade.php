@@ -210,7 +210,9 @@
                                 class="btn btn-primary btn-block" type="submit" name="button">Pay Now</button>
                               </div>
                               <div class="col-12 text-center mt-3 fontSize14px">
-                                On Clicking Pay Now you are agreed to Flexsited <a href="{{ route('termsOfService') }}">terms and conditions</a>  and  <a href="{{ route('privacyPolicya') }}">privacy policy.</a>
+                                By placing this order,
+                                you agree to our <a href="{{ route('termsOfService') }}">terms and conditions</a> and <a href="{{ route('privacyPolicya') }}">privacy policy.</a>
+
                               </div>
 
                             </div>

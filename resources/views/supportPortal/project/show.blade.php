@@ -12,7 +12,7 @@
 
                         @include('common.messagesSupport')
 
-                        <div class="row">
+                        <div class="row cstmDirection">
 
 
                             <div class="col-lg-8 col-12 ">
@@ -30,9 +30,7 @@
                                                         <th>
                                                             <h6>Due Date</h6>
                                                         </th>
-                                                        <th>
-                                                            <h6>Total Amount</h6>
-                                                        </th>
+
                                                         <th>
                                                             <h6>Status</h6>
                                                         </th>
@@ -64,9 +62,7 @@
                                                             @endif
                                                         </td>
 
-                                                        <td>
-                                                            {{ $project->order->price }} USD
-                                                        </td>
+                                                         
                                                         <td>
                                                           <div class="mt-2">
                                                               @include('supportPortal.common.projectStatus', ['status' => $project->status])
@@ -333,7 +329,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                            </div>
 
 
                     </div>
@@ -529,6 +525,11 @@
         width: 32px !important;
 
         font-size: 31px !important;
+    }
+    @media (max-width: 992px) {
+      .cstmDirection{
+          flex-direction: column-reverse;
+      }
     }
 
 </style>

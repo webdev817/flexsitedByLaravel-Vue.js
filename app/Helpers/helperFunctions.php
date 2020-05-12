@@ -34,14 +34,24 @@ function newNoti($type, $title, $description, $redirectUrl, $forUser, $redirectR
 function getNotifcations($limit = 10)
 {
     $obj = new \stdClass;
-    $obj->notification = App\Notification::limit($limit)->get();
+    $obj->notification = App\Notification::where('forUser',\Auth::id())->limit($limit)->get();
     $obj->hasNew = $obj->notification->where('status', 0)->count();
     $obj->new = $obj->notification->where('status', 0);
     $obj->old = $obj->notification->where('status', 1);
-    $obj->hasOld = $obj->notification->where('status', 1)->count();
+    $obj->hasOld = 0;
 
     $obj->hasNotification = $obj->notification->count();
     return $obj;
+}
+function deleteAllUserData($userId) {
+  \App\BusinessAttachment::where('createdBy',$userId)->delete();
+  \App\ClientTask::where('userId', $userId)->delete();
+  \App\MarketingService::where('createdBy', $userId)->delete();
+  \App\SupportChat::where('createdBy', $userId)->delete();
+  \App\Order::where('createdBy',$userId)->delete();
+  \App\SupportChatSession::where('createdBy',$userId)->delete();
+  \App\Project::where('createdBy', $userId)->delete();
+  \App\Ticket::where('createdBy', $userId)->delete();
 }
 function fileInfo($file)
 {

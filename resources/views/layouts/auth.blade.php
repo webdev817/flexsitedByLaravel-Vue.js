@@ -28,12 +28,6 @@
 
 
     @yield('js')
-    <div class="container mt-3 mb-5">
-      <div class="row">
-        <div class="col-12 text-center pb-3">
-          Need to contact? 678-741-1928, support@flexsited.com
-        </div>
-      </div>
-    </div>
+     
 </body>
 </html>

@@ -219,8 +219,9 @@ class UsersController extends Controller
       $request->validate([
         'password'=> "required|max:255",
         'password_confirm'=> 'required',
-        'reasontoclose'=> 'required|1000'
+        'reasontoclose'=> 'required|max:1000'
       ]);
+
       if ($request->password != $request->password_confirm) {
         return errorMessage("Password confirm does not match");
       }
@@ -231,8 +232,11 @@ class UsersController extends Controller
       // dd(
       //   Auth::id()
       // );
+      deleteAllUserData(Auth::id());
+
       User::where('id', Auth::id())->delete();
       Auth::logout();
       return statusTo("We are sorry to see you go", route('login'));
     }
+
 }

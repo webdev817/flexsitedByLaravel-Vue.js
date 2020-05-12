@@ -265,7 +265,7 @@
                                                 <a href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius p-2"></i></a>
 
                                                   <div class="media-body">
-                                                      <p><strong>{{ $noti->title }}</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>{{ $noti->created_at->diffForhumans() }}</span></p>
+
                                                       <p>{{ $noti->description }}</p>
                                                   </div>
                                               </div>
@@ -286,7 +286,7 @@
                                               <div class="media">
                                                 <a href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius p-2"></i></a>
                                                   <div class="media-body">
-                                                      <p><strong>{{ $noti->title }}</strong><span class="n-time text-muted"><i class="icon feather icon-clock m-r-10"></i>{{ $noti->created_at->diffForhumans() }}</span></p>
+                                                      
                                                       <p>{{ $noti->description }}</p>
                                                   </div>
                                               </div>

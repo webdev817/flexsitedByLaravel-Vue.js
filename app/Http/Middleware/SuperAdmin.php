@@ -16,6 +16,7 @@ class SuperAdmin
     public function handle($request, Closure $next)
     {
         if (!superAdmin()) {
+        
             return redirect()->route('home')->with('status','you are not super admin');
         }
         return $next($request);

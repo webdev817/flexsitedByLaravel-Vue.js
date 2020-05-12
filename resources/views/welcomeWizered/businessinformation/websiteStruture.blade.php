@@ -16,7 +16,13 @@
 
         <div class="row">
 
-          <div class="col-xl-5 commonSelectPages mb-3  border">
+          <div class="col-xl-5
+          @if ($pages > 1)
+            commonSelectPages
+
+          @endif
+
+            mb-3  border">
             <div class="row">
               <div class="active  boxRadioContainer">
                 <div class="roundRound">

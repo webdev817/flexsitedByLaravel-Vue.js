@@ -140,7 +140,7 @@
                                             @include('supportPortal.users.detailCalc',['invoice'=> $invoice])
                                           </th>
                                           <td>{{ $invoice->total() }}</td>
-                                           
+
                                           <td class="col-xs-2 ">
                                               <a href="{{ route('invoiceDownload',[$invoice->id,
                                                     'userId'=>Auth::id()
@@ -273,7 +273,7 @@
 
       <div class="modal-body">
         <form   action="{{ route('closeAccountSp') }}" method="post">
-
+          @csrf
         <div class="row">
 
           <div class="col-12 text-center mt-1">

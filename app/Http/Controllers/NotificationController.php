@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Notification;
 use Illuminate\Http\Request;
+use Auth;
 
 class NotificationController extends Controller
 {
     public function markNotificationRead(Request $request)
     {
-      Notification::where('forUser',\Auth::id())->update(['status'=> 1]);
+
+      Notification::where('forUser',Auth::id())->update(['status'=> 1]);
       return redirect()->back();
     }
     /**
