@@ -115,4 +115,17 @@ class TicketController extends Controller
     {
         //
     }
+    public function changeTicketStatus(Request $request,Ticket $ticket)
+    {
+      if ($ticket->status == 0) {
+        $ticket->status = 1;
+      }elseif ($ticket->status == 1) {
+        $ticket->response1 = $request->response;
+        $ticket->status = 2;
+      }
+      newNoti(1, "", "Ticket status has been updated", route('myRequests',$ticket->id), $ticket->createdBy);
+
+      $ticket->save();
+      return status('Ticket status updated');
+    }
 }

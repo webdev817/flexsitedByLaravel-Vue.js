@@ -18,15 +18,16 @@ $invoiceItem = $invoice->invoiceItems();
 
 
         @if ($subscription->order != null)
+          
           @if ($subscription->order->project != null && $subscription->order->project->status != 1)
             <a href="{{ route('projects.show',$subscription->order->id) }}">
-              {{ $subscription->title }}
+              {{ getPlanByStripePlanId($subscription->stripe_plan)->title }}
             </a>
           @else
-            {{ $subscription->title }}
+            {{ getPlanByStripePlanId($subscription->stripe_plan)->title }}
           @endif
         @else
-          {{ $subscription->title }}
+          {{ getPlanByStripePlanId($subscription->stripe_plan)->title }}
         @endif
 
 

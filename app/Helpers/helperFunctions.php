@@ -9,7 +9,7 @@ function getFunInfo($fun)
 }
 function supportFaqCategories() {
   return [
-    'General', 'Project', 'Plans', 'Billing', 'Profile'
+    'General', 'Project', 'Plans', 'Billing', 'Tasks'
   ];
 }
 function setting($key, $default = null)
@@ -34,7 +34,7 @@ function newNoti($type, $title, $description, $redirectUrl, $forUser, $redirectR
 function getNotifcations($limit = 10)
 {
     $obj = new \stdClass;
-    $obj->notification = App\Notification::where('forUser',\Auth::id())->limit($limit)->get();
+    $obj->notification = App\Notification::where('forUser',\Auth::id())->limit($limit)->orderBy('id','desc')->get();
     $obj->hasNew = $obj->notification->where('status', 0)->count();
     $obj->new = $obj->notification->where('status', 0);
     $obj->old = $obj->notification->where('status', 1);
@@ -672,6 +672,22 @@ function flexsitedPlans()
 {
     $allPlans = \App\Plan::with('offers')->get();
     return $allPlans;
+}
+function getPlanByStripePlanId($planId)
+{
+  $obj = new \stdClass;
+  $obj->title = "-";
+  $plan1 = \App\Plan::where('stripePlanMonthId',$planId)->first();
+  $plan2 = \App\Plan::Where('stripePlanYearId',$planId)->first();
+  if ($plan1 != null) {
+    $obj->plan = $plan1;
+    $obj->title = ucwords($plan1->name) . " Monthly " . " Subscription";
+  }
+  if ($plan2 != null) {
+    $obj->plan = $plan2;
+    $obj->title = ucwords($plan2->name) . " Yearly " . " Subscription";
+  }
+  return $obj;
 }
 function getSupportOrders($orderType = null)
 {

@@ -104,6 +104,13 @@ class ProjectChatController extends Controller
 
       $projectChat = new ProjectChat($chatArray);
 
+      if (!superAdmin()) {
+        newNoti(1, 'New Project Message...',
+        $project->title . " has a new message",
+        route('projects.show',$project->id), $project->createdBy);
+      }
+
+
       $projectChat->save();
 
       return json('saved successfully',$projectChat);

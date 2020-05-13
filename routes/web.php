@@ -35,7 +35,7 @@ Route::get('termsOfService',function () {
 })->name('termsOfService');
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','StatusChecker']], function () {
 
   Route::post('suggestionStore','HomeController@suggestionStore')->name('suggestionStore');
 
@@ -105,7 +105,7 @@ Route::group(['middleware' => ['auth']], function () {
 
 
 
-Route::group(['middleware' => ['auth']], function () {
+Route::group(['middleware' => ['auth','StatusChecker']], function () {
     Route::get('/', 'HomeController@root')->name('root');
 
     Route::post('domainSelected', 'WizeredController@domainSelected')->name('domainSelected');
@@ -195,6 +195,9 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::get('ordersList','OrderController@ordersList')->name('ordersList');
     Route::get('orderEdit/{id}','OrderController@orderEdit')->name('orderEdit');
     Route::post('orderEditStore/{orderId}','OrderController@orderEditStore')->name('orderEditStore');
+
+    Route::post('changeTicketStatus/{ticket}','TicketController@changeTicketStatus')->name('changeTicketStatus');
+
 });
 
 Route::get('log',function () {

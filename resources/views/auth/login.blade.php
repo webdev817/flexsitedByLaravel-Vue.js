@@ -33,6 +33,18 @@
           @endif
         </div>
     </div>
+    <div class="row bg-white m-0">
+
+        <div class="col-10 text-center offset-1">
+          @if (Session::has('status'))
+              <div class="alert text-center  rounded-0">
+                  <ul class="m-0 text-center">
+                    {{ Session::get('status') }}
+                  </ul>
+              </div>
+          @endif
+        </div>
+    </div>
     <form method="POST" action="{{ route('login') }}">
     <div class="row bg-white  pb-5 mx-0">
             @csrf

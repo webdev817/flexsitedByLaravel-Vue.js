@@ -211,7 +211,11 @@ class ProjectController extends Controller
         'comment'=>$request->message,
         'createdBy'=> Auth::id()
       ]);
+
       $projectMilestoneChat->save();
+      newNoti(1, "Project has new work", "project ".$project->title . " has new feedback comment", route('projects.show',$project->id), $project->createdBy);
+
+
       if ($request->status == 2) {
         $projectAttachment->update([
           'status'=> 2

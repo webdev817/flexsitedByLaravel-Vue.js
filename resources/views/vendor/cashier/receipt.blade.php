@@ -73,9 +73,9 @@
                   {{ $vendorVat }}<br>
               @endif
 
-              @if (isset($url))
-                  <a href="{{ $url }}">{{ $url }}</a>
-              @endif
+
+                  <a href="https://www.flexsited.com">www.flexsited.com</a>
+
             </td>
 
             <!-- Organization Name / Image -->
@@ -143,7 +143,12 @@
                 <!-- Display The Subscriptions -->
                 @foreach ($invoice->subscriptions() as $subscription)
                     <tr class="row">
-                        <td>Subscription ({{ $subscription->quantity }})</td>
+
+                        <td>
+
+                          {{ getPlanByStripePlanId($subscription->plan->id)->title }}
+
+                        </td>
                         <td>
                             {{ $subscription->startDateAsCarbon()->formatLocalized('%B %e, %Y') }} -
                             {{ $subscription->endDateAsCarbon()->formatLocalized('%B %e, %Y') }}

@@ -232,9 +232,11 @@ class UsersController extends Controller
       // dd(
       //   Auth::id()
       // );
-      deleteAllUserData(Auth::id());
+      // deleteAllUserData(Auth::id());
 
-      User::where('id', Auth::id())->delete();
+      User::where('id', Auth::id())->update([
+        'status'=>2
+      ]);
       Auth::logout();
       return statusTo("We are sorry to see you go", route('login'));
     }

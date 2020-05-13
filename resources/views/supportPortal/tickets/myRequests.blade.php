@@ -62,6 +62,10 @@
                                                         {{-- <th>Last Activty</th> --}}
 
                                                         <th>Status</th>
+                                                        @if (!superAdmin())
+                                                          <th>Response</th>
+                                                        @endif
+
                                                         @if (superAdmin())
                                                           <th>Action</th>
                                                         @endif
@@ -98,10 +102,30 @@
                                                             </div>
                                                           @endif
                                                         </td>
+                                                        @if (!superAdmin())
+                                                          <td>
+                                                            @if ($ticket->response1 != null)
+                                                              {{ $ticket->response1 }}
+                                                            @endif
+                                                          </td>
+                                                        @endif
 
                                                         @if (superAdmin())
                                                           <td>
 
+                                                            <form  action="{{ route('changeTicketStatus',$ticket->id) }}" method="post">
+                                                              @csrf
+                                                              @if ($ticket->status == 0)
+                                                                  <button type="submit" class="btn btn-sm btn-primary" name="button">Activate</button>
+                                                              @elseif ($ticket->status == 1)
+
+                                                                @include('supportPortal.tickets.closeTicketmodal',[
+                                                                  'ticket'=>$ticket
+                                                                ])
+                                                                <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#ticekt{{$ticket->id}}" name="button">Close</button>
+                                                              @endif
+
+                                                            </form>
                                                           </td>
                                                         @endif
 

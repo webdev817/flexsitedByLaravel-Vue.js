@@ -286,7 +286,7 @@
                                               <div class="media">
                                                 <a href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius p-2"></i></a>
                                                   <div class="media-body">
-                                                      
+
                                                       <p>{{ $noti->description }}</p>
                                                   </div>
                                               </div>
@@ -492,7 +492,9 @@
                 var formToSubmit = $("#formToSubmit").val();
                 $("#"+formToSubmit).submit();
               });
-            </script>
 
+
+            </script>
+             
 </body>
 </html>

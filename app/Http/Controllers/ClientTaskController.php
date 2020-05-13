@@ -20,7 +20,7 @@ class ClientTaskController extends Controller
     {
       $clientTasks = ClientTask::query();
       if (!superAdmin()) {
-        $clientTasks = $clientTasks->where('createdBy',Auth::id());
+        $clientTasks = $clientTasks->where('userId',Auth::id());
       }
       $clientTasks = $clientTasks->paginate(20);
 
@@ -66,7 +66,9 @@ class ClientTaskController extends Controller
         $data['userId'] = $userId;
         $data['createdBy'] = Auth::id();
 
-        ClientTask::create($data);
+        $task = ClientTask::create($data);
+        newNoti(1, "", "New Task has been added...", route('clientTasks.show',$task->id), $task->userId);
+
       }
 
       return statusTo('Task added', route('clientTasks.index'));
