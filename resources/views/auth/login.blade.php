@@ -38,7 +38,7 @@
         <div class="col-10 text-center offset-1">
           @if (Session::has('status'))
               <div class="alert text-center  rounded-0">
-                  <ul class="m-0 text-center">
+                  <ul class="m-0 p-0 text-center">
                     {{ Session::get('status') }}
                   </ul>
               </div>
