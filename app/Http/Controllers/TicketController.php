@@ -123,7 +123,7 @@ class TicketController extends Controller
         $ticket->response1 = $request->response;
         $ticket->status = 2;
       }
-      newNoti(1, "", "Ticket status has been updated", route('myRequests',$ticket->id), $ticket->createdBy);
+      newNoti(1, "", "New Support Ticket Update", route('myRequests',$ticket->id), $ticket->createdBy);
 
       $ticket->save();
       return status('Ticket status updated');

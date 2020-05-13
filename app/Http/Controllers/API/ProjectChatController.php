@@ -106,7 +106,7 @@ class ProjectChatController extends Controller
 
       if (!superAdmin()) {
         newNoti(1, 'New Project Message...',
-        "New Project Feedback Comment",
+        $project->title . " Project Chat Messages",
         route('projects.show',$project->id), $project->createdBy);
       }
 

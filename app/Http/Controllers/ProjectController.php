@@ -213,7 +213,7 @@ class ProjectController extends Controller
       ]);
 
       $projectMilestoneChat->save();
-      newNoti(1, "Project has new work",$project->title . " project has new feedback comment", route('projects.show',$project->id), $project->createdBy);
+      newNoti(1, "Project has new work","New " .$project->title . " project Feedback Comment", route('projects.show',$project->id), $project->createdBy);
 
 
       if ($request->status == 2) {
@@ -246,7 +246,7 @@ class ProjectController extends Controller
         $projectAttachment->isFinalDeliverAbles = 1;
         $projectAttachment->workSourcePath = $request->source->store('source');
       }
-      newNoti(1, "Project has new work", $project->title . " has new work", route('projects.show',$project->id), $project->createdBy);
+      newNoti(1, "Project has new work", $project->title . " Project Upload for Review", route('projects.show',$project->id), $project->createdBy);
 
       $projectAttachment->save();
       Project::where('id',$project->id)->update(['status'=>3]);

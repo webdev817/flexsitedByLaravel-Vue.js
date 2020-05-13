@@ -10,6 +10,9 @@
 .table-responsive {
     overflow-x: scroll !important;
 }
+.form-control{
+  border: 1px solid #dee2e6!important;
+}
 .txt1 {
     color: #5ABAA5;
 }
@@ -34,7 +37,7 @@
   font-size: 15px;
 }
 
- 
+
 
 
 
