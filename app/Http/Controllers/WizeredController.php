@@ -106,6 +106,12 @@ class WizeredController extends Controller
     }
     public function businessInformation(Request $request)
     {
+        if (Auth::user()->hasIncompletePayment('main')) {
+          return redirect()->route('cashier.payment', [
+            Auth::user()->subscription('main')->latestPayment()->id,
+            'redirect' => route('incompletePaymentCompleted')
+          ]);
+        }
         $currentStep = 5;
         $selectedWebsitePackege = self::getWizered('selectedWebsitePackege')->first()->value;
         $pages = 0;
