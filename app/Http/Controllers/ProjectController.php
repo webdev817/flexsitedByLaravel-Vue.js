@@ -168,7 +168,7 @@ class ProjectController extends Controller
       $project->update([
         'dueOn'=> $request->date
       ]);
-      newNoti(1, "Project Due on is updated", $project->title . " Due Date is now $request->dueOn ", route('projects.show',$project->id), $project->createdBy);
+      newNoti(1, "Project Due on is updated", $project->title . " Due has been added", route('projects.show',$project->id), $project->createdBy);
 
     }
     public function projectFeedback(Request $request, Project $project){
