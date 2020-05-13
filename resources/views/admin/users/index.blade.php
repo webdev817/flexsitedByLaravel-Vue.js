@@ -32,7 +32,8 @@
                                                         <th>Email</th>
                                                         <th>Business Name</th>
                                                         <th>Status</th>
-                                                        <th>Date</th>
+                                                        <th>Last Login</th>
+                                                        <th>Sign Up</th>
                                                         <th>Action</th>
                                                 </thead>
                                                 <tbody>
@@ -67,7 +68,22 @@
                                                           @endif
                                                         </td>
                                                         <td>
-                                                           {{ $user->lastLogin }}
+                                                          @if ($user->lastLogin != null)
+                                                            @php
+                                                            $str = '';
+                                                              try {
+                                                                $str = \Carbon\Carbon::parse($user->lastLogin)->diffforhumans();
+                                                              } catch (\Exception $e) {
+
+                                                              }
+
+                                                            @endphp
+                                                             {{ $str }}
+
+                                                          @endif
+                                                        </td>
+                                                        <td>
+                                                          {{ $user->created_at->diffforhumans() }}
                                                         </td>
                                                         <td>
                                                           <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
