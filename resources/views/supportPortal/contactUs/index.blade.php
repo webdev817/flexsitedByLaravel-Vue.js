@@ -25,10 +25,7 @@
                                 <div class="card-body row">
                                     @csrf
 
-                                    {{-- <div class="form-group col-md-6">
-                                        <input type="email" name="email" class="form-control bg-transparent" required placeholder="Please Enter Email" >
-                                    </div> --}}
-
+                                     
                                     <div class="form-group col-md-6">
                                         <input type="text" name="subject" class="form-control border" required placeholder="Please Enter Subject" >
                                     </div>

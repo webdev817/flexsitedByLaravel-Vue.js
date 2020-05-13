@@ -46,7 +46,7 @@
                                   {{ $order->description }}
                                 </p>
 
-                                <textarea name="description" class="form-control bg-transparent" rows="2" cols="80" placeholder="Add Order Details"></textarea>
+                                <textarea name="description" class="form-control" rows="2" cols="80" placeholder="Add Order Details"></textarea>
                               </div>
                             </div>
                           </div>
