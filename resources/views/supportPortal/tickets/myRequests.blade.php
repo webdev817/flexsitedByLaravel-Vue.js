@@ -40,7 +40,7 @@
 
                           <div class="col-12">
                             @if (!superAdmin())
-                              <h4>My Requests</h4>
+                              <h4>My Ticket Requests</h4>
                             @else
                               <h4>Ticket Requests</h4>
                             @endif
@@ -58,7 +58,7 @@
                                                     <tr>
                                                       <th>Subject</th>
                                                         <th>Issue</th>
-                                                        <th>Active</th>
+                                                        <th>Date</th>
                                                         {{-- <th>Last Activty</th> --}}
 
                                                         <th>Status</th>
