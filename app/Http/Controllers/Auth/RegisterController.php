@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Auth\Events\Registered;
 
 class RegisterController extends Controller
 {
@@ -21,7 +22,7 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    // Email is associated with a closed account
     use RegistersUsers;
 
     /**
@@ -40,7 +41,24 @@ class RegisterController extends Controller
     {
         $this->middleware('guest');
     }
+    public function register()
+    {
+        $request = request();
+        $user = User::where('email',$request->email)->where('status',2)->first();
+        if ($user != null) {
+          return back()->withErrors([
+            'Email is associated with a closed account'
+          ]);
+        }
+        $this->validator($request->all())->validate();
 
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
+    }
     /**
      * Get a validator for an incoming registration request.
      *

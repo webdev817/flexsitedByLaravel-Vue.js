@@ -57,6 +57,8 @@
                                                 <div class="form-group">
                                                     <label class="form-control-label w-100" for="status">Status: </label>
                                                     <select class="form-control" name="status" id="status" required>
+                                                        <option value="2" @if($user->status == 2) selected
+                                                        @endif >Close</option>
                                                         <option value="1" @if($user->status == 1) selected
                                                             @endif >Active</option>
                                                         <option value="0" @if($user->status == 0) selected
