@@ -27,7 +27,7 @@ class AddResponse1ToTicketsTable extends Migration
     public function down()
     {
         Schema::table('tickets', function (Blueprint $table) {
-            $table->dropColumns(['response1', 'response2']);
+            $table->dropColumn(['response1', 'response2']);
         });
     }
 }
