@@ -40,13 +40,13 @@
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
 
-                                                        <input class="form-control" placeholder="Enter new Password" type="password" id="password" name="password" value="">
+                                                        <input class="form-control border" placeholder="Enter new Password" type="password" id="password" name="password" value="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="form-group">
 
-                                                        <input class="form-control" placeholder="Re-Enter New Password" type="password" id="password_confirm" name="password_confirm" value="">
+                                                        <input class="form-control border" placeholder="Re-Enter New Password" type="password" id="password_confirm" name="password_confirm" value="">
                                                     </div>
                                                 </div>
                                                 <div class="col-12">
@@ -182,17 +182,17 @@
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <input class="form-control" required  placeholder="Enter new Password" type="password" id="model-password" name="password" value="">
+                  <input class="form-control border" required  placeholder="Enter new Password" type="password" id="model-password" name="password" value="">
               </div>
           </div>
           <div class="col-lg-6">
               <div class="form-group">
-                  <input class="form-control"  required placeholder="Re-Enter new Password" type="password" id="model-confirm_password" name="password_confirm" value="">
+                  <input class="form-control border"  required placeholder="Re-Enter new Password" type="password" id="model-confirm_password" name="password_confirm" value="">
               </div>
           </div>
           <div class="col-lg-12">
               <div class="form-group">
-                  <textarea name="reasontoclose" required rows="4" class="form-control" placeholder="Let us know the reason why you are closing account" cols="80"></textarea>
+                  <textarea name="reasontoclose border" required rows="4" class="form-control" placeholder="Let us know the reason why you are closing account" cols="80"></textarea>
               </div>
           </div>
 

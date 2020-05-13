@@ -48,7 +48,7 @@
             </div>
 
             <div class="form-group col-12">
-              <textarea class="form-control" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
+              <textarea class="form-control border" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
             </div>
 
             <div class="form-group col-12">

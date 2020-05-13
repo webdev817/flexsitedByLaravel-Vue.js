@@ -126,7 +126,7 @@
                                                       </div>
                                                   </div>
                                                   <p>How can we improve?</p>
-                                                  <textarea name="improveMessage" rows="8" class="form-control" placeholder="Please write your message" cols="80"></textarea>
+                                                  <textarea name="improveMessage" rows="8" class="form-control border" placeholder="Please write your message" cols="80"></textarea>
 
                                                   <button type="submit" class="btn btn-primary btn-block" name="button">Submit Review</button>
                                                 </form>
@@ -372,7 +372,7 @@
                                             </div>
 
                                             <div class="form-group col-12">
-                                                <textarea class="form-control" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
+                                                <textarea class="form-control border" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
                                             </div>
 
                                         </div>
@@ -429,7 +429,7 @@
                                             </div>
 
                                             <div class="form-group col-12 ">
-                                                <textarea class="form-control" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
+                                                <textarea class="form-control border" required name="message" rows="8" placeholder="Please write your message" cols="80"></textarea>
                                             </div>
 
                                         </div>
