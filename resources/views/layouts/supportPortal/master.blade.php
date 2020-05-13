@@ -233,15 +233,20 @@
                   @endphp
                   @if ($obj->hasNotification)
                     <li>
-                        <div class="dropdown">
+                        <div class="dropdown" id="noti1">
 
-                            <a class="dropdown-toggle" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
+                            <a class="dropdown-toggle d-none d-md-block" href="#" data-toggle="dropdown"><i class="icon feather icon-bell"></i>
+                              @if ($obj->hasNew)
+                              <span class="badge badge-danger">New</span>
+                              @endif
+                            </a>
+                            <a class="dropdown-toggle d-block d-md-none" id="noticlick" href="#"><i class="icon feather icon-bell"></i>
                               @if ($obj->hasNew)
                               <span class="badge badge-danger">New</span>
                               @endif
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-right notification">
+                            <div class="dropdown-menu dropdown-menu-right notification" id="notisub">
                                 <div class="noti-head">
                                     <h6 class="d-inline-block m-b-0">Notifications</h6>
                                     @if ($obj->hasNew)
@@ -296,9 +301,7 @@
 
 
                                 </ul>
-                                {{-- <div class="noti-footer">
-                                    <a href="{{ route() }}">show all</a>
-                                </div> --}}
+
                             </div>
                         </div>
                     </li>
@@ -314,11 +317,14 @@
 
 
                 <li>
-                    <div class="dropdown drp-user">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <div class="dropdown drp-user" id="profileHai">
+                        <a href="#" class="dropdown-toggle d-none d-md-block" data-toggle="dropdown">
                             <i class="icon feather icon-settings"></i>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right profile-notification">
+                        <a href="#" id="openmobilepy" class="dropdown-togglef d-block d-md-none">
+                            <i class="icon feather icon-settings"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right profile-notification" id="profileSubHai">
                             <div class="pro-head">
                                 <img
                                 @if (Auth::user()->image != null)
@@ -493,7 +499,44 @@
                 $("#"+formToSubmit).submit();
               });
 
+              $("#openmobilepy").click(function () {
+                var result = $("#profileHai").hasClass('show');
+                console.log(result);
+                if (!result) {
+                  $("#profileHai").removeClass('show').addClass('show');
+                  $("#profileSubHai").removeClass('show').addClass('show');
+                }else {
+                  setTimeout(function () {
+                    var elm = document.getElementById("profileHai");
+                    elm.classList.remove("show");
+                  }, 10);
+                  setTimeout(function () {
+                    var elm2 = document.getElementById("profileSubHai");
+                    elm2.classList.remove("show");
 
+                  }, 5);
+
+                }
+              });
+              $("#noticlick").click(function () {
+                var result = $("#noti1").hasClass('show');
+                console.log(result);
+                if (!result) {
+                  $("#noti1").removeClass('show').addClass('show');
+                  $("#notisub").removeClass('show').addClass('show');
+                }else {
+                  setTimeout(function () {
+                    var elm = document.getElementById("noti1");
+                    elm.classList.remove("show");
+                  }, 10);
+                  setTimeout(function () {
+                    var elm2 = document.getElementById("notisub");
+                    elm2.classList.remove("show");
+
+                  }, 5);
+
+                }
+              });
             </script>
 
 </body>

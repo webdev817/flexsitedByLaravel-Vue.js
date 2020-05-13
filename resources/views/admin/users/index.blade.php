@@ -31,7 +31,7 @@
                                                         <th>Name</th>
                                                         <th>Email</th>
                                                         <th>Business Name</th>
-                                                        <th>Satus</th>
+                                                        <th>Status</th>
                                                         <th>Date</th>
                                                         <th>Action</th>
                                                 </thead>
@@ -67,7 +67,7 @@
                                                           @endif
                                                         </td>
                                                         <td>
-                                                           {{ $user->created_at->diffForHumans() }}
+                                                           {{ $user->lastLogin }}
                                                         </td>
                                                         <td>
                                                           <a href="{{ route('clientOnBoarding',$user->id) }}" class="label theme-bg text-white f-12"><i class="fas fa-eye text-white"></i> View</a>
@@ -154,6 +154,6 @@
 
 
 @section('jsCommon')
-  
+
   @include('common.js')
 @endsection

@@ -40,7 +40,7 @@ function updateRecurringPriceYo() {
   var coupon = getCouponObj();
 
   var recurringAmountForTotal = 0;
-
+  $("#freewebsiteCardnot").removeClass('d-none').addClass('d-none');
   if (coupon.subscriptionDiscount == 1) {
       var percentage = coupon.percentOff;
       var howMuchToSubtract = recurringAmount * (percentage / 100);
@@ -51,11 +51,15 @@ function updateRecurringPriceYo() {
           recurringAmountForTotal = recurringAmountAfterDiscount;
           recurringAmountAfterDiscount = "$" + recurringAmountAfterDiscount;
       }
+      if (recurringAmountAfterDiscount == "Free" && coupon.freeOnePageWebsite == 1) {
+        $("#freewebsiteCardnot").removeClass('d-none');
+      }
       var finalOutput = "<div class='couponApplied d-inline'>$" + recurringAmount + "</div> " + " <span class='font8px'>,One Time</span> " + recurringAmountAfterDiscount;
       $("#recurringAmount").html(finalOutput);
   } else if (coupon.freeOnePageWebsite == 1 && $("#hiddenPlanNumber").val() == 1) {
       recurringAmountForTotal = 0;
       var finalOutput = "<div class='couponApplied d-inline'>$" + recurringAmount + "</div> " + " <span class='font8px'>,One Time</span> Free";
+      $("#freewebsiteCardnot").removeClass('d-none');
       $("#recurringAmount").html(finalOutput);
   }else {
     recurringAmountForTotal = recurringAmount;

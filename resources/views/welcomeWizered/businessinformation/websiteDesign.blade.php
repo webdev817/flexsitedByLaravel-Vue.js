@@ -8,15 +8,9 @@
 
 <div class="row websiteDesignSection1 show collapse multi-collapse">
 
-    <div class="col-12">
+    <div class="col-12 pt-2">
 
-      <div class="row justify-content-center mb-3   ">
-          <div class="col-12 col-md-6 col-lg-6 col-xl-6 grayColor mt-3 p-0">
-              <h6 class="d-inline text-dark">
-                  Only complete the following sections if you have purchased these as addons or it’s are part of your chosen plan.
-              </h6>
-          </div>
-      </div>
+
 
         <div class="row justify-content-center ">
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 px-0">
