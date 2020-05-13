@@ -63,6 +63,8 @@
                                                         <td>
                                                           @if ($user->status == 1)
                                                             <a href="javascript:void(0)" class="label theme-bg f-12 text-white">Active</a>
+                                                          @elseif($user->status == 2)
+                                                            <a href="javascript:void(0)" class="label theme-bg2 f-12 text-white">Closed</a>
                                                           @else
                                                             <a href="javascript:void(0)" class="label theme-bg2 f-12 text-white">Not Active</a>
                                                           @endif

@@ -109,7 +109,9 @@ class UsersController extends Controller
         if (superAdmin()) {
           if ($request->status == 1) {
             $user->status = 1;
-          }else {
+          }elseif ($request->status == 2) {
+            $user->status = 2;
+          }else{
             $user->status = 0;
           }
 
