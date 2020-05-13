@@ -262,7 +262,7 @@
                                         @foreach ($obj->new as $noti)
                                           <li class="notification">
                                               <div class="media">
-                                                <a href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius p-2"></i></a>
+                                                <a class="p-0 mr-2" href="{{ $noti->redirectURL }}"><i class="fas fa-eye text-primary hand img-radius"></i></a>
 
                                                   <div class="media-body">
 
@@ -495,6 +495,6 @@
 
 
             </script>
-             
+
 </body>
 </html>
