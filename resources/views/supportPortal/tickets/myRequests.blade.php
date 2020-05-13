@@ -112,6 +112,9 @@
 
                                                         @if (superAdmin())
                                                           <td>
+                                                            @if ($ticket->status == 2)
+                                                              {{ $ticket->response1 }}
+                                                            @else
 
                                                             <form  action="{{ route('changeTicketStatus',$ticket->id) }}" method="post">
                                                               @csrf
@@ -126,6 +129,8 @@
                                                               @endif
 
                                                             </form>
+                                                          @endif
+
                                                           </td>
                                                         @endif
 
