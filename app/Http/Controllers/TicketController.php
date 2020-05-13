@@ -68,7 +68,7 @@ class TicketController extends Controller
         $ticket = new Ticket($ticket);
         $ticket->save();
 
-        return status('Your request has been recived.');
+        return status('Your request has been received.');
     }
 
     /**

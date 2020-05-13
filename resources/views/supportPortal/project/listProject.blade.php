@@ -98,7 +98,7 @@
                                                     <tr>
                                                         <th>Project Name</th>
                                                         <th>Due Date</th>
-                                                        <th>Total Amount</th>
+
 
                                                         @if (superAdmin())
                                                           <th>By</th>
@@ -122,9 +122,7 @@
                                                             {{ Carbon\Carbon::parse($project->dueOn)->format('d M, Y') }}
                                                           @endif
                                                         </td>
-                                                        <td>
-                                                            {{ $project->order->price }} USD
-                                                        </td>
+                                                         
 
 
                                                         @if (superAdmin())

@@ -46,7 +46,7 @@ class ContactUsController extends Controller
         $contactUs = new ContactUs($data);
         $contactUs->save();
 
-        return status('Your message has been recevied.');
+        return status('Your message has been received.');
     }
 
     /**

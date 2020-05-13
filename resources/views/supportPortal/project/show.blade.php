@@ -62,7 +62,7 @@
                                                             @endif
                                                         </td>
 
-                                                         
+
                                                         <td>
                                                           <div class="mt-2">
                                                               @include('supportPortal.common.projectStatus', ['status' => $project->status])
@@ -150,7 +150,7 @@
                                     <div class="col-12">
                                         <div class="card">
                                             <div class="card-header">
-                                                <h4 class="mb-0 float-left">Project Progress</h4>
+                                                <h5 class="mb-0 float-left">Project Progress</h5>
 
                                                 @if (superAdmin())
                                                 @if ($project->status == 1)
@@ -237,8 +237,11 @@
                             </div>
 
                             <div class="col-lg-4 col-12">
-                                <div class=" card">
 
+                                <div class=" card">
+                                  <div class="card-header">
+                                    <h5 class="">Project Chat</h5>
+                                  </div>
 
                                     <div class="" id="projectChat">
                                         <div class="h-list-body">
@@ -526,11 +529,7 @@
 
         font-size: 31px !important;
     }
-    @media (max-width: 992px) {
-      .cstmDirection{
-          flex-direction: column-reverse;
-      }
-    }
+
 
 </style>
 <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/plugins/ratting/css/css-stars.css') }}">
