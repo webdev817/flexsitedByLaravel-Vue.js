@@ -119,7 +119,7 @@
                                                           @if ( $project->dueOn == null)
                                                             TBD
                                                           @else
-                                                            {{ Carbon\Carbon::parse($project->dueOn)->format('d M, Y') }}
+                                                            {{ Carbon\Carbon::parse($project->dueOn)->format('Y-m-d') }}
                                                           @endif
                                                         </td>
 
