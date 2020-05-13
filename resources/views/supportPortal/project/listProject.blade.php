@@ -91,7 +91,7 @@
                             <div class="col-md-12">
                                 <div class="card user-list">
 
-                                    <div class="card-block pb-0">
+                                    <div class="card-block p-0">
                                         <div class="table-responsive">
                                             <table class="table table-hover" >
                                                 <thead>
@@ -122,7 +122,7 @@
                                                             {{ Carbon\Carbon::parse($project->dueOn)->format('d M, Y') }}
                                                           @endif
                                                         </td>
-                                                         
+
 
 
                                                         @if (superAdmin())
