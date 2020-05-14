@@ -84,6 +84,8 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
   Route::get('support', 'SupportController@index')->name('supportSp');
   Route::get('faqs', 'SupportController@faqs')->name('faqs');
 
+  Route::get('downloadAttachment/{id}','ProjectController@downloadAttachment')->name('downloadAttachment');
+
   Route::resource('tickets','TicketController');
 
   Route::get('myRequests','TicketController@myRequests')->name('myRequests');

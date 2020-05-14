@@ -45,7 +45,9 @@
                                                                 <p  v-html="refresh(m.message)" class="chat-cont">
                                                                      </p>
                                                                         <p v-if="m.isAttachment == 1" class="fileHai chat-cont">
-                                                                            <a target="_blank" v-bind:style="[m.createdBy != userId ? {color: 'white'}: '']" v-bind:href="'/storage/' + m.path">
+                                                                            <a target="_blank" v-bind:style="[m.createdBy != userId ? {color: 'white'}: '']"
+                                                                            v-bind:href="'/storage/' + m.path"
+                                                                            >
                                                                                 @{{ m.fileName }}</a>
                                                                         </p>
 

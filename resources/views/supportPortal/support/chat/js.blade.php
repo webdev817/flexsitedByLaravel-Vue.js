@@ -87,10 +87,7 @@ var supportChat = new Vue({
             attributes: (arg) => {
               return {
                 class: "detected",
-                target: "_blank",
-                title: JSON.stringify(anchorme.list(arg))
-                  .replace(/"/g, "'")
-                  .replace(/,/g, ",\n"),
+                target: "_blank"
               };
             },
           },
