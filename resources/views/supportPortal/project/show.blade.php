@@ -270,8 +270,8 @@
                                                         <div v-bind:title="m.created_at" v-bind:class="{ 'chat-menu-reply': m.createdBy == userId, 'chat-menu-content': m.createdBy != userId }" class="media-body ">
 
                                                             <div class="">
-                                                                <p class="chat-cont">
-                                                                    @{{ m.message }}</p>
+                                                                <p v-html="refresh(m.message)" class="messsageshain chat-cont">
+                                                                     </p>
                                                                         <p v-if="m.isAttachment == 1" class="fileHai chat-cont">
                                                                             <a target="_blank" v-bind:style="[m.createdBy != userId ? {color: 'white'}: '']" v-bind:href="'/storage/' + m.path">
                                                                                 @{{ m.fileName }}</a>
@@ -497,6 +497,28 @@
     var s = flatpickr("#dueOn", {
         defaultDate: "{{ $project->dueOn }}"
     });
+
+
+    $(".milestoneCommentHai").each(function (a, b) {
+      var content = $(b).html();
+      var html = anchorme({
+        input: content,
+        options: {
+          attributes: (arg) => {
+            return {
+              class: "detected",
+              target: "_blank",
+              title: JSON.stringify(anchorme.list(arg))
+                .replace(/"/g, "'")
+                .replace(/,/g, ",\n"),
+            };
+          },
+        },
+      });
+
+      $(b).html(html);
+
+    });
 </script>
 
 @endsection
@@ -504,6 +526,9 @@
 
 @section('head')
 <link rel="stylesheet" href="{{ asset('mawaisnow/chat/chat.css') }}">
+
+<script src="{!! asset('mawaisnow/anchorm/anchorme.js') !!}" charset="utf-8"></script>
+
 <script src="{{ asset('mawaisnow/vue/vue.js') }}" charset="utf-8"></script>
 <script src="{{ asset('mawaisnow/axios/axios.min.js') }}" charset="utf-8"></script>
 <style media="screen">
@@ -529,7 +554,9 @@
 
         font-size: 31px !important;
     }
-
+    .chat-menu-content > div > p> a{
+      color: white !important;
+    }
 
 </style>
 <link rel="stylesheet" href="{{ asset('mawaisnow/able/assets/plugins/ratting/css/css-stars.css') }}">

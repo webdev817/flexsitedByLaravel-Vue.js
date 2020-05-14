@@ -29,7 +29,7 @@
                                     @endif
                                     <div class="media-body @if($milestoneChat->createdBy == Auth::id()) chat-menu-reply @else chat-menu-content @endif">
                                         <div class="">
-                                            <p class="chat-cont">{{ $milestoneChat->comment }}</p>
+                                            <p class="chat-cont milestoneCommentHai">{{ $milestoneChat->comment }}</p>
                                         </div>
 
                                     </div>

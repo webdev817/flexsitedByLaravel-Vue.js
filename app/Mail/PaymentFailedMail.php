@@ -29,6 +29,6 @@ class PaymentFailedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Payment fails while capturing the charges')->view('emails.paymentFailed');
+        return $this->subject('Flexsited Failed Payment')->view('emails.paymentFailed');
     }
 }

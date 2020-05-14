@@ -106,10 +106,11 @@
                       </li>
                     @endif
                     @if (!superAdmin())
-                      <li class="nav-item {{ requestIsFromArray(['supportSp', 'myRequests'], 'active pcoded-trigger') }}  pcoded-hasmenu">
+                      <li class="nav-item {{ requestIsFromArray(['supportSp', 'myRequests', 'faqs'], 'active pcoded-trigger') }}  pcoded-hasmenu">
                           <a href="javascript:void(0)" class="nav-link"><span class="pcoded-micon"><i class="fas fa-hands-helping" aria-hidden="true"></i></span><span class="pcoded-mtext">Support</span></a>
                           <ul class="pcoded-submenu">
-                              <li class="{{ requestIsFromArray(['supportSp']) }}"><a href="{{ route('supportSp') }}" class="">Support and FAQ</a></li>
+                              <li class="{{ requestIsFromArray(['faqs']) }}"><a href="{{ route('faqs') }}" class="">Faqs</a></li>
+                              <li class="{{ requestIsFromArray(['supportSp']) }}"><a href="{{ route('supportSp') }}" class="">Support</a></li>
                               <li class="{{ requestIsFromArray(['myRequests']) }}"><a href="{{ route('myRequests') }}" class="">My Ticket Requests</a></li>
 
                           </ul>

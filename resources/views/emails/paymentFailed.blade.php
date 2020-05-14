@@ -2,20 +2,27 @@
   @php
     $user = $data['user'];
   @endphp
-<p>Hello {{ $user->firstName }} {{ $user->lastName }}</p>
+<p>Hello {{ $user->name }}</p>
 <p>&nbsp;</p>
 <p>
-  Your payment method for renewal in the FLEXSITED has failed.
+  Your payment method for renewal for your FLEXSITED account has failed.
 </p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>
 <p>
-  To update your payment method, simply login to your portal, click Settings, and then Subscriptions.  A link to the login page is below.
+  To update your payment method, simply login to the portal, click Settings, and then Profile.
 </p>
 <p>&nbsp;</p>
-
 <p>
-Please note, To continue your membership, you must pay your invoice within 5 calendar days</span>
+  A link to the login page is below.
+</p>
+<p></p>
+<p>
+<a href="{{ route('login') }}">Click here to login</a>
+</p>
+<p>
+  Please note, to continue your subscription,
+  you must pay your invoice within 5 calendar days.
   Accounts with an outstanding balance beyond 5 days, will automatically be deleted.
 </p>
 <p>&nbsp;</p>
@@ -25,10 +32,9 @@ Please note, To continue your membership, you must pay your invoice within 5 cal
 
 <p>&nbsp;</p>
 
-<p>  Thank you</p>
-<p style="text-align:center;">
-  <p>&nbsp;</p>
-<a href="{{route('login')}}">click here to login</a>
+<p>Best Regards,</p>
+<p>
+Team Flexsited
 </p>
 <p>&nbsp;</p>
 <p>&nbsp;</p>

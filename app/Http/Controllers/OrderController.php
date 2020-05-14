@@ -146,7 +146,7 @@ class OrderController extends Controller
         }
 
         try {
-            $invoice = $user->invoiceFor('Order ' . $order->title, $order->price * 100, [
+            $invoice = $user->invoiceFor($order->title .' Order' , $order->price * 100, [
           'metadata'=>['orderId'=> $order->id]
         ]);
             $invoiceNumber = $invoice->asStripeInvoice()->id;

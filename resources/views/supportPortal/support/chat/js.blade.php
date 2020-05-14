@@ -79,7 +79,24 @@ var supportChat = new Vue({
         container.scrollTop = container.scrollHeight;
       },
 
+      refresh: function(content) {
 
+        var tmp = anchorme({
+          input: content,
+          options: {
+            attributes: (arg) => {
+              return {
+                class: "detected",
+                target: "_blank",
+                title: JSON.stringify(anchorme.list(arg))
+                  .replace(/"/g, "'")
+                  .replace(/,/g, ",\n"),
+              };
+            },
+          },
+        });
+        return tmp;
+      },
       fileChanged: function () {
         var file = this.$refs.file.files[0];
         if (file == undefined) {

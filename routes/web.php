@@ -82,6 +82,7 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
   Route::post('closeAccountSp', 'UsersController@closeAccount')->name('closeAccountSp');
 
   Route::get('support', 'SupportController@index')->name('supportSp');
+  Route::get('faqs', 'SupportController@faqs')->name('faqs');
 
   Route::resource('tickets','TicketController');
 

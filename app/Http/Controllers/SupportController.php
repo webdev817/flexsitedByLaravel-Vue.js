@@ -16,6 +16,11 @@ class SupportController extends Controller
       $arr['faqs'] = SupportFAQ::where('status',1)->get();
       return view('supportPortal.support.index', $arr);
     }
+    public function faqs(Request $request)
+    {
+      $arr['faqs'] = SupportFAQ::where('status',1)->get();
+      return view('supportPortal.support.faq', $arr);
+    }
     public function supportChat(Request $request)
     {
       $supportChatSession = SupportChatSession::query();
