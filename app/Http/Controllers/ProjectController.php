@@ -202,14 +202,16 @@ class ProjectController extends Controller
       $projectChat = ProjectChat::findOrFail($id);
       if ($projectChat->isAttachment == 1) {
 
+        try {
+          return response()->download(Storage::path($projectChat->path), $projectChat->fileName);
+        } catch (\Exception $e) {
+          return abort(404);
+        }
+
       }else {
         return abort(404);
       }
-      try {
-        return response()->download(Storage::path($projectChat->path), $projectChat->fileName);
-      } catch (\Exception $e) {
-        return abort(404);
-      }
+
 
     }
     public function commentMilestone(Request $request, ProjectAttachment $projectAttachment)
