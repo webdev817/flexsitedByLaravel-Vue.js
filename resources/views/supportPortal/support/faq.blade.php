@@ -63,7 +63,7 @@
 
 
 
-                    <div class="row justify-content-center mt-4 mb-3">
+                    {{-- <div class="row justify-content-center mt-4 mb-3">
                         <div class="col-md-10 col-12 text-center">
 
                             <p class="text-dark">
@@ -75,10 +75,10 @@
 
                             </p>
                         </div>
-                    </div>
+                    </div> --}}
 
 
-                 
+
 
                 </div>
             </div>
