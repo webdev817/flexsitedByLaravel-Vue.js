@@ -121,6 +121,8 @@ class ReferalController extends Controller
       $ref = new Referal($data);
       $ref->save();
 
+      newNoti(1, "New referal", "New referal request received",
+      route('referals'), 0);
 
       return status('Your message received, We will be in touch soon.');
     }

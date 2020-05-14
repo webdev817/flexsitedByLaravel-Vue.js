@@ -167,12 +167,16 @@ class OrderController extends Controller
         $order->update(['invoiceNumber'=> $invoiceNumber]);
 
         $project = new Project([
-        'orderId'=> $order->id,
-        'title'=> $order->title,
-        'description'=> $order->orderDetails,
-        'createdBy'=> Auth::id()
-      ]);
+          'orderId'=> $order->id,
+          'title'=> $order->title,
+          'description'=> $order->orderDetails,
+          'createdBy'=> Auth::id()
+        ]);
+
         $project->save();
+
+        newNoti(1, "New Order", "New ". $project->title . " Order received",
+        route('projects.show',$project->id), 0);
 
         return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
     }
@@ -189,6 +193,9 @@ class OrderController extends Controller
         'createdBy'=> $user->id
       ]);
         $project->save();
+
+        newNoti(1, "New Order", "New ". $project->title . " Order received",
+        route('projects.show',$project->id), 0);
 
         return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
     }
@@ -330,6 +337,9 @@ class OrderController extends Controller
           'createdBy'=> Auth::id()
         ]);
         $project->save();
+
+        newNoti(1, "New Order", "New ". $project->title . " Order received",
+        route('projects.show',$project->id), 0);
 
         return redirect()->route('projects.index')->with('OrderPlaced', 'Order has been placed');
     }

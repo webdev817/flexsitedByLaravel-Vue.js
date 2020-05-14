@@ -68,6 +68,9 @@ class TicketController extends Controller
         $ticket = new Ticket($ticket);
         $ticket->save();
 
+        newNoti(1, "Ticket", "New Support Ticket Created",
+        route('ticketRequests'), 0);
+
         return status('Your request has been received.');
     }
 

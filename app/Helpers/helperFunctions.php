@@ -31,10 +31,14 @@ function newNoti($type, $title, $description, $redirectUrl, $forUser, $redirectR
     'forUser'=>$forUser
   ]);
 }
-function getNotifcations($limit = 10)
+function getNotifcations($limit = 10, $isAdmin = false)
 {
     $obj = new \stdClass;
-    $obj->notification = App\Notification::where('forUser',\Auth::id())->limit($limit)->orderBy('id','desc')->get();
+    if ($isAdmin) {
+      $obj->notification = App\Notification::where('forUser',0)->limit($limit)->orderBy('id','desc')->get();      
+    }else {
+      $obj->notification = App\Notification::where('forUser',\Auth::id())->limit($limit)->orderBy('id','desc')->get();
+    }
     $obj->hasNew = $obj->notification->where('status', 0)->count();
     $obj->new = $obj->notification->where('status', 0);
     $obj->old = $obj->notification->where('status', 1);

@@ -51,6 +51,9 @@ class MarketingServiceController extends Controller
         $marketingService = new MarketingService($data);
         $marketingService->save();
 
+        newNoti(1, "marketing service", "New Marketing Service request",
+        route('marketingServices'), 0);
+
         return status('Your request has been received');
     }
 

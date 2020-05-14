@@ -43,6 +43,10 @@ class SupportController extends Controller
         ]);
         $supportChatSession->save();
 
+        newNoti(1, "New support Chat", "New Support Chat Request",
+        route('supportChat',['id'=> $supportChatSession->id]), 0);
+
+
         $arr['new'] = true;
       }
 

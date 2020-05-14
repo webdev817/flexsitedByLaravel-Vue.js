@@ -35,6 +35,9 @@ class HomeController extends Controller
 
     $suggestion->save();
 
+    newNoti(1, "suggestion", "New suggestion received",
+    route('suggestions'), 0);
+
     return status('Suggestion saved');
   }
 

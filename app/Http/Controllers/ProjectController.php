@@ -181,6 +181,7 @@ class ProjectController extends Controller
         'stars'=> 'required|string',
         'improveMessage'=> 'required|string'
       ]);
+      newNoti(1, "Project Rating", $project->title . " has a feedback", route('projectReview'), 0);
 
       Project::where('id',$project->id)->update($data);
 
@@ -195,6 +196,9 @@ class ProjectController extends Controller
       $project->update([
         'status'=> 10
       ]);
+      newNoti(1, "Project approve", $project->title . " has been approved",
+      route('projects.show',$project->id), 0);
+
       return status('Project approved');
     }
     public function downloadAttachment(Request $request, $id)
@@ -232,7 +236,13 @@ class ProjectController extends Controller
       ]);
 
       $projectMilestoneChat->save();
-      newNoti(1, "Project has new work","New " .$project->title . " project Feedback Comment", route('projects.show',$project->id), $project->createdBy);
+
+      if (superAdmin()) {
+        newNoti(1, "Project feedbackcomment", "New " .$project->title . " project Feedback Comment",
+        route('projects.show',$project->id), 0);
+      }else {
+        newNoti(1, "Project feedbackcomment","New " .$project->title . " project Feedback Comment", route('projects.show',$project->id), $project->createdBy);
+      }
 
 
       if ($request->status == 2) {

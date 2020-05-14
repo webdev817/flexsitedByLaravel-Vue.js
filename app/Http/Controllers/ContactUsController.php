@@ -46,6 +46,9 @@ class ContactUsController extends Controller
         $contactUs = new ContactUs($data);
         $contactUs->save();
 
+        newNoti(1, "Contact us", "New contact us request",
+        route('contactUsRequests'), 0);
+
         return status('Your message has been received.');
     }
 
