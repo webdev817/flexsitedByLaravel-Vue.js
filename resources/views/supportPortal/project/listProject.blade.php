@@ -101,7 +101,7 @@
 
 
                                                         @if (superAdmin())
-                                                          <th>By</th>
+                                                          <th>Client</th>
                                                         @endif
 
                                                         <th>Status</th>
