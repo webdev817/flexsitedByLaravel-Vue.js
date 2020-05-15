@@ -133,7 +133,7 @@ class BillingController extends Controller
             return error($obj->message);
         }
 
-        return redirect()->route('home')->with('status', 'Card updated successfull');
+        return redirect()->route('profile')->with('status', 'Billing information updated');
     }
     public function invoiceDownload(Request $request, $id)
     {

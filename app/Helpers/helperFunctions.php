@@ -7,6 +7,25 @@ function getFunInfo($fun)
     );
     print $reflFunc->getFileName() . ':' . $reflFunc->getStartLine();
 }
+function getOnBoardingSessionId() {
+  $supportChatSession = \App\SupportChatSession::where('createdBy', \Auth::id())->first();
+
+  if ($supportChatSession == null) {
+
+    $supportChatSession = new \App\SupportChatSession([
+      'status'=> 1,
+      'createdBy'=> \Auth::id()
+    ]);
+    $supportChatSession->save();
+    newNoti(1, "New onboarding Chat", "New OnBoarding Chat Request",
+    route('supportChat',['id'=> $supportChatSession->id]), 0);
+
+  }
+
+
+
+  return $supportChatSession->id;
+}
 function supportFaqCategories() {
   return [
     'General', 'Project', 'Plans', 'Billing', 'Tasks'
@@ -35,7 +54,7 @@ function getNotifcations($limit = 10, $isAdmin = false)
 {
     $obj = new \stdClass;
     if ($isAdmin) {
-      $obj->notification = App\Notification::where('forUser',0)->limit($limit)->orderBy('id','desc')->get();      
+      $obj->notification = App\Notification::where('forUser',0)->limit($limit)->orderBy('id','desc')->get();
     }else {
       $obj->notification = App\Notification::where('forUser',\Auth::id())->limit($limit)->orderBy('id','desc')->get();
     }

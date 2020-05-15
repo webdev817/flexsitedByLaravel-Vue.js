@@ -184,8 +184,10 @@ class UsersController extends Controller
     public function changePassword(Request $request)
     {
       $user = Auth::user();
+      $intent = $user->createSetupIntent();
 
-      return view('supportPortal.users.changePassword', compact('user'));
+
+      return view('supportPortal.users.changePassword', compact('user', 'intent'));
     }
     public function changePasswordStore(request $request)
     {
@@ -209,10 +211,9 @@ class UsersController extends Controller
     {
       $user = Auth::user();
       $invoices = $user->invoices(true,['limit'=> 100]);
-      // storeDataToDisk();
-      // $invoices = getDataFromDisk();
+      $intent = $user->createSetupIntent();
 
-      return view('supportPortal.users.profile', compact('user','invoices'));
+      return view('supportPortal.users.profile', compact('user','invoices', 'intent'));
 
     }
     public function closeAccount(Request $request)
@@ -239,6 +240,13 @@ class UsersController extends Controller
       User::where('id', Auth::id())->update([
         'status'=>2
       ]);
+
+      $subscriptions = Auth::user()->subscriptions();
+
+      foreach ($subscriptions as $subscription) {
+        $subscription->cancelNow();
+      }
+
       Auth::logout();
       return statusTo("We are sorry to see you go", route('login'));
     }

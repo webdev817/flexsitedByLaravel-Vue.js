@@ -183,6 +183,11 @@
                       <li class="nav-item {{ requestIsFromArray(['suggestions']) }}">
                         <a href="{{ route('suggestions') }}" class="nav-link "><span class="pcoded-micon"><i class="fa  fa-lightbulb"></i></span><span class="pcoded-mtext">Suggestions</span></a>
                       </li>
+
+                      <li class="nav-item {{ requestIsFromArray(['onBoardingFaqs.index']) }}">
+                        <a href="{{ route('onBoardingFaqs.index') }}" class="nav-link "><span class="pcoded-micon"><i class="fa fa-question-circle"></i></span><span class="pcoded-mtext">On Boarding Faq</span></a>
+                      </li>
+
                     @endif
 
 

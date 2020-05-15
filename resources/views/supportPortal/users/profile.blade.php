@@ -79,6 +79,22 @@
                                               Email Address
                                           </td>
                                       </tr>
+
+                                      @if (!superAdmin())
+                                        <tr>
+                                            <td align="center">
+                                                <div class="roundForIcon">
+                                                    <i class="fa fa-credit-card"></i>
+                                                </div>
+                                            </td>
+                                            <td class="fontSize14px">
+                                                <a href="javascript:void(0)" data-toggle="modal" data-target="#updateBilling">Update Billing</a>
+                                            </td>
+                                        </tr>
+                                      @endif
+
+
+
                                       <tr>
                                           <td align="center">
                                               {{-- <div class="roundForIcon">
@@ -223,6 +239,22 @@
                                                 Email Address
                                             </td>
                                         </tr>
+
+                                        @if (!superAdmin())
+                                          <tr>
+                                              <td align="center">
+                                                  <div class="roundForIcon">
+                                                      <i class="fa fa-credit-card"></i>
+                                                  </div>
+                                              </td>
+                                              <td class="fontSize14px">
+                                                  <a href="javascript:void(0)" data-toggle="modal" data-target="#updateBilling">Update Billing</a>
+                                              </td>
+                                          </tr>
+                                        @endif
+
+
+
                                         <tr>
                                             <td align="center">
                                                 {{-- <div class="roundForIcon">
@@ -266,7 +298,23 @@
 </div>
 
 
-<!-- Modal -->
+
+
+
+
+@include('supportPortal.users.bill')
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="modal fade" id="closeAccount" tabindex="-1" role="dialog" aria-labelledby="closeAccount" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modelcloseAccount" role="document">
     <div class="modal-content">
@@ -330,11 +378,12 @@
 @include('common.loadJS', ['select2'=>true])
 
 @section('js')
-<script type="text/javascript">
-    $("#marketingService").select2({
-        minimumResultsForSearch: -1,
-        placeholder: "Which Service are you interested in?"
-    }).val(null).change();
 
-</script>
+@include('common.stripe')
+
+@endsection
+
+@section('head')
+  <script src="https://js.stripe.com/v3/"></script>
+
 @endsection

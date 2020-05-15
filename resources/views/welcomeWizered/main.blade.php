@@ -13,12 +13,13 @@ $('[data-toggle="popover"]').popover()
 @endsection
 
 @section('head')
+  <link rel="stylesheet" href="{{ asset('mawaisnow/chat/chat.css') }}">
+  <script src="{!! asset('mawaisnow/anchorm/anchorme.js') !!}" charset="utf-8"></script>
+  <link rel="stylesheet" href="{!! asset('mawaisnow/able/assets/fonts/fontawesome/css/fontawesome-all.min.css') !!}">
+  <script src="{{ asset('mawaisnow/vue/vue.js') }}" charset="utf-8"></script>
+  <script src="{{ asset('mawaisnow/axios/axios.min.js') }}" charset="utf-8"></script>
+
   <script type="text/javascript">
-
-
-
-
-
   function planSelected(d) {
     $("#hiddenPlanDurration").val(d);
   }
@@ -65,6 +66,21 @@ $('[data-toggle="popover"]').popover()
           @elseif($currentStep==5) width: 100%;
           @endif
       }
+      .headingCommonHaiYeWali{
+        font-size: 18px;
+      }
+      .BTNcommonCls{
+        color: white;
+        border-color: #65c4b4;
+      }
+      .BTNcommonCls:hover,.BTNcommonCls:active{
+        background: #65c4b4 !important;
+        color: white !important;
+        border-color: #65c4b4 !important;
+      }
+
+
+
   </style>
 @endsection
 
@@ -76,13 +92,27 @@ $('[data-toggle="popover"]').popover()
 @section('body')
 <div class="container-fluid p-0 mb-5">
     <div class="row m-0">
-        <div class="col-12 text-center p-0 " style="background-color:black;">
+        <div class="col-12 col-md-6 text-center p-0 " style="background-color:black;">
             <img src="{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" alt="" class="navLogo noselect">
+        </div>
+        <div class="d-none d-md-block pb-5 pb-md-0 col-md-6 paddingBtnswali text-center" style="background-color:black;">
+          <button type="button" data-toggle="modal" data-target="#chatModal"  class="btnChatModel  btn BTNcommonCls shadow-none mt-4 mr-3 self-align-center btn-outline-primary" name="button">Chat</button>
+
+          <div class=" d-inline">
+            <a class="btn mt-4 maillink BTNcommonCls shadow-none self-align-center  btn-outline-primary"  href="mailto:support@flexsited.com">support@flexsited.com</a>
+          </div>
+        </div>
+        <div class="d-block d-md-none  pb-5 pb-md-0 col-md-6 paddingBtnswali text-center" style="background-color:black;">
+          <button type="button" data-toggle="modal" data-target="#chatModal"  class="btnChatModel  btn BTNcommonCls shadow-none  mr-3 self-align-center btn-outline-primary" name="button">Chat</button>
+
+          <a class="btn  maillink BTNcommonCls shadow-none self-align-center  btn-outline-primary"  href="mailto:support@flexsited.com">support@flexsited.com</a>
+
+
         </div>
     </div>
     <div class="row m-4">
         <div class="col-12 p-0 wTopNav1">
-            <h1 class="favColor fontTopNav paddingCurrentStepText text-uppercase">
+            <h1 class="favColor fontTopNav paddingCurrentStepText headingCommonHaiYeWali text-uppercase">
                 @if ($currentStep == 1)
                 Website Domain
                 @endif
@@ -196,6 +226,10 @@ $('[data-toggle="popover"]').popover()
 
 </div>
 
+@include('welcomeWizered.chat.main', [
+  'sessionId'=> getOnBoardingSessionId()
+])
+
 @endsection
 
 
@@ -216,5 +250,13 @@ $('[data-toggle="popover"]').popover()
   });
 
   $(".yearlyPlanContainer").hide();
+
+  $(".btnChatModel").click(function () {
+    setTimeout(function () {
+      var container = document.querySelector("#supportChatBody");
+      container.scrollTop = container.scrollHeight;
+    }, 10);
+  });
+
   </script>
 @endsection

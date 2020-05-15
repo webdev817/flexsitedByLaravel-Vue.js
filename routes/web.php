@@ -11,7 +11,6 @@
 |
 */
 
-
 Auth::routes();
 
 
@@ -102,6 +101,7 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
 
   Route::get('supportChatsRequests','SupportController@supportChatsRequests')->name('supportChatsRequests');
 
+  Route::post('updateCard','BillingController@updateCard')->name('updateBilling');
 
 
 });
@@ -171,6 +171,8 @@ Route::post('adminLogin', 'AdminController@adminLogin')->name('adminLoginPost');
 
 
 Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], function () {
+
+    Route::resource('onBoardingFaqs','OnBoardingFaqController');
 
     Route::get('/home', 'AdminController@home')->name('adminHome');
     Route::get('suggestions','AdminController@suggestions')->name('suggestions');
