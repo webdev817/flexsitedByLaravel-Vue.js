@@ -163,6 +163,12 @@ function sendSignUpEmail(array $data)
     $email = $data['email'];
     \Mail::to($email)->send(new App\Mail\SignUpMail($data));
 }
+function sendUserReportEmail(array $data)
+{
+
+    $email = $data['email'];
+    \Mail::to($email)->send(new App\Mail\UserReportEmail($data));
+}
 function sendInvoicePaidEmail(array $data)
 {
     $email = $data['email'];

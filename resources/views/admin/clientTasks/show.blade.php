@@ -31,7 +31,7 @@
                             <div class="col-12 mt-2">
                               Description
                               <br>
-                                  <textarea readonly disabled class="form-control bg-white p-0 border-0 shadow-none" rows="8" cols="80">{{ $clientTask->description }}</textarea>
+                          {!! $clientTask->description !!}
 
                             </div>
 

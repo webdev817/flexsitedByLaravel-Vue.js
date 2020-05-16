@@ -13,6 +13,7 @@ use App\Order;
 use App\Project;
 
 use App\User;
+use App\ClientTask;
 use Auth;
 
 class WizeredController extends Controller
@@ -140,6 +141,8 @@ class WizeredController extends Controller
             $coupon = Coupon::where('code', $request->couponCode)->where('status', 1)->first();
             if ($coupon != null) {
                 self::insertWizered('couponUsedId', $coupon->id);
+                $coupon->status = 0;
+                $coupon->save();
             }
         }
         $user = Auth::user();
@@ -444,10 +447,40 @@ class WizeredController extends Controller
 
         self::insertWizered('wizered', 'allDone');
 
+
+        $this->createVideoTutorialTask();
+
         return redirect('supportPortalHome');
     }
 
+    public function createVideoTutorialTask()
+    {
 
+      $description = <<<HTML
+      <div class="col-sm-12">
+       <div class="card">
+
+           <div class="card-body">
+               <div class="row justify-content-center">
+                   <div class="col-md-8 col-12">
+                       <div class="embed-responsive embed-responsive-16by9">
+                           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/IkyZHPnfFnE?rel=0" allowfullscreen></iframe>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+HTML;
+      $data = [
+        'userId'=> Auth::id(),
+        'createdBy'=> 1,
+        'title'=> 'How to use the portal.. Watch Tutorial',
+        'dueOn'=> date('Y-m-d'),
+        'description'=> $description
+      ];
+      ClientTask::create($data);
+    }
     public static function getWizered($data)
     {
         $wizerd = Wizered::query();
