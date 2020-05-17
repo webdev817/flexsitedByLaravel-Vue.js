@@ -238,10 +238,10 @@ class ProjectController extends Controller
       $projectMilestoneChat->save();
 
       if (superAdmin()) {
+        newNoti(1, "Project feedbackcomment","New " .$project->title . " project Feedback Comment", route('projects.show',$project->id), $project->createdBy);
+      }else {
         newNoti(1, "Project feedbackcomment", "New " .$project->title . " project Feedback Comment",
         route('projects.show',$project->id), 0);
-      }else {
-        newNoti(1, "Project feedbackcomment","New " .$project->title . " project Feedback Comment", route('projects.show',$project->id), $project->createdBy);
       }
 
 
