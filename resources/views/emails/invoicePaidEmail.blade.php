@@ -13,7 +13,7 @@
 </p>
 <br>
 <p>
-If you haven’t completed business information, please login <a href="{{ route('login') }}">here</a> to complete it.
+If you haven't completed your business information, please login <a href="{{ route('login') }}">here</a> to complete it.
 </p>
 <br>
 <p>
