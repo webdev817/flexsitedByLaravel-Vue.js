@@ -44,7 +44,7 @@
                                                     <tr>
                                                         <th>Page</th>
                                                         <th>Question</th>
-                                                        <th>Answer</th>
+                                                        {{-- <th>Answer</th> --}}
                                                         <th>Status</th>
 
                                                         <th>Action</th>
@@ -60,11 +60,11 @@
                                                             {{ $onBoardingFaq->question }}
                                                         </td>
 
-                                                        <td>
+                                                        {{-- <td>
 
                                                           {{ $onBoardingFaq->answer }}
 
-                                                        </td>
+                                                        </td> --}}
 
                                                         <td>
                                                           @if ($onBoardingFaq->status == 1)
