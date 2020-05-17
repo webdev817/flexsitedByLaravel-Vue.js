@@ -464,7 +464,7 @@ class WizeredController extends Controller
                <div class="row justify-content-center">
                    <div class="col-md-8 col-12">
                        <div class="embed-responsive embed-responsive-16by9">
-                           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/IkyZHPnfFnE?rel=0" allowfullscreen></iframe>
+                           <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/tW4FGWLJVCw?rel=0" allowfullscreen></iframe>
                        </div>
                    </div>
                </div>
@@ -475,7 +475,7 @@ HTML;
       $data = [
         'userId'=> Auth::id(),
         'createdBy'=> 1,
-        'title'=> 'How to use the portal.. Watch Tutorial',
+        'title'=> 'How to use the client portal',
         'dueOn'=> date('Y-m-d'),
         'description'=> $description
       ];
