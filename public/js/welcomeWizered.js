@@ -154,7 +154,7 @@ function updateRecurringPriceYo() {
 
     var finalOutput = "<div class='couponApplied d-inline'>$" + recurringAmount + "</div> " + " <span class='font8px'>,One Time</span> " + recurringAmountAfterDiscount;
     $("#recurringAmount").html(finalOutput);
-  } else if (coupon.freeOnePageWebsite == 1 && $("#hiddenPlanNumber").val() == 1) {
+  } else if (coupon.freeOnePageWebsite == 1 && parseInt($("#hiddenPlanNumber").val()) == 1) {
     recurringAmountForTotal = 0;
     var finalOutput = "<div class='couponApplied d-inline'>$" + recurringAmount + "</div> " + " <span class='font8px'>,One Time</span> Free";
     $("#freewebsiteCardnot").removeClass('d-none');

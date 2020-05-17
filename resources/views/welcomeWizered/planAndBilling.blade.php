@@ -1,6 +1,6 @@
 <form class="" action="{{ route('storeBilling') }}" id="payment-form" method="post">
 @csrf
-<input type="hidden" name="hiddenPlanNumber" value="{{ $planNumber }}">
+<input type="hidden" id="hiddenPlanNumber" name="hiddenPlanNumber" value="{{ $planNumber }}">
 <input type="hidden" id="hiddenPlanDurration" name="hiddenPlanDurration" value="m">
 
 
