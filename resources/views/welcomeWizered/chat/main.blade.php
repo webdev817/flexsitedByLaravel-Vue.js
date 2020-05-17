@@ -4,7 +4,12 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Chat</h5>
+        <h5 class="modal-title">Onboarding Support Chat <br>
+          <p style="font-size: 12px;">
+            (Live specialist available Mon-Fri EST 10am-5pm)
+          </p>
+
+        </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
