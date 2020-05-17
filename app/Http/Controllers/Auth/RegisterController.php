@@ -52,7 +52,11 @@ class RegisterController extends Controller
         }
         $this->validator($request->all())->validate();
 
+
         event(new Registered($user = $this->create($request->all())));
+
+        newNoti(1, "new user registered","new user " . $user->name . " has registered",
+        route('clientOnBoarding',$user->id), 0);
 
         $this->guard()->login($user);
 

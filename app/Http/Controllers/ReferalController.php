@@ -124,7 +124,7 @@ class ReferalController extends Controller
       newNoti(1, "New referal", "New referal request received",
       route('referals'), 0);
 
-      return status('Your message received, We will be in touch soon.');
+      return status('We have received your information. We will be in touch soon');
     }
 
     public function referals(Request $request)

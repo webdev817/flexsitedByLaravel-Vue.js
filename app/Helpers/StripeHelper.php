@@ -197,6 +197,9 @@ class StripeHelper
             ->create();
             }
 
+            newNoti(1, "new subscription",$user->name . " started a new subscription",
+            route('allSubscriptions'), 0);
+
             $obj->status = 1;
             $obj->subscription = $subscription;
 
