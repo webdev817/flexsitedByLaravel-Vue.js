@@ -167,7 +167,10 @@
                   <h6 class="d-inline grayColor">RECURRING AMOUNT:</h6>
                   <h6 class="favColor d-inline" id="recurringAmount">$0</h6>
                   <div class="col-12"></div>
-                  <h6 id="freewebsiteCardnot" class="d-none grayColor">Your card will not be charged at this time</h6>
+                  <h6 id="freewebsiteCardnot" class="d-none grayColor">
+                    Your card will not be charged at this time. 
+                    You will be charged $29.95 after 60 days.
+                  </h6>
 
             </div>
         </div>
