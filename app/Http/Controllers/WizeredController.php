@@ -11,10 +11,12 @@ use App\Design;
 use App\Coupon;
 use App\Order;
 use App\Project;
-
+use App\Addon;
+use App\MarketingService;
 use App\User;
 use App\ClientTask;
 use Auth;
+use DB;
 
 class WizeredController extends Controller
 {
@@ -40,20 +42,30 @@ class WizeredController extends Controller
         if ($categoryId != null) {
             $designs = $designs->where('categoryId', $categoryId);
         }
-
+        $user = $request->user();
         $designs = $designs->paginate(12);
-
+        $pages = 1;
         $designCategory = DesignCategory::where('status', 1)->get();
 
-        return view('welcomeWizered.main', compact('currentStep', 'designs', 'designCategory'));
+        return view('welcomeWizered.main', compact('currentStep', 'designs', 'designCategory','user','pages'));
     }
+
+    public function deletePlan(Request $request){
+
+        
+        DB::table('plan_offers')->delete();
+     
+       return statusTo('Plan featurs delete successfulllly');
+   }
+
     public function websitePackege(Request $request)
     {
         $currentStep = 3;
 
         $plans = flexsitedPlans();
-
-        return view('welcomeWizered.main', compact('currentStep', 'plans'));
+        $user = $request->user();
+        $pages = 1;
+        return view('welcomeWizered.main', compact('currentStep', 'plans','user','pages'));
     }
     public function selectedDesign(Request $request, $designId)
     {
@@ -95,15 +107,18 @@ class WizeredController extends Controller
         $currentStep = 4;
 
         $user = $request->user();
-
+        $pages = 1;
 
         $intent = $user->createSetupIntent();
 
         $plans = flexsitedPlans();
 
         $plan = $plans[$planNumber - 1];
+        $addon = Addon:: all()->first();
+        $renewalDateM = date('m-d-Y', strtotime('+1 month'));
+        $renewalDateY = date('m-d-Y', strtotime('+1 year'));
 
-        return view('welcomeWizered.main', compact('currentStep', 'planNumber', 'intent', 'plans', 'plan'));
+        return view('welcomeWizered.main', compact('pages','currentStep', 'planNumber', 'intent', 'plans', 'plan','addon','user','renewalDateM','renewalDateY'));
     }
     public function businessInformation(Request $request)
     {
@@ -114,20 +129,114 @@ class WizeredController extends Controller
           ]);
         }
         $currentStep = 5;
-        $selectedWebsitePackege = self::getWizered('selectedWebsitePackege')->first()->value;
+        $selectedWebsitePackege = self::getWizered('selectedWebsitePackege')->first();
         $pages = 0;
-        if ($selectedWebsitePackege == 1) {
-            $pages = 1;
-        } elseif ($selectedWebsitePackege == 2) {
-            $pages = 3;
-        } elseif ($selectedWebsitePackege == 3) {
-            $pages = 5;
-        } else {
-            $pages = 10;
-        }
+        if ($selectedWebsitePackege) {
+            $selectedWebsitePackege = $selectedWebsitePackege->value;
 
-        return view('welcomeWizered.main', compact('currentStep', 'pages'));
+            if ($selectedWebsitePackege == 1) {
+                $pages = 1;
+            } elseif ($selectedWebsitePackege == 2) {
+                $pages = 5;
+            } elseif ($selectedWebsitePackege == 3) {
+                $pages = 10;
+            } else {
+                $pages = 10;
+            }
+        }
+        $user = $request->user();
+        return view('welcomeWizered.main', compact('currentStep', 'pages','user'));
     }
+
+    public function storeGraphicDesignBilling(Request $request)
+    {
+         $request->validate(
+            [
+            'paymentMethod'=>'required'
+            ]
+        );
+        $user = Auth::user();
+        $paymentMethod = $request->paymentMethod;
+
+        $obj = StripeHelper::updateCard($paymentMethod);
+
+        if ($obj->status == 0) {
+            return errorMessage($obj->message);
+        }
+        $logoDesign = $request->logoDesign;
+
+        $stripeChargeAmount = 0;
+        $stripeChargeMessage = '';
+        $addon = Addon::all()->first();
+
+        if ($logoDesign == "on") 
+        {
+            self::insertWizered("logoDesign", $logoDesign);
+            
+            $stripeChargeAmount = $addon->logoDesignPrice;
+   
+            $stripeChargeMessage = "Logo Design  ";
+            self::createOrder(0);
+        }
+        $businessCardDesign = $request->businessCardDesign;
+
+        if ($businessCardDesign == "on") 
+        {
+            self::insertWizered("businessCardDesign", $businessCardDesign);
+            $stripeChargeAmount = $stripeChargeAmount + $addon->cardDesignPrice;
+
+            $stripeChargeMessage .= "Business Card Design  ";
+            self::createOrder(2);
+        }
+        $flayerDesign = $request->flayerDesign;
+        if ($flayerDesign == "on") 
+        {
+            self::insertWizered("flayerDesign", $flayerDesign);
+            
+           $stripeChargeAmount = $stripeChargeAmount + $addon->flayerDesignPrice;
+            $stripeChargeMessage .= "Flayer Design ";
+
+            self::createOrder(1);
+        }
+        $socialMediaDesign = $request->socialMediaDesign;
+        if ($socialMediaDesign == "on") 
+        {
+            self::insertWizered("socialMediaDesign", $socialMediaDesign);
+            
+           $stripeChargeAmount = $stripeChargeAmount + $addon->socialMediaDesignPrice;
+            $stripeChargeMessage .= "Social Media Design ";
+
+            self::createOrder(3);
+        }
+        $stripeChargeAmount = $stripeChargeAmount * 100; // cents to dollers
+
+        self::insertWizered('stripeChargeAmount', $stripeChargeAmount);
+        self::insertWizered('stripeChargeMessage', $stripeChargeMessage);
+       if ($stripeChargeAmount > 0) 
+       {
+            $chargeStatus = StripeHelper::chargeForFlexSited($stripeChargeAmount, $stripeChargeMessage);
+
+            if ($chargeStatus->status == 3) {
+                self::insertWizered("charged", 'inComplete');
+                return $chargeStatus->response;
+            }
+            if ($chargeStatus->status == 0) {
+                self::insertWizered("charged", $chargeStatus->message);
+                return errorMessage($chargeStatus->message);
+            }
+            self::insertWizered("chargeInvoiceId", $chargeStatus->stripeCharge->id);
+
+            self::insertWizered("charged", 'complete');
+        } else {
+            self::insertWizered("charged", 'NotNeeded');
+        }
+        self::insertWizered("graphicStatus", 'true');
+        
+        if ($obj->status == 1) {
+            return redirect()->route('businessInformation')->with('status', 'Subscription successfull');
+        }
+    }
+
     public function storeBilling(Request $request)
     {
         $request->validate(
@@ -190,10 +299,11 @@ class WizeredController extends Controller
         $stripeChargeAmount = 0;
         $stripeChargeMessage = '';
 
+        $addon = Addon::all()->first();
         if ($logoDesign == "on") {
             self::insertWizered("logoDesign", $logoDesign);
             if ($coupon == null || $coupon->freeLogo != 1) {
-                $stripeChargeAmount = 100;
+                $stripeChargeAmount = $addon->logoDesignPrice;
             }
             $stripeChargeMessage = "Logo Design  ";
             self::createOrder(0);
@@ -203,7 +313,7 @@ class WizeredController extends Controller
             self::insertWizered("businessCardDesign", $businessCardDesign);
 
             if ($coupon == null || $coupon->freeBusinessCard != 1) {
-                $stripeChargeAmount = $stripeChargeAmount + 150;
+                $stripeChargeAmount = $stripeChargeAmount + $addon->cardDesignPrice;
             }
 
             $stripeChargeMessage .= "Business Card Design  ";
@@ -213,7 +323,7 @@ class WizeredController extends Controller
         if ($flayerDesign == "on") {
             self::insertWizered("flayerDesign", $flayerDesign);
             if ($coupon == null || $coupon->freeFlayer != 1) {
-                $stripeChargeAmount = $stripeChargeAmount + 200;
+                $stripeChargeAmount = $stripeChargeAmount + $addon->flyerDesignPrice;
             }
             $stripeChargeMessage .= "Flayer Design    ";
 
@@ -340,51 +450,56 @@ class WizeredController extends Controller
     public function makeValidationForBusinessInformation()
     {
         $rules = [
-        'logoUpload.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-        'galleryImages.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
-        'contentUpload' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'logoUpload.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:25000',
+        'galleryImages.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:25000',
+        'contentUpload' => 'nullable|max:100000|mimes:doc,pdf,docx,zip',
 
-        'contentUploadForFlyer' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'contentUploadForFlyer' => 'nullable|max:100000|mimes:doc,pdf,docx,zip',
         'flayerColorPrefernce' => 'nullable|string|max:255',
-        'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:25000',
 
         'nameofCompanyForLog'=> 'nullable|string|max:255',
         'taglineSlogan'=> 'nullable|string|max:255',
         'logoColorPrefernce'=> 'nullable|string|max:255',
         'textandImageOrText'=> 'nullable|string|max:255',
         'logoFontPrefernce'=> 'nullable|string|max:255',
-        'logoExamples.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        'logoProjectDetail'=> 'nullable|string|max:255',
+        'websiteProjectDetail'=>'nullable|string|max:255',
+        'businessProjectDetail'=>'nullable|string|max:255',
+        'socialProjectDetail'=>'nullable|string|max:255',
+        'logoExamples.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:25000',
 
-        'contentUploadForFlyer' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'contentUploadForFlyer' => 'nullable|max:100000|mimes:doc,pdf,docx,zip',
         'flayerColorPrefernce'=> 'nullable|string|max:255',
-        'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        'flyerProjectDetail'=> 'nullable|string|max:255',
+        'imagesandlogoForFlyer.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:25000',
+
 
         'frontandbackdesign'=> 'nullable|string|max:255',
-        'contentFront' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
-        'contentBack' => 'nullable|max:25000|mimes:doc,pdf,docx,zip',
+        'contentFront' => 'nullable|max:100000|mimes:doc,pdf,docx,zip',
+        'contentBack' => 'nullable|max:100000|mimes:doc,pdf,docx,zip',
         'businesssCardColorPrefernce'=> 'nullable|string|max:255',
-        'logoImagesAndLogo.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:15000',
+        'logoImagesAndLogo.*' => 'nullable|mimes:jpg,jpeg,png,bmp,zip|max:25000',
 
 
       ];
 
         $messages = [
         'logoUpload.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
-        'logoUpload.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        'logoUpload.*.max' => 'Sorry! Maximum allowed size can be 25MB',
         'galleryImages.*.mimes' => 'Only jpeg,png and bmp images or zip are allowed',
-        'galleryImages.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        'galleryImages.*.max' => 'Sorry! Maximum allowed size can be 25MB',
 
-        'logoExamples.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        'logoExamples.*.max' => 'Sorry! Maximum allowed size can be 25MB',
 
-        'imagesandlogoForFlyer.*.max' => 'Sorry! Maximum allowed size can be 15MB',
-        'logoImagesAndLogo.*.max' => 'Sorry! Maximum allowed size can be 15MB',
+        'imagesandlogoForFlyer.*.max' => 'Sorry! Maximum allowed size can be 25MB',
+        'logoImagesAndLogo.*.max' => 'Sorry! Maximum allowed size can be 25MB',
       ];
         return [$rules, $messages];
     }
     public function businessInformationStore(Request $request)
     {
-        $businessName = $request->businessName;
-        $businessPhoneNumber = $request->businessPhoneNumber;
+
         $businessAddress = $request->businessAddress;
         $hoursOfOperation = $request->hoursOfOperation;
         $whatBeautyServicesDoYouOffer = $request->whatBeautyServicesDoYouOffer;
@@ -400,8 +515,8 @@ class WizeredController extends Controller
         $request->validate($arr[0], $arr[1]);
 
 
-        self::insertWizered('businessName', $businessName);
-        self::insertWizered('businessPhoneNumber', $businessPhoneNumber);
+        // self::insertWizered('businessName', $businessName);
+        // self::insertWizered('businessPhoneNumber', $businessPhoneNumber);
         self::insertWizered('businessAddress', $businessAddress);
         self::insertWizered('hoursOfOperation', $hoursOfOperation);
         self::insertWizered('whatBeautyServicesDoYouOffer', $whatBeautyServicesDoYouOffer);
@@ -418,6 +533,11 @@ class WizeredController extends Controller
         self::valueToDB('logoColorPrefernce');
         self::valueToDB('textandImageOrText');
         self::valueToDB('logoFontPrefernce');
+        self::valueToDB('websiteProjectDetail');
+        self::valueToDB('logoProjectDetail');
+        self::valueToDB('flyerProjectDetail');
+        self::valueToDB('businessProjectDetail');
+        self::valueToDB('socialProjectDetail');
         // logoExamples[]
 
         // contentUploadForFlyer
@@ -452,7 +572,54 @@ class WizeredController extends Controller
 
         return redirect('supportPortalHome');
     }
+    public function storeMarketing(Request $request)
+    {
 
+
+        $marketingStrategy = $request->marketingStrategy;
+        $emailMarketing = $request->emailMarketing;
+        $contentMarketing = $request->contentMarketing;
+        $videoMarketing = $request->videoMarketing;
+        $searchEngineOptimization = $request->searchEngineOptimization;
+
+        if ($marketingStrategy =="on") {
+            $marketingService = new MarketingService;
+            $marketingService->createdBy = Auth::id();
+            $marketingService->marketingService = "Marketing Strategy";
+            $marketingService->save();
+        }
+        if ($emailMarketing =="on") {
+            $marketingService = new MarketingService;
+            $marketingService->createdBy = Auth::id();
+            $marketingService->marketingService = "Email Marketing";
+            $marketingService->save();
+        }
+
+        if ($contentMarketing =="on") {
+            $marketingService = new MarketingService;
+            $marketingService->createdBy = Auth::id();
+            $marketingService->marketingService = "Content Marketing";
+            $marketingService->save();
+        }
+
+        if ($videoMarketing =="on") {
+            $marketingService = new MarketingService;
+            $marketingService->createdBy = Auth::id();
+            $marketingService->marketingService = "VideoMarketing";
+            $marketingService->save();
+        }
+        if ($searchEngineOptimization =="on") {
+            $marketingService = new MarketingService;
+            $marketingService->createdBy = Auth::id();
+            $marketingService->marketingService = "Search Engine Optimization";
+            $marketingService->save();
+        }
+        self::insertWizered('wizered', 'allDone');
+        $this->createVideoTutorialTask();
+
+        return redirect('supportPortalHome');
+
+    }
     public function createVideoTutorialTask()
     {
 
@@ -501,8 +668,9 @@ HTML;
     public static function createOrder($type)
     {
         $orders = getSupportOrders();
-
+        
         $order = $orders[$type];
+
         $price = $order->price;
         if ($type == 4) {
             $price = 0;
@@ -637,5 +805,32 @@ HTML;
         $wizered->key = $key;
         $wizered->value = $value;
         $wizered->save();
+    }
+    public function websiteDesign(Request $request)
+    {
+        $user = $request->user();
+        $currentStep = 1;
+        $pages = 1;
+        self::insertWizered("currentStep", $currentStep);
+      return view('welcomeWizered.main', compact('currentStep','user','pages'));
+    }
+
+    public function graphicDesignBilling(Request $request)
+    {
+
+        $currentStep = 6;
+        self::insertWizered("currentStep", $currentStep);
+        $addon = Addon:: all()->first();
+        $user = $request->user();
+        $intent = $user->createSetupIntent();
+       return view('welcomeWizered.main', compact('currentStep','user','intent','addon'));
+    }
+    public function marketing(Request $request)
+    {
+
+        $currentStep = 7;
+        self::insertWizered("currentStep", $currentStep);
+        $user = $request->user();
+        return view('welcomeWizered.main', compact('currentStep','user'));
     }
 }

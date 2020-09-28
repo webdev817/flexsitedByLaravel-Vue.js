@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanOfferSeeder::class);
         $this->call(OrderTableSeeder::class);
         $this->call(OnBoardingFaqSeeder::class);
+        $this->call(AddonSeeder::class);
 
     }
 }

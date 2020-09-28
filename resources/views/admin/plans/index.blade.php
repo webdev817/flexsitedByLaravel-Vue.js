@@ -1,5 +1,9 @@
 @extends('layouts.supportPortal.master')
-
+<style type="text/css">
+    .table{
+        text-align: center;
+    }
+</style>
 @section('body')
 
 
@@ -72,6 +76,47 @@
 
                                 </div>
 
+                            </div>
+                        </div>
+                                               
+                        <div class="row">
+                            <div class="col-12 mt-4" style="text-align: center;">
+                                <h4>ADD ON</h4>
+                                <div class="bg-white mg-t-20 mg-sm-t-30">
+                                    <div class="table-responsive">
+                                        <table class="table mg-b-0 tx-13">
+                                            <thead>
+                                                <tr>
+                                                    <th>Logo Design</th>
+                                                    <th>Business Card Design</th>
+                                                    <th>Flyer Design</th>
+                                                    <th>Social Media Design </th>
+                                                    <th>Price Change</th>                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        ${{ $addon->logoDesignPrice }}
+                                                    </td>
+                                                    <td>
+                                                        ${{ $addon->cardDesignPrice }}
+                                                    </td>
+                                                    <td>
+                                                        ${{ $addon->flyerDesignPrice }}
+                                                    </td>
+                                                    <td>
+                                                        ${{$addon->socialMediaDesignPrice}}
+                                                    </td>
+                                                    <td>
+                                                        <a href="{{ route('addonEdit',$addon->id) }}" class="btn btn-primary ">change</a>         
+                                                    </td>
+                                                </tr>
+                                             
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

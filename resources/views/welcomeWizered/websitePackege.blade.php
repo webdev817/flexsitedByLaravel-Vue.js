@@ -28,12 +28,12 @@
             <div class="w-100 planOfferBox  hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+            {{-- <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
-            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
-            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>--}}
             <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege',1) }}">Sign Up</a> </div>
         </div>
 
@@ -56,11 +56,11 @@
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
-            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+           {{-- <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
 
-            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div> --}}
             <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege',2) }}">Sign Up</a> </div>
 
 
@@ -81,6 +81,7 @@
               <div class="w-100 planOfferBox ">{{ $offer->title }} </div>
             @endforeach
 
+            <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
             <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege', 3) }}">Sign Up</a> </div>
@@ -139,12 +140,12 @@
                     <div class="w-100 planOfferBox  hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+                   {{-- <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
-                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
-                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div> --}}
                     <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege',[1,'y'=>'1']) }}">Sign Up</a> </div>
                 </div>
 
@@ -167,11 +168,11 @@
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
-                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+                    {{-- <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
 
-                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
+                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div> --}}
                     <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege',[2,'y'=>'1']) }}">Sign Up</a> </div>
 
 
@@ -192,6 +193,7 @@
                       <div class="w-100 planOfferBox ">{{ $offer->title }} </div>
                     @endforeach
 
+                    <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox hideonMobileAndSM"> &nbsp; </div>
                     <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege', [3,'y'=>'1']) }}">Sign Up</a> </div>
@@ -217,7 +219,9 @@
                     <div class="w-100 planOfferBox active"> <a href="{{ route('selectedWebsitePackege',[4,'y'=>'1']) }}">Sign Up</a> </div>
 
                 </div>
-
+                <div  style = "display:none;">
+                  <a href="{{route('deletePlan')}}">deletePlan</a>
+                </div>
 
 
 

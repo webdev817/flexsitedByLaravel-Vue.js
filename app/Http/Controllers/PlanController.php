@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Plan;
+use App\Addon;
 use Illuminate\Http\Request;
 use StripeHelper;
 
@@ -16,7 +17,8 @@ class PlanController extends Controller
     public function index()
     {
       $plans = Plan::all();
-      return view('admin.plans.index', compact('plans'));
+      $addon = Addon::all()->first();
+      return view('admin.plans.index', compact('plans','addon'));
     }
 
     /**
@@ -60,9 +62,33 @@ class PlanController extends Controller
     public function edit(Plan $plan)
     {
 
-        return view('admin.plans.addEdit', compact('plan'));
+        return view('admin.plans.planEdit', compact('plan'));
+    }
+    public function addonEdit($id)
+    {
+        $addon = Addon::findOrFail($id);
+        return view('admin.plans.addonEdit', compact('addon'));
     }
 
+    public function addonUpdate(Request $request, $id)
+    {
+         
+
+        $request->validate([
+            'logoDesignPrice'=> 'required|min:1|max:255',
+            'cardDesignPrice'=> 'required|min:1|max:255',
+            'flyerDesignPrice'=> 'required|min:1|max:255',
+            'socialMediaDesignPrice'=> 'required|min:1|max:255',
+          ]);
+        
+        $addon = Addon::findOrFail($id);
+        $addon->logoDesignPrice = $request->logoDesignPrice;
+        $addon->cardDesignPrice = $request->cardDesignPrice;
+        $addon->flyerDesignPrice = $request->flyerDesignPrice;
+        $addon->socialMediaDesignPrice = $request->socialMediaDesignPrice;
+        $addon->save();
+        return statusTo('addon recreated successfully', route('plans.index'));
+    }
     /**
      * Update the specified resource in storage.
      *

@@ -123,7 +123,7 @@ class UsersController extends Controller
         $user->phone = $request->phone;
 
         $user->save();
-
+        
         return statusTo('User updated', route('users.index'));
     }
 
@@ -149,6 +149,7 @@ class UsersController extends Controller
 
         return statusTo('User deleted successfully', route('users.index'));
     }
+
 
     public function clientOnBoarding(Request $request, User $user)
     {
@@ -209,11 +210,17 @@ class UsersController extends Controller
 
     public function profile()
     {
+ 
       $user = Auth::user();
-      $invoices = $user->invoices(true,['limit'=> 100]);
       $intent = $user->createSetupIntent();
+      if (!superAdmin()){
+     
+        $invoices = $user->invoices(true,['limit'=> 100]);
+       return view('supportPortal.users.profile', compact('user','invoices', 'intent'));
+      }
+      
 
-      return view('supportPortal.users.profile', compact('user','invoices', 'intent'));
+      return view('supportPortal.users.profile', compact('user', 'intent'));
 
     }
     public function closeAccount(Request $request)

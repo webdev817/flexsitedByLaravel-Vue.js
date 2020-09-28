@@ -3,10 +3,10 @@
 
 <style media="screen">
 .select2-container--default .select2-selection--single .select2-selection__placeholder {
-    color: #6c757d;
+    color: #C3B5B3;
 }
   .cstmFontForDomainInput{
-    color: #6c757d !important;
+    color: #C3B5B3 !important;
   }
 
   .select2-container--default .select2-selection--single {
@@ -14,10 +14,11 @@
       /* border-radius: 4px */
   }
   .select2-container--default .select2-selection--single .select2-selection__rendered {
-      color: #6c757d;
+      color: #C3B5B3;
       line-height: 48px;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 14px;
+
+      /* font-weight: 600; */
   }
   .select2-container--classic .select2-selection--single:focus {
     border: 0px !important;
@@ -27,6 +28,7 @@
   }
   .select2-selection__rendered{
     border: 0px !important ;
+    padding-left:20px !important;
   }
   .select2-selection__rendered:focus{
     border: 0px !important;
@@ -40,30 +42,46 @@
        flex: 1 1 0%;
        min-width: 0;
 }
+.select2-container .select2-selection--single {
+  display: inline;
+}
+.cstmFontForDomainInput ::placeholder {
+  color: #6c757d;
+  opacity: 1; /* Firefox */
+}
 
+.cstmFontForDomainInput ::-ms-input-placeholder { /* Internet Explorer 10-11 */
+ color: #6c757d;
+}
+
+.cstmFontForDomainInput ::-ms-input-placeholder { /* Microsoft Edge */
+ color: #6c757d;
+}
 
 </style>
 <input type="hidden" id="maxPagesToBeSelected" value="{{ $pages }}">
-<div class="container pl-4 mt-5 pt-3 mb-5">
+<div class="container pl-4 mt-5 pt-3 mb-5 p-4">
 <form  action="{{  route('businessInformationStore') }}" autocomplete="off" onsubmit="return dosomeActionRelatedToBusinessInformation()" enctype="multipart/form-data" method="post">
 
 <input type="hidden" name="hiddenPageSelected" id="hiddenPageSelected" value="">
 
 @csrf
 
-
-
-
-
     <div class="row justify-content-center ">
         <div class="col-12 col-md-6 col-lg-6 col-xl-6 grayColor mt-3 p-0">
-            <h4 class="d-inline favColor">BUSINESS INFORMATION</h4>
+            <h4 class="d-inline favColor">
+            @if($pages == 0)
+             PROJECT INFORMATION
+            @else
+            BUSINESS INFORMATION
+            @endif
+            </h4>
         </div>
     </div>
     <div class="row justify-content-center">
       <div class="col-12 col-md-6 col-lg-6 col-xl-6 grayColor mt-3 p-0">
         <h6 class="d-inline text-dark">
-          Complete the items that you can and skip those that you don’t know . Feel free to log back in at any time to complete this step. Upon completion, your project manager will contact you within 24 business hours to go over the details with you</h6>
+        Thank you for your order!  Complete the items that you can and skip those that you don’t know . Feel free to log back in at any time to complete this step. Upon completion, your project manager will contact you within 24 business hours to go over the details with you</h6>
       </div>
     </div>
 
@@ -83,7 +101,7 @@
       </div>
     </div>
     @endif
-
+ @if($pages != 0)
     @include('welcomeWizered.businessinformation.businessInformation')
 
 
@@ -93,7 +111,7 @@
 
 
     @include('welcomeWizered.businessinformation.websiteDesign')
-
+@endif
 
 
 
@@ -106,6 +124,7 @@
 
     @include('welcomeWizered.businessinformation.businessCardDesign')
 
+    @include('welcomeWizered.businessinformation.socialMediaDesign ')
 
 
 
@@ -163,6 +182,14 @@
   $("#frontandbackdesign").select2({
     minimumResultsForSearch: -1,
     placeholder: "Would you like front and back design?"
+  }).val(null).change();
+  $("#socialSelected").select2({
+    minimumResultsForSearch: -1,
+    placeholder: "Which social media channel do you need designs created for? "
+  }).val(null).change();
+  $("#socialSelected1").select2({
+    minimumResultsForSearch: -1,
+    placeholder: "What do you need designed? "
   }).val(null).change();
 
 

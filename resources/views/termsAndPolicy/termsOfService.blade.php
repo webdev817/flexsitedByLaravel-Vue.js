@@ -1,87 +1,125 @@
-@extends('layouts.welcomeWizered')
 
-
-
-@section('body')
 <div class="container-fluid p-0 mb-5">
     <div class="row m-0">
         <div class="col-12 text-center p-0 " style="background-color:black;">
-            <img src="{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" alt="" class="navLogo noselect">
+            <img src="{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" alt="" class="navLogo noselect" style = "width:100% !important;">
         </div>
     </div>
     <div class="row m-4">
-        <div class="col-12 p-0">
-            <h1>Terms of Service</h1>
+        <div class="col-12 p-0 text-center">
+            <h1>Terms & Conditions</h1>
         </div>
 
         <div class="col-12 p-0">
+            <p>The last update to our Terms of Service was posted on June 14, 2020.</p>
             <p>
-                This web page represents a legal document that serves as our Terms of Service and it governs the legal terms of our website, http://flexsited.com, sub-domains, and any associated web-based and mobile applications (collectively,
-                "Website"), as owned and operated by Flexsited.
+                This web page represents a legal document that serves as our Terms of Service and it governs the legal terms of our website,
+                http://flexsited.com, sub-domains, and any associated web-based and mobile applications (collectively, “Website”),
+                as owned and operated by Flexsited.
             </p>
 
             <p>
-                Capitalized terms, unless otherwise defined, have the meaning specified within the Definitions section below. This Terms of Service, along with our Privacy Policy, any mobile license agreement, and other posted guidelines within our
-                Website, collectively "Legal Terms", constitute the entire and only agreement between you and Flexsited, and supersede all other agreements, representations, warranties and understandings with respect to our Website and the subject
-                matter contained herein. We may amend our Legal Terms at any time without specific notice to you. The latest copies of our Legal Terms will be posted on our Website, and you should review all Legal Terms prior to using our Website.
-                After any revisions to our Legal Terms are posted, you agree to be bound to any such changes to them. Therefore, it is important for you to periodically review our Legal Terms to make sure you still agree to them.
+                Capitalized terms, unless otherwise defined, have the meaning specified within the Definitions section below.
+                This Terms of Service, along with our Privacy Policy, any mobile license agreement, and other posted guidelines within our Website, 
+                collectively “Legal Terms”, constitute the entire and only agreement between you and Flexsited, 
+                and supersede all other agreements, representations, warranties and understandings with respect to our Website 
+                and the subject matter contained herein. We may amend our Legal Terms at any time without specific notice to you. 
+                The latest copies of our Legal Terms will be posted on our Website, and you should review all Legal Terms prior to using our Website. 
+                After any revisions to our Legal Terms are posted, you agree to be bound to any such changes to them. 
+                Therefore, it is important for you to periodically review our Legal Terms to make sure you still agree to them.
             </p>
             <p>
-                By accessing this website, you are agreeing to be bound by these Website Terms and Conditions of Use, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws. If you do not
-                agree with any of these terms, you are prohibited from using or accessing this site. The materials contained in this Website are protected by applicable copyright and trademark law.
+                By accessing this website, you are agreeing to be bound by these Website Terms and Conditions of Use, 
+                all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.
+                If you do not agree with any of these terms, you are prohibited from using or accessing this site. 
+                The materials contained in this Website are protected by applicable copyright and trademark law.
             </p>
 
 
         </div>
         <div class="col-12 p-0 mt-3">
-            <h3>Terms & Condition </h3>
+            <h3>Payment Terms</h3>
             <p>
                 Upon your first payment, you will be entering a monthly or annual payment cycle with Flexsited.
             </p>
-
+            <p>
+                To allocate and secure design and development time for any new web design project, a payment must be made. 
+                A monthly or annual payment secures this time for your website project and work commences shortly after pending current work load. 
+            </p>
+            <p>
+                The date payment is made starts your billing cycle.
+                Our billing system will automatically send out reminders when next term is due (monthly/annual).
+                We ask that the monthly service fee is paid on a recurring basis through our Stripe payment platform.
+            </p>
+            <p>
+                Flexsited reserves the right to cancel your account, without notice, upon rejection of any credit card charges, 
+                nonpayment of authorized charges by your bank, or any other indication of credit problems.
+            </p>
+            <p>
+                A late payment finance charge of 1.5% per month shall be added to all outstanding amounts due. 
+                If payment is not received by the next billing cycle, Clients will receive a reminder notice that
+                 payment is due and that service will be terminated if payment is not received by the following billing cycle.
+                If payment is not received by the following billing cycle, service will be terminated and collection of the past due amounts may be submitted to a collection agency.
+                Clients can reinstate service by paying all past due charges plus a deposit equal to one month’s service.
+            </p>
+            <p>
+                Subsequent Flexsited monthly charges are paid by automatic fund transfers, credit card transactions, and other payment methods. 
+                You may not place orders or attempt to pay for Flexsited services using any expired, false, or unauthorized bank or credit card.
+                Checks or ACH (electronic checks) issued on closed accounts or insufficient fund checks may be subject to a $25.00 handling fee. Declined credit cards, expired credit cards may be subject to a $25.00 handling fee. Flexsited charges a $200.00 fee to handle unauthorized credit card disputes. 
+                Unauthorized credit card disputes are those that are filed directly with a bank or credit card company without official communication or prior effort to resolve the dispute with Flexsited.
+            </p>
+            <p>
+                To dispute a charge, you must first contact our accounting department at accounting@flexsited.com and allow 14 business days for a response.
+                Flexsited reserves the right to cancel your account, without notice, upon rejection of any credit card charges, nonpayment of authorized charges by your bank, or any other indication of credit problems.
+            </p>
         </div>
         <div class="col-12 p-0 mt-3">
             <h3>Cancellation</h3>
             <p>
-                The Client agrees that they are entering a payment cycle of monthly or annual.
-                at ANYTIME the Client can end the monthly website plan service. The website will be deactivated and if required, you may have a cancellation fee of $250.00.
-
+                At any time, you may end your monthly website service plan.  
+                The website will be deactivated and if required, you may have a cancellation fee of $250.00.
             </p>
             <p>
-                The cancellation policy is determined by the plan that you have selected.
+                If you have selected our month to month plan, you can cancel at any time and pay a $250 cancellation fee. 
+                You must contact Flexsited to provide 30 days’ notice directly by calling 1-833-255-3233 and speaking with a customer service representative in order to cancel.
+            </p>
+            <ul style="list-style-type:disc">
+                <li>
+                	Your subscription runs through the end of each month, or billing cycle, and is based on the date of your website purchase. 
+                    No refunds are given for the current month of service.
+                </li>
+                <li>
+                    If you wish to cancel your subscription prior to 6 months of uninterrupted service, you will be charged a $250 cancellation fee.
+                </li>
+            </ul>
+            <p>
+                Services will terminate as of the end of the applicable billing period. Subscriptions cannot be cancelled via voicemail. You are responsible for all fees incurred up to and including the date of termination and upon termination you may receive a final bill reflecting the balance due for any remaining charges 
+                and agree to pay all such fees incurred by you and/or via your utilization of the Services. 
+                If you order any Services by telephone and do not agree to be legally bound by these Terms and Conditions at that time, you must notify Flexsited within seventy-two (72) hours from the time that Flexsited has sent you a welcome e-mail to your account e-mail address on record, that you desire to cancel such Services, 
+                whereby the Services will be cancelled, and a refund of any payments or fees already paid to Flexsited with respect to the order of the Services will be issued, with no further obligation by either Party. 
+                Your failure to notify Flexsited of cancellation of any Services as described above will indicate that you acknowledge and agree that you have read and understood these Terms and Conditions and agree to be legally bound by them.
             </p>
             <p>
-                If you have selected our month to month plan, you can cancel at any time and pay a $250 cancellation fee.
-            </p>
-
-
-            <p>
-                If you have selected our annual plan, you cancel at any time but because of the discount you were provided by selecting the annual plan, you will not receive a refund.
-            </p>
-            <p>
+                If you have selected our annual plan, you cancel at any time but because of the discount you were provided by selecting the annual plan, you will not receive a refund.  
                 You can request your domain name to be released from us and transferred to another hosting provider; for a small domain transfer fee of $40.
             </p>
-
-
         </div>
         <div class="col-12 p-0 mt-3">
             <h3>Branding</h3>
             <p>
-                Since most of our referrals come from our sites we build, as part of the already discounted pay monthly services, a link to Flexsited will appear in either small type or small graphic at the bottom of the Client’s website; and your
-                site may be featured on our portfolio. The branding link can be removed for a $2 p/mo branding removal fee.
+                Since most of our referrals come from our sites we build, as part of the already discounted pay monthly services, a link to Flexsited will appear in either small type or small graphic at the bottom of the Client’s website; and your site may be featured on our portfolio. 
+                The branding link can be removed for a $2 p/mo branding removal fee.
             </p>
             <p>
-                Additional charges will apply on changes to the design. Any service we provide is subject to acceptance and may be withdrawn at any time. If your payment is returned; your site may be temporarily taken offline until payment is made.
+                Additional charges will apply on changes to the design. Any service we provide is subject to acceptance and may be withdrawn at any time.
+                If your payment is returned; your site may be temporarily taken offline until payment is made.
             </p>
-
         </div>
-
-
         <div class="col-12 p-0 mt-3">
             <h3>Support & Updates</h3>
             <p>
-                We will update the components we install to your website and your content management system free of charge while you have a hosting & maintenance plan with us. This keeps your website safe and secure, and helps prevents hacking and
-                malware appearing on your website.
+                We will update the components we install to your website and your content management system free of charge while you have a hosting & maintenance plan with us. 
+                This keeps your website safe and secure, and helps prevents hacking and malware appearing on your website.
             </p>
             <p>
                 Submitting update requests is easy. Simply submit a website maintenance request through the client support portal with the changes you would like made.
@@ -93,32 +131,45 @@
             <p>
                 Your website will be browser tested for the most popular web browsers at the time of building your website. We do not cover the cost to make changes to your website that is due to major releases of new web browser.
             </p>
-
-
         </div>
-
         <div class="col-12 p-0 mt-3">
             <h3>Money Back Guarantee</h3>
             <p>
                 If after 14 days you’re not completely satisfied, we’ll either keep working on it until you’re happy, or refund your money under the following conditions:
             </p>
-            • Refund is within 14 days of signing up, and <br>
-            • Request comes prior to beginning revisions on your website draft. <br>
-            • Money Back Guarantee is not valid if website draft is accepted and revisions have begun. <b></b>
-
-            <h6>Refund Restrictions</h6>
-            • Refund is not allowed once revisions are requested. <br>
-            • Refund must be requested within 10 calendar days of signing up. <br>
-            • Refund not applicable on domain registration fees. <br>
-            • Refund must be requested in writing. <br>
-            • Refund not applicable on annual payment plans. <br>
-
+            <ul style="list-style-type:disc">
+                <li>
+                	Refund is within 14 days of signing up, and
+                </li>
+                <li>
+                	Request comes prior to beginning revisions on your website draft.
+                </li>
+                <li>
+                	Money Back Guarantee is not valid if website draft is accepted and revisions have begun.
+                </li>
+            </ul>
+            <h3>Refund Restrictions</h3>
+            <ul style = "list-style-type:disc">
+                <li>
+                	Refund is not allowed once revisions are requested.
+                </li>
+                <li>
+                	Refund must be requested within 14 calendar days of signing up.
+                </li>
+                <li>
+                	Refund not applicable on domain registration fees.
+                </li>
+                <li>
+                	Refund must be requested in writing.
+                </li>
+                <li>
+                	Refund not applicable on annual payment plans.
+                </li>
+            </ul>
             <p>
-                In order to claim a refund on the basis of this guarantee, the client must provide written notice of their request to cancel the project prior to 10 days once your project commences.
+            In order to claim a refund on the basis of this guarantee, the client must provide written notice of their request to cancel the project prior to 14 days once your project commences.
             </p>
-
         </div>
-
         <div class="col-12 p-0 mt-3">
             <h3>Exclusions</h3>
             <p>
@@ -147,34 +198,11 @@
 
 
         </div>
-
-
-        <div class="col-12 p-0">
-            <h3>Payment Terms</h3>
-
-            <p>
-                To allocate and secure design and development time for any new web design project, a payment must be made. A monthly or annual payment secures this time for your website project and work commences shortly after pending current work
-                load.
-
-
-                The last update to our Terms of Service was posted on April 2, 2020.
-
-            </p>
-            <p>
-                The date payment is made starts your billing cycle. Our billing system will automatically send out reminders when next term is due (monthly/annual).
-            </p>
-
-            <p>
-                We ask that the monthly service fee is paid on a recurring basis through our Stripe payment platform.
-
-            </p>
-        </div>
-
         <div class="col-12 p-0">
             <h3>Definitions</h3>
 
             <p>
-                The terms "us" or "we" or "our" refers to Flexsited, the owner of the Website.
+                The terms “us” or “we” or “our” refers to Flexsited, the owner of the website.
             </p>
             <p>
                 A "Visitor" is someone who merely browses our Website, but has not registered as Member.
@@ -198,7 +226,7 @@
         <div class="col-12 p-0">
             <h3>Use License</h3>
 
-            a. Permission is granted to temporarily download one copy of the materials (information or software) on Flexsited’s Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and
+            1. Permission is granted to temporarily download one copy of the materials (information or software) on Flexsited’s Website for personal, non-commercial transitory viewing only. This is the grant of a license, not a transfer of title, and
             under this license you may not:
             <br>
             &nbsp;&nbsp; i. modify or copy the materials; <br>
@@ -206,7 +234,7 @@
             &nbsp;&nbsp; iii. attempt to decompile or reverse engineer any software contained on Flexsited’s website; <br>
             &nbsp;&nbsp; iv. remove any copyright or other proprietary notations from the materials; or <br>
             &nbsp;&nbsp; v. transfer the materials to another person or “mirror” the materials on any other server. <br>
-            b. This license shall automatically terminate if you violate any of these restrictions and may be terminated by Flexsited at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must
+            2. This license shall automatically terminate if you violate any of these restrictions and may be terminated by Flexsited at any time. Upon terminating your viewing of these materials or upon the termination of this license, you must
             destroy any downloaded materials in your possession whether in electronic or printed format. <br>
         </div>
         <div class="col-12 p-0">
@@ -287,14 +315,12 @@
 
             </p>
 
-            <h3> Revisions and Errata
-            </h3>
+            <h3> Revisions and Errata</h3>
             <p>
                 The materials appearing on Flexsited’s Website could include technical, typographical, or photographic errors. Flexsited does not warrant that any of the materials on its Website are accurate, complete, or current. Flexsited may make
                 changes to the materials contained on its Website at any time without notice. Flexsited does not, however, make any commitment to update the materials.
             </p>
-            <h3> Disclaimer
-            </h3>
+            <h3> Disclaimer</h3>
 
             The materials on <strong>Flexsited</strong>'s Website are provided "as is" <strong>Flexsited</strong> makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties, including without limitation,
             implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights. Furthermore,<strong>Flexsited</strong> does not warrant or make any
@@ -344,10 +370,48 @@
                 accounting, and other provider charges, affirming or resulting from (i) any Content of most material You offer to the Site, (ii) Your use of any Content, or (iii) Your breach of the terms of these Terms. Flexsited will provide notice
                 to You promptly of any such claim, match, or case.
             </p>
-
-            <h3>General Terms
-
+            <h3> Copyright Notice 
             </h3>
+            <p>
+                Flexsited respects the intellectual property rights of others and desires to offer a platform which has no content that violates the said rights. Our terms and conditions agreement require that users provide information which is lawful, accurate and does not violate rights of third parties.
+            </p>
+            <p>
+                In order to ensure our objective is adhered to, Flexsited has provided a detailed procedure for submission of complaints regarding content on our website.
+            </p>
+            <p>
+                Kindly note that whether or not we disable access to or remove content, Flexsited may take a good faith attempt to forward the written notice which includes the complainant’s contact information, to the users who provided the content and/or take other reasonable measures to notify the user that Flexsited has received notice of an alleged violation of intellectual property rights.
+            </p>
+            <p>
+                Flexsited has the discretion to terminate and/or disable the user’s account in the event he or she is found culpable of infringing the rights of others.
+            </p>
+            <p>
+                Kindly note that Flexsited requires that you submit truthful and accurate information in the notice or counter-notice and the same must be submitted under penalty of perjury. Be warned that a false notice or counter-notice may result to personal liability. We advise that you seek legal counsel before submitting a notice or a counter-notice.
+            </p> 
+            <h3>
+                Notice of Copyright Infringement 
+            </h3>
+            <p>
+                Flexsited has incorporated procedures for receiving written notification of alleged infringements pursuant to the Digital Millennium Copyright Act (17 U.S.C. § 512). Flexsited has designated an agent to receive notices of claimed copyright infringement. 
+                In the event your copyright has been infringed, please furnish us with a written communication containing the following information:
+            </p>
+            &nbsp;&nbsp;1.	An electronic or physical signature of the person authorized to act on behalf of the owner of the copyright interest;<br>
+            &nbsp;&nbsp;2.	A description of the copyrighted work that you claim has been infringed;<br>
+            &nbsp;&nbsp;3.	A description specifying the location on our website of the material that you claim is infringing;<br>
+            &nbsp;&nbsp;4.	Your email address and your mailing address and/or telephone number;<br>
+            &nbsp;&nbsp;5.	A statement by you that you have a good faith belief that the disputed use is not authorized by the copyright owner, its agent, or the law; and<br>
+            &nbsp;&nbsp;6.	A statement by you, made under penalty of perjury, that the information in your notice is accurate and that you are the copyright owner or authorized to act on the copyright owner’s behalf.<br>
+            <h3>Counter-Notice </h3>
+            <p>
+                In the event you believe that a notice of copyright infringement has been unfairly submitted against you, please feel free to submit a Counter-Notice. The Digital Millennium Copyright Act under Sections 512 (g) (2) and (3) provide for submission of Counter-Notice.
+            </p>
+            <p>
+                Please furnish us with a written communication containing the following information:
+            </p>
+            &nbsp;&nbsp;1.	Your physical or electronic signature;<br>
+            &nbsp;&nbsp;2.	Identification of the material removed or to which access has been disabled;<br>
+            &nbsp;&nbsp;3.	A statement under penalty of perjury that you have a good faith belief that removal or disablement of the material was a mistake or that the material was misidentified;<br>
+            &nbsp;&nbsp;4.	Your full name, your email address, your mailing address, and a statement that you consent to the jurisdiction of the Federal District court (i) in the judicial district where your address is located if the address is in the United States, or (ii) if your address is located outside the United States, and that you will accept service of process from the Complainant submitting the notice or his/her authorized agent.<br>
+            <h3>General Terms</h3>
             <p>
                 Our Legal Terms shall be treated as though it were executed and performed in Georgia and shall be governed by and construed in accordance with the laws of Georgia without regard to conflict of law principles. In addition, you agree to
                 submit to the personal jurisdiction and venue of such courts. Any cause of action by you with respect to our Website, must be instituted within one (1) year after the cause of action arose or be forever waived and barred. Should any
@@ -355,19 +419,6 @@
                 conflicts or is inconsistent with our Legal Terms, our Legal Terms shall take precedence. Our failure to enforce any provision of our Legal Terms shall not be deemed a waiver of such provision nor of the right to enforce such
                 provision. The rights of Flexsited under our Legal Terms shall survive the termination of our Legal Terms.
             </p>
-
-
-
         </div>
-
-
-
     </div>
-
-
-
-
-
 </div>
-
-@endsection

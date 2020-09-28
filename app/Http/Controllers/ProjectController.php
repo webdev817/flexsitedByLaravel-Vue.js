@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use App\ProjectChat;
 use App\ProjectAttachment;
 use App\ProjectMilestoneChat;
+use App\SupportChat;
+use App\SupportChatSession;
+use App\Wizered;
+use App\Notification;
 use Storage;
 
 use Auth;
@@ -20,17 +24,18 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = Project::query();
+        $projects = Project::join('users', 'users.id', '=', 'projects.createdBy')
+                           ->addSelect('projects.*');
 
         if (superAdmin()) {
         }else {
-          $projects = $projects->where('createdBy', Auth::id());
+          $projects = $projects->where('projects.createdBy', Auth::id());
         }
-        $projects = $projects->orderBy('id','desc')->paginate(10);
-
+        $projects = $projects->orderBy('projects.id','desc')->paginate(10);
+        // dd($projects);
 
         $arr['projects'] = $projects;
-
+              
         return view('supportPortal.project.listProject',$arr);
     }
     public function startProjectWork(Request $request, Project $project)
@@ -74,8 +79,36 @@ class ProjectController extends Controller
       }elseif ($project->status == 20) {
         $status = "Canceled";
       }
-      newNoti(1, "Project is $status...", $project->title . " is $status ", route('projects.show',$project->id), $project->createdBy);
-
+      if ($status == "InProgress")
+      {
+        $statusmessage = "In Progress";
+      }
+      else if($status == "InReview")
+      {
+        $statusmessage = "In Review";
+      }
+      else{
+        $statusmessage = $status;
+      }
+      
+      newNoti(1, "Project is $statusmessage...", $project->title . " is $statusmessage ", route('projects.show',$project->id), $project->createdBy);
+      $user = $project->user;
+      $descriptions = "Your project is $statusmessage.";
+      $message = "[FLEXSITED]: Your project is $statusmessage.
+Please login in your account https://portal.flexsited.com/login to review the details.";
+      $data = [
+          'email' => $user->email,
+          'user' => $user,
+          'description'=> $descriptions
+        ];
+      $sms = [
+        // 'phone' =>"+16787411928",
+        'phone' => $user->phone,
+        'message'=>$message,
+      ];
+   
+      sendProjectUpdateEmail($data);
+      sendSMS($sms);
       return status('Status updated successfully');
 
     }
@@ -84,10 +117,6 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -171,7 +200,22 @@ class ProjectController extends Controller
       ]);
 
       newNoti(1, "Project Due on is updated", $project->title . " Due Date has been added", route('projects.show',$project->id), $project->createdBy);
-
+      $user = $project->user;
+      $descriptions = "Your Project has been updated.";
+      $message = "[FLEXSITED]: Your Project has been updated. 
+Please login in your account https://portal.flexsited.com/login to review the details.";
+      $data = [
+          'email' => $user->email,
+          'user' => $user,
+          'description'=> $descriptions
+        ];
+      $sms = [
+        'phone' =>$user->phone,
+        // 'phone' => '+16787411928',
+        'message'=>$message,
+      ];
+      sendSMS($sms);
+      sendProjectUpdateEmail($data);
     }
     public function projectFeedback(Request $request, Project $project){
       if ($project->createdBy != Auth::id() && !superAdmin()) {
@@ -184,7 +228,24 @@ class ProjectController extends Controller
       newNoti(1, "Project Rating", $project->title . " has a feedback", route('projectReview'), 0);
 
       Project::where('id',$project->id)->update($data);
+      $user = $project->user;
+      $descriptions = "Your Project Rating has a feedback.";
+      $message = "[FLEXSITED]: Your Project Rating has a feedback. 
+Please login in your account https://portal.flexsited.com/login to review the details.";
+      $data = [
+          'email' => $user->email,
+          'user' => $user,
+          'description'=> $descriptions
+        ];
+      $sms = [
+        'phone' =>$user->phone,
+        // 'phone' => '+16787411928',
+        'message'=>$message,
+      ];
 
+      
+      sendSMS($sms);
+      sendProjectUpdateEmail($data);
       return status('Thanks, your feedback has been saved.');
 
     }
@@ -256,7 +317,7 @@ class ProjectController extends Controller
     public function projectMilestone(Request $request,Project $project)
     {
       $data = $request->validate([
-        'file'=> 'required|max:80000',
+        'file'=> 'required|max:30000',
         'message'=> 'string|nullable'
       ]);
 
@@ -268,18 +329,34 @@ class ProjectController extends Controller
       ];
       $data['createdBy'] = Auth::id();
       $data['projectId'] = $project->id;
-      $data['path'] = $request->file->store('milestones');
+      $data['path'] = $request->file->storeAs('milestones', $request->file->getClientOriginalName());
       $projectAttachment = new ProjectAttachment($data);
 
       if ($request->isFinalDeliverAbles == 1) {
         $projectAttachment->isFinalDeliverAbles = 1;
-        $projectAttachment->workSourcePath = $request->source->store('source');
+        $projectAttachment->workSourcePath = $request->source->storeAs('source', $request->source->getClientOriginalName());
       }
       newNoti(1, "Project has new work", $project->title . " Project Upload for Review", route('projects.show',$project->id), $project->createdBy);
 
       $projectAttachment->save();
       Project::where('id',$project->id)->update(['status'=>3]);
-
+      $user = $project->user;
+      $descriptions = " Your project  has new work for your review.";
+      $message = "[FLEXSITED]: Your project  has new work for your review.
+Please login in your account https://portal.flexsited.com/login to review the details.";
+      $data = [
+          'email' => $user->email,
+          'user' => $user,
+          'description'=> $descriptions
+        ];
+      $sms = [
+        'phone' =>$user->phone,
+        // 'phone' => '+16787411928',
+        'message'=>$message,
+      ];
+      
+      sendSMS($sms);
+      sendProjectUpdateEmail($data);
       return status('Work uploaded');
     }
 }

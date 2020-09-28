@@ -46,7 +46,7 @@
     </div>
 
 
-    <div class="row m-0 mb-4 domainListStuff hide">
+    <div class="row m-0 mb-4 domainListStuff hide" style="display: none!important;">
       <div class="text-center col-12 ">
         <h3 class="favColor">Domain List</h3>
       </div>

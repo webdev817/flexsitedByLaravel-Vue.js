@@ -20,7 +20,9 @@ class MarketingServiceController extends Controller
 
     public function marketingServices()
     {
-        $marketingServices = MarketingService::paginate(20);
+        $marketingServices = MarketingService::join('users', 'users.id', '=', 'marketing_services.createdBy')
+                                             ->addSelect('marketing_services.*')         
+                                             ->paginate(20);
         return view('supportPortal.marketingService.list',compact('marketingServices'));
     }
 
@@ -97,8 +99,10 @@ class MarketingServiceController extends Controller
      * @param  \App\MarketingService  $marketingService
      * @return \Illuminate\Http\Response
      */
-    public function destroy(MarketingService $marketingService)
-    {
-        //
+    public function delete(Request $request) {
+        $marketingService = MarketingService::find($request->id);
+        $marketingService->delete();
+
+        return status('Marketing Service sucessefully deleted');
     }
 }

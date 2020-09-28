@@ -15,7 +15,7 @@
 
         <div class="row justify-content-center mb-3">
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 grayColor mt-3 p-0">
-                <h6 class="d-inline text-dark">
+                <h6 class="d-inline text-dark"  style = " @if($pages == 0) display : none !important; @else display:inline !important; @endif">
                     Only complete the following sections if you have purchased these as addons or it’s are part of your chosen plan.
                 </h6>
             </div>
@@ -64,6 +64,15 @@
                         <button class="btn btn-cstm rounded-0 shadow-none btnsPage5" type="button">
                             <i class="fas fa-paperclip" style="font-size:22px"></i>
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="justify-content-center row">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="row">
+                    <div class="borderFav input-group mb-3 p-1">
+                        <textarea value="{{ old('flyerProjectDetail') }}" rows="5" name="flyerProjectDetail" type="text" class="border-0 form-control shadow-none cstmFormControl" placeholder="You may enter project details here." aria-label="Flyer Design Project Detail"></textarea>
                     </div>
                 </div>
             </div>

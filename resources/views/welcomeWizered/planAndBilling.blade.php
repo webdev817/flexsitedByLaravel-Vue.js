@@ -2,7 +2,8 @@
 @csrf
 <input type="hidden" id="hiddenPlanNumber" name="hiddenPlanNumber" value="{{ $planNumber }}">
 <input type="hidden" id="hiddenPlanDurration" name="hiddenPlanDurration" value="m">
-
+<span class="d-none" id="renewalDateM">{{$renewalDateM}}</span>
+<span class="d-none" id="renewalDateY">{{$renewalDateY}}</span>
 
     <div class="container mt-5 pt-3 mb-5">
 
@@ -33,23 +34,25 @@
                 <div class="w-100 planHead hand  @if(request('y') != 1) active @endif" onclick="planSelected('m')">
                     {{ $plan->name }}
                     <div class="w-100 mt-2 pt-3 planPrice "> ${{ $plan->price }} </div>
-                    <div class="w-100 planDurration mt-2 "> Per Month </div>
+                    <div class="w-100 planDurration "> Per Month </div>
+                    <div class="w-100 space">temp</div>
                 </div>
-                @foreach ($plan->offers as $offer)
+                {{-- @foreach ($plan->offers as $offer)
                   <div class="w-100 planOfferBox ">{{ $offer->title }}</div>
-                @endforeach
+                @endforeach --}}
             </div>
 
             <div class="col-12 p-1 col-sm-6 col-md-6 col-lg-3 col-xl-3 monthlyOrYearlyPlan">
                 <div class="w-100 planHead hand  @if(request('y') == 1) active @endif"  onclick="planSelected('y')">
                     {{ $plan->name }}
                     <div class="w-100 mt-2 pt-3 planPrice "> ${{ $plan->priceYearly }} </div>
-                    <div class="w-100 planDurration mt-2 "> Per Year </div>
+                    <div class="w-100 planDurration "> Per Year </div>
+                    <div class="w-100 discount ">( Saved 20% )</div>
                 </div>
 
-                @foreach ($plan->offers as $offer)
+               {{-- @foreach ($plan->offers as $offer)
                   <div class="w-100 planOfferBox ">{{ $offer->title }}</div>
-                @endforeach
+                @endforeach --}}
 
             </div>
 
@@ -76,12 +79,11 @@
                             <label class="custom-control-label" for="logoDesign">
 
                               <div class="logoDiscountedPrice hide">
-                                <span class=" couponApplied">$100</span> Free
+                                <span>$<span class=" couponApplied">{{$addon->logoDesignPrice}}</span></span>Free
                               </div>
                               <div class="logoNormalPrice">
-                                <span class=" ">$100</span>
+                                <span>$<span class="logoDesignPrice ">{{$addon->logoDesignPrice}}</span></span>
                               </div>
-
                             </label>
                         </div>
                     </div>
@@ -98,12 +100,11 @@
                             <label class="custom-control-label" for="businessCardDesign">
 
                               <div class="businessDiscountedPrice hide">
-                                <span class=" couponApplied">$150</span> Free
+                                <span>$<span class=" couponApplied">{{$addon->cardDesignPrice}}</span></span>Free
                               </div>
                               <div class="businessNormalPrice">
-                                <span class=" ">$150</span>
+                                <span>$<span class="cardDesignPrice ">{{$addon->cardDesignPrice}}</span></span>
                               </div>
-
 
                             </label>
                         </div>
@@ -120,10 +121,10 @@
                             <input type="checkbox" name="flayerDesign" class="custom-control-input" id="flayerDesign">
                             <label class="custom-control-label" for="flayerDesign">
                               <div class="flayerDiscountedPrice hide">
-                                <span class=" couponApplied">$200</span> Free
+                               <span>$<span class=" couponApplied">{{$addon->flyerDesignPrice}}</span></span> Free
                               </div>
                               <div class="flayerNormalPrice">
-                                <span class=" ">$200</span>
+                                <span>$<span class="flyerDesignPrice">{{$addon->flyerDesignPrice}}</span></span>
                               </div>
                             </label>
                         </div>
@@ -165,11 +166,13 @@
                   <h4 class="favColor d-inline" id="amount"></h4>
                   <div class="col-12"></div>
                   <h6 class="d-inline grayColor">RECURRING AMOUNT:</h6>
-                  <h6 class="favColor d-inline" id="recurringAmount">$0</h6>
+                  <h6 class="favColor d-inline" id="recurringAmount">$0</h6> &nbsp; &nbsp;
+                  <h6 class="d-inline grayColor "  id="renewalDate1">RENEWAL DATE:</h6>
+                  <h6 class="favColor d-inline " id="renewalDate"></h6>
                   <div class="col-12"></div>
                   <h6 id="freewebsiteCardnot" class="d-none grayColor">
-                    Your card will not be charged at this time. 
-                    You will be charged $29.95 after 60 days.
+                  You will not be charged at this time. 
+                  Credit card details are stored on your account in case of future purchases.
                   </h6>
 
             </div>
@@ -199,7 +202,18 @@
 
 
         </div>
-
+        <div class="row justify-content-center mt-3">
+          <div class="col-12 col-md-12 col-lg-6 col-xl-6 ">
+              <div class="custom-control custom-checkbox">
+                  <input type="checkbox" @if(old('agree') == 1) checked
+                  @endif value="1" class="custom-control-input" name="termsandConditions" id="agree" required>
+                  <label class="custom-control-label" for="agree">
+                      By creating this subscription, you agree to the <a type="button" data-toggle="modal" data-target="#termsModal" href="">Terms and Conditions</a> and
+                      <a type="button" data-toggle="modal" data-target="#policyModal" href="">Privacy Policy.</a>
+                  </label>
+              </div>
+          </div>
+        </div>
         <div class="row justify-content-center mt-3">
           <div class="col-12 col-md-12 col-lg-6 col-xl-6 ">
             <div class="row">
@@ -224,7 +238,7 @@
         </div>
     </div>
 </div>
-
+@include('termsAndPolicy.modal')
 <style media="screen">
 
 
@@ -252,5 +266,10 @@
   color: #979797;
   opacity: 1;
 }
-
+.hidden{
+  display:none!important;
+}
+.show{
+  dispaly:block!important;
+}
 </style>

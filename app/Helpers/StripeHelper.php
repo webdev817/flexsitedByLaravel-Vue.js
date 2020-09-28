@@ -77,8 +77,11 @@ class StripeHelper
           'name' => $name,
           'percent_off' => $data['percentOff'],
           'id' => $id,
-          'duration'=>'once',
-          'currency'=> 'usd'
+          'duration'=>'repeating',
+          'currency'=> 'usd',
+          'duration_in_months'=> 12,
+
+     
         ]);
             return obj(1, "Coupon created successfully", 'coupon', $coupon);
         } catch (\Exception $e) {

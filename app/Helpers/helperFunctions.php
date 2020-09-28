@@ -1,4 +1,6 @@
 <?php
+
+use Twilio\Rest\Client;
 function getFunInfo($fun)
 {
     $reflFunc = new \ReflectionFunction($fun);
@@ -173,6 +175,16 @@ function sendInvoicePaidEmail(array $data)
 {
     $email = $data['email'];
     \Mail::to($email)->send(new App\Mail\InvoiceEmail($data));
+}
+function sendProjectUpdateEmail(array $data)
+{
+    $email = $data['email'];
+    \Mail::to($email)->send(new App\Mail\ProjectUpdateEmail($data));
+}
+function sendUserUpdateEmail(array $data)
+{
+    $email = $data['email'];
+    \Mail::to($email)->send(new App\Mail\UserUpdateEmail($data));
 }
 function storeDataToDisk($data)
 {
@@ -664,12 +676,11 @@ function whatWasLastStep()
 
 
     if ($temp == null) {
-        $obj->currentStep = 1;
+        $obj->currentStep = 0;
     } else {
         $obj->currentStep = $temp->value;
     }
-
-    if ($obj->currentStep == null || $obj->currentStep == 2) {
+    if ($obj->currentStep == 2) {
         $obj->continue = false;
         $obj->to = redirect()->route('select-design');
     } elseif ($obj->currentStep == 3) {
@@ -689,7 +700,14 @@ function whatWasLastStep()
         $obj->continue = false;
         $obj->to = redirect()->route('businessInformation');
     }
-
+    elseif ($obj->currentStep == 6){
+        $obj->continue = false;
+        $obj->to = redirect()->route('graphicDesignBilling');
+    }
+    elseif ($obj->currentStep == 7){
+        $obj->continue = false;
+        $obj->to = redirect()->route('marketing');
+    }
 
     if (request('back') == 1) {
         $obj->continue = true;
@@ -729,4 +747,30 @@ function getSupportOrders($orderType = null)
         return $orders[$orderType];
     }
     return null;
+}
+function sendSMS($sms) {
+
+    $phone = $sms['phone'];
+    $message = $sms['message'];
+    $sid   = config('services.twilio.sid');
+    $token = config('services.twilio.auth_token');
+
+    $client = new Client($sid, $token);
+
+    try{
+    $client->messages->create(
+        $phone,
+        [
+            'from' => config('services.twilio.from'),
+            'body' => $message
+        ]
+    );
+
+    } catch (\Exception $e) {
+        if (!empty($error_message))
+            add_message($error_message, 'danger');
+
+        return false;
+    }
+ 
 }

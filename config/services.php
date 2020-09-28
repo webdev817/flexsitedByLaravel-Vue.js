@@ -29,5 +29,12 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
+    // Twilio Account
+    'twilio' => [
+        'sid' => 'ACabad95ae525ed7fac705231724e24596',
+        'auth_token' => '98334f2f925397d05765be8f44ed7d05',
+        'from' => '+12013501226'
+    ],
+
 
 ];

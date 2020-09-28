@@ -102,5 +102,14 @@ application/vnd.openxmlformats-officedocument.wordprocessingml.document,.txt" cl
                 </div>
             </div>
         </div>
+        <div class="justify-content-center row">
+            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                <div class="row">
+                    <div class="borderFav input-group mb-3 p-1">
+                        <input value="{{ old('websiteProjectDetail') }}" name="websiteProjectDetail" type="text" class="border-0 form-control shadow-none cstmFormControl" placeholder="You may enter project details here." aria-label="Website Design Project Detail">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

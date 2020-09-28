@@ -21,7 +21,10 @@ a:hover {
 .authNavItem:hover {
   cursor: pointer;
 }
-
+.hero{
+  background-color: black;
+  height: 350px;
+}
 .authNavItem {
   background: #65c5b4;
   padding: 13px;
@@ -67,11 +70,13 @@ a:hover {
 
 @media (max-width: 576px) {
   .authLogo {
-    top: 2rem;
+    top: 4rem;
     left: 30%;
     width: 220px;
   }
-
+.hero{
+  height: 280px;
+}
   .authNavItem {
     padding: 9px;
     font-size: 15px;
@@ -88,11 +93,13 @@ a:hover {
 
 @media (max-width: 400px) {
   .authLogo {
-    top: 1rem;
-    left: 29%;
+    top: 4rem;
+    left: 24%;
     width: 169px;
   }
-
+ .hero{
+   height: 200px;
+ }
   .authNavItem {
     padding: 9px;
     font-size: 12px;
@@ -107,8 +114,8 @@ a:hover {
   }
 
   .authLogo {
-    top: 4rem;
-    left: 35%;
+    top: 6rem;
+    left: 24%;
     width: 260px;
   }
 
@@ -126,8 +133,8 @@ a:hover {
 
   .authLogo {
     position: absolute;
-    top: 4rem;
-    left: 24%;
+    top: 7rem;
+    left: 19%;
     width: 500px;
   }
 }
@@ -140,8 +147,8 @@ a:hover {
   }
 
   .authLogo {
-    top: 7rem;
-    left: 29%;
+    top: 6rem;
+    left: 26%;
   }
 }
 

@@ -135,7 +135,7 @@
                                 </div>
                                 <div class="row bg-white orderBoxes ml-0 mr-0 mt-4 table-responsive">
 
-
+                                @if (!superAdmin())
                                   @if (count($invoices) > 0)
                                   <table class="table  table-bordered m-0 m-0 p-0">
 
@@ -170,6 +170,7 @@
                                       <p>No billing history</p>
                                   </div>
                                   @endif
+                                @endif
                                 </div>
                             </div>
 

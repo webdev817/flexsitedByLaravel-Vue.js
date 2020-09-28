@@ -110,7 +110,9 @@ $(".commonSelectPages").click(function () {
     $(this).find('.boxRadioContainer').addClass('active');
   }
 });
-
+// $(document).ready(function(){
+//   $(".domainListStuff").css('display', 'none');
+// });
 function getRecurringAmount() {
   var elms = $(".planHead.active");
   var p = $(elms).children().filter('.planPrice').text();
@@ -166,21 +168,21 @@ function updateRecurringPriceYo() {
 
   var price = 0;
   var logoDesign = $("#logoDesign").is(':checked');
-
+  var logoPrice = Number($(".logoDesignPrice").text());
   if (logoDesign && coupon.freeLogo != 1) {
-    price = 100;
+    price = logoPrice;
   }
 
   var businessCardDesign = $("#businessCardDesign").is(':checked');
-
+  var businessCardPrice = Number($('.cardDesignPrice').text());
   if (businessCardDesign && coupon.freeBusinessCard != 1) {
-    price = price + 150;
+    price = price + businessCardPrice;
   }
 
   var flayerDesign = $("#flayerDesign").is(':checked');
-
+  var flayerPrice = Number($(".flyerDesignPrice").text());
   if (flayerDesign && coupon.freeFlayer != 1) {
-    price = price + 200;
+    price = price + flayerPrice;
   }
 
   price = price + recurringAmountForTotal;
@@ -266,9 +268,13 @@ $("#applyPromoCode").click(function () {
         $("#couponJsonHai").val('');
         $("#couponCode").val('');
         alert(response.message);
+        $("#renewalDate1").removeClass('hidden');
+        $("#renewalDate").removeClass('hidden');
         return 0;
       } else {
         var json = JSON.stringify(response.data.coupon);
+        $("#renewalDate1").addClass('hidden');
+        $("#renewalDate").addClass('hidden');
         $("#couponJsonHai").val(json);
         showTotalPrice();
       }

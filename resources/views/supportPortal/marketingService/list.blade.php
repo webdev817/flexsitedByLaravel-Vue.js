@@ -59,7 +59,7 @@
 
                                                             <a href="javascript:void(0)" data-obj='{
                                                                                           "userId": "{{$marketingService->id}}",
-                                                                                          "url": "{{ route('users.destroy', $marketingService->id) }}",
+                                                                                          "url": "{{ route('marketingServiceDelete', ['id' => $marketingService->id]) }}",
                                                                                           "method": "delete"
                                                                                         }' data-html="Are you sure you want to delete?"
                                                               class="label theme-bg2 text-white f-12 deleteConfirm"><i class="fas fa-trash text-white"></i> Delete</a>

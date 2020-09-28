@@ -57,47 +57,60 @@ class HomeController extends Controller
     // $usersCount = User::where('role',1)->count();
     // return view('admin.home',compact('usersCount'));
   }
-  public function root(Request $request)
+
+  public function welcomeHome(Request $request)
   {
     if (superAdmin()) {
       return $this->handleSuperAdmin($request);
     }
+    $user = $request->user();
+    $currentStep = 0;
+    $pages = 1;
+    return view('welcomeWizered.main',compact('currentStep','user','pages'));
+
+  }
+  
+  public function root(Request $request)
+  {
+    if (superAdmin()) {
+
+      return $this->handleSuperAdmin($request);
+      
+    }
 
     if (!isWizeredDone()) {
+ 
       $response = whatWasLastStep();
 
       if (!$response->continue) {
         return $response->to;
       }
-
-      $currentStep = 1;
-      return view('welcomeWizered.main', compact('currentStep'));
+      $user = $request->user();
+      $currentStep = 0;
+      return view('welcomeWizered.main', compact('currentStep','user'));
     }
 
+    $auth_id = Auth::id();
+    $orders = Order::has('project')->where('createdBy', $auth_id)->get();
 
-    if (isWizeredDone()) {
-      $orders = Order::has('project')->where('createdBy',Auth::id())->get();
+    $webDevelopment = Order::where('type',4)->where('createdBy', $auth_id)->count();
+    $graphicDesign = Order::where('type','!=',4)->where('createdBy', $auth_id)->count();
+    $marketingCount = MarketingService::where('createdBy', $auth_id)->count();
+    $clientTaskObj = new stdClass;
 
-      $webDevelopment = Order::where('type',4)->where('createdBy',Auth::id())->count();
-      $graphicDesing = Order::where('type','!=',4)->where('createdBy',Auth::id())->count();
-      $marketingCount = MarketingService::where('createdBy',Auth::id())->count();
-      $clientTaskObj = new stdClass;
+    $clientTaskObj->totalCount = ClientTask::where('userId', $auth_id)->count();
 
+    $clientTaskObj->completedCount = ClientTask::where('userId', $auth_id)->where('status',2)->count();
 
-      $clientTaskObj->totalCount = ClientTask::where('userId', Auth::id())->count();
-
-      $clientTaskObj->completedCount = ClientTask::where('userId', Auth::id())->where('status',2)->count();
-
-      if ($clientTaskObj->totalCount == 0) {
-        $clientTaskObj->percentage = 0;
-      }else {
-        $clientTaskObj->percentage = round(($clientTaskObj->completedCount / $clientTaskObj->totalCount) * 100);
-      }
-
-      $clientTaskObj->tasks = ClientTask::where('userId', Auth::id())->where('status', 1)->paginate(2);
-
-      return view('supportPortal.home', compact('orders', 'webDevelopment', 'graphicDesing', 'marketingCount','clientTaskObj'));
+    if ($clientTaskObj->totalCount == 0) {
+      $clientTaskObj->percentage = 0;
+    }else {
+      $clientTaskObj->percentage = round(($clientTaskObj->completedCount / $clientTaskObj->totalCount) * 100);
     }
+
+    $clientTaskObj->tasks = ClientTask::where('userId', $auth_id)->where('status', 1)->paginate(2);
+
+    return view('supportPortal.home', compact('orders', 'webDevelopment', 'graphicDesign', 'marketingCount','clientTaskObj'));
   }
 
 

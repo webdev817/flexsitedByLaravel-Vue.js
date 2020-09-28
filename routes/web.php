@@ -45,7 +45,7 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
   Route::get('projectChat','API\ProjectChatController@index')->name('projectChatApi');
   Route::post('projectChatMine','API\ProjectChatController@projectChatMine')->name('projectChatMine');
   Route::post('projectChat','API\ProjectChatController@store');
-  Route::post('projectMilestone\{project}','ProjectController@projectMilestone')->name('projectMilestone');
+  Route::post('projectMilestone/{project}','ProjectController@projectMilestone')->name('projectMilestone');
   Route::get('updateProjectDueDate','ProjectController@updateProjectDueDate')->name('updateProjectDueDate');
 
   Route::get('approveProject/{project}','ProjectController@approveProject')->name('approveProject');
@@ -63,6 +63,7 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
   Route::get('marketingService', 'MarketingServiceController@index')->name('marketingServiceIndex');
   Route::get('marketingServices', 'MarketingServiceController@marketingServices')->name('marketingServices');
   Route::post('marketingServiceStore', 'MarketingServiceController@store')->name('marketingServiceStore');
+  Route::delete('marketingServiceDelete', 'MarketingServiceController@delete')->name('marketingServiceDelete');
 
   Route::get('referal', 'ReferalController@index')->name('referal');
   Route::get('referals', 'ReferalController@referals')->name('referals');
@@ -71,6 +72,9 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
   Route::resource('projects', 'ProjectController');
 
   Route::get('profile','UsersController@profile')->name('profile');
+  // Route::get('profile',function(){
+  //   dd(11);
+  // })->name('profile');
 
   Route::get('changePassword','UsersController@changePassword')->name('changePasswordSP');
   Route::post('changePasswordStore','UsersController@changePasswordStore')->name('changePasswordSPStore');
@@ -78,13 +82,15 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
   Route::get('profileEdit', 'UsersController@edit')->name('profileEditSp');
   Route::resource('users', 'UsersController');
 
+  // Route::get('deleteUsers','UsersController@deleteUsers')->name('deleteUsers');
+
   Route::post('closeAccountSp', 'UsersController@closeAccount')->name('closeAccountSp');
 
   Route::get('support', 'SupportController@index')->name('supportSp');
   Route::get('faqs', 'SupportController@faqs')->name('faqs');
 
   Route::get('downloadAttachment/{id}','ProjectController@downloadAttachment')->name('downloadAttachment');
-
+  
   Route::resource('tickets','TicketController');
 
   Route::get('myRequests','TicketController@myRequests')->name('myRequests');
@@ -111,9 +117,19 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
 Route::group(['middleware' => ['auth','StatusChecker']], function () {
     Route::get('/', 'HomeController@root')->name('root');
 
+    Route::get('website-design', 'WizeredController@websiteDesign')->name('websiteDesign');
+    Route::get('graphic-design-billing', 'WizeredController@graphicDesignBilling')->name('graphicDesignBilling');
+    Route::get('marketing', 'WizeredController@marketing')->name('marketing');
+
+    Route::post("store-graphic-design-billing", "WizeredController@storeGraphicDesignBilling")->name('storeGraphicDesignBilling');
+    Route::post('store-marketing', "WizeredController@storeMarketing")->name('storeMarketing');
+
     Route::post('domainSelected', 'WizeredController@domainSelected')->name('domainSelected');
     Route::get('select-design', 'WizeredController@selectDesign')->name('select-design');
     Route::get('selectedDesign/{designId}', 'WizeredController@selectedDesign')->name('selectedDesign');
+
+    Route::get('deletePlan','WizeredController@deletePlan')->name('deletePlan');
+    
     Route::get('websitePackege', 'WizeredController@websitePackege')->name('websitePackege');
     Route::get('selectedWebsitePackege/{packegeNo}', 'WizeredController@selectedWebsitePackege')->name('selectedWebsitePackege');
     Route::get('planAndBilling/{planNo}', 'WizeredController@planAndBilling')->name('planAndBilling');
@@ -126,7 +142,7 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
     // Route::get('authCompleted','OrderController@authCompleted')->name('authCompleted');
 
     Route::resource('clientTasks', 'ClientTaskController');
-
+    Route::get('deleteClientTasks','ClientTaskController@deleteClientTasks')->name('deleteClientTasks');
     Route::get('incompletePaymentCompleted', 'WizeredController@incompletePaymentCompleted')->name('incompletePaymentCompleted');
     Route::post("storeBilling", "WizeredController@storeBilling")->name('storeBilling');
     Route::post("businessInformationStore", "WizeredController@businessInformationStore")->name('businessInformationStore');
@@ -167,7 +183,8 @@ Route::group(['middleware' => ['auth','StatusChecker']], function () {
 Route::get('admin/login', 'AdminController@login')->name('adminLogin');
 Route::post('adminLogin', 'AdminController@adminLogin')->name('adminLoginPost');
 
-
+Route::get('admin/register', 'AdminController@register');
+Route::post('admin/adminRegisterCreate','AdminController@adminRegisterCreate')->name('adminRegisterCreate');
 
 
 Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], function () {
@@ -196,6 +213,9 @@ Route::group(['prefix'=> 'admin' ,'middleware' => ['auth', 'SuperAdminOnly']], f
     Route::get('contactUsRequests','AdminController@contactUsRequests')->name('contactUsRequests');
 
     Route::resource('plans','PlanController');
+
+    Route::get('plans/addonEdit/{id}','PlanController@addonEdit')->name('addonEdit');
+    Route::put('plans/addonUpdate/{id}','PlanController@addonUpdate')->name('addonUpdate');
 
     Route::get('ordersList','OrderController@ordersList')->name('ordersList');
     Route::get('orderEdit/{id}','OrderController@orderEdit')->name('orderEdit');

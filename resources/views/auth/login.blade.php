@@ -3,8 +3,8 @@
 <div class="container p-0 shadow-sm noneShadowOn576Below">
 
     <div class="row m-0">
-        <div class="col-12 prelative p-0">
-            <img src="{{ asset('mawaisnow/img/authbg.png') }}" alt="" class="img-fluid w-100 noselect">
+        <div class="col-12 hero prelative p-0">
+            
             <img src="{{ asset('mawaisnow/logo/FLEXSITED.png') }}" alt="" class="authLogo noselect">
 
             <div class="row authNavContainer">
@@ -73,9 +73,14 @@
                     <input value="{{ old('password') }}" name="password" type="password" class="border-0 form-control shadow-none cstmFormControl" placeholder="Password" aria-label="Password" aria-describedby="basic-addon5" required>
                 </div>
             </div>
-
-
-
+            <div class="col-10 offset-1">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" class="custom-control-input" name="Remember" id="Remember">
+                    <label class="custom-control-label" for="Remember">
+                        Remember me
+                    </label>
+                </div>
+            </div>
             <div class="col-10 offset-1 my-3">
                 <button type="submit" class="btn btn-block btn-cstm btn-lg rounded-0 shadow-none" name="button">Login</button>
             </div>

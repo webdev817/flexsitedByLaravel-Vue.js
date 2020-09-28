@@ -35,7 +35,6 @@ class ProjectChatController extends Controller
 
         $projectChat = $projectChat->orderBy('id','asc')->get();
       }
-
       return json('success',[
         'projectChat'=>$projectChat,
         'status'=> $status
@@ -116,6 +115,24 @@ class ProjectChatController extends Controller
 
       $projectChat->save();
 
+      $user = $project->user;
+      $descriptions = " You have a new chat message.";
+      $message =  "[FLEXSITED]: You have a new chat message.
+Please login in your account https://portal.flexsited.com/login to review the details.";
+      
+      $data = [
+        'email' => $user->email,
+        'user' => $user,
+        'description'=> $descriptions
+      ];
+      
+      $sms = [
+        // 'phone' =>"+16787411928",
+        'phone' => $user->phone,
+        'message'=>$message,
+      ];
+      sendSMS($sms);
+      sendProjectUpdateEmail($data);
       return json('saved successfully',$projectChat);
 
     }

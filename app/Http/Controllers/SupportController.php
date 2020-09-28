@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\SupportFAQ;
 use App\SupportChatSession;
 use App\SupportChat;
-
+use App\User;
 use Auth;
 
 class SupportController extends Controller
@@ -92,7 +92,24 @@ class SupportController extends Controller
 
          $supportChat =  $supportChat->orderBy('id','asc')->get();
       }
+      $unreadSupportChats = SupportChat::join('users', 'users.id', '=', 'support_chats.createdBy')
+            ->select('support_chats.*')
+            ->where('users.role', '<>', 9)
+            ->whereNull('received_at')
+            ->get();
 
+      foreach ($unreadSupportChats as $supportChat) 
+      {
+          $message = "[FLEXSITED]: New OnBoarding Chat Arrived!!!   Please communicate with your end user!";
+          $sms = [
+            'phone' => '678-741-1928',
+            'message'=> $message,
+          ];
+          sendSMS($sms);      
+          $supportChat->received_at = date('Y-m-d H:i:s');
+          // echo($supportChat->received_at);
+          $supportChat->save();
+      }
       return json('success',[
         'supportChat'=> $supportChat,
         'status'=> $status
@@ -155,7 +172,21 @@ class SupportController extends Controller
       $supportChat = new SupportChat($chatArray);
 
       $supportChat->save();
+     
+      $newChat = SupportChat:: where('SupportChatSessionId', $sessionId)->get();
+      if(count($newChat) == 1){
+          $admin_id = User::where("role", 9)->first()->id;
 
+          $chatArray = [
+          'message'=> "Thank you for contacting us.  A customer support representative will be with you momentarily.",
+          "SupportChatSessionId"=> $sessionId,
+          'createdBy'=> $admin_id,
+          'isAttachment'=> 0,
+        ];
+        $supportChat = new SupportChat($chatArray);
+        
+        $supportChat->save();
+      }
       return json('saved successfully', $supportChat);
 
     }
@@ -165,7 +196,8 @@ class SupportController extends Controller
 
     public function supportChatsRequests(Request $request)
     {
-      $arr['supportChatSessions'] = SupportChatSession::with('user')->where('status',1)->paginate(20);
+      $arr['supportChatSessions'] = SupportChatSession::join('users', 'users.id', '=', 'support_chat_sessions.createdBy')
+      ->addSelect('support_chat_sessions.*')->paginate(20);
 
       return view('admin.support.myRequests', $arr);
     }

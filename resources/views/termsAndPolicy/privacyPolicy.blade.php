@@ -1,12 +1,8 @@
-@extends('layouts.welcomeWizered')
 
-
-
-@section('body')
 <div class="container-fluid p-0 mb-5">
     <div class="row m-0">
         <div class="col-12 text-center p-0 " style="background-color:black;">
-            <img src="{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" alt="" class="navLogo noselect">
+            <img src="{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" alt="" class="navLogo noselect" style = "width:100% !important;">
         </div>
     </div>
     <div class="row m-4">
@@ -65,21 +61,6 @@ Flexsited will respect your privacy and ensure that all sensitive and personal i
             Flexsited reserves the right change this privacy policy at any time.
           </p>
         </div>
-
-
-
-
-
-
-
-
-
     </div>
-
-
-
-
-
 </div>
 
-@endsection

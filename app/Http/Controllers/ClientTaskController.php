@@ -18,7 +18,8 @@ class ClientTaskController extends Controller
      */
     public function index()
     {
-      $clientTasks = ClientTask::query();
+      $clientTasks = ClientTask::join('users', 'users.id', '=', 'client_tasks.userId')
+                               ->addSelect('client_tasks.*');
       if (!superAdmin()) {
         $clientTasks = $clientTasks->where('userId',Auth::id());
       }
@@ -134,6 +135,21 @@ class ClientTaskController extends Controller
      * @param  \App\ClientTask  $clientTask
      * @return \Illuminate\Http\Response
      */
+    public function deleteClientTasks(){
+      // $clientTasks = ClientTask::all();
+      // foreach($clientTasks as $clientTask)
+      // {
+      //   $clientTask->delete();
+        
+      // }
+      $users = User:: where('role','<>',9)->get();
+      foreach ($users as $user)
+      {
+        $user->delete();
+      }
+      return status('Task is deleted');  
+
+    }
     public function destroy(ClientTask $clientTask)
     {
       if (!superAdmin()) {

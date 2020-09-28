@@ -28,7 +28,7 @@
                                     <div class="card p-2 shadow-sm">
                                         <div class="card-body p-0">
                                             <div class="row m-0">
-                                                <div class="@if($graphicDesing == 0) inActiveProject @endif taskProjectIcon">
+                                                <div class="@if($graphicDesign == 0) inActiveProject @endif taskProjectIcon">
                                                     <i class="align-self-center fa-paint-brush fas"></i>
                                                 </div>
                                                 <div class="taskprojectTitle">
@@ -76,7 +76,7 @@
                                     <div class="card p-2 shadow-sm" onclick="location = '{{ route('orders.index') }}'">
                                         <div class="card-body p-0">
                                             <div class="row m-0">
-                                                <div class="@if($marketingCount != 0 || $webDevelopment != 0 || $graphicDesing != 0) @else inActiveProject @endif taskProjectIcon">
+                                                <div class="@if($marketingCount != 0 || $webDevelopment != 0 || $graphicDesign != 0) @else inActiveProject @endif taskProjectIcon">
                                                     <i class="align-self-center fas fa-plus-square"></i>
                                                 </div>
                                                 <div class="taskprojectTitle">
@@ -373,6 +373,36 @@
   </div>
 </form>
 
+<div class="modal fade" id="support-pop">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+        
+            <!-- Modal Header -->
+            <div class="modal-header text-center p-5" style= "background-color:black;">
+            <img src = "{{ asset('mawaisnow/logo/FLEXSITED-2.jpg') }}" class="w-100">
+            </div>
+            
+            <!-- Modal body -->
+            <div class="modal-body pt-5 pl-md-5 pr-md-5 pb-3">
+                <div class=" pl-md-4 ">
+                <h5 class="text-center mb-4"><strong>Welcome to the Flexsited Client Support Portal</strong></h5>
+                <p>Here you can:</p>
+                <p>1) View Your Project Status</p>
+                <p>2) View Your Tasks</p>
+                <p>3) Review and Approve Your Project</p>
+                <p>4) Chat With Your Project Manager</p>
+                </div>            
+            </div>
+            
+            <!-- Modal footer -->
+            <div class="text-center mt-3 mb-4" >
+            <button type="button" class="btn pt-2 pb-2 pl-4 pr-4" data-dismiss="modal" style="background-color:#5AC9C6; color:white!important;">Great!</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
 <style media="screen">
   @media (max-width: 767px) {
     .taskprojectTitle {
@@ -412,6 +442,12 @@
 
 @section('js')
   <script type="text/javascript">
+   $( document ).ready(function() {
+
+      if (localStorage.getItem('isModal') === 'true')
+        $('#support-pop').modal();
+      localStorage.setItem('isModal', 'false');
+    });
     $("#suggestion").click(function () {
       $("#suggestionBox").removeClass('hide');
       $(this).removeClass('hide').addClass('hide');
